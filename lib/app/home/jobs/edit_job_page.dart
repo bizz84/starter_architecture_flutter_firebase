@@ -132,12 +132,14 @@ class _EditJobPageState extends State<EditJobPage> {
     return [
       TextFormField(
         decoration: InputDecoration(labelText: 'Job name'),
+        keyboardAppearance: Brightness.light,
         initialValue: _name,
         validator: (value) => value.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _name = value,
       ),
       TextFormField(
         decoration: InputDecoration(labelText: 'Rate per hour'),
+        keyboardAppearance: Brightness.light,
         initialValue: _ratePerHour != null ? '$_ratePerHour' : null,
         keyboardType: TextInputType.numberWithOptions(
           signed: false,

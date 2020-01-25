@@ -162,6 +162,7 @@ class _EntryPageState extends State<EntryPage> {
         labelText: 'Comment',
         labelStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
       ),
+      keyboardAppearance: Brightness.light,
       style: TextStyle(fontSize: 20.0, color: Colors.black),
       maxLines: null,
       onChanged: (comment) => _comment = comment,
