@@ -43,7 +43,7 @@ class CupertinoTabViewRouter {
 
 //JobEntriesPage arguments holder class
 class JobEntriesPageArguments {
-  final Database database;
+  final FirestoreDatabase database;
   final Job job;
   JobEntriesPageArguments({@required this.database, @required this.job});
 }

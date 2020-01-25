@@ -1,6 +1,7 @@
 import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_model.dart';
-import 'package:starter_architecture_flutter_firebase/services/mock_auth_service.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'mocks.dart';
 
 void main() {
   MockAuthService mockAuthService;

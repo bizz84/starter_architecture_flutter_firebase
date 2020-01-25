@@ -10,7 +10,7 @@ import 'package:starter_architecture_flutter_firebase/routing/router.gr.dart';
 class EditJobPage extends StatefulWidget {
   const EditJobPage({Key key, @required this.database, this.job})
       : super(key: key);
-  final Database database;
+  final FirestoreDatabase database;
   final Job job;
 
   static Future<void> show(
@@ -20,7 +20,7 @@ class EditJobPage extends StatefulWidget {
     await Navigator.of(context, rootNavigator: true).pushNamed(
       Router.editJobPage,
       arguments: EditJobPageArguments(
-        database: Provider.of<Database>(context, listen: false),
+        database: Provider.of<FirestoreDatabase>(context, listen: false),
         job: job,
       ),
     );

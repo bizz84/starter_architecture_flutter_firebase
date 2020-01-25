@@ -10,7 +10,7 @@ import 'package:starter_architecture_flutter_firebase/services/database.dart';
 
 class EntriesBloc {
   EntriesBloc({@required this.database});
-  final Database database;
+  final FirestoreDatabase database;
 
   /// combine List<Job>, List<Entry> into List<EntryJob>
   Stream<List<EntryJob>> get _allEntriesStream => CombineLatestStream.combine2(

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:auto_route/router_utils.dart';
 import 'package:starter_architecture_flutter_firebase/app/auth_widget.dart';
-import 'package:starter_architecture_flutter_firebase/services/auth_service.dart';
+import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
 import 'package:starter_architecture_flutter_firebase/services/database.dart';
@@ -105,14 +105,14 @@ class EmailPasswordSignInPageBuilderArguments {
 //EditJobPage arguments holder class
 class EditJobPageArguments {
   final Key key;
-  final Database database;
+  final FirestoreDatabase database;
   final Job job;
   EditJobPageArguments({this.key, @required this.database, this.job});
 }
 
 //EntryPage arguments holder class
 class EntryPageArguments {
-  final Database database;
+  final FirestoreDatabase database;
   final Job job;
   final Entry entry;
   EntryPageArguments({@required this.database, @required this.job, this.entry});

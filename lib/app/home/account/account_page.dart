@@ -5,15 +5,16 @@ import 'package:starter_architecture_flutter_firebase/common_widgets/platform_al
 import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
-import 'package:starter_architecture_flutter_firebase/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
+import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 class AccountPage extends StatelessWidget {
   Future<void> _signOut(BuildContext context) async {
     try {
-      final AuthService auth = Provider.of<AuthService>(context, listen: false);
+      final FirebaseAuthService auth =
+          Provider.of<FirebaseAuthService>(context, listen: false);
       await auth.signOut();
     } on PlatformException catch (e) {
       await PlatformExceptionAlertDialog(

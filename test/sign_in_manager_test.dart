@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_manager.dart';
-import 'package:starter_architecture_flutter_firebase/services/auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 import 'mocks.dart';
 

@@ -13,10 +13,13 @@ class EntryPage extends StatefulWidget {
   const EntryPage({@required this.database, @required this.job, this.entry});
   final Job job;
   final Entry entry;
-  final Database database;
+  final FirestoreDatabase database;
 
   static Future<void> show(
-      {BuildContext context, Database database, Job job, Entry entry}) async {
+      {BuildContext context,
+      FirestoreDatabase database,
+      Job job,
+      Entry entry}) async {
     await Navigator.of(context, rootNavigator: true).pushNamed(Router.entryPage,
         arguments: EntryPageArguments(
           database: database,

@@ -1,7 +1,7 @@
 import 'package:starter_architecture_flutter_firebase/app/sign_in/validator.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
-import 'package:starter_architecture_flutter_firebase/services/auth_service.dart';
 import 'package:flutter/foundation.dart';
+import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 enum EmailPasswordSignInFormType { signIn, register, forgotPassword }
 
@@ -14,7 +14,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     this.isLoading = false,
     this.submitted = false,
   });
-  final AuthService auth;
+  final FirebaseAuthService auth;
 
   String email;
   String password;
