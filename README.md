@@ -2,21 +2,21 @@
 
 This is a **reference architecture demo** that can be used as a **starting point** for apps using Flutter & Firebase.
 
-### Motivation
+## Motivation
 
 Flutter & Firebase is a great combo for getting apps to market in record time.
 
-Without a sound architecture, codebases can quickly become hard to test, maintain, and reason about. Ultimately, this **severely** impacts the development speed, resulting in buggy products, sad developers and unhappy users.
+Without a sound architecture, codebases can quickly become hard to test, maintain, and **reason about**. This **severely** impacts the development speed, and results in buggy products, sad developers and unhappy users.
 
-I have witnessed this first-hand already with various client projects, where the lack of a formal architecture cost teams days, weeks, even **months** in additional effort.
+I have already witnessed this first-hand with various client projects, where the lack of a formal architecture led to days, weeks - even **months** of extra work.
 
-This can be attributed to many possible causes. How can someone find the "right" or "correct" Flutter architecture, amongst the myriad of possible techniques that have flourished over the last two years?
+Is "architecture" hard? How can one find the "right" or "correct" Flutter architecture, among the myriad of possible techniques that have flourished over the last two years?
 
-Beyond that, every app has different requirements, so does the "right" architecture even exist in the first place?
+Every app has different requirements, so does the "right" architecture even exist in the first place?
 
 While I don't claim to have a silver bullet, I have refined and fine-tuned a **production-ready** architecture that I have deployed successfully into multiple Flutter & Firebase apps. 
 
-I will call this "**Stream-based** Architecture for Flutter & Firebase **Realtime** Apps".
+I call this "**Stream-based** Architecture for Flutter & Firebase **Realtime** Apps".
 
 ## Stream-based Architecture for Flutter & Firebase Realtime Apps
 
@@ -24,22 +24,64 @@ Two words are key here: **Stream** and **Realtime**.
 
 Unlike with traditional REST APIs, with Firebase we can build **realtime** apps.
 
-That's because Firebase can **push** updates directly to clients when something changes.
+That's because Firebase can **push** updates directly to **subscribed** clients when something changes.
 
-Using Firestore as an example, we can have certain widgets **rebuild** themselves when certain *documents* or *collections* are updated.
+For example, widgets can **rebuild** themselves when certain Firestore *documents* or *collections* are updated.
 
-Many Firebase APIs are **inherently** stream-based. As a result, the easiest way to make our widgets reactive is to use `StreamBuilder` (or `StreamProvider`).
+Many Firebase APIs are **inherently** stream-based. As a result, the **simplest** way of making our widgets reactive is to use [`StreamBuilder`](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) (or [`StreamProvider`](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html)).
 
-Yes, you could use `ChangeNotifier` or other state mangement techniques that implement observables/listeners. 
+Yes, you could use [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) or other state mangement techniques that implement observables/listeners. 
 
 But you would need additional "glue" code if you want to "convert" your input streams into reactive models based on `ChangeNotifier`.
 
-> Note: streams are the default way of pushing changes not only with Firebase, but with many other services as well. For example, the [location](https://pub.dev/packages/location) package has an `onLocationChanged()` stream that you can use to get the user's location over time. Whether you use Firestore, or want to get data from any of your device's input sensors, streams are the most convenient way of delivering data over time.
+> Note: streams are the default way of pushing changes not only with Firebase, but with many other services as well. For example, the [location](https://pub.dev/packages/location) package has an `onLocationChanged()` stream that you can use to get the user's location over time. Whether you use Firestore, or want to get data from your device's input sensors, streams are the most convenient way of delivering **asynchronous** data over time.
 
+A more detailed overview of this architecture is outlined below. But first, here are the goals for this project.
 
+## Project Goals
 
-This means that our Flutter apps can react to changes
-In Flutter, this means that we can have our widgets react to changes 
+Define a reference architecture that can be used as a foundation for Flutter apps using Firebase (or other streaming APIs).
+
+This architecture should:
+
+- **minimize mutable state** by adopting an **unidirectional data flow**
+- clearly define application layers and their boundaries
+- require little boilerplate code
+
+It should also be:
+
+- clear
+- simple
+- expandable
+- testable
+- performant
+- maintainable
+
+These are all nice properties, but how do they all fit together in practice?
+
+Let's look at the architecture more in detail.
+
+## The application layers
+
+To ensure a good separation of concerns, this architecture defines three distinct layers:
+
+TODO:
+
+- Widgets
+- ViewModels
+- Services
+
+The demo app in this repo aims to illustrate that.
+
+## Demo App
+
+The demo app is a time tracking application. It is complex enough to capture the various nuances of state management across multiple features. Here is a preview of the main screens:
+
+![](media/time-tracker-screenshots.png)
+
+After signing in, users can view, create, edit and delete their jobs. For each job they can view, create, edit and delete the corresponding entries.
+
+A separate screen shows a daily breakdown of all jobs, hours worked and pay, along with the totals.
 
 
 ## References
