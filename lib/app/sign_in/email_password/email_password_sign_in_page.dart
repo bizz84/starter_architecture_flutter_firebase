@@ -15,9 +15,10 @@ class EmailPasswordSignInPageBuilder extends StatelessWidget {
   final VoidCallback onSignedIn;
 
   static Future<void> show(BuildContext context) async {
-    await Navigator.of(context).pushNamed(Router.emailPasswordSignInPageBuilder,
+    final navigator = Navigator.of(context);
+    await navigator.pushNamed(Router.emailPasswordSignInPageBuilder,
         arguments: EmailPasswordSignInPageBuilderArguments(
-          onSignedIn: () => Navigator.of(context).pop(),
+          onSignedIn: () => navigator.pop(),
         ));
   }
 
