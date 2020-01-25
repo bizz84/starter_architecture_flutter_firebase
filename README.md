@@ -63,17 +63,15 @@ Let's look at the architecture more in detail.
 
 ## The application layers
 
-To ensure a good separation of concerns, this architecture defines three distinct layers:
+To ensure a good separation of concerns, this architecture defines three distinct layers.
 
-TODO:
+TODO: Add diagram and complete
 
 - Widgets
 - ViewModels
 - Services
 
-The demo app in this repo aims to illustrate that.
-
-## Demo App
+## Demo App: Time Tracker
 
 The demo app is a time tracking application. It is complex enough to capture the various nuances of state management across multiple features. Here is a preview of the main screens:
 
@@ -83,6 +81,25 @@ After signing in, users can view, create, edit and delete their jobs. For each j
 
 A separate screen shows a daily breakdown of all jobs, hours worked and pay, along with the totals.
 
+All the data is persisted with Firestore, and is kept in sync across multiple devices. 
+
+## Packages
+
+- `firebase_auth` for authentication
+- `cloud_firestore` for the remote database
+- `provider` for dependency injection and propagating stream values down the widget tree
+- `rxdart` for combining multiple Firestore collections as needed
+- `intl` for currency, date, time formatting
+- `auto_route` for route generation 
+- `mockito` for testing
+
+## Widget tree and unidirectional data flow
+
+TODO
+
+## Future Roadmap
+
+TODO
 
 ## References
 
