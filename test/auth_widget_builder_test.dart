@@ -11,15 +11,18 @@ import 'mocks.dart';
 
 void main() {
   MockAuthService mockAuthService;
+  MockDatabase mockDatabase;
   StreamController<User> onAuthStateChangedController;
 
   setUp(() {
     mockAuthService = MockAuthService();
+    mockDatabase = MockDatabase();
     onAuthStateChangedController = StreamController<User>();
   });
 
   tearDown(() {
     mockAuthService = null;
+    mockDatabase = null;
     onAuthStateChangedController.close();
   });
 
@@ -38,7 +41,10 @@ void main() {
     await tester.pumpWidget(
       Provider<FirebaseAuthService>(
         create: (_) => mockAuthService,
-        child: AuthWidgetBuilder(builder: builder),
+        child: AuthWidgetBuilder(
+          databaseBuilder: (_, uid) => mockDatabase,
+          builder: builder,
+        ),
       ),
     );
     await tester.pump(Duration.zero);
