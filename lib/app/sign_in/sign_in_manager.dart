@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:starter_architecture_flutter_firebase/services/auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
+import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 class SignInManager {
   SignInManager({@required this.auth, @required this.isLoading});
-  final AuthService auth;
+  final FirebaseAuthService auth;
   final ValueNotifier<bool> isLoading;
 
   Future<User> _signIn(Future<User> Function() signInMethod) async {

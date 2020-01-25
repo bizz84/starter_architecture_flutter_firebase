@@ -4,10 +4,10 @@ import 'package:starter_architecture_flutter_firebase/common_widgets/platform_al
 import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.gr.dart';
-import 'package:starter_architecture_flutter_firebase/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 class EmailPasswordSignInPageBuilder extends StatelessWidget {
   const EmailPasswordSignInPageBuilder({Key key, this.onSignedIn})
@@ -23,7 +23,8 @@ class EmailPasswordSignInPageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthService auth = Provider.of<AuthService>(context, listen: false);
+    final FirebaseAuthService auth =
+        Provider.of<FirebaseAuthService>(context, listen: false);
     return ChangeNotifierProvider<EmailPasswordSignInModel>(
       create: (_) => EmailPasswordSignInModel(auth: auth),
       child: Consumer<EmailPasswordSignInModel>(

@@ -1,15 +1,14 @@
-import 'package:starter_architecture_flutter_firebase/app/sign_in/developer_menu.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_manager.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_button.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
-import 'package:starter_architecture_flutter_firebase/services/auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 class SignInPageBuilder extends StatelessWidget {
   // P<ValueNotifier>
@@ -17,7 +16,8 @@ class SignInPageBuilder extends StatelessWidget {
   //     SignInPage(value)
   @override
   Widget build(BuildContext context) {
-    final AuthService auth = Provider.of<AuthService>(context, listen: false);
+    final FirebaseAuthService auth =
+        Provider.of<FirebaseAuthService>(context, listen: false);
     return ChangeNotifierProvider<ValueNotifier<bool>>(
       create: (_) => ValueNotifier<bool>(false),
       child: Consumer<ValueNotifier<bool>>(
@@ -70,9 +70,6 @@ class SignInPage extends StatelessWidget {
         elevation: 2.0,
         title: Text(title),
       ),
-      // Hide developer menu while loading in progress.
-      // This is so that it's not possible to switch auth service while a request is in progress
-      drawer: isLoading ? null : DeveloperMenu(),
       backgroundColor: Colors.grey[200],
       body: _buildSignIn(context),
     );

@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:starter_architecture_flutter_firebase/app/auth_widget_builder.dart';
-import 'package:starter_architecture_flutter_firebase/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
+import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 import 'mocks.dart';
 
@@ -36,7 +36,7 @@ void main() {
       {@required
           Widget Function(BuildContext, AsyncSnapshot<User>) builder}) async {
     await tester.pumpWidget(
-      Provider<AuthService>(
+      Provider<FirebaseAuthService>(
         create: (_) => mockAuthService,
         child: AuthWidgetBuilder(builder: builder),
       ),

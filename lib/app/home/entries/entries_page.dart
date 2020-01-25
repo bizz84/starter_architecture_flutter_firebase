@@ -8,7 +8,7 @@ import 'package:starter_architecture_flutter_firebase/services/database.dart';
 
 class EntriesPage extends StatelessWidget {
   static Widget create(BuildContext context) {
-    final database = Provider.of<Database>(context, listen: false);
+    final database = Provider.of<FirestoreDatabase>(context, listen: false);
     return Provider<EntriesBloc>(
       create: (_) => EntriesBloc(database: database),
       child: EntriesPage(),

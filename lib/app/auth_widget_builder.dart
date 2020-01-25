@@ -1,7 +1,7 @@
-import 'package:starter_architecture_flutter_firebase/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/services/database.dart';
+import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 /// Used to create user-dependent objects that need to be accessible by all widgets.
 /// This widgets should live above the [MaterialApp].
@@ -12,7 +12,8 @@ class AuthWidgetBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context, listen: false);
+    final authService =
+        Provider.of<FirebaseAuthService>(context, listen: false);
     return StreamBuilder<User>(
       stream: authService.onAuthStateChanged,
       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
@@ -21,7 +22,7 @@ class AuthWidgetBuilder extends StatelessWidget {
           return MultiProvider(
             providers: [
               Provider<User>.value(value: user),
-              Provider<Database>(
+              Provider<FirestoreDatabase>(
                 create: (_) => FirestoreDatabase(uid: user.uid),
               ),
               // NOTE: Any other user-bound providers here can be added here

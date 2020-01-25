@@ -17,11 +17,12 @@ import 'package:starter_architecture_flutter_firebase/services/database.dart';
 
 class JobEntriesPage extends StatelessWidget {
   const JobEntriesPage({@required this.database, @required this.job});
-  final Database database;
+  final FirestoreDatabase database;
   final Job job;
 
   static Future<void> show(BuildContext context, Job job) async {
-    final Database database = Provider.of<Database>(context, listen: false);
+    final FirestoreDatabase database =
+        Provider.of<FirestoreDatabase>(context, listen: false);
     await Navigator.of(context).pushNamed(
       CupertinoTabViewRouter.jobEntriesPage,
       arguments: JobEntriesPageArguments(database: database, job: job),
