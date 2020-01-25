@@ -43,14 +43,15 @@ class Strings {
   // Home page
   static const String homePage = 'Home Page';
 
-  // Account page
-  static const String accountPage = 'Account Page';
-
   // Jobs page
   static const String jobs = 'Jobs';
 
   // Entries page
   static const String entries = 'Entries';
+
+  // Account page
+  static const String account = 'Account';
+  static const String accountPage = 'Account Page';
 
   // Developer menu
   static const String developerMenu = 'Developer menu';
