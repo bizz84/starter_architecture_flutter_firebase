@@ -11,7 +11,7 @@ import 'package:starter_architecture_flutter_firebase/app/auth_widget.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
-import 'package:starter_architecture_flutter_firebase/services/database.dart';
+import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';

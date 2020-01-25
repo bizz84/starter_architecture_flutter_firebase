@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:starter_architecture_flutter_firebase/services/database.dart';
+import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 /// Used to create user-dependent objects that need to be accessible by all widgets.

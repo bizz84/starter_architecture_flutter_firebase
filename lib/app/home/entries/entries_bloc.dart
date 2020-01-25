@@ -6,7 +6,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/entries/entry_job
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/format.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/services/database.dart';
+import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
 class EntriesBloc {
   EntriesBloc({@required this.database});

@@ -3,7 +3,7 @@ import 'package:starter_architecture_flutter_firebase/app/auth_widget.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:starter_architecture_flutter_firebase/services/database.dart';
+import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 void main() => runApp(MyApp(

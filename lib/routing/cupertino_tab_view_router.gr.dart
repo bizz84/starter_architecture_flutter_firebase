@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:auto_route/router_utils.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/job_entries_page.dart';
-import 'package:starter_architecture_flutter_firebase/services/database.dart';
+import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 
 class CupertinoTabViewRouter {
