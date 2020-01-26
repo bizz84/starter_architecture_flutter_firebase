@@ -59,17 +59,22 @@ The resulting code should be:
 
 These are all nice properties, but how do they all fit together in practice?
 
-Let's look at the architecture more in detail.
+A lot of it about introducing clearly defined application layers, and defining how the data flows through them.
 
-## The application layers
+### Unidirectional data flow
 
-To ensure a good separation of concerns, this architecture defines three distinct layers.
+![](media/data-and-call-flow.png)
 
-TODO: Add diagram and complete
+To ensure a good separation of concerns, this architecture defines three main layers.
 
-- Widgets (UI Layer)
-- ViewModels (Presentation Layer)
-- Services
+- **UI**: where the widgets live
+- **Logic**: this is the domain layer that contains the business logic
+- **Services**: for interacting with 3rd party APIs
+
+The terms "presentation", "domain", "data", "repository" are used elsewhere to define these layers and the types of entities they contain.
+
+What matters here is that the data flows from the services into the widgets, and the call flow goes in the opposite direction.
+
 
 ## Demo App: Time Tracker
 
@@ -83,17 +88,7 @@ A separate screen shows a daily breakdown of all jobs, hours worked and pay, alo
 
 All the data is persisted with Firestore, and is kept in sync across multiple devices. 
 
-## Packages
-
-- `firebase_auth` for authentication
-- `cloud_firestore` for the remote database
-- `provider` for dependency injection and propagating stream values down the widget tree
-- `rxdart` for combining multiple Firestore collections as needed
-- `intl` for currency, date, time formatting
-- `auto_route` for route generation 
-- `mockito` for testing
-
-## Widget tree and unidirectional data flow
+## Widget tree
 
 The two most important services in the app are `FirebaseAuthService` and `FirestoreDatabase`.
 
@@ -102,6 +97,10 @@ These are created above the `MaterialApp`, so that all widgets have access to th
 Here is a simplified widget tree for the entire app:
 
 ![](media/time-tracker-widget-tree.png)
+
+### Unidirectional data flow
+
+
 
 ### Note about stream-dependant services
 
@@ -133,6 +132,16 @@ See this document for full instructions:
 ## Future Roadmap
 
 TODO
+
+## Packages
+
+- `firebase_auth` for authentication
+- `cloud_firestore` for the remote database
+- `provider` for dependency injection and propagating stream values down the widget tree
+- `rxdart` for combining multiple Firestore collections as needed
+- `intl` for currency, date, time formatting
+- `auto_route` for route generation 
+- `mockito` for testing
 
 ## References
 
