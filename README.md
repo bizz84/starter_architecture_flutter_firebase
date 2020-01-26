@@ -174,4 +174,9 @@ By the way, here are some other GitHub projects that also attempt to formalize a
 - [Beyond - An approach to scalable Flutter development](https://github.com/MisterJimson/beyond)
 - This [starter app](https://github.com/gregertw/actingweb_firstapp) that includes many different production app features. Related articles: [A Production-Quality Flutter Starter App](https://stuff.greger.io/2019/07/production-quality-flutter-starter-app.html), and [this follow up](https://stuff.greger.io/2020/01/production-quality-flutter-starter-app-take-two.html). 
 
+Other relevant articles about app architecture:
+
+- [Widget-Async-Bloc-Service: A Practical Architecture for Flutter Apps](https://codewithandrea.com/articles/2019-05-21-wabs-practical-architecture-flutter-apps/)
+- [Flutter TDD Clean Architecture Course [1] – Explanation & Project Structure](https://resocoder.com/2019/08/27/flutter-tdd-clean-architecture-course-1-explanation-project-structure/)
+
 ## [License: MIT](LICENSE.md)
