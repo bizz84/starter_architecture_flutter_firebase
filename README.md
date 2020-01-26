@@ -105,10 +105,6 @@ Here is a simplified widget tree for the entire app:
 
 ![](media/time-tracker-widget-tree.png)
 
-### Unidirectional data flow
-
-
-
 ### Note about stream-dependant services
 
 When using Firestore, is common to organize all the user data inside documents and collections that depend on the `uid`. For example, this app stores the user's data inside the `users/$uid/jobs` and `users/$uid/entries` collections.
@@ -120,6 +116,19 @@ This is a big win for maintainability, as we don't need to fetch the `FirebaseUs
 
 To accomplish this, `FirestoreDatabase` is *re*-created inside a "user-bound" `Provider`, everytime `onAuthStateChanged` emits a new `FirebaseUser`.
 
+For more information about his approach and the problems it solves, see my Advanced Provider Series on YouTube:
+
+- [Advanced Provider Tutorial - Part 1: Project Setup & Authentication Flow](https://youtu.be/j8P__wcq2YM)
+- [Advanced Provider Tutorial - Part 2: MultiProvider, Multiple Services & Stream Dependencies](https://youtu.be/wxN1L3RfulI)
+- [Advanced Provider Tutorial - Part 3: Better APIs, Navigation, Widget Rebuilds](https://youtu.be/B0QX2woHxaU)
+
+## Dependency Injection
+
+TODO
+
+## Routing
+
+TODO
 
 ## Running the project with Firebase
 
@@ -137,6 +146,10 @@ See this document for full instructions:
 - [https://firebase.google.com/docs/flutter/setup](https://firebase.google.com/docs/flutter/setup) 
 
 ## Future Roadmap
+
+TODO
+
+## Non Goals
 
 TODO
 
