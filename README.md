@@ -59,7 +59,7 @@ The resulting code should be:
 
 These are all nice properties, but how do they all fit together in practice?
 
-A lot of it about introducing clearly defined application layers, and defining how the data flows through them.
+A lot of it is about introducing well defined application layers, and how the data flows through them.
 
 ### Unidirectional data flow
 
@@ -75,6 +75,13 @@ The terms "presentation", "domain", "data", "repository" are used elsewhere to d
 
 What matters here is that the data flows from the services into the widgets, and the call flow goes in the opposite direction.
 
+Widgets **subscribe** themselves as listeners, while view models **publish** updates when something changes.
+
+---
+
+The publish/subscribe pattern comes in many variants (e.g. ChangeNotifier, BLoC), and this architecture does not prescribe which one to use.
+
+As a rule of thumb, the most appropriate variant is often the simplest one (on a case-by-case basis). In practice, this means using `Stream`s + `StreamBuilder`/`StreamProvider` when reading and manipulating data from Firestore. But when dealing with **local** application state, `StatefulWidget`+`setState` or `ChangeNotifier` are perfectly acceptable solutions.
 
 ## Demo App: Time Tracker
 
