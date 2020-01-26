@@ -10,7 +10,7 @@ Without a sound architecture, codebases can quickly become hard to test, maintai
 
 I have already witnessed this first-hand with various client projects, where the lack of a formal architecture led to days, weeks - even **months** of extra work.
 
-Is "architecture" hard? How can one find the "right" or "correct" Flutter architecture, among the myriad of possible techniques that have flourished over the last two years?
+Is "architecture" hard? How can one find the "right" or "correct" architecture in the ever-changing landscape of front-end development?
 
 Every app has different requirements, so does the "right" architecture even exist in the first place?
 
@@ -34,13 +34,13 @@ Yes, you could use [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation
 
 But you would need additional "glue" code if you want to "convert" your input streams into reactive models based on `ChangeNotifier`.
 
-> Note: streams are the default way of pushing changes not only with Firebase, but with many other services as well. For example, the [location](https://pub.dev/packages/location) package has an `onLocationChanged()` stream that you can use to get the user's location over time. Whether you use Firestore, or want to get data from your device's input sensors, streams are the most convenient way of delivering **asynchronous** data over time.
+> Note: streams are the default way of pushing changes not only with Firebase, but with many other services as well. For example, you can get location updates with the `onLocationChanged()` stream of the [location](https://pub.dev/packages/location) package. Whether you use Firestore, or want to get data from your device's input sensors, streams are the most convenient way of delivering **asynchronous** data over time.
 
 A more detailed overview of this architecture is outlined below. But first, here are the goals for this project.
 
 ## Project Goals
 
-Define a reference architecture that can be used as a foundation for Flutter apps using Firebase (or other streaming APIs).
+Define a reference architecture that can be used as the **foundation** for Flutter apps using Firebase (or other streaming APIs).
 
 This architecture should:
 
@@ -48,7 +48,7 @@ This architecture should:
 - clearly define application layers and their boundaries
 - require little boilerplate code
 
-It should also be:
+The resulting code should be:
 
 - clear
 - simple
@@ -67,8 +67,8 @@ To ensure a good separation of concerns, this architecture defines three distinc
 
 TODO: Add diagram and complete
 
-- Widgets
-- ViewModels
+- Widgets (UI Layer)
+- ViewModels (Presentation Layer)
 - Services
 
 ## Demo App: Time Tracker
@@ -95,7 +95,25 @@ All the data is persisted with Firestore, and is kept in sync across multiple de
 
 ## Widget tree and unidirectional data flow
 
-TODO
+The two most important services in the app are `FirebaseAuthService` and `FirestoreDatabase`.
+
+These are created above the `MaterialApp`, so that all widgets have access to them.
+
+Here is a simplified widget tree for the entire app:
+
+![](media/time-tracker-widget-tree.png)
+
+### Note about stream-dependant services
+
+When using Firestore, is common to organize all the user data inside documents and collections that depend on the `uid`. For example, this app stores the user's data inside the `users/$uid/jobs` and `users/$uid/entries` collections.
+
+When reading or writing to those collections, the app needs access to the user `uid`. This can change at runtime as users can sign out and sign back in with a different account.
+
+To make the database API simpler, `FirestoreDatabase` takes the `uid` of the signed-in user as a constructor argument.
+This is a big win for maintainability, as we don't need to fetch the `FirebaseUser`, just so that we can pass the `uid` to the database when performing CRUD operations.
+
+To accomplish this, `FirestoreDatabase` is *re*-created inside a "user-bound" `Provider`, everytime `onAuthStateChanged` emits a new `FirebaseUser`.
+
 
 ## Running the project with Firebase
 
