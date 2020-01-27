@@ -11,7 +11,6 @@ import 'package:starter_architecture_flutter_firebase/app/auth_widget.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
-import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
@@ -53,15 +52,13 @@ class Router {
           fullscreenDialog: true,
         );
       case Router.editJobPage:
-        if (hasInvalidArgs<EditJobPageArguments>(args, isRequired: true)) {
+        if (hasInvalidArgs<EditJobPageArguments>(args)) {
           return misTypedArgsRoute<EditJobPageArguments>(args);
         }
-        final typedArgs = args as EditJobPageArguments;
+        final typedArgs =
+            args as EditJobPageArguments ?? EditJobPageArguments();
         return MaterialPageRoute(
-          builder: (_) => EditJobPage(
-              key: typedArgs.key,
-              database: typedArgs.database,
-              job: typedArgs.job),
+          builder: (_) => EditJobPage(key: typedArgs.key, job: typedArgs.job),
           settings: settings,
           fullscreenDialog: true,
         );
@@ -71,10 +68,7 @@ class Router {
         }
         final typedArgs = args as EntryPageArguments;
         return MaterialPageRoute(
-          builder: (_) => EntryPage(
-              database: typedArgs.database,
-              job: typedArgs.job,
-              entry: typedArgs.entry),
+          builder: (_) => EntryPage(job: typedArgs.job, entry: typedArgs.entry),
           settings: settings,
           fullscreenDialog: true,
         );
@@ -105,15 +99,13 @@ class EmailPasswordSignInPageBuilderArguments {
 //EditJobPage arguments holder class
 class EditJobPageArguments {
   final Key key;
-  final FirestoreDatabase database;
   final Job job;
-  EditJobPageArguments({this.key, @required this.database, this.job});
+  EditJobPageArguments({this.key, this.job});
 }
 
 //EntryPage arguments holder class
 class EntryPageArguments {
-  final FirestoreDatabase database;
   final Job job;
   final Entry entry;
-  EntryPageArguments({@required this.database, @required this.job, this.entry});
+  EntryPageArguments({@required this.job, this.entry});
 }

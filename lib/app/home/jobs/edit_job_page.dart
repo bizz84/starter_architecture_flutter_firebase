@@ -8,21 +8,13 @@ import 'package:starter_architecture_flutter_firebase/services/firestore_databas
 import 'package:starter_architecture_flutter_firebase/routing/router.gr.dart';
 
 class EditJobPage extends StatefulWidget {
-  const EditJobPage({Key key, @required this.database, this.job})
-      : super(key: key);
-  final FirestoreDatabase database;
+  const EditJobPage({Key key, this.job}) : super(key: key);
   final Job job;
 
-  static Future<void> show(
-    BuildContext context, {
-    Job job,
-  }) async {
+  static Future<void> show(BuildContext context, {Job job}) async {
     await Navigator.of(context, rootNavigator: true).pushNamed(
       Router.editJobPage,
-      arguments: EditJobPageArguments(
-        database: Provider.of<FirestoreDatabase>(context, listen: false),
-        job: job,
-      ),
+      arguments: EditJobPageArguments(job: job),
     );
   }
 
@@ -57,7 +49,8 @@ class _EditJobPageState extends State<EditJobPage> {
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       try {
-        final jobs = await widget.database.jobsStream().first;
+        final database = Provider.of<FirestoreDatabase>(context, listen: false);
+        final jobs = await database.jobsStream().first;
         final allNames = jobs.map((job) => job.name).toList();
         if (widget.job != null) {
           allNames.remove(widget.job.name);
@@ -71,7 +64,7 @@ class _EditJobPageState extends State<EditJobPage> {
         } else {
           final id = widget.job?.id ?? documentIdFromCurrentDate();
           final job = Job(id: id, name: _name, ratePerHour: _ratePerHour);
-          await widget.database.setJob(job);
+          await database.setJob(job);
           Navigator.of(context).pop();
         }
       } on PlatformException catch (e) {

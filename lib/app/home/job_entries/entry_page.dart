@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/date_time_picker.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/format.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
@@ -10,19 +11,13 @@ import 'package:starter_architecture_flutter_firebase/services/firestore_databas
 import 'package:starter_architecture_flutter_firebase/routing/router.gr.dart';
 
 class EntryPage extends StatefulWidget {
-  const EntryPage({@required this.database, @required this.job, this.entry});
+  const EntryPage({@required this.job, this.entry});
   final Job job;
   final Entry entry;
-  final FirestoreDatabase database;
 
-  static Future<void> show(
-      {BuildContext context,
-      FirestoreDatabase database,
-      Job job,
-      Entry entry}) async {
+  static Future<void> show({BuildContext context, Job job, Entry entry}) async {
     await Navigator.of(context, rootNavigator: true).pushNamed(Router.entryPage,
         arguments: EntryPageArguments(
-          database: database,
           job: job,
           entry: entry,
         ));
@@ -70,8 +65,9 @@ class _EntryPageState extends State<EntryPage> {
 
   Future<void> _setEntryAndDismiss(BuildContext context) async {
     try {
+      final database = Provider.of<FirestoreDatabase>(context, listen: false);
       final entry = _entryFromState();
-      await widget.database.setEntry(entry);
+      await database.setEntry(entry);
       Navigator.of(context).pop();
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(

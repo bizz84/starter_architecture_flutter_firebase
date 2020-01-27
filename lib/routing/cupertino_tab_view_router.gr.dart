@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:auto_route/router_utils.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/job_entries_page.dart';
-import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 
 class CupertinoTabViewRouter {
@@ -21,13 +20,12 @@ class CupertinoTabViewRouter {
     final args = settings.arguments;
     switch (settings.name) {
       case CupertinoTabViewRouter.jobEntriesPage:
-        if (hasInvalidArgs<JobEntriesPageArguments>(args, isRequired: true)) {
-          return misTypedArgsRoute<JobEntriesPageArguments>(args);
+        if (hasInvalidArgs<Job>(args, isRequired: true)) {
+          return misTypedArgsRoute<Job>(args);
         }
-        final typedArgs = args as JobEntriesPageArguments;
+        final typedArgs = args as Job;
         return CupertinoPageRoute(
-          builder: (_) =>
-              JobEntriesPage(database: typedArgs.database, job: typedArgs.job),
+          builder: (_) => JobEntriesPage(job: typedArgs),
           settings: settings,
           fullscreenDialog: false,
         );
@@ -35,15 +33,4 @@ class CupertinoTabViewRouter {
         return unknownRoutePage(settings.name);
     }
   }
-}
-
-//**************************************************************************
-// Arguments holder classes
-//***************************************************************************
-
-//JobEntriesPage arguments holder class
-class JobEntriesPageArguments {
-  final FirestoreDatabase database;
-  final Job job;
-  JobEntriesPageArguments({@required this.database, @required this.job});
 }
