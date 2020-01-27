@@ -63,15 +63,15 @@ A lot of it is about introducing well defined application layers, and how the da
 
 ### Unidirectional data flow
 
-![](media/data-and-call-flow.png)
+![](media/application-layers.png)
 
-To ensure a good separation of concerns, this architecture defines three main layers.
+To ensure a good separation of concerns, this architecture defines three main application layers.
 
-- **UI**: where the widgets live
-- **Logic**: this is the domain layer that contains the business logic
-- **Services**: for interacting with 3rd party APIs
+- **UI Layer**: where the widgets live
+- **Logic & Presentation Layer**: this contains the application's business and presentation logic
+- **Domain Layer**: this contains domain-specific services for interacting with 3rd party APIs
 
-The terms "presentation", "domain", "data", "repository" are used elsewhere to define these layers and the types of entities they contain.
+*These layers may be named differently in other literature.*
 
 What matters here is that the data flows from the services into the widgets, and the call flow goes in the opposite direction.
 
@@ -82,6 +82,8 @@ Widgets **subscribe** themselves as listeners, while view models **publish** upd
 The publish/subscribe pattern comes in many variants (e.g. ChangeNotifier, BLoC), and this architecture does not prescribe which one to use.
 
 As a rule of thumb, the most appropriate variant is often the simplest one (on a case-by-case basis). In practice, this means using `Stream`s + `StreamBuilder`/`StreamProvider` when reading and manipulating data from Firestore. But when dealing with **local** application state, `StatefulWidget`+`setState` or `ChangeNotifier` are perfectly acceptable solutions.
+
+This project contains a demo app as a practical implementation of this architecture.
 
 ## Demo App: Time Tracker
 
@@ -105,6 +107,86 @@ Here is a simplified widget tree for the entire app:
 
 ![](media/time-tracker-widget-tree.png)
 
+Provider is used for **dependency injection**, and for propagating data **synchronously** down the widget tree.
+
+This guarantees that widgets are always disposed along with their view models.
+
+## Project structure
+
+Folders are grouped by feature/page. Each feature may define its own models and view models.
+
+Services and routing classes are defined at the root, along with constants and common widgets shared by multiple features.
+
+```
+/lib
+  /app
+    /home
+      /account
+      /entries
+      /job_entries
+      /jobs
+      /models
+    /sign_in
+  /common_widgets
+  /constants
+  /routing
+  /services
+```
+
+This is a purely arbitrary structure. Choose what works best for **your** project.
+
+## Service classes - Firestore
+
+Widgets can subscribe to updates from Firestore data via streams.
+Equally, write operations can be issued with Future-based APIs.
+
+Here's the entire Database API for the demo app, showing all the possible CRUD operations:
+
+```dart
+class FirestoreDatabase { // implementation omitted for brevity
+  Future<void> setJob(Job job); // create / update
+  Future<void> deleteJob(Job job); // delete
+  Stream<List<Job>> jobsStream(); // read
+  Stream<Job> jobStream({@required String jobId}); // read
+
+  Future<void> setEntry(Entry entry); // create / update
+  Future<void> deleteEntry(Entry entry); // delete
+  Stream<List<Entry>> entriesStream({Job job}); // read
+}
+```
+
+With this setup, creating a widget that shows a list of jobs becomes simple:
+
+```dart
+@override
+Widget build(BuildContext context) {
+  final database = Provider.of<FirestoreDatabase>(context, listen: false);
+  return StreamBuilder<List<Job>>(
+    stream: database.jobsStream(),
+    builder: (context, snapshot) {
+      // TODO: return widget based on snapshot
+    },
+  );
+}
+```
+
+For convenience, all available collections and documents are listed in a single class:
+
+```dart
+class APIPath {
+  static String job(String uid, String jobId) => 'users/$uid/jobs/$jobId';
+  static String jobs(String uid) => 'users/$uid/jobs';
+  static String entry(String uid, String entryId) =>
+      'users/$uid/entries/$entryId';
+  static String entries(String uid) => 'users/$uid/entries';
+}
+```
+
+Domain-level model classes are defined, along with `fromMap()` and `toMap()` methods for serialization.
+These classes are strongly-typed and immutable.
+
+See the [FirestoreDatabase](https://github.com/bizz84/starter_architecture_flutter_firebase/blob/master/lib/services/firestore_database.dart) and [FirestoreService](https://github.com/bizz84/starter_architecture_flutter_firebase/blob/master/lib/services/firestore_service.dart) classes for a full picture of how everything fits together.
+
 ### Note about stream-dependant services
 
 When using Firestore, is common to organize all the user data inside documents and collections that depend on the `uid`. For example, this app stores the user's data inside the `users/$uid/jobs` and `users/$uid/entries` collections.
@@ -122,13 +204,60 @@ For more information about his approach and the problems it solves, see my Advan
 - [Advanced Provider Tutorial - Part 2: MultiProvider, Multiple Services & Stream Dependencies](https://youtu.be/wxN1L3RfulI)
 - [Advanced Provider Tutorial - Part 3: Better APIs, Navigation, Widget Rebuilds](https://youtu.be/B0QX2woHxaU)
 
-## Dependency Injection
-
-TODO
 
 ## Routing
 
-TODO
+[`auto_route`](https://pub.dev/packages/auto_route) is used to generate all the routes in the app.
+
+The app can define `Router` classes like this:
+
+```dart
+@autoRouter
+class $Router {
+  @initial
+  AuthWidget authWidget;
+
+  @MaterialRoute(fullscreenDialog: true)
+  EmailPasswordSignInPageBuilder emailPasswordSignInPageBuilder;
+
+  @MaterialRoute(fullscreenDialog: true)
+  EditJobPage editJobPage;
+
+  @MaterialRoute(fullscreenDialog: true)
+  EntryPage entryPage;
+}
+```
+
+When any routes are modified, we can run:
+
+```
+flutter packages pub run build_runner build --delete-conflicting-outputs
+```
+
+And all the necessary routing code is generated for us.
+
+Given a page that needs to be presented inside a route, we can call `pushNamed` with the name of the route, and pass all required arguments. If more than one argument is needed, `auto_route` generates an `Arguments` type for our desired class (e.g. `EntryPageArguments`):
+
+```dart
+class EntryPage extends StatefulWidget {
+  const EntryPage({@required this.job, this.entry});
+  final Job job;
+  final Entry entry;
+
+  static Future<void> show({BuildContext context, Job job, Entry entry}) async {
+    await Navigator.of(context, rootNavigator: true).pushNamed(Router.entryPage,
+        arguments: EntryPageArguments(
+          job: job,
+          entry: entry,
+        ));
+  }
+
+  @override
+  State<StatefulWidget> createState() => _EntryPageState();
+}
+```
+
+With this approach, routing becomes a **strongly-typed** affair, which is nice. 🙂
 
 ## Running the project with Firebase
 
