@@ -30,7 +30,7 @@ For example, widgets can **rebuild** themselves when certain Firestore *document
 
 Many Firebase APIs are **inherently** stream-based. As a result, the **simplest** way of making our widgets reactive is to use [`StreamBuilder`](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) (or [`StreamProvider`](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html)).
 
-Yes, you could use [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) or other state mangement techniques that implement observables/listeners. 
+Yes, you could use [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) or other state management techniques that implement observables/listeners. 
 
 But you would need additional "glue" code if you want to "convert" your input streams into reactive models based on `ChangeNotifier`.
 
