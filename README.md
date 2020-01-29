@@ -107,6 +107,8 @@ But unlike service classes, they can **hold and modify state**, according to som
 
 View models can also be used to hold **local** state. This is common when converting a `StatefulWidget` into a `StatelessWidget`
 
+> NOTE: View models are **completely independent from the UI**. View model classes never import Flutter code (e.g. `material.dart`)
+
 ### UI Layer: Widgets
 
 Widgets are used to specify how the application UI looks like, and provide callbacks in response to user interaction.
