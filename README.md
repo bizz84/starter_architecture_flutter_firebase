@@ -89,9 +89,9 @@ Let's look at the three application layers in more detail.
 
 Services are **pure**, functional components that don't hold any state.
 
-Services serve as an abstraction from external data sources, and provide domain-specific APIs to the rest of the app (more on this below).
+Services serve as an **abstraction** from external data sources, and provide domain-specific APIs to the rest of the app (more on this below).
 
-Because service APIs return **strongly-typed**, **immutable**, **domain-specific** model objects, the rest of the app no longer manipulates the raw data from the outside world (e.g. Firestore documents represented as key-value pairs).
+Because service APIs return **strongly-typed**, **immutable**, **domain-specific** model objects, the rest of the app doesn't directly manipulate the raw data from the outside world (e.g. Firestore documents represented as key-value pairs).
 
 As a bonus, breaking changes in external packages are easier to deal with, because they only affect the corresponding service classes.
 
@@ -99,9 +99,9 @@ As a bonus, breaking changes in external packages are easier to deal with, becau
 
 View models abstract the widgets' **state** and **presentation**.
 
-View models do not have any reference to the widgets themselves. Rather, they define an **interface** for **publishing** updates when something changes. 
+View models **do not have any reference** to the widgets themselves. Rather, they define an **interface** for **publishing** updates when something changes. 
 
-View models can talk directly to service classes, if they need to read or write data.
+View models can talk directly to service classes to read or write data, and access other domain-specific APIs.
 
 But unlike service classes, they can **hold and modify state**, according to some business logic.
 
@@ -116,7 +116,7 @@ Widgets are used to specify how the application UI looks like, and provide callb
 Strictly speaking, we can introduce a distinction:
 
 - **pure UI widgets**: these are the usual buttons, texts, containers
-- **logic or presentational widgets**: these are used to decide what widget to return, based on some condition (e.g. if the user is signed in, return the home page, otherwise return the sign in page)
+- **logic or presentational widgets**: these are used to decide what widget to return, based on some condition (e.g. to return the home page or sign page based on the authentication status of the user).
 
 -----
 
@@ -144,9 +144,13 @@ Here is a simplified widget tree for the entire app:
 
 ![](media/time-tracker-widget-tree.png)
 
-Provider is used for **dependency injection**, and for propagating data **synchronously** down the widget tree.
+Provider is used in various ways:
 
-This guarantees that widgets are always disposed along with their view models.
+- to create view models for widgets that need them (and dispose them when no longer needed).
+- to provide **scoped access** to services from the widget classes.
+- to propagate data **synchronously** down the widget tree.
+
+The last point is particularly important. Reactive widgets can read data from asynchronous APIs (futures or streams), and make that data available **synchronously** to all their descendants. This minimizes API calls, improves performance, and minimizes boilerplate code.
 
 ## Project structure
 
@@ -172,7 +176,7 @@ Services and routing classes are defined at the root, along with constants and c
 
 This is a purely arbitrary structure. Choose what works best for **your** project.
 
-## Service classes - Firestore
+## Use Case: Firestore Service
 
 Widgets can subscribe to updates from Firestore data via streams.
 Equally, write operations can be issued with Future-based APIs.
