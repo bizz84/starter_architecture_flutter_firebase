@@ -144,7 +144,7 @@ Here is a simplified widget tree for the entire app:
 
 ![](media/time-tracker-widget-tree.png)
 
-Provider is used in various ways:
+[Provider](https://pub.dev/packages/provider) is used in various ways:
 
 - to create view models for widgets that need them (and dispose them when no longer needed).
 - to provide **scoped access** to services from the widget classes.
@@ -302,11 +302,11 @@ With this approach, routing becomes a **strongly-typed** affair, which is nice. 
 
 ## Running the project with Firebase
 
-To use this project with Firebase authentication, some configuration steps are required.
+To use this project with Firebase, some configuration steps are required.
 
 - Create a new project with the Firebase console.
 - Add iOS and Android apps in the Firebase project settings.
-- On Android, use `com.example.starter_architecture_flutter_firebase` as the package name (a SHA-1 certificate fingerprint is also needed for Google sign-in).
+- On Android, use `com.example.starter_architecture_flutter_firebase` as the package name.
 - then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_android_app) `google-services.json` into `android/app`.
 - On iOS, use `com.example.starterArchitectureFlutterFirebase` as the bundle ID.
 - then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_ios_app) `GoogleService-Info.plist` into `iOS/Runner`, and add it to the Runner target in Xcode.
