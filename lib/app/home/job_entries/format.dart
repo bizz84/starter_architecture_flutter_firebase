@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
 
-// TODO(2) date formatting tests
 class Format {
   static String hours(double hours) {
     final hoursNotNegative = hours < 0.0 ? 0.0 : hours;
