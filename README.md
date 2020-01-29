@@ -61,7 +61,7 @@ These are all nice properties, but how do they all fit together in practice?
 
 A lot of it is about introducing well defined application layers, and how the data flows through them.
 
-### Unidirectional data flow
+## The Application Layers
 
 ![](media/application-layers.png)
 
@@ -82,6 +82,41 @@ Widgets **subscribe** themselves as listeners, while view models **publish** upd
 The publish/subscribe pattern comes in many variants (e.g. ChangeNotifier, BLoC), and this architecture does not prescribe which one to use.
 
 As a rule of thumb, the most appropriate variant is often the simplest one (on a case-by-case basis). In practice, this means using `Stream`s + `StreamBuilder`/`StreamProvider` when reading and manipulating data from Firestore. But when dealing with **local** application state, `StatefulWidget`+`setState` or `ChangeNotifier` are perfectly acceptable solutions.
+
+Let's look at the three application layers in more detail.
+
+### Domain Layer: Services
+
+Services are **pure**, functional components that don't hold any state.
+
+Services serve as an abstraction from external data sources, and provide domain-specific APIs to the rest of the app (more on this below).
+
+Because service APIs return **strongly-typed**, **immutable**, **domain-specific** model objects, the rest of the app no longer manipulates the raw data from the outside world (e.g. Firestore documents represented as key-value pairs).
+
+As a bonus, breaking changes in external packages are easier to deal with, because they only affect the corresponding service classes.
+
+### Presentation & Logic Layer: View Models
+
+View models abstract the widgets' **state** and **presentation**.
+
+View models do not have any reference to the widgets themselves. Rather, they define an **interface** for **publishing** updates when something changes. 
+
+View models can talk directly to service classes, if they need to read or write data.
+
+But unlike service classes, they can **hold and modify state**, according to some business logic.
+
+View models can also be used to hold **local** state. This is common when converting a `StatefulWidget` into a `StatelessWidget`
+
+### UI Layer: Widgets
+
+Widgets are used to specify how the application UI looks like, and provide callbacks in response to user interaction.
+
+Strictly speaking, we can introduce a distinction:
+
+- **pure UI widgets**: these are the usual buttons, texts, containers
+- **logic or presentational widgets**: these are used to decide what widget to return, based on some condition (e.g. if the user is signed in, return the home page, otherwise return the sign in page)
+
+-----
 
 This project contains a demo app as a practical implementation of this architecture.
 
