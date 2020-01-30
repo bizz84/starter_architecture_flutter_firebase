@@ -59,7 +59,7 @@ The resulting code should be:
 
 These are all nice properties, but how do they all fit together in practice?
 
-A lot of it is about introducing well defined application layers, and how the data flows through them.
+By introducing application layers with clear boundaries, and defining how the data flows through them.
 
 ## The Application Layers
 
