@@ -51,7 +51,7 @@ This architecture should:
 The resulting code should be:
 
 - clear
-- simple
+- reusable
 - expandable
 - testable
 - performant
@@ -245,7 +245,6 @@ For more information about his approach and the problems it solves, see my Advan
 - [Advanced Provider Tutorial - Part 2: MultiProvider, Multiple Services & Stream Dependencies](https://youtu.be/wxN1L3RfulI)
 - [Advanced Provider Tutorial - Part 3: Better APIs, Navigation, Widget Rebuilds](https://youtu.be/B0QX2woHxaU)
 
-
 ## Routing
 
 [`auto_route`](https://pub.dev/packages/auto_route) is used to generate all the routes in the app.
@@ -335,7 +334,7 @@ TODO
 
 ## References
 
-This project borrows many ideas from my Udemy course: [Flutter & Firebase Course: Build a Complete App for iOS & Android](https://www.udemy.com/course/flutter-firebase-build-a-complete-app-for-ios-android/?couponCode=JAN-20), as well as my [Reference Authentication Flow with Flutter & Firebase](https://github.com/bizz84/firebase_auth_demo_flutter).
+This project borrows many ideas from my Udemy course: [Flutter & Firebase Course: Build a Complete App for iOS & Android](https://www.udemy.com/course/flutter-firebase-build-a-complete-app-for-ios-android/?couponCode=FEB-20), as well as my [Reference Authentication Flow with Flutter & Firebase](https://github.com/bizz84/firebase_auth_demo_flutter).
 
 The Flutter ecosystem keeps evolving, and so does this project. For example, I just recently added [auto_route](https://pub.dev/packages/auto_route), a route generation library that makes navigation super-easy.
 
