@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/services/api_path.dart';
+import 'package:starter_architecture_flutter_firebase/services/firestore_path.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_service.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
@@ -15,7 +15,7 @@ class FirestoreDatabase {
   final _service = FirestoreService.instance;
 
   Future<void> setJob(Job job) async => await _service.setData(
-        path: APIPath.job(uid, job.id),
+        path: FirestorePath.job(uid, job.id),
         data: job.toMap(),
       );
 
@@ -28,30 +28,30 @@ class FirestoreDatabase {
       }
     }
     // delete job
-    await _service.deleteData(path: APIPath.job(uid, job.id));
+    await _service.deleteData(path: FirestorePath.job(uid, job.id));
   }
 
   Stream<Job> jobStream({@required String jobId}) => _service.documentStream(
-        path: APIPath.job(uid, jobId),
+        path: FirestorePath.job(uid, jobId),
         builder: (data, documentId) => Job.fromMap(data, documentId),
       );
 
   Stream<List<Job>> jobsStream() => _service.collectionStream(
-        path: APIPath.jobs(uid),
+        path: FirestorePath.jobs(uid),
         builder: (data, documentId) => Job.fromMap(data, documentId),
       );
 
   Future<void> setEntry(Entry entry) async => await _service.setData(
-        path: APIPath.entry(uid, entry.id),
+        path: FirestorePath.entry(uid, entry.id),
         data: entry.toMap(),
       );
 
   Future<void> deleteEntry(Entry entry) async =>
-      await _service.deleteData(path: APIPath.entry(uid, entry.id));
+      await _service.deleteData(path: FirestorePath.entry(uid, entry.id));
 
   Stream<List<Entry>> entriesStream({Job job}) =>
       _service.collectionStream<Entry>(
-        path: APIPath.entries(uid),
+        path: FirestorePath.entries(uid),
         queryBuilder: job != null
             ? (query) => query.where('jobId', isEqualTo: job.id)
             : null,
