@@ -8,8 +8,8 @@ import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
-class EntriesBloc {
-  EntriesBloc({@required this.database});
+class EntriesVM {
+  EntriesVM({@required this.database});
   final FirestoreDatabase database;
 
   /// combine List<Job>, List<Entry> into List<EntryJob>

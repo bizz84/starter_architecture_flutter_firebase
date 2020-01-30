@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/entries/entries_bloc.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/entries/entries_vm.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/entries/entries_list_tile.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
@@ -9,8 +9,8 @@ import 'package:starter_architecture_flutter_firebase/services/firestore_databas
 class EntriesPage extends StatelessWidget {
   static Widget create(BuildContext context) {
     final database = Provider.of<FirestoreDatabase>(context, listen: false);
-    return Provider<EntriesBloc>(
-      create: (_) => EntriesBloc(database: database),
+    return Provider<EntriesVM>(
+      create: (_) => EntriesVM(database: database),
       child: EntriesPage(),
     );
   }
@@ -27,9 +27,9 @@ class EntriesPage extends StatelessWidget {
   }
 
   Widget _buildContents(BuildContext context) {
-    final bloc = Provider.of<EntriesBloc>(context);
+    final vm = Provider.of<EntriesVM>(context);
     return StreamBuilder<List<EntriesListTileModel>>(
-      stream: bloc.entriesTileModelStream,
+      stream: vm.entriesTileModelStream,
       builder: (context, snapshot) {
         return ListItemsBuilder<EntriesListTileModel>(
           snapshot: snapshot,
