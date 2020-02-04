@@ -4,7 +4,7 @@ This is a **reference architecture demo** that can be used as a **starting point
 
 ## Motivation
 
-Flutter & Firebase is a great combo for getting apps to market in record time.
+Flutter & Firebase are a great combo for getting apps to market in record time.
 
 Without a sound architecture, codebases can quickly become hard to test, maintain, and **reason about**. This **severely** impacts the development speed, and results in buggy products, sad developers and unhappy users.
 
