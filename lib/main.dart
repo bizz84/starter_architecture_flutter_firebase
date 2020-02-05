@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<User> userSnapshot) {
           return MaterialApp(
             theme: ThemeData(primarySwatch: Colors.indigo),
+            debugShowCheckedModeBanner: false,
             home: AuthWidget(userSnapshot: userSnapshot),
             onGenerateRoute: Router.onGenerateRoute,
           );
