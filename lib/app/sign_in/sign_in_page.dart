@@ -1,5 +1,5 @@
 import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_manager.dart';
+import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_button.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
@@ -11,26 +11,16 @@ import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 class SignInPageBuilder extends StatelessWidget {
-  // P<ValueNotifier>
-  //   P<SignInManager>(valueNotifier)
-  //     SignInPage(value)
   @override
   Widget build(BuildContext context) {
     final FirebaseAuthService auth =
         Provider.of<FirebaseAuthService>(context, listen: false);
-    return ChangeNotifierProvider<ValueNotifier<bool>>(
-      create: (_) => ValueNotifier<bool>(false),
-      child: Consumer<ValueNotifier<bool>>(
-        builder: (_, ValueNotifier<bool> isLoading, __) =>
-            Provider<SignInManager>(
-          create: (_) => SignInManager(auth: auth, isLoading: isLoading),
-          child: Consumer<SignInManager>(
-            builder: (_, SignInManager manager, __) => SignInPage._(
-              isLoading: isLoading.value,
-              manager: manager,
-              title: 'Architecture Demo',
-            ),
-          ),
+    return ChangeNotifierProvider<SignInViewModel>(
+      create: (_) => SignInViewModel(auth: auth),
+      child: Consumer<SignInViewModel>(
+        builder: (_, SignInViewModel viewModel, __) => SignInPage._(
+          viewModel: viewModel,
+          title: 'Architecture Demo',
         ),
       ),
     );
@@ -38,11 +28,9 @@ class SignInPageBuilder extends StatelessWidget {
 }
 
 class SignInPage extends StatelessWidget {
-  const SignInPage._({Key key, this.isLoading, this.manager, this.title})
-      : super(key: key);
-  final SignInManager manager;
+  const SignInPage._({Key key, this.viewModel, this.title}) : super(key: key);
+  final SignInViewModel viewModel;
   final String title;
-  final bool isLoading;
 
   static const Key emailPasswordButtonKey = Key(Keys.emailPassword);
   static const Key anonymousButtonKey = Key(Keys.anonymous);
@@ -57,7 +45,7 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _signInAnonymously(BuildContext context) async {
     try {
-      await manager.signInAnonymously();
+      await viewModel.signInAnonymously();
     } on PlatformException catch (e) {
       _showSignInError(context, e);
     }
@@ -76,7 +64,7 @@ class SignInPage extends StatelessWidget {
   }
 
   Widget _buildHeader() {
-    if (isLoading) {
+    if (viewModel.isLoading) {
       return Center(
         child: CircularProgressIndicator(),
       );
@@ -105,7 +93,7 @@ class SignInPage extends StatelessWidget {
           SignInButton(
             key: emailPasswordButtonKey,
             text: Strings.signInWithEmailPassword,
-            onPressed: isLoading
+            onPressed: viewModel.isLoading
                 ? null
                 : () => EmailPasswordSignInPageBuilder.show(context),
             textColor: Colors.white,
@@ -123,7 +111,8 @@ class SignInPage extends StatelessWidget {
             text: Strings.goAnonymous,
             color: Theme.of(context).primaryColor,
             textColor: Colors.white,
-            onPressed: isLoading ? null : () => _signInAnonymously(context),
+            onPressed:
+                viewModel.isLoading ? null : () => _signInAnonymously(context),
           ),
         ],
       ),
