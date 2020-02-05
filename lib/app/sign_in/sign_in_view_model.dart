@@ -4,17 +4,19 @@ import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
-class SignInManager {
-  SignInManager({@required this.auth, @required this.isLoading});
+class SignInViewModel with ChangeNotifier {
+  SignInViewModel({@required this.auth});
   final FirebaseAuthService auth;
-  final ValueNotifier<bool> isLoading;
+  bool isLoading = false;
 
   Future<User> _signIn(Future<User> Function() signInMethod) async {
     try {
-      isLoading.value = true;
+      isLoading = true;
+      notifyListeners();
       return await signInMethod();
     } catch (e) {
-      isLoading.value = false;
+      isLoading = false;
+      notifyListeners();
       rethrow;
     }
   }
