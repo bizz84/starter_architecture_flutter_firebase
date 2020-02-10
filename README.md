@@ -52,7 +52,7 @@ The resulting code should be:
 
 - clear
 - reusable
-- expandable
+- scalable
 - testable
 - performant
 - maintainable
