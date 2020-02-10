@@ -51,11 +51,12 @@ class _EditJobPageState extends State<EditJobPage> {
       try {
         final database = Provider.of<FirestoreDatabase>(context, listen: false);
         final jobs = await database.jobsStream().first;
-        final allNames = jobs.map((job) => job.name).toList();
+        final allLowerCaseNames =
+            jobs.map((job) => job.name.toLowerCase()).toList();
         if (widget.job != null) {
-          allNames.remove(widget.job.name);
+          allLowerCaseNames.remove(widget.job.name.toLowerCase());
         }
-        if (allNames.contains(_name)) {
+        if (allLowerCaseNames.contains(_name.toLowerCase())) {
           PlatformAlertDialog(
             title: 'Name already used',
             content: 'Please choose a different job name',
