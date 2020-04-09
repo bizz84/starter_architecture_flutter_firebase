@@ -24,7 +24,7 @@ dependencies:
   rxdart: ^0.23.1
   cloud_firestore: ^0.13.0+1
   intl: ^0.16.0
-  auto_route: ^0.2.2
+  auto_route: ^0.4.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -34,7 +34,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^4.1.1
-  auto_route_generator: ^0.2.2
+  auto_route_generator: ^0.4.3
   build_runner: ^1.7.3
   random_string: ^2.0.0
   flutter_driver:
