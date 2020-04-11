@@ -12,7 +12,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_b
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
-import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.gr.dart';
+import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
 class JobEntriesPage extends StatelessWidget {
@@ -21,7 +21,7 @@ class JobEntriesPage extends StatelessWidget {
 
   static Future<void> show(BuildContext context, Job job) async {
     await Navigator.of(context).pushNamed(
-      CupertinoTabViewRouter.jobEntriesPage,
+      CupertinoTabViewRoutes.jobEntriesPage,
       arguments: job,
     );
   }
