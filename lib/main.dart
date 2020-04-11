@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:starter_architecture_flutter_firebase/app/auth_widget_builder.dart';
-import 'package:starter_architecture_flutter_firebase/app/auth_widget.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,9 +35,11 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             theme: ThemeData(primarySwatch: Colors.indigo),
             debugShowCheckedModeBanner: false,
-            builder: ExtendedNavigator<Router>(router: Router()),
-            home: AuthWidget(userSnapshot: userSnapshot),
-            //onGenerateRoute: Router.onGenerateRoute,
+            builder: ExtendedNavigator<Router>(
+              router: Router(),
+              initialRoute: Routes.authWidget,
+              initialRouteArgs: AuthWidgetArguments(userSnapshot: userSnapshot),
+            ), //onGenerateRoute: Router.onGenerateRoute,
           );
         },
       ),
