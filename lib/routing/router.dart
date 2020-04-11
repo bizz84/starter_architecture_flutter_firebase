@@ -4,7 +4,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_page.dart';
 
-@autoRouter
+@MaterialAutoRouter()
 class $Router {
   @initial
   AuthWidget authWidget;

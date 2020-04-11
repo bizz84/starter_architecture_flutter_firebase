@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/tab_item.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
-import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.gr.dart';
+import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
 
 class CupertinoHomeScaffold extends StatelessWidget {
   CupertinoHomeScaffold({
@@ -35,7 +36,7 @@ class CupertinoHomeScaffold extends StatelessWidget {
         return CupertinoTabView(
           navigatorKey: navigatorKeys[item],
           builder: (context) => widgetBuilders[item](context),
-          onGenerateRoute: CupertinoTabViewRouter.onGenerateRoute,
+          onGenerateRoute: CupertinoTabViewRouter.generateRoute,
         );
       },
     );

@@ -16,7 +16,7 @@ class EntryPage extends StatefulWidget {
   final Entry entry;
 
   static Future<void> show({BuildContext context, Job job, Entry entry}) async {
-    await Navigator.of(context, rootNavigator: true).pushNamed(Router.entryPage,
+    await Navigator.of(context, rootNavigator: true).pushNamed(Routes.entryPage,
         arguments: EntryPageArguments(
           job: job,
           entry: entry,
