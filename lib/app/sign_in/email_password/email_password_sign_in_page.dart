@@ -3,10 +3,10 @@ import 'package:starter_architecture_flutter_firebase/common_widgets/form_submit
 import 'package:starter_architecture_flutter_firebase/common_widgets/platform_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
-import 'package:starter_architecture_flutter_firebase/routing/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 class EmailPasswordSignInPageBuilder extends StatelessWidget {
@@ -16,10 +16,10 @@ class EmailPasswordSignInPageBuilder extends StatelessWidget {
 
   static Future<void> show(BuildContext context) async {
     final navigator = Navigator.of(context);
-    await navigator.pushNamed(Routes.emailPasswordSignInPageBuilder,
-        arguments: EmailPasswordSignInPageBuilderArguments(
-          onSignedIn: () => navigator.pop(),
-        ));
+    await navigator.pushNamed(
+      Routes.emailPasswordSignInPageBuilder,
+      arguments: () => navigator.pop(),
+    );
   }
 
   @override
