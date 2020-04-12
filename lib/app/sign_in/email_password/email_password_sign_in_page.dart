@@ -1,7 +1,7 @@
 import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_model.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/form_submit_button.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/platform_alert_dialog.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/show_alert_dialog.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,10 +65,11 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
 
   void _showSignInError(
       EmailPasswordSignInModel model, PlatformException exception) {
-    PlatformExceptionAlertDialog(
+    showExceptionAlertDialog(
+      context: context,
       title: model.errorAlertTitle,
       exception: exception,
-    ).show(context);
+    );
   }
 
   Future<void> _submit() async {
@@ -76,11 +77,12 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
       final bool success = await model.submit();
       if (success) {
         if (model.formType == EmailPasswordSignInFormType.forgotPassword) {
-          await PlatformAlertDialog(
+          await showAlertDialog(
+            context: context,
             title: Strings.resetLinkSentTitle,
             content: Strings.resetLinkSentMessage,
             defaultActionText: Strings.ok,
-          ).show(context);
+          );
         } else {
           if (widget.onSignedIn != null) {
             widget.onSignedIn();
