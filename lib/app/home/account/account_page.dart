@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:starter_architecture_flutter_firebase/common_widgets/avatar.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/platform_alert_dialog.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/show_alert_dialog.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 class AccountPage extends StatelessWidget {
@@ -16,21 +15,24 @@ class AccountPage extends StatelessWidget {
       final FirebaseAuthService auth =
           Provider.of<FirebaseAuthService>(context, listen: false);
       await auth.signOut();
-    } on PlatformException catch (e) {
-      await PlatformExceptionAlertDialog(
+    } catch (e) {
+      await showExceptionAlertDialog(
+        context: context,
         title: Strings.logoutFailed,
         exception: e,
-      ).show(context);
+      );
     }
   }
 
   Future<void> _confirmSignOut(BuildContext context) async {
-    final bool didRequestSignOut = await PlatformAlertDialog(
-      title: Strings.logout,
-      content: Strings.logoutAreYouSure,
-      cancelActionText: Strings.cancel,
-      defaultActionText: Strings.logout,
-    ).show(context);
+    final bool didRequestSignOut = await showAlertDialog(
+          context: context,
+          title: Strings.logout,
+          content: Strings.logoutAreYouSure,
+          cancelActionText: Strings.cancel,
+          defaultActionText: Strings.logout,
+        ) ??
+        false;
     if (didRequestSignOut == true) {
       _signOut(context);
     }

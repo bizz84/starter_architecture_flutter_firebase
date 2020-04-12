@@ -11,7 +11,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_pag
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
@@ -30,11 +30,12 @@ class JobEntriesPage extends StatelessWidget {
     try {
       final database = Provider.of<FirestoreDatabase>(context, listen: false);
       await database.deleteEntry(entry);
-    } on PlatformException catch (e) {
-      PlatformExceptionAlertDialog(
+    } catch (e) {
+      showExceptionAlertDialog(
+        context: context,
         title: 'Operation failed',
         exception: e,
-      ).show(context);
+      );
     }
   }
 

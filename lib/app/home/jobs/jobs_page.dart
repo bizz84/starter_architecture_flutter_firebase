@@ -7,7 +7,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_pag
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/job_list_tile.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
@@ -16,11 +16,12 @@ class JobsPage extends StatelessWidget {
     try {
       final database = Provider.of<FirestoreDatabase>(context, listen: false);
       await database.deleteJob(job);
-    } on PlatformException catch (e) {
-      PlatformExceptionAlertDialog(
+    } catch (e) {
+      showExceptionAlertDialog(
+        context: context,
         title: 'Operation failed',
         exception: e,
-      ).show(context);
+      );
     }
   }
 

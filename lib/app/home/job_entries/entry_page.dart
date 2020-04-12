@@ -6,7 +6,7 @@ import 'package:starter_architecture_flutter_firebase/common_widgets/date_time_p
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/format.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
@@ -71,11 +71,12 @@ class _EntryPageState extends State<EntryPage> {
       final entry = _entryFromState();
       await database.setEntry(entry);
       Navigator.of(context).pop();
-    } on PlatformException catch (e) {
-      PlatformExceptionAlertDialog(
+    } catch (e) {
+      showExceptionAlertDialog(
+        context: context,
         title: 'Operation failed',
         exception: e,
-      ).show(context);
+      );
     }
   }
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/platform_alert_dialog.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/show_alert_dialog.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
@@ -57,22 +57,24 @@ class _EditJobPageState extends State<EditJobPage> {
           allLowerCaseNames.remove(widget.job.name.toLowerCase());
         }
         if (allLowerCaseNames.contains(_name.toLowerCase())) {
-          PlatformAlertDialog(
+          showAlertDialog(
+            context: context,
             title: 'Name already used',
             content: 'Please choose a different job name',
             defaultActionText: 'OK',
-          ).show(context);
+          );
         } else {
           final id = widget.job?.id ?? documentIdFromCurrentDate();
           final job = Job(id: id, name: _name, ratePerHour: _ratePerHour);
           await database.setJob(job);
           Navigator.of(context).pop();
         }
-      } on PlatformException catch (e) {
-        PlatformExceptionAlertDialog(
+      } catch (e) {
+        showExceptionAlertDialog(
+          context: context,
           title: 'Operation failed',
           exception: e,
-        ).show(context);
+        );
       }
     }
   }

@@ -1,7 +1,7 @@
 import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_button.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/foundation.dart';
@@ -37,16 +37,17 @@ class SignInPage extends StatelessWidget {
 
   Future<void> _showSignInError(
       BuildContext context, PlatformException exception) async {
-    await PlatformExceptionAlertDialog(
+    await showExceptionAlertDialog(
+      context: context,
       title: Strings.signInFailed,
       exception: exception,
-    ).show(context);
+    );
   }
 
   Future<void> _signInAnonymously(BuildContext context) async {
     try {
       await viewModel.signInAnonymously();
-    } on PlatformException catch (e) {
+    } catch (e) {
       _showSignInError(context, e);
     }
   }
