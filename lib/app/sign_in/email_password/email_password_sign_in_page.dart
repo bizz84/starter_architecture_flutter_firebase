@@ -63,8 +63,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
     super.dispose();
   }
 
-  void _showSignInError(
-      EmailPasswordSignInModel model, PlatformException exception) {
+  void _showSignInError(EmailPasswordSignInModel model, dynamic exception) {
     showExceptionAlertDialog(
       context: context,
       title: model.errorAlertTitle,
@@ -89,7 +88,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
           }
         }
       }
-    } on PlatformException catch (e) {
+    } catch (e) {
       _showSignInError(model, e);
     }
   }

@@ -30,7 +30,7 @@ class JobEntriesPage extends StatelessWidget {
     try {
       final database = Provider.of<FirestoreDatabase>(context, listen: false);
       await database.deleteEntry(entry);
-    } on PlatformException catch (e) {
+    } catch (e) {
       showExceptionAlertDialog(
         context: context,
         title: 'Operation failed',

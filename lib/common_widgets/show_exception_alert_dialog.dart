@@ -5,7 +5,7 @@ import 'package:starter_architecture_flutter_firebase/common_widgets/show_alert_
 Future<void> showExceptionAlertDialog({
   @required BuildContext context,
   @required String title,
-  @required PlatformException exception,
+  @required dynamic exception,
 }) async =>
     await showAlertDialog(
       context: context,
@@ -14,15 +14,18 @@ Future<void> showExceptionAlertDialog({
       defaultActionText: 'OK',
     );
 
-String _message(PlatformException exception) {
-  if (exception.message == 'FIRFirestoreErrorDomain') {
-    if (exception.code == 'Code 7') {
-      // This happens when we get a "Missing or insufficient permissions" error
-      return 'This operation could not be completed due to a server error';
+String _message(dynamic exception) {
+  if (exception is PlatformException) {
+    if (exception.message == 'FIRFirestoreErrorDomain') {
+      if (exception.code == 'Code 7') {
+        // This happens when we get a "Missing or insufficient permissions" error
+        return 'This operation could not be completed due to a server error';
+      }
+      return exception.details;
     }
-    return exception.details;
+    return _errors[exception.code] ?? exception.message;
   }
-  return _errors[exception.code] ?? exception.message;
+  return exception.toString();
 }
 
 // NOTE: The full list of FirebaseAuth errors is stored here:

@@ -69,7 +69,7 @@ class _EditJobPageState extends State<EditJobPage> {
           await database.setJob(job);
           Navigator.of(context).pop();
         }
-      } on PlatformException catch (e) {
+      } catch (e) {
         showExceptionAlertDialog(
           context: context,
           title: 'Operation failed',

@@ -47,7 +47,7 @@ class SignInPage extends StatelessWidget {
   Future<void> _signInAnonymously(BuildContext context) async {
     try {
       await viewModel.signInAnonymously();
-    } on PlatformException catch (e) {
+    } catch (e) {
       _showSignInError(context, e);
     }
   }

@@ -3,6 +3,24 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+extension PlatformX on Platform {
+  static bool get isWeb {
+    try {
+      if (Platform.isAndroid ||
+          Platform.isIOS ||
+          Platform.isWindows ||
+          Platform.isFuchsia ||
+          Platform.isLinux ||
+          Platform.isMacOS) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      return true;
+    }
+  }
+}
+
 Future<bool> showAlertDialog({
   @required BuildContext context,
   @required String title,
@@ -10,19 +28,19 @@ Future<bool> showAlertDialog({
   String cancelActionText,
   @required String defaultActionText,
 }) async {
-  if (Platform.isIOS) {
-    return await showCupertinoDialog(
+  if (PlatformX.isWeb || !Platform.isIOS) {
+    return await showDialog(
       context: context,
-      builder: (context) => CupertinoAlertDialog(
+      builder: (context) => AlertDialog(
         title: Text(title),
         content: Text(content),
         actions: <Widget>[
           if (cancelActionText != null)
-            CupertinoDialogAction(
+            FlatButton(
               child: Text(cancelActionText),
               onPressed: () => Navigator.of(context).pop(false),
             ),
-          CupertinoDialogAction(
+          FlatButton(
             child: Text(defaultActionText),
             onPressed: () => Navigator.of(context).pop(true),
           ),
@@ -30,19 +48,18 @@ Future<bool> showAlertDialog({
       ),
     );
   }
-
-  return await showDialog(
+  return await showCupertinoDialog(
     context: context,
-    builder: (context) => AlertDialog(
+    builder: (context) => CupertinoAlertDialog(
       title: Text(title),
       content: Text(content),
       actions: <Widget>[
         if (cancelActionText != null)
-          FlatButton(
+          CupertinoDialogAction(
             child: Text(cancelActionText),
             onPressed: () => Navigator.of(context).pop(false),
           ),
-        FlatButton(
+        CupertinoDialogAction(
           child: Text(defaultActionText),
           onPressed: () => Navigator.of(context).pop(true),
         ),

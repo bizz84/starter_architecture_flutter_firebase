@@ -7,7 +7,6 @@ import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 class AccountPage extends StatelessWidget {
@@ -16,7 +15,7 @@ class AccountPage extends StatelessWidget {
       final FirebaseAuthService auth =
           Provider.of<FirebaseAuthService>(context, listen: false);
       await auth.signOut();
-    } on PlatformException catch (e) {
+    } catch (e) {
       await showExceptionAlertDialog(
         context: context,
         title: Strings.logoutFailed,

@@ -71,7 +71,7 @@ class _EntryPageState extends State<EntryPage> {
       final entry = _entryFromState();
       await database.setEntry(entry);
       Navigator.of(context).pop();
-    } on PlatformException catch (e) {
+    } catch (e) {
       showExceptionAlertDialog(
         context: context,
         title: 'Operation failed',
