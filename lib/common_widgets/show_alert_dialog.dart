@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-extension PlatformX on Platform {
+// Querying the environment via [Plattform] throws and exception on Flutter web
+// This extension adds a new [isWeb] getter that should be used
+// before checking for any of the other environments
+extension PlatformWeb on Platform {
   static bool get isWeb {
     try {
       if (Platform.isAndroid ||
@@ -28,7 +31,7 @@ Future<bool> showAlertDialog({
   String cancelActionText,
   @required String defaultActionText,
 }) async {
-  if (PlatformX.isWeb || !Platform.isIOS) {
+  if (PlatformWeb.isWeb || !Platform.isIOS) {
     return await showDialog(
       context: context,
       builder: (context) => AlertDialog(
