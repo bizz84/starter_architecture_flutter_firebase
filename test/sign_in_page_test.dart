@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-import 'package:starter_architecture_flutter_firebase/routing/router.gr.dart';
+import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 import 'mocks.dart';
@@ -36,11 +35,8 @@ void main() {
             ),
           ],
           child: MaterialApp(
-            builder: ExtendedNavigator<Router>(
-              router: Router(),
-              initialRoute: Routes.authWidget,
-              initialRouteArgs: AuthWidgetArguments(userSnapshot: null),
-            ),
+            home: SignInPageBuilder(),
+            onGenerateRoute: Router.onGenerateRoute,
             navigatorObservers: [mockNavigatorObserver],
           ),
         ),
@@ -49,23 +45,16 @@ void main() {
       verify(mockNavigatorObserver.didPush(any, any)).called(1);
     }
 
-    // Commenting out test as this currently fails with this error:
-    // ══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
-    // The following NoSuchMethodError was thrown building Builder:
-    // Class 'Router' has no instance getter 'guardedRoutes'.
-    // Receiver: Instance of 'Router'
-    // Tried calling: guardedRoutes
-    //
-    // testWidgets('email & password navigation', (WidgetTester tester) async {
-    //   await pumpSignInPage(tester);
+    testWidgets('email & password navigation', (WidgetTester tester) async {
+      await pumpSignInPage(tester);
 
-    //   final emailPasswordButton = find.byKey(SignInPage.emailPasswordButtonKey);
-    //   expect(emailPasswordButton, findsOneWidget);
+      final emailPasswordButton = find.byKey(SignInPage.emailPasswordButtonKey);
+      expect(emailPasswordButton, findsOneWidget);
 
-    //   await tester.tap(emailPasswordButton);
-    //   await tester.pumpAndSettle();
+      await tester.tap(emailPasswordButton);
+      await tester.pumpAndSettle();
 
-    //   verify(mockNavigatorObserver.didPush(any, any)).called(1);
-    // });
+      verify(mockNavigatorObserver.didPush(any, any)).called(1);
+    });
   });
 }

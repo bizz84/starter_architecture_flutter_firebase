@@ -247,36 +247,32 @@ For more information about his approach and the problems it solves, see my Advan
 
 ## Routing
 
-[`auto_route`](https://pub.dev/packages/auto_route) is used to generate all the routes in the app.
-
-The app can define `Router` classes like this:
+The app uses named routes, which are defined in a `Routes` class:
 
 ```dart
-@autoRouter
-class $Router {
-  @initial
-  AuthWidget authWidget;
-
-  @MaterialRoute(fullscreenDialog: true)
-  EmailPasswordSignInPageBuilder emailPasswordSignInPageBuilder;
-
-  @MaterialRoute(fullscreenDialog: true)
-  EditJobPage editJobPage;
-
-  @MaterialRoute(fullscreenDialog: true)
-  EntryPage entryPage;
+class Routes {
+  static const authWidget = '/';
+  static const emailPasswordSignInPageBuilder =
+      '/email-password-sign-in-page-builder';
+  static const editJobPage = '/edit-job-page';
+  static const entryPage = '/entry-page';
 }
 ```
 
-When any routes are modified, we can run:
+A `Router` is then used to generate all the routes with a switch statement:
 
+```dart
+class Router {
+  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+    switch (settings.name) {
+      // all cases here
+    }
+  }
+}
 ```
-flutter packages pub run build_runner build --delete-conflicting-outputs
-```
 
-And all the necessary routing code is generated for us.
-
-Given a page that needs to be presented inside a route, we can call `pushNamed` with the name of the route, and pass all required arguments. If more than one argument is needed, `auto_route` generates an `Arguments` type for our desired class (e.g. `EntryPageArguments`):
+Given a page that needs to be presented inside a route, we can call `pushNamed` with the name of the route, and pass all required arguments. If more than one argument is needed, we can use a map:
 
 ```dart
 class EntryPage extends StatefulWidget {
@@ -285,11 +281,13 @@ class EntryPage extends StatefulWidget {
   final Entry entry;
 
   static Future<void> show({BuildContext context, Job job, Entry entry}) async {
-    await Navigator.of(context, rootNavigator: true).pushNamed(Router.entryPage,
-        arguments: EntryPageArguments(
-          job: job,
-          entry: entry,
-        ));
+    await Navigator.of(context, rootNavigator: true).pushNamed(
+      Routes.entryPage,
+      arguments: {
+        'job': job,
+        'entry': entry,
+      },
+    );
   }
 
   @override
@@ -297,7 +295,7 @@ class EntryPage extends StatefulWidget {
 }
 ```
 
-With this approach, routing becomes a **strongly-typed** affair, which is nice. 🙂
+Note: previously the app was using [`auto_route`](https://pub.dev/packages/auto_route), which uses code generation to make routes **strongly-typed**. This has caused subtle issues, that took some time to investigate. So the project now uses manual routes, which are much more predictable.
 
 ## Running the project with Firebase
 

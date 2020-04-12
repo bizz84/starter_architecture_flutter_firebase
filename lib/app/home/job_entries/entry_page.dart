@@ -7,8 +7,8 @@ import 'package:starter_architecture_flutter_firebase/app/home/job_entries/forma
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/platform_exception_alert_dialog.dart';
+import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
-import 'package:starter_architecture_flutter_firebase/routing/router.gr.dart';
 
 class EntryPage extends StatefulWidget {
   const EntryPage({@required this.job, this.entry});
@@ -16,11 +16,13 @@ class EntryPage extends StatefulWidget {
   final Entry entry;
 
   static Future<void> show({BuildContext context, Job job, Entry entry}) async {
-    await Navigator.of(context, rootNavigator: true).pushNamed(Routes.entryPage,
-        arguments: EntryPageArguments(
-          job: job,
-          entry: entry,
-        ));
+    await Navigator.of(context, rootNavigator: true).pushNamed(
+      Routes.entryPage,
+      arguments: {
+        'job': job,
+        'entry': entry,
+      },
+    );
   }
 
   @override
