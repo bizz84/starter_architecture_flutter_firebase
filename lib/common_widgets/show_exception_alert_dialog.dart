@@ -21,7 +21,7 @@ String _message(dynamic exception) {
         // This happens when we get a "Missing or insufficient permissions" error
         return 'This operation could not be completed due to a server error';
       }
-      return exception.details;
+      return exception.details as String;
     }
     return _errors[exception.code] ?? exception.message;
   }

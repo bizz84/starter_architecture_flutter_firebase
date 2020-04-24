@@ -31,7 +31,7 @@ class Job {
   int get hashCode => hashValues(id, name, ratePerHour);
 
   @override
-  bool operator ==(other) {
+  bool operator ==(dynamic other) {
     if (identical(this, other)) return true;
     if (runtimeType != other.runtimeType) return false;
     final Job otherJob = other;
