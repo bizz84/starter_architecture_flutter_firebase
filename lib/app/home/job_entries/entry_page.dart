@@ -65,7 +65,7 @@ class _EntryPageState extends State<EntryPage> {
     );
   }
 
-  Future<void> _setEntryAndDismiss(BuildContext context) async {
+  Future<void> _setEntryAndDismiss() async {
     try {
       final database = Provider.of<FirestoreDatabase>(context, listen: false);
       final entry = _entryFromState();
@@ -92,7 +92,7 @@ class _EntryPageState extends State<EntryPage> {
               widget.entry != null ? 'Update' : 'Create',
               style: TextStyle(fontSize: 18.0, color: Colors.white),
             ),
-            onPressed: () => _setEntryAndDismiss(context),
+            onPressed: _setEntryAndDismiss,
           )
         ],
       ),
