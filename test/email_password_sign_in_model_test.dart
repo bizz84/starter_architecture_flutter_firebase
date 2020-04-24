@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'mocks.dart';
 
 void main() {
-  MockAuthService mockAuthService;
-  EmailPasswordSignInModel model;
+  MockAuthService? mockAuthService;
+  EmailPasswordSignInModel? model;
 
   setUp(() {
     mockAuthService = MockAuthService();
@@ -13,16 +13,16 @@ void main() {
   });
 
   tearDown(() {
-    model.dispose();
+    model?.dispose();
   });
 
   test('updateEmail', () async {
     const sampleEmail = 'email@email.com';
     var didNotifyListeners = false;
-    model.addListener(() => didNotifyListeners = true);
+    model!.addListener(() => didNotifyListeners = true);
 
-    model.updateEmail(sampleEmail);
-    expect(model.email, sampleEmail);
+    model!.updateEmail(sampleEmail);
+    expect(model!.email, sampleEmail);
     expect(didNotifyListeners, true);
   });
 }

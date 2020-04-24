@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:meta/meta.dart';
 import 'package:random_string/random_string.dart' as random;
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
@@ -21,7 +20,7 @@ class FakeAuthService implements FirebaseAuthService {
 
   final Map<String, _UserData> _usersStore = <String, _UserData>{};
 
-  User _currentUser;
+  User? _currentUser;
 
   final StreamController<User> _onAuthStateChangedController =
       StreamController<User>();
@@ -29,7 +28,7 @@ class FakeAuthService implements FirebaseAuthService {
   Stream<User> get onAuthStateChanged => _onAuthStateChangedController.stream;
 
   @override
-  Future<User> currentUser() async {
+  Future<User?> currentUser() async {
     await Future<void>.delayed(startupTime);
     return _currentUser;
   }
@@ -97,7 +96,7 @@ class FakeAuthService implements FirebaseAuthService {
 }
 
 class _UserData {
-  _UserData({@required this.password, @required this.user});
+  _UserData({required this.password, required this.user});
   final String password;
   final User user;
 }

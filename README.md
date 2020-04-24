@@ -188,7 +188,7 @@ class FirestoreDatabase { // implementation omitted for brevity
   Future<void> setJob(Job job); // create / update
   Future<void> deleteJob(Job job); // delete
   Stream<List<Job>> jobsStream(); // read
-  Stream<Job> jobStream({@required String jobId}); // read
+  Stream<Job> jobStream({required String jobId}); // read
 
   Future<void> setEntry(Entry entry); // create / update
   Future<void> deleteEntry(Entry entry); // delete
@@ -276,7 +276,7 @@ Given a page that needs to be presented inside a route, we can call `pushNamed` 
 
 ```dart
 class EntryPage extends StatefulWidget {
-  const EntryPage({@required this.job, this.entry});
+  const EntryPage({required this.job, this.entry});
   final Job job;
   final Entry entry;
 

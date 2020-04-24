@@ -5,7 +5,7 @@ abstract class StringValidator {
 }
 
 class RegexValidator implements StringValidator {
-  RegexValidator({this.regexSource});
+  RegexValidator({required this.regexSource});
   final String regexSource;
 
   @override
@@ -29,11 +29,12 @@ class RegexValidator implements StringValidator {
 }
 
 class ValidatorInputFormatter implements TextInputFormatter {
-  ValidatorInputFormatter({this.editingValidator});
+  ValidatorInputFormatter({required this.editingValidator});
   final StringValidator editingValidator;
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     final bool oldValueValid = editingValidator.isValid(oldValue.text);
     final bool newValueValid = editingValidator.isValid(newValue.text);
     if (oldValueValid && !newValueValid) {
@@ -72,6 +73,8 @@ class EmailAndPasswordValidators {
   final TextInputFormatter emailInputFormatter =
       ValidatorInputFormatter(editingValidator: EmailEditingRegexValidator());
   final StringValidator emailSubmitValidator = EmailSubmitRegexValidator();
-  final StringValidator passwordRegisterSubmitValidator = MinLengthStringValidator(8);
-  final StringValidator passwordSignInSubmitValidator = NonEmptyStringValidator();
+  final StringValidator passwordRegisterSubmitValidator =
+      MinLengthStringValidator(8);
+  final StringValidator passwordSignInSubmitValidator =
+      NonEmptyStringValidator();
 }

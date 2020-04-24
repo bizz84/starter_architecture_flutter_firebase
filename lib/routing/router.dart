@@ -15,7 +15,7 @@ class Routes {
 }
 
 class Router {
-  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
       case Routes.authWidget:

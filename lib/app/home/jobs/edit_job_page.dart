@@ -8,10 +8,10 @@ import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
 class EditJobPage extends StatefulWidget {
-  const EditJobPage({Key key, this.job}) : super(key: key);
-  final Job job;
+  const EditJobPage({Key? key, this.job}) : super(key: key);
+  final Job? job;
 
-  static Future<void> show(BuildContext context, {Job job}) async {
+  static Future<void> show(BuildContext context, {Job? job}) async {
     await Navigator.of(context, rootNavigator: true).pushNamed(
       Routes.editJobPage,
       arguments: job,
@@ -25,15 +25,15 @@ class EditJobPage extends StatefulWidget {
 class _EditJobPageState extends State<EditJobPage> {
   final _formKey = GlobalKey<FormState>();
 
-  String _name;
-  int _ratePerHour;
+  String? _name;
+  int? _ratePerHour;
 
   @override
   void initState() {
     super.initState();
     if (widget.job != null) {
-      _name = widget.job.name;
-      _ratePerHour = widget.job.ratePerHour;
+      _name = widget.job?.name;
+      _ratePerHour = widget.job?.ratePerHour;
     }
   }
 
@@ -54,9 +54,9 @@ class _EditJobPageState extends State<EditJobPage> {
         final allLowerCaseNames =
             jobs.map((job) => job.name.toLowerCase()).toList();
         if (widget.job != null) {
-          allLowerCaseNames.remove(widget.job.name.toLowerCase());
+          allLowerCaseNames.remove(widget.job!.name.toLowerCase());
         }
-        if (allLowerCaseNames.contains(_name.toLowerCase())) {
+        if (allLowerCaseNames.contains(_name!.toLowerCase())) {
           showAlertDialog(
             context: context,
             title: 'Name already used',
@@ -130,7 +130,7 @@ class _EditJobPageState extends State<EditJobPage> {
         decoration: InputDecoration(labelText: 'Job name'),
         keyboardAppearance: Brightness.light,
         initialValue: _name,
-        validator: (value) => value.isNotEmpty ? null : 'Name can\'t be empty',
+        validator: (value) => value.isNotEmpty ? '' : 'Name can\'t be empty',
         onSaved: (value) => _name = value,
       ),
       TextFormField(

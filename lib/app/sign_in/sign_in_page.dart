@@ -28,7 +28,8 @@ class SignInPageBuilder extends StatelessWidget {
 }
 
 class SignInPage extends StatelessWidget {
-  const SignInPage._({Key key, this.viewModel, this.title}) : super(key: key);
+  const SignInPage._({Key? key, required this.viewModel, required this.title})
+      : super(key: key);
   final SignInViewModel viewModel;
   final String title;
 

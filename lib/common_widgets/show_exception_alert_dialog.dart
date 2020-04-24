@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/show_alert_dialog.dart';
 
 Future<void> showExceptionAlertDialog({
-  @required BuildContext context,
-  @required String title,
-  @required dynamic exception,
+  required BuildContext context,
+  required String title,
+  required dynamic exception,
 }) async =>
     await showAlertDialog(
       context: context,

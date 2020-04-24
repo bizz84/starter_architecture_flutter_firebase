@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 class SignInViewModel with ChangeNotifier {
-  SignInViewModel({@required this.auth});
+  SignInViewModel({required this.auth});
   final FirebaseAuthService auth;
   bool isLoading = false;
 

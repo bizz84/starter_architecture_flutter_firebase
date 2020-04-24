@@ -12,8 +12,11 @@ void main() => runApp(MyApp(
     ));
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key, this.authServiceBuilder, this.databaseBuilder})
-      : super(key: key);
+  const MyApp({
+    Key? key,
+    required this.authServiceBuilder,
+    required this.databaseBuilder,
+  }) : super(key: key);
   // Expose builders for 3rd party services at the root of the widget tree
   // This is useful when mocking services while testing
   final FirebaseAuthService Function(BuildContext context) authServiceBuilder;

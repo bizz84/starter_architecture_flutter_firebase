@@ -4,25 +4,22 @@ import 'package:flutter/foundation.dart';
 @immutable
 class User {
   const User({
-    @required this.uid,
+    required this.uid,
     this.email,
     this.photoUrl,
     this.displayName,
   });
 
   final String uid;
-  final String email;
-  final String photoUrl;
-  final String displayName;
+  final String? email;
+  final String? photoUrl;
+  final String? displayName;
 }
 
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   User _userFromFirebase(FirebaseUser user) {
-    if (user == null) {
-      return null;
-    }
     return User(
       uid: user.uid,
       email: user.email,
@@ -60,9 +57,9 @@ class FirebaseAuthService {
     await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
-  Future<User> currentUser() async {
-    final FirebaseUser user = await _firebaseAuth.currentUser();
-    return _userFromFirebase(user);
+  Future<User?> currentUser() async {
+    final FirebaseUser? user = await _firebaseAuth.currentUser();
+    return user != null ? _userFromFirebase(user) : null;
   }
 
   Future<void> signOut() async {

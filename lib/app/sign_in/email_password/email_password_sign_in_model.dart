@@ -7,7 +7,7 @@ enum EmailPasswordSignInFormType { signIn, register, forgotPassword }
 
 class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   EmailPasswordSignInModel({
-    @required this.auth,
+    required this.auth,
     this.email = '',
     this.password = '',
     this.formType = EmailPasswordSignInFormType.signIn,
@@ -63,11 +63,11 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   void updateWith({
-    String email,
-    String password,
-    EmailPasswordSignInFormType formType,
-    bool isLoading,
-    bool submitted,
+    String? email,
+    String? password,
+    EmailPasswordSignInFormType? formType,
+    bool? isLoading,
+    bool? submitted,
   }) {
     this.email = email ?? this.email;
     this.password = password ?? this.password;
@@ -145,7 +145,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     return canSubmitFields && !isLoading;
   }
 
-  String get emailErrorText {
+  String? get emailErrorText {
     final bool showErrorText = submitted && !canSubmitEmail;
     final String errorText = email.isEmpty
         ? Strings.invalidEmailEmpty
@@ -153,7 +153,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     return showErrorText ? errorText : null;
   }
 
-  String get passwordErrorText {
+  String? get passwordErrorText {
     final bool showErrorText = submitted && !canSubmitPassword;
     final String errorText = password.isEmpty
         ? Strings.invalidPasswordEmpty

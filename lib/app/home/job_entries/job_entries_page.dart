@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_list_item.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
@@ -16,7 +15,7 @@ import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
 class JobEntriesPage extends StatelessWidget {
-  const JobEntriesPage({@required this.job});
+  const JobEntriesPage({required this.job});
   final Job job;
 
   static Future<void> show(BuildContext context, Job job) async {
@@ -46,7 +45,7 @@ class JobEntriesPage extends StatelessWidget {
       stream: database.jobStream(jobId: job.id),
       builder: (context, snapshot) {
         final job = snapshot.data;
-        final jobName = job?.name ?? '';
+        final jobName = job.name;
         return Scaffold(
           appBar: AppBar(
             elevation: 2.0,
@@ -84,7 +83,7 @@ class JobEntriesPage extends StatelessWidget {
           snapshot: snapshot,
           itemBuilder: (context, entry) {
             return DismissibleEntryListItem(
-              key: Key('entry-${entry.id}'),
+              dismissibleKey: Key('entry-${entry.id}'),
               entry: entry,
               job: job,
               onDismissed: () => _deleteEntry(context, entry),

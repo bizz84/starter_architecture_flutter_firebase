@@ -10,9 +10,9 @@ import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 class EmailPasswordSignInPageBuilder extends StatelessWidget {
-  const EmailPasswordSignInPageBuilder({Key key, this.onSignedIn})
+  const EmailPasswordSignInPageBuilder({Key? key, this.onSignedIn})
       : super(key: key);
-  final VoidCallback onSignedIn;
+  final VoidCallback? onSignedIn;
 
   static Future<void> show(BuildContext context) async {
     final navigator = Navigator.of(context);
@@ -38,10 +38,10 @@ class EmailPasswordSignInPageBuilder extends StatelessWidget {
 
 class EmailPasswordSignInPage extends StatefulWidget {
   const EmailPasswordSignInPage(
-      {Key key, @required this.model, this.onSignedIn})
+      {Key? key, required this.model, this.onSignedIn})
       : super(key: key);
   final EmailPasswordSignInModel model;
-  final VoidCallback onSignedIn;
+  final VoidCallback? onSignedIn;
 
   @override
   _EmailPasswordSignInPageState createState() =>
@@ -83,9 +83,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
             defaultActionText: Strings.ok,
           );
         } else {
-          if (widget.onSignedIn != null) {
-            widget.onSignedIn();
-          }
+          widget.onSignedIn?.call();
         }
       }
     } catch (e) {

@@ -11,9 +11,9 @@ import 'mocks.dart';
 
 void main() {
   group('AuthWidgetBuilder tests', () {
-    MockAuthService mockAuthService;
-    MockDatabase mockDatabase;
-    StreamController<User> onAuthStateChangedController;
+    MockAuthService? mockAuthService;
+    MockDatabase? mockDatabase;
+    StreamController<User>? onAuthStateChangedController;
 
     setUp(() {
       mockAuthService = MockAuthService();
@@ -24,26 +24,25 @@ void main() {
     tearDown(() {
       mockAuthService = null;
       mockDatabase = null;
-      onAuthStateChangedController.close();
+      onAuthStateChangedController?.close();
     });
 
     void stubOnAuthStateChangedYields(Iterable<User> onAuthStateChanged) {
-      onAuthStateChangedController
+      onAuthStateChangedController!
           .addStream(Stream<User>.fromIterable(onAuthStateChanged));
-      when(mockAuthService.onAuthStateChanged).thenAnswer((_) {
-        return onAuthStateChangedController.stream;
+      when(mockAuthService!.onAuthStateChanged).thenAnswer((_) {
+        return onAuthStateChangedController!.stream;
       });
     }
 
-    Future<void> pumpAuthWidget(
-        WidgetTester tester,
-        {@required
-            Widget Function(BuildContext, AsyncSnapshot<User>) builder}) async {
+    Future<void> pumpAuthWidget(WidgetTester tester,
+        {required Widget Function(BuildContext, AsyncSnapshot<User>)
+            builder}) async {
       await tester.pumpWidget(
         Provider<FirebaseAuthService>(
-          create: (_) => mockAuthService,
+          create: (_) => mockAuthService!,
           child: AuthWidgetBuilder(
-            databaseBuilder: (_, uid) => mockDatabase,
+            databaseBuilder: (_, uid) => mockDatabase!,
             builder: builder,
           ),
         ),
@@ -72,7 +71,7 @@ void main() {
         'WHEN onAuthStateChanged returns null user'
         'THEN calls builder with null user and active state'
         'AND doesn\'t find MultiProvider', (WidgetTester tester) async {
-      stubOnAuthStateChangedYields(<User>[null]);
+      stubOnAuthStateChangedYields(<User?>[null]);
 
       final snapshots = <AsyncSnapshot<User>>[];
       await pumpAuthWidget(tester, builder: (context, userSnapshot) {

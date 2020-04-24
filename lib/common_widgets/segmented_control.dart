@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 
 class SegmentedControl<T> extends StatelessWidget {
   const SegmentedControl({
-    @required this.header,
-    @required this.value,
-    @required this.children,
-    this.onValueChanged,
+    required this.header,
+    required this.value,
+    required this.children,
+    required this.onValueChanged,
   });
   final Widget header;
   final T value;

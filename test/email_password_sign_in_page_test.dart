@@ -10,17 +10,17 @@ import 'package:starter_architecture_flutter_firebase/services/firebase_auth_ser
 import 'mocks.dart';
 
 void main() {
-  MockAuthService mockAuth;
+  MockAuthService? mockAuth;
 
   setUp(() {
     mockAuth = MockAuthService();
   });
 
   Future<void> pumpEmailSignInForm(WidgetTester tester,
-      {VoidCallback onSignedIn}) async {
+      {VoidCallback? onSignedIn}) async {
     await tester.pumpWidget(
       Provider<FirebaseAuthService>(
-        create: (_) => mockAuth,
+        create: (_) => mockAuth!,
         child: MaterialApp(
           home: Scaffold(
             body: Builder(
@@ -35,27 +35,27 @@ void main() {
   }
 
   void stubSignInWithEmailAndPasswordSucceeds() {
-    when(mockAuth.signInWithEmailAndPassword(any, any))
+    when(mockAuth!.signInWithEmailAndPassword(any, any))
         .thenAnswer((_) => Future<User>.value(User(uid: '123')));
   }
 
   void stubSignInWithEmailAndPasswordThrows() {
-    when(mockAuth.signInWithEmailAndPassword(any, any))
+    when(mockAuth!.signInWithEmailAndPassword(any, any))
         .thenThrow(PlatformException(code: 'ERROR_WRONG_PASSWORD'));
   }
 
   void stubCreateUserWithEmailAndPasswordSucceeds() {
-    when(mockAuth.createUserWithEmailAndPassword(any, any))
+    when(mockAuth!.createUserWithEmailAndPassword(any, any))
         .thenAnswer((_) => Future<User>.value(User(uid: '123')));
   }
 
   void stubCreateUserWithEmailAndPasswordThrows() {
-    when(mockAuth.createUserWithEmailAndPassword(any, any))
+    when(mockAuth!.createUserWithEmailAndPassword(any, any))
         .thenThrow(PlatformException(code: 'ERROR_EMAIL_ALREADY_IN_USE'));
   }
 
   void stubSendPasswordResetEmailSucceeds() {
-    when(mockAuth.sendPasswordResetEmail(any))
+    when(mockAuth!.sendPasswordResetEmail(any))
         .thenAnswer((_) => Future<void>.value());
   }
 
@@ -72,7 +72,7 @@ void main() {
       expect(primaryButton, findsOneWidget);
       await tester.tap(primaryButton);
 
-      verifyNever(mockAuth.signInWithEmailAndPassword(any, any));
+      verifyNever(mockAuth!.signInWithEmailAndPassword(any, any));
       expect(signedIn, false);
     });
 
@@ -104,7 +104,7 @@ void main() {
       expect(primaryButton, findsOneWidget);
       await tester.tap(primaryButton);
 
-      verify(mockAuth.signInWithEmailAndPassword(email, password)).called(1);
+      verify(mockAuth!.signInWithEmailAndPassword(email, password)).called(1);
       expect(signedIn, true);
     });
 
@@ -136,7 +136,7 @@ void main() {
       expect(primaryButton, findsOneWidget);
       await tester.tap(primaryButton);
 
-      verify(mockAuth.signInWithEmailAndPassword(email, password)).called(1);
+      verify(mockAuth!.signInWithEmailAndPassword(email, password)).called(1);
       expect(signedIn, false);
     });
   });
@@ -156,7 +156,7 @@ void main() {
       final signInButton = find.text(Strings.createAnAccount);
       expect(signInButton, findsOneWidget);
 
-      verifyNever(mockAuth.createUserWithEmailAndPassword(any, any));
+      verifyNever(mockAuth!.createUserWithEmailAndPassword(any, any));
       expect(signedIn, false);
     });
 
@@ -192,7 +192,7 @@ void main() {
       expect(createAccountButton, findsOneWidget);
       await tester.tap(createAccountButton);
 
-      verify(mockAuth.createUserWithEmailAndPassword(email, password))
+      verify(mockAuth!.createUserWithEmailAndPassword(email, password))
           .called(1);
       expect(signedIn, true);
     });
@@ -229,7 +229,7 @@ void main() {
       expect(createAccountButton, findsOneWidget);
       await tester.tap(createAccountButton);
 
-      verify(mockAuth.createUserWithEmailAndPassword(email, password))
+      verify(mockAuth!.createUserWithEmailAndPassword(email, password))
           .called(1);
       expect(signedIn, false);
     });
@@ -251,7 +251,7 @@ void main() {
       final sendResetPasswordButton = find.text(Strings.sendResetLink);
       expect(sendResetPasswordButton, findsOneWidget);
 
-      verifyNever(mockAuth.sendPasswordResetEmail(any));
+      verifyNever(mockAuth!.sendPasswordResetEmail(any));
       expect(signedIn, false);
     });
   });
@@ -283,7 +283,7 @@ void main() {
     expect(sendResetLinkButton, findsOneWidget);
     await tester.tap(sendResetLinkButton);
 
-    verify(mockAuth.sendPasswordResetEmail(email)).called(1);
+    verify(mockAuth!.sendPasswordResetEmail(email)).called(1);
     expect(signedIn, false);
   });
 

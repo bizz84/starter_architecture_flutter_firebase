@@ -13,11 +13,10 @@
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 // Imports the Flutter Driver API.
 import 'package:flutter_driver/flutter_driver.dart';
-import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:test/test.dart';
 
 void main() {
-  FlutterDriver driver;
+  FlutterDriver? driver;
   Future<void> delay([int milliseconds = 250]) async {
     await Future<void>.delayed(Duration(milliseconds: milliseconds));
   }
@@ -29,13 +28,11 @@ void main() {
 
   // Close the connection to the driver after the tests have completed.
   tearDownAll(() async {
-    if (driver != null) {
-      driver.close();
-    }
+    driver?.close();
   });
 
   test('check flutter driver health', () async {
-    final health = await driver.checkHealth();
+    final health = await driver!.checkHealth();
     expect(health.status, HealthStatus.ok);
   });
 
@@ -43,30 +40,30 @@ void main() {
     // find and tap anonymous sign in button
     final anonymousSignInButton = find.byValueKey(Keys.anonymous);
     // Check to fail early if the auth state is authenticated
-    await driver.waitFor(anonymousSignInButton);
+    await driver!.waitFor(anonymousSignInButton);
     await delay(1000); // for video capture
-    await driver.tap(anonymousSignInButton);
+    await driver!.tap(anonymousSignInButton);
 
     // Find tab bar and tap on account tab
     // TODO This does not work. See: https://stackoverflow.com/questions/55460993/flutter-driver-test-bottomnavigationbaritem
     final tabBar = find.byValueKey(Keys.tabBar);
-    await driver.waitFor(tabBar);
+    await driver!.waitFor(tabBar);
     await delay(1000); // for video capture
-    await driver.tap(find.byValueKey(Keys.accountTab));
+    await driver!.tap(find.byValueKey(Keys.accountTab));
 
     // find and tap logout button
     final logoutButton = find.byValueKey(Keys.logout);
-    await driver.waitFor(logoutButton);
+    await driver!.waitFor(logoutButton);
     await delay(1000); // for video capture
-    await driver.tap(logoutButton);
+    await driver!.tap(logoutButton);
 
     // find and tap confirm logout button
     final confirmLogoutButton = find.byValueKey(Keys.alertDefault);
-    await driver.waitFor(confirmLogoutButton);
+    await driver!.waitFor(confirmLogoutButton);
     await delay(1000); // for video capture
-    await driver.tap(confirmLogoutButton);
+    await driver!.tap(confirmLogoutButton);
 
     // try to find anonymous sign in button again
-    await driver.waitFor(anonymousSignInButton);
+    await driver!.waitFor(anonymousSignInButton);
   });
 }

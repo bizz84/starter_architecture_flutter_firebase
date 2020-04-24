@@ -9,8 +9,8 @@ import 'package:starter_architecture_flutter_firebase/services/firebase_auth_ser
 import 'mocks.dart';
 
 void main() {
-  MockAuthService mockAuthService;
-  SignInViewModel viewModel;
+  MockAuthService? mockAuthService;
+  SignInViewModel? viewModel;
 
   setUp(() {
     mockAuthService = MockAuthService();
@@ -23,12 +23,12 @@ void main() {
   });
 
   void stubSignInAnonymouslyReturnsUser() {
-    when(mockAuthService.signInAnonymously())
+    when(mockAuthService!.signInAnonymously())
         .thenAnswer((_) => Future<User>.value(User(uid: '123')));
   }
 
   void stubSignInAnonymouslyThrows(Exception exception) {
-    when(mockAuthService.signInAnonymously()).thenThrow(exception);
+    when(mockAuthService!.signInAnonymously()).thenThrow(exception);
   }
 
   test(
@@ -37,9 +37,9 @@ void main() {
       'THEN isLoading is true', () async {
     stubSignInAnonymouslyReturnsUser();
 
-    await viewModel.signInAnonymously();
+    await viewModel!.signInAnonymously();
 
-    expect(viewModel.isLoading, true);
+    expect(viewModel!.isLoading, true);
   });
 
   test(
@@ -50,8 +50,9 @@ void main() {
     final exception = PlatformException(code: 'ERROR_MISSING_PERMISSIONS');
     stubSignInAnonymouslyThrows(exception);
 
-    expect(() async => await viewModel.signInAnonymously(), throwsA(exception));
+    expect(
+        () async => await viewModel!.signInAnonymously(), throwsA(exception));
 
-    expect(viewModel.isLoading, false);
+    expect(viewModel!.isLoading, false);
   });
 }

@@ -12,9 +12,9 @@ import 'mocks.dart';
 
 void main() {
   group('sign-in page', () {
-    MockAuthService mockAuthService;
-    MockNavigatorObserver mockNavigatorObserver;
-    StreamController<User> onAuthStateChangedController;
+    MockAuthService? mockAuthService;
+    MockNavigatorObserver? mockNavigatorObserver;
+    StreamController<User>? onAuthStateChangedController;
 
     setUp(() {
       mockAuthService = MockAuthService();
@@ -23,7 +23,7 @@ void main() {
     });
 
     tearDown(() {
-      onAuthStateChangedController.close();
+      onAuthStateChangedController?.close();
     });
 
     Future<void> pumpSignInPage(WidgetTester tester) async {
@@ -31,18 +31,18 @@ void main() {
         MultiProvider(
           providers: [
             Provider<FirebaseAuthService>(
-              create: (_) => mockAuthService,
+              create: (_) => mockAuthService!,
             ),
           ],
           child: MaterialApp(
             home: SignInPageBuilder(),
             onGenerateRoute: Router.onGenerateRoute,
-            navigatorObservers: [mockNavigatorObserver],
+            navigatorObservers: [mockNavigatorObserver!],
           ),
         ),
       );
       // didPush is called once when the widget is first built
-      verify(mockNavigatorObserver.didPush(any, any)).called(1);
+      verify(mockNavigatorObserver!.didPush(any, any)).called(1);
     }
 
     testWidgets('email & password navigation', (WidgetTester tester) async {
@@ -54,7 +54,7 @@ void main() {
       await tester.tap(emailPasswordButton);
       await tester.pumpAndSettle();
 
-      verify(mockNavigatorObserver.didPush(any, any)).called(1);
+      verify(mockNavigatorObserver!.didPush(any, any)).called(1);
     });
   });
 }

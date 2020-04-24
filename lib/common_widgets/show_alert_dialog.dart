@@ -24,12 +24,12 @@ extension PlatformWeb on Platform {
   }
 }
 
-Future<bool> showAlertDialog({
-  @required BuildContext context,
-  @required String title,
-  @required String content,
-  String cancelActionText,
-  @required String defaultActionText,
+Future<bool?> showAlertDialog({
+  required BuildContext context,
+  required String title,
+  required String content,
+  String? cancelActionText,
+  required String defaultActionText,
 }) async {
   if (PlatformWeb.isWeb || !Platform.isIOS) {
     return await showDialog(
