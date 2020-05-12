@@ -18,7 +18,7 @@ class EmailPasswordSignInPageBuilder extends StatelessWidget {
     final navigator = Navigator.of(context);
     await navigator.pushNamed(
       Routes.emailPasswordSignInPageBuilder,
-      arguments: navigator.pop,
+      arguments: () => navigator.pop(),
     );
   }
 

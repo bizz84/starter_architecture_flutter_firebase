@@ -52,6 +52,8 @@ analyzer:
 
 linter:
   rules:
+    # navigator.pop inside a closure requires this
+    unnecessary_lambdas: false
     # It's ok
     cascade_invocations: false
     # Ignored in tests
