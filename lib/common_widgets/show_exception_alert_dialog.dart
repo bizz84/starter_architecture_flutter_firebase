@@ -6,8 +6,8 @@ Future<void> showExceptionAlertDialog({
   @required BuildContext context,
   @required String title,
   @required dynamic exception,
-}) async =>
-    await showAlertDialog(
+}) =>
+    showAlertDialog(
       context: context,
       title: title,
       content: _message(exception),

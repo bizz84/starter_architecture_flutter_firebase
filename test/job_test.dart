@@ -8,15 +8,15 @@ void main() {
       expect(job, null);
     });
     test('job with all properties', () {
-      final job = Job.fromMap({
+      final job = Job.fromMap(const {
         'name': 'Blogging',
         'ratePerHour': 10,
       }, 'abc');
-      expect(job, Job(name: 'Blogging', ratePerHour: 10, id: 'abc'));
+      expect(job, const Job(name: 'Blogging', ratePerHour: 10, id: 'abc'));
     });
 
     test('missing name', () {
-      final job = Job.fromMap({
+      final job = Job.fromMap(const {
         'ratePerHour': 10,
       }, 'abc');
       expect(job, null);
@@ -25,7 +25,7 @@ void main() {
 
   group('toMap', () {
     test('valid name, ratePerHour', () {
-      final job = Job(name: 'Blogging', ratePerHour: 10, id: 'abc');
+      const job = Job(name: 'Blogging', ratePerHour: 10, id: 'abc');
       expect(job.toMap(), {
         'name': 'Blogging',
         'ratePerHour': 10,

@@ -4,8 +4,9 @@ import 'package:starter_architecture_flutter_firebase/app/home/tab_item.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
 
+@immutable
 class CupertinoHomeScaffold extends StatelessWidget {
-  CupertinoHomeScaffold({
+  const CupertinoHomeScaffold({
     Key key,
     @required this.currentTab,
     @required this.onSelectTab,

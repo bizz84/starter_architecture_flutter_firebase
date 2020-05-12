@@ -22,6 +22,6 @@ class SignInViewModel with ChangeNotifier {
   }
 
   Future<User> signInAnonymously() async {
-    return await _signIn(auth.signInAnonymously);
+    return _signIn(auth.signInAnonymously);
   }
 }

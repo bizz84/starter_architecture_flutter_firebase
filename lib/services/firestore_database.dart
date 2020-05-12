@@ -9,12 +9,13 @@ import 'package:starter_architecture_flutter_firebase/services/firestore_service
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
 class FirestoreDatabase {
-  FirestoreDatabase({@required this.uid}) : assert(uid != null);
+  FirestoreDatabase({@required this.uid})
+      : assert(uid != null, 'Cannot create FirestoreDatabase with null uid');
   final String uid;
 
   final _service = FirestoreService.instance;
 
-  Future<void> setJob(Job job) async => await _service.setData(
+  Future<void> setJob(Job job) => _service.setData(
         path: FirestorePath.job(uid, job.id),
         data: job.toMap(),
       );
@@ -22,7 +23,7 @@ class FirestoreDatabase {
   Future<void> deleteJob(Job job) async {
     // delete where entry.jobId == job.jobId
     final allEntries = await entriesStream(job: job).first;
-    for (Entry entry in allEntries) {
+    for (final entry in allEntries) {
       if (entry.jobId == job.id) {
         await deleteEntry(entry);
       }
@@ -41,13 +42,13 @@ class FirestoreDatabase {
         builder: (data, documentId) => Job.fromMap(data, documentId),
       );
 
-  Future<void> setEntry(Entry entry) async => await _service.setData(
+  Future<void> setEntry(Entry entry) => _service.setData(
         path: FirestorePath.entry(uid, entry.id),
         data: entry.toMap(),
       );
 
-  Future<void> deleteEntry(Entry entry) async =>
-      await _service.deleteData(path: FirestorePath.entry(uid, entry.id));
+  Future<void> deleteEntry(Entry entry) =>
+      _service.deleteData(path: FirestorePath.entry(uid, entry.id));
 
   Stream<List<Entry>> entriesStream({Job job}) =>
       _service.collectionStream<Entry>(

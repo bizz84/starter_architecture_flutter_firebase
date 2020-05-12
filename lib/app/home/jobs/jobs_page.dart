@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/job_entries_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
@@ -10,6 +9,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
+import 'package:pedantic/pedantic.dart';
 
 class JobsPage extends StatelessWidget {
   Future<void> _delete(BuildContext context, Job job) async {
@@ -17,11 +17,11 @@ class JobsPage extends StatelessWidget {
       final database = Provider.of<FirestoreDatabase>(context, listen: false);
       await database.deleteJob(job);
     } catch (e) {
-      showExceptionAlertDialog(
+      unawaited(showExceptionAlertDialog(
         context: context,
         title: 'Operation failed',
         exception: e,
-      );
+      ));
     }
   }
 
@@ -29,7 +29,7 @@ class JobsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.jobs),
+        title: const Text(Strings.jobs),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add, color: Colors.white),

@@ -13,7 +13,6 @@
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 // Imports the Flutter Driver API.
 import 'package:flutter_driver/flutter_driver.dart';
-import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -30,7 +29,7 @@ void main() {
   // Close the connection to the driver after the tests have completed.
   tearDownAll(() async {
     if (driver != null) {
-      driver.close();
+      await driver.close();
     }
   });
 

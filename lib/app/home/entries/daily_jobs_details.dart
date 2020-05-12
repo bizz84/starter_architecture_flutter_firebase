@@ -29,8 +29,8 @@ class DailyJobsDetails {
 
   /// splits all entries into separate groups by date
   static Map<DateTime, List<EntryJob>> _entriesByDate(List<EntryJob> entries) {
-    Map<DateTime, List<EntryJob>> map = {};
-    for (var entryJob in entries) {
+    final Map<DateTime, List<EntryJob>> map = {};
+    for (final entryJob in entries) {
       final entryDayStart = DateTime(entryJob.entry.start.year,
           entryJob.entry.start.month, entryJob.entry.start.day);
       if (map[entryDayStart] == null) {
@@ -45,8 +45,8 @@ class DailyJobsDetails {
   /// maps an unordered list of EntryJob into a list of DailyJobsDetails with date information
   static List<DailyJobsDetails> all(List<EntryJob> entries) {
     final byDate = _entriesByDate(entries);
-    List<DailyJobsDetails> list = [];
-    for (var date in byDate.keys) {
+    final List<DailyJobsDetails> list = [];
+    for (final date in byDate.keys) {
       final entriesByDate = byDate[date];
       final byJob = _jobsDetails(entriesByDate);
       list.add(DailyJobsDetails(date: date, jobsDetails: byJob));
@@ -56,8 +56,8 @@ class DailyJobsDetails {
 
   /// groups entries by job
   static List<JobDetails> _jobsDetails(List<EntryJob> entries) {
-    Map<String, JobDetails> jobDuration = {};
-    for (var entryJob in entries) {
+    final Map<String, JobDetails> jobDuration = {};
+    for (final entryJob in entries) {
       final entry = entryJob.entry;
       final pay = entry.durationInHours * entryJob.job.ratePerHour;
       if (jobDuration[entry.jobId] == null) {

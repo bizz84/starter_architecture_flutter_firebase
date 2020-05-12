@@ -29,7 +29,7 @@ class EmailPasswordSignInPageBuilder extends StatelessWidget {
     return ChangeNotifierProvider<EmailPasswordSignInModel>(
       create: (_) => EmailPasswordSignInModel(auth: auth),
       child: Consumer<EmailPasswordSignInModel>(
-        builder: (_, EmailPasswordSignInModel model, __) =>
+        builder: (_, model, __) =>
             EmailPasswordSignInPage(model: model, onSignedIn: onSignedIn),
       ),
     );
@@ -115,7 +115,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
 
   Widget _buildEmailField() {
     return TextField(
-      key: Key('email'),
+      key: const Key('email'),
       controller: _emailController,
       decoration: InputDecoration(
         labelText: Strings.emailLabel,
@@ -137,7 +137,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
 
   Widget _buildPasswordField() {
     return TextField(
-      key: Key('password'),
+      key: const Key('password'),
       controller: _passwordController,
       decoration: InputDecoration(
         labelText: model.passwordLabelText,
@@ -159,23 +159,23 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           _buildEmailField(),
           if (model.formType !=
               EmailPasswordSignInFormType.forgotPassword) ...<Widget>[
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             _buildPasswordField(),
           ],
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           FormSubmitButton(
-            key: Key('primary-button'),
+            key: const Key('primary-button'),
             text: model.primaryButtonText,
             loading: model.isLoading,
             onPressed: model.isLoading ? null : _submit,
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           FlatButton(
-            key: Key('secondary-button'),
+            key: const Key('secondary-button'),
             child: Text(model.secondaryButtonText),
             onPressed: model.isLoading
                 ? null
@@ -183,7 +183,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
           ),
           if (model.formType == EmailPasswordSignInFormType.signIn)
             FlatButton(
-              key: Key('tertiary-button'),
+              key: const Key('tertiary-button'),
               child: Text(Strings.forgotPasswordQuestion),
               onPressed: model.isLoading
                   ? null
@@ -205,10 +205,10 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
       backgroundColor: Colors.grey[200],
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Card(
             child: Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: _buildContent(),
             ),
           ),

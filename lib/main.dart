@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       ],
       child: AuthWidgetBuilder(
         databaseBuilder: databaseBuilder,
-        builder: (BuildContext context, AsyncSnapshot<User> userSnapshot) {
+        builder: (context, userSnapshot) {
           return MaterialApp(
             theme: ThemeData(primarySwatch: Colors.indigo),
             debugShowCheckedModeBanner: false,

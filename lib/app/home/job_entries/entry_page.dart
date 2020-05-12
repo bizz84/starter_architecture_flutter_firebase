@@ -9,6 +9,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
+import 'package:pedantic/pedantic.dart';
 
 class EntryPage extends StatefulWidget {
   const EntryPage({@required this.job, this.entry});
@@ -72,11 +73,11 @@ class _EntryPageState extends State<EntryPage> {
       await database.setEntry(entry);
       Navigator.of(context).pop();
     } catch (e) {
-      showExceptionAlertDialog(
+      unawaited(showExceptionAlertDialog(
         context: context,
         title: 'Operation failed',
         exception: e,
-      );
+      ));
     }
   }
 
@@ -98,16 +99,16 @@ class _EntryPageState extends State<EntryPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildStartDate(),
               _buildEndDate(),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               _buildDuration(),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               _buildComment(),
             ],
           ),
