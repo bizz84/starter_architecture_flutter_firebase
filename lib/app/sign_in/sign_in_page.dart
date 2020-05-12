@@ -6,7 +6,6 @@ import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
@@ -18,7 +17,7 @@ class SignInPageBuilder extends StatelessWidget {
     return ChangeNotifierProvider<SignInViewModel>(
       create: (_) => SignInViewModel(auth: auth),
       child: Consumer<SignInViewModel>(
-        builder: (_, SignInViewModel viewModel, __) => SignInPage._(
+        builder: (_, viewModel, __) => SignInPage._(
           viewModel: viewModel,
           title: 'Architecture Demo',
         ),
@@ -35,8 +34,7 @@ class SignInPage extends StatelessWidget {
   static const Key emailPasswordButtonKey = Key(Keys.emailPassword);
   static const Key anonymousButtonKey = Key(Keys.anonymous);
 
-  Future<void> _showSignInError(
-      BuildContext context, PlatformException exception) async {
+  Future<void> _showSignInError(BuildContext context, dynamic exception) async {
     await showExceptionAlertDialog(
       context: context,
       title: Strings.signInFailed,
@@ -48,7 +46,7 @@ class SignInPage extends StatelessWidget {
     try {
       await viewModel.signInAnonymously();
     } catch (e) {
-      _showSignInError(context, e);
+      await _showSignInError(context, e);
     }
   }
 
@@ -66,7 +64,7 @@ class SignInPage extends StatelessWidget {
 
   Widget _buildHeader() {
     if (viewModel.isLoading) {
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(),
       );
     }
@@ -80,17 +78,17 @@ class SignInPage extends StatelessWidget {
   Widget _buildSignIn(BuildContext context) {
     // Make content scrollable so that it fits on small screens
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          SizedBox(height: 32.0),
+          const SizedBox(height: 32.0),
           SizedBox(
             height: 50.0,
             child: _buildHeader(),
           ),
-          SizedBox(height: 32.0),
+          const SizedBox(height: 32.0),
           SignInButton(
             key: emailPasswordButtonKey,
             text: Strings.signInWithEmailPassword,
@@ -100,13 +98,13 @@ class SignInPage extends StatelessWidget {
             textColor: Colors.white,
             color: Theme.of(context).primaryColor,
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             Strings.or,
             style: TextStyle(fontSize: 14.0, color: Colors.black87),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           SignInButton(
             key: anonymousButtonKey,
             text: Strings.goAnonymous,

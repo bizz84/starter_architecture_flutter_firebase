@@ -16,7 +16,7 @@ class AuthWidget extends StatelessWidget {
     if (userSnapshot.connectionState == ConnectionState.active) {
       return userSnapshot.hasData ? HomePage() : SignInPageBuilder();
     }
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: CircularProgressIndicator(),
       ),

@@ -8,6 +8,7 @@ import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
+import 'package:pedantic/pedantic.dart';
 
 class AccountPage extends StatelessWidget {
   Future<void> _signOut(BuildContext context) async {
@@ -16,11 +17,11 @@ class AccountPage extends StatelessWidget {
           Provider.of<FirebaseAuthService>(context, listen: false);
       await auth.signOut();
     } catch (e) {
-      await showExceptionAlertDialog(
+      unawaited(showExceptionAlertDialog(
         context: context,
         title: Strings.logoutFailed,
         exception: e,
-      );
+      ));
     }
   }
 
@@ -34,7 +35,7 @@ class AccountPage extends StatelessWidget {
         ) ??
         false;
     if (didRequestSignOut == true) {
-      _signOut(context);
+      await _signOut(context);
     }
   }
 
@@ -58,7 +59,7 @@ class AccountPage extends StatelessWidget {
           ),
         ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(130.0),
+          preferredSize: const Size.fromHeight(130.0),
           child: _buildUserInfo(user),
         ),
       ),
@@ -74,13 +75,13 @@ class AccountPage extends StatelessWidget {
           borderColor: Colors.black54,
           borderWidth: 2.0,
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         if (user.displayName != null)
           Text(
             user.displayName,
             style: TextStyle(color: Colors.white),
           ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
       ],
     );
   }

@@ -19,7 +19,7 @@ class EntryListItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Row(
           children: <Widget>[
             Expanded(
@@ -47,8 +47,8 @@ class EntryListItem extends StatelessWidget {
       children: <Widget>[
         Row(children: <Widget>[
           Text(dayOfWeek, style: TextStyle(fontSize: 18.0, color: Colors.grey)),
-          SizedBox(width: 15.0),
-          Text(startDate, style: TextStyle(fontSize: 18.0)),
+          const SizedBox(width: 15.0),
+          Text(startDate, style: const TextStyle(fontSize: 18.0)),
           if (job.ratePerHour > 0.0) ...<Widget>[
             Expanded(child: Container()),
             Text(
@@ -58,14 +58,14 @@ class EntryListItem extends StatelessWidget {
           ],
         ]),
         Row(children: <Widget>[
-          Text('$startTime - $endTime', style: TextStyle(fontSize: 16.0)),
+          Text('$startTime - $endTime', style: const TextStyle(fontSize: 16.0)),
           Expanded(child: Container()),
-          Text(durationFormatted, style: TextStyle(fontSize: 16.0)),
+          Text(durationFormatted, style: const TextStyle(fontSize: 16.0)),
         ]),
         if (entry.comment.isNotEmpty)
           Text(
             entry.comment,
-            style: TextStyle(fontSize: 12.0),
+            style: const TextStyle(fontSize: 12.0),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
@@ -76,14 +76,14 @@ class EntryListItem extends StatelessWidget {
 
 class DismissibleEntryListItem extends StatelessWidget {
   const DismissibleEntryListItem({
-    this.key,
+    this.dismissibleKey,
     this.entry,
     this.job,
     this.onDismissed,
     this.onTap,
   });
 
-  final Key key;
+  final Key dismissibleKey;
   final Entry entry;
   final Job job;
   final VoidCallback onDismissed;
@@ -93,7 +93,7 @@ class DismissibleEntryListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       background: Container(color: Colors.red),
-      key: key,
+      key: dismissibleKey,
       direction: DismissDirection.endToStart,
       onDismissed: (direction) => onDismissed(),
       child: EntryListItem(

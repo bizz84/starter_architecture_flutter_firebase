@@ -24,7 +24,7 @@ class CustomRaisedButton extends StatelessWidget {
     final ThemeData data = Theme.of(context);
     return Theme(
       data: data.copyWith(accentColor: Colors.white70),
-      child: SizedBox(
+      child: const SizedBox(
         width: 28,
         height: 28,
         child: CircularProgressIndicator(

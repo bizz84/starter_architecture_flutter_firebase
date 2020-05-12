@@ -36,7 +36,7 @@ void main() {
 
   void stubSignInWithEmailAndPasswordSucceeds() {
     when(mockAuth.signInWithEmailAndPassword(any, any))
-        .thenAnswer((_) => Future<User>.value(User(uid: '123')));
+        .thenAnswer((_) => Future<User>.value(const User(uid: '123')));
   }
 
   void stubSignInWithEmailAndPasswordThrows() {
@@ -46,7 +46,7 @@ void main() {
 
   void stubCreateUserWithEmailAndPasswordSucceeds() {
     when(mockAuth.createUserWithEmailAndPassword(any, any))
-        .thenAnswer((_) => Future<User>.value(User(uid: '123')));
+        .thenAnswer((_) => Future<User>.value(const User(uid: '123')));
   }
 
   void stubCreateUserWithEmailAndPasswordThrows() {
@@ -63,12 +63,11 @@ void main() {
     testWidgets(
         'WHEN user doesn\'t enter the email and password'
         'AND user taps on the sign-in button'
-        'THEN signInWithEmailAndPassword is not called',
-        (WidgetTester tester) async {
+        'THEN signInWithEmailAndPassword is not called', (tester) async {
       var signedIn = false;
       await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
 
-      final primaryButton = find.byKey(Key('primary-button'));
+      final primaryButton = find.byKey(const Key('primary-button'));
       expect(primaryButton, findsOneWidget);
       await tester.tap(primaryButton);
 
@@ -80,7 +79,7 @@ void main() {
         'WHEN user enters valid email and password'
         'AND user taps on the sign-in button'
         'THEN signInWithEmailAndPassword is called'
-        'AND user is signed in', (WidgetTester tester) async {
+        'AND user is signed in', (tester) async {
       const email = 'email@email.com';
       const password = 'password';
 
@@ -89,18 +88,18 @@ void main() {
       var signedIn = false;
       await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
 
-      final emailField = find.byKey(Key('email'));
+      final emailField = find.byKey(const Key('email'));
       expect(emailField, findsOneWidget);
       await tester.enterText(emailField, email);
 
-      final passwordField = find.byKey(Key('password'));
+      final passwordField = find.byKey(const Key('password'));
       expect(passwordField, findsOneWidget);
       await tester.enterText(passwordField, password);
 
       // trigger frame
       await tester.pump();
 
-      final primaryButton = find.byKey(Key('primary-button'));
+      final primaryButton = find.byKey(const Key('primary-button'));
       expect(primaryButton, findsOneWidget);
       await tester.tap(primaryButton);
 
@@ -112,7 +111,7 @@ void main() {
         'WHEN user enters invalid email and password'
         'AND user taps on the sign-in button'
         'THEN signInWithEmailAndPassword is called'
-        'AND user is not signed in', (WidgetTester tester) async {
+        'AND user is not signed in', (tester) async {
       const email = 'email@email.com';
       const password = 'password';
 
@@ -121,18 +120,18 @@ void main() {
       var signedIn = false;
       await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
 
-      final emailField = find.byKey(Key('email'));
+      final emailField = find.byKey(const Key('email'));
       expect(emailField, findsOneWidget);
       await tester.enterText(emailField, email);
 
-      final passwordField = find.byKey(Key('password'));
+      final passwordField = find.byKey(const Key('password'));
       expect(passwordField, findsOneWidget);
       await tester.enterText(passwordField, password);
 
       // trigger frame
       await tester.pump();
 
-      final primaryButton = find.byKey(Key('primary-button'));
+      final primaryButton = find.byKey(const Key('primary-button'));
       expect(primaryButton, findsOneWidget);
       await tester.tap(primaryButton);
 
@@ -144,11 +143,11 @@ void main() {
   group('register', () {
     testWidgets(
         'WHEN user taps on the `need account` button'
-        'THEN form toggles to registration mode', (WidgetTester tester) async {
+        'THEN form toggles to registration mode', (tester) async {
       var signedIn = false;
       await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
 
-      final secondaryButton = find.byKey(Key('secondary-button'));
+      final secondaryButton = find.byKey(const Key('secondary-button'));
       await tester.tap(secondaryButton);
 
       await tester.pump();
@@ -165,7 +164,7 @@ void main() {
         'AND user enters valid email and password'
         'AND user taps on the register button'
         'THEN createUserWithEmailAndPassword is called'
-        'AND user is signed in', (WidgetTester tester) async {
+        'AND user is signed in', (tester) async {
       const email = 'email@email.com';
       const password = 'password';
 
@@ -175,14 +174,14 @@ void main() {
       await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
 
       // Toggle form
-      final secondaryButton = find.byKey(Key('secondary-button'));
+      final secondaryButton = find.byKey(const Key('secondary-button'));
       await tester.tap(secondaryButton);
 
-      final emailField = find.byKey(Key('email'));
+      final emailField = find.byKey(const Key('email'));
       expect(emailField, findsOneWidget);
       await tester.enterText(emailField, email);
 
-      final passwordField = find.byKey(Key('password'));
+      final passwordField = find.byKey(const Key('password'));
       expect(passwordField, findsOneWidget);
       await tester.enterText(passwordField, password);
 
@@ -202,7 +201,7 @@ void main() {
         'AND user enters invalid email and password'
         'AND user taps on the register button'
         'THEN createUserWithEmailAndPassword is called'
-        'AND user is not signed in', (WidgetTester tester) async {
+        'AND user is not signed in', (tester) async {
       const email = 'email@email.com';
       const password = 'password';
 
@@ -212,14 +211,14 @@ void main() {
       await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
 
       // Toggle form
-      final secondaryButton = find.byKey(Key('secondary-button'));
+      final secondaryButton = find.byKey(const Key('secondary-button'));
       await tester.tap(secondaryButton);
 
-      final emailField = find.byKey(Key('email'));
+      final emailField = find.byKey(const Key('email'));
       expect(emailField, findsOneWidget);
       await tester.enterText(emailField, email);
 
-      final passwordField = find.byKey(Key('password'));
+      final passwordField = find.byKey(const Key('password'));
       expect(passwordField, findsOneWidget);
       await tester.enterText(passwordField, password);
 
@@ -238,12 +237,11 @@ void main() {
   group('forgot password', () {
     testWidgets(
         'WHEN user taps on the forgot password button'
-        'THEN form toggles to forgot password mode',
-        (WidgetTester tester) async {
+        'THEN form toggles to forgot password mode', (tester) async {
       var signedIn = false;
       await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
 
-      final secondaryButton = find.byKey(Key('tertiary-button'));
+      final secondaryButton = find.byKey(const Key('tertiary-button'));
       await tester.tap(secondaryButton);
 
       await tester.pump();
@@ -261,7 +259,7 @@ void main() {
       'AND user enters an email'
       'AND user taps on the send reset password link'
       'THEN sendPasswordResetEmail is called'
-      'AND user is not signed in', (WidgetTester tester) async {
+      'AND user is not signed in', (tester) async {
     const email = 'email@email.com';
 
     stubSendPasswordResetEmailSucceeds();
@@ -270,10 +268,10 @@ void main() {
     await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
 
     // Toggle form
-    final secondaryButton = find.byKey(Key('tertiary-button'));
+    final secondaryButton = find.byKey(const Key('tertiary-button'));
     await tester.tap(secondaryButton);
 
-    final emailField = find.byKey(Key('email'));
+    final emailField = find.byKey(const Key('email'));
     expect(emailField, findsOneWidget);
     await tester.enterText(emailField, email);
 

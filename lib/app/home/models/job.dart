@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:meta/meta.dart';
 
+@immutable
 class Job {
-  Job({@required this.id, @required this.name, @required this.ratePerHour});
+  const Job(
+      {@required this.id, @required this.name, @required this.ratePerHour});
   final String id;
   final String name;
   final int ratePerHour;
@@ -31,7 +33,7 @@ class Job {
   int get hashCode => hashValues(id, name, ratePerHour);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (runtimeType != other.runtimeType) return false;
     final Job otherJob = other;

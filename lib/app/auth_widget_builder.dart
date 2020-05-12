@@ -20,7 +20,7 @@ class AuthWidgetBuilder extends StatelessWidget {
         Provider.of<FirebaseAuthService>(context, listen: false);
     return StreamBuilder<User>(
       stream: authService.onAuthStateChanged,
-      builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+      builder: (context, snapshot) {
         final User user = snapshot.data;
         if (user != null) {
           return MultiProvider(

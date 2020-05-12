@@ -54,7 +54,7 @@ void main() {
     testWidgets(
         'WHEN onAuthStateChanged in waiting state'
         'THEN calls builder with snapshot in waiting state'
-        'AND doesn\'t find MultiProvider', (WidgetTester tester) async {
+        'AND doesn\'t find MultiProvider', (tester) async {
       stubOnAuthStateChangedYields(<User>[]);
 
       final snapshots = <AsyncSnapshot<User>>[];
@@ -63,7 +63,7 @@ void main() {
         return Container();
       });
       expect(snapshots, [
-        AsyncSnapshot<User>.withData(ConnectionState.waiting, null),
+        const AsyncSnapshot<User>.withData(ConnectionState.waiting, null),
       ]);
       expect(find.byType(MultiProvider), findsNothing);
     });
@@ -71,7 +71,7 @@ void main() {
     testWidgets(
         'WHEN onAuthStateChanged returns null user'
         'THEN calls builder with null user and active state'
-        'AND doesn\'t find MultiProvider', (WidgetTester tester) async {
+        'AND doesn\'t find MultiProvider', (tester) async {
       stubOnAuthStateChangedYields(<User>[null]);
 
       final snapshots = <AsyncSnapshot<User>>[];
@@ -80,8 +80,8 @@ void main() {
         return Container();
       });
       expect(snapshots, [
-        AsyncSnapshot<User>.withData(ConnectionState.waiting, null),
-        AsyncSnapshot<User>.withData(ConnectionState.active, null),
+        const AsyncSnapshot<User>.withData(ConnectionState.waiting, null),
+        const AsyncSnapshot<User>.withData(ConnectionState.active, null),
       ]);
       expect(find.byType(MultiProvider), findsNothing);
     });
@@ -89,8 +89,8 @@ void main() {
     testWidgets(
         'WHEN onAuthStateChanged returns valid user'
         'THEN calls builder with same user and active state'
-        'AND finds MultiProvider', (WidgetTester tester) async {
-      final user = User(uid: '123');
+        'AND finds MultiProvider', (tester) async {
+      const user = User(uid: '123');
       stubOnAuthStateChangedYields(<User>[user]);
 
       final snapshots = <AsyncSnapshot<User>>[];
@@ -99,8 +99,8 @@ void main() {
         return Container();
       });
       expect(snapshots, [
-        AsyncSnapshot<User>.withData(ConnectionState.waiting, null),
-        AsyncSnapshot<User>.withData(ConnectionState.active, user),
+        const AsyncSnapshot<User>.withData(ConnectionState.waiting, null),
+        const AsyncSnapshot<User>.withData(ConnectionState.active, user),
       ]);
       expect(find.byType(MultiProvider), findsOneWidget);
     });

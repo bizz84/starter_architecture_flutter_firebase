@@ -24,7 +24,7 @@ void main() {
 
   void stubSignInAnonymouslyReturnsUser() {
     when(mockAuthService.signInAnonymously())
-        .thenAnswer((_) => Future<User>.value(User(uid: '123')));
+        .thenAnswer((_) => Future<User>.value(const User(uid: '123')));
   }
 
   void stubSignInAnonymouslyThrows(Exception exception) {
@@ -50,7 +50,7 @@ void main() {
     final exception = PlatformException(code: 'ERROR_MISSING_PERMISSIONS');
     stubSignInAnonymouslyThrows(exception);
 
-    expect(() async => await viewModel.signInAnonymously(), throwsA(exception));
+    expect(() => viewModel.signInAnonymously(), throwsA(exception));
 
     expect(viewModel.isLoading, false);
   });

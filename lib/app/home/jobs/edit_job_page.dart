@@ -6,6 +6,7 @@ import 'package:starter_architecture_flutter_firebase/common_widgets/show_alert_
 import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
+import 'package:pedantic/pedantic.dart';
 
 class EditJobPage extends StatefulWidget {
   const EditJobPage({Key key, this.job}) : super(key: key);
@@ -57,12 +58,12 @@ class _EditJobPageState extends State<EditJobPage> {
           allLowerCaseNames.remove(widget.job.name.toLowerCase());
         }
         if (allLowerCaseNames.contains(_name.toLowerCase())) {
-          showAlertDialog(
+          unawaited(showAlertDialog(
             context: context,
             title: 'Name already used',
             content: 'Please choose a different job name',
             defaultActionText: 'OK',
-          );
+          ));
         } else {
           final id = widget.job?.id ?? documentIdFromCurrentDate();
           final job = Job(id: id, name: _name, ratePerHour: _ratePerHour);
@@ -70,11 +71,11 @@ class _EditJobPageState extends State<EditJobPage> {
           Navigator.of(context).pop();
         }
       } catch (e) {
-        showExceptionAlertDialog(
+        unawaited(showExceptionAlertDialog(
           context: context,
           title: 'Operation failed',
           exception: e,
-        );
+        ));
       }
     }
   }
@@ -127,17 +128,17 @@ class _EditJobPageState extends State<EditJobPage> {
   List<Widget> _buildFormChildren() {
     return [
       TextFormField(
-        decoration: InputDecoration(labelText: 'Job name'),
+        decoration: const InputDecoration(labelText: 'Job name'),
         keyboardAppearance: Brightness.light,
         initialValue: _name,
         validator: (value) => value.isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _name = value,
       ),
       TextFormField(
-        decoration: InputDecoration(labelText: 'Rate per hour'),
+        decoration: const InputDecoration(labelText: 'Rate per hour'),
         keyboardAppearance: Brightness.light,
         initialValue: _ratePerHour != null ? '$_ratePerHour' : null,
-        keyboardType: TextInputType.numberWithOptions(
+        keyboardType: const TextInputType.numberWithOptions(
           signed: false,
           decimal: false,
         ),

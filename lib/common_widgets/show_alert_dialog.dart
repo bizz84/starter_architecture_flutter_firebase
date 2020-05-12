@@ -32,7 +32,7 @@ Future<bool> showAlertDialog({
   @required String defaultActionText,
 }) async {
   if (PlatformWeb.isWeb || !Platform.isIOS) {
-    return await showDialog(
+    return showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(title),
@@ -51,7 +51,7 @@ Future<bool> showAlertDialog({
       ),
     );
   }
-  return await showCupertinoDialog(
+  return showCupertinoDialog(
     context: context,
     builder: (context) => CupertinoAlertDialog(
       title: Text(title),

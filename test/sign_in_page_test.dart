@@ -45,7 +45,7 @@ void main() {
       verify(mockNavigatorObserver.didPush(any, any)).called(1);
     }
 
-    testWidgets('email & password navigation', (WidgetTester tester) async {
+    testWidgets('email & password navigation', (tester) async {
       await pumpSignInPage(tester);
 
       final emailPasswordButton = find.byKey(SignInPage.emailPasswordButtonKey);

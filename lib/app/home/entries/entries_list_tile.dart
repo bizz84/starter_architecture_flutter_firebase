@@ -23,10 +23,10 @@ class EntriesListTile extends StatelessWidget {
     const fontSize = 16.0;
     return Container(
       color: model.isHeader ? Colors.indigo[100] : null,
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: Row(
         children: <Widget>[
-          Text(model.leadingText, style: TextStyle(fontSize: fontSize)),
+          Text(model.leadingText, style: const TextStyle(fontSize: fontSize)),
           Expanded(child: Container()),
           if (model.middleText != null)
             Text(
@@ -38,7 +38,7 @@ class EntriesListTile extends StatelessWidget {
             width: 60.0,
             child: Text(
               model.trailingText,
-              style: TextStyle(fontSize: fontSize),
+              style: const TextStyle(fontSize: fontSize),
               textAlign: TextAlign.right,
             ),
           ),
