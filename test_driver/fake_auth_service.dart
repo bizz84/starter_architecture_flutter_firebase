@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:random_string/random_string.dart' as random;
-import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
+import 'package:firebase_auth_service/firebase_auth_service.dart';
 
+// TODO: Move to firebase_auth_service package
 /// Fake authentication service to be used for testing the UI
 /// Keeps an in-memory store of registered accounts so that registration and sign in flows can be tested.
 class FakeAuthService implements FirebaseAuthService {

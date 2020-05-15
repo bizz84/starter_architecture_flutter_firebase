@@ -19,7 +19,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_auth: 0.15.5+3
+  firebase_auth: ^0.16.0
+  firebase_auth_service:
+    git:
+      url: https://github.com/bizz84/flutter_core_packages
+      path: packages/firebase_auth_service
   provider: 4.0.5
   rxdart: 0.23.1
   cloud_firestore: 0.13.4+2

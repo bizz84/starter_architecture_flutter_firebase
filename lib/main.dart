@@ -4,7 +4,7 @@ import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
-import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
+import 'package:firebase_auth_service/firebase_auth_service.dart';
 
 void main() => runApp(MyApp(
       authServiceBuilder: (_) => FirebaseAuthService(),

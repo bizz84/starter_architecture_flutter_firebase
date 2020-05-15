@@ -1,3 +1,4 @@
+import 'package:firebase_auth_service/firebase_auth_service.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_model.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/form_submit_button.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/show_alert_dialog.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.dart';
-import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
 
 class EmailPasswordSignInPageBuilder extends StatelessWidget {
   const EmailPasswordSignInPageBuilder({Key key, this.onSignedIn})
