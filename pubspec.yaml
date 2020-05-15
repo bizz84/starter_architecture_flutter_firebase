@@ -33,6 +33,11 @@ dependencies:
     git:
       url: https://github.com/bizz84/flutter_core_packages
       path: packages/alert_dialogs
+  custom_buttons:
+    git:
+      url: https://github.com/bizz84/flutter_core_packages
+      path: packages/custom_buttons
+      
   provider: 4.0.5
   rxdart: 0.23.1
   intl: 0.16.1

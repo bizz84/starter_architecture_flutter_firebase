@@ -1,6 +1,6 @@
+import 'package:custom_buttons/custom_buttons.dart';
 import 'package:firebase_auth_service/firebase_auth_service.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_model.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/form_submit_button.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/material.dart';
