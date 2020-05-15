@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:firestore_service/firestore_service.dart';
 import 'package:meta/meta.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_path.dart';
-import 'package:starter_architecture_flutter_firebase/services/firestore_service.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
