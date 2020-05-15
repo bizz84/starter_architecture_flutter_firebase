@@ -24,13 +24,17 @@ dependencies:
     git:
       url: https://github.com/bizz84/flutter_core_packages
       path: packages/firebase_auth_service
-  provider: 4.0.5
-  rxdart: 0.23.1
   cloud_firestore: ^0.13.5
   firestore_service:
     git:
       url: https://github.com/bizz84/flutter_core_packages
       path: packages/firestore_service
+  alert_dialogs:
+    git:
+      url: https://github.com/bizz84/flutter_core_packages
+      path: packages/alert_dialogs
+  provider: 4.0.5
+  rxdart: 0.23.1
   intl: 0.16.1
 
   # The following adds the Cupertino Icons font to your application.

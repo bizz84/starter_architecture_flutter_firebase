@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:starter_architecture_flutter_firebase/common_widgets/avatar.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/show_alert_dialog.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
+import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/material.dart';
