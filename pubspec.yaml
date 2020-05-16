@@ -24,6 +24,10 @@ dependencies:
     git:
       url: https://github.com/bizz84/flutter_core_packages
       path: packages/firebase_auth_service
+  auth_widget_builder:
+    git:
+      url: https://github.com/bizz84/flutter_core_packages
+      path: packages/auth_widget_builder
   cloud_firestore: ^0.13.5
   firestore_service:
     git:
