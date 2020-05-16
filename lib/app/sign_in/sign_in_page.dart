@@ -1,13 +1,24 @@
-import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_page.dart';
+import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_button.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
+import 'package:firebase_auth_service/firebase_auth_service.dart';
+import 'package:starter_architecture_flutter_firebase/routing/router.dart';
+import 'package:email_password_sign_in_ui/email_password_sign_in_ui.dart';
+
+extension EmailPasswordSignInPageBuilderX on EmailPasswordSignInPageBuilder {
+  static Future<void> show(BuildContext context) async {
+    final navigator = Navigator.of(context);
+    await navigator.pushNamed(
+      Routes.emailPasswordSignInPageBuilder,
+      arguments: () => navigator.pop(),
+    );
+  }
+}
 
 class SignInPageBuilder extends StatelessWidget {
   @override
@@ -94,7 +105,7 @@ class SignInPage extends StatelessWidget {
             text: Strings.signInWithEmailPassword,
             onPressed: viewModel.isLoading
                 ? null
-                : () => EmailPasswordSignInPageBuilder.show(context),
+                : () => EmailPasswordSignInPageBuilderX.show(context),
             textColor: Colors.white,
             color: Theme.of(context).primaryColor,
           ),

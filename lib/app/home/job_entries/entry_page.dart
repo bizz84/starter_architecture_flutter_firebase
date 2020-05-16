@@ -6,7 +6,7 @@ import 'package:starter_architecture_flutter_firebase/common_widgets/date_time_p
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/format.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
+import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';

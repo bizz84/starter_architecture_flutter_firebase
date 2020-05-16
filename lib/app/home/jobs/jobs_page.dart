@@ -6,7 +6,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_pag
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/job_list_tile.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/show_exception_alert_dialog.dart';
+import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';

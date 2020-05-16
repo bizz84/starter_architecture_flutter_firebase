@@ -1,10 +1,11 @@
-import 'package:starter_architecture_flutter_firebase/app/auth_widget.dart';
-import 'package:starter_architecture_flutter_firebase/app/auth_widget_builder.dart';
+import 'package:auth_widget_builder/auth_widget_builder.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/home_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_page.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
-import 'package:starter_architecture_flutter_firebase/services/firebase_auth_service.dart';
+import 'package:firebase_auth_service/firebase_auth_service.dart';
 
 void main() => runApp(MyApp(
       authServiceBuilder: (_) => FirebaseAuthService(),
@@ -30,12 +31,21 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: AuthWidgetBuilder(
-        databaseBuilder: databaseBuilder,
+        userProvidersBuilder: (_, user) => [
+          Provider<User>.value(value: user),
+          Provider<FirestoreDatabase>(
+            create: (_) => FirestoreDatabase(uid: user.uid),
+          ),
+        ],
         builder: (context, userSnapshot) {
           return MaterialApp(
             theme: ThemeData(primarySwatch: Colors.indigo),
             debugShowCheckedModeBanner: false,
-            home: AuthWidget(userSnapshot: userSnapshot),
+            home: AuthWidget(
+              userSnapshot: userSnapshot,
+              nonSignedInBuilder: (_) => SignInPageBuilder(),
+              signedInBuilder: (_) => HomePage(),
+            ),
             onGenerateRoute: Router.onGenerateRoute,
           );
         },
