@@ -363,8 +363,16 @@ TODO
 - `provider` for dependency injection and propagating stream values down the widget tree
 - `rxdart` for combining multiple Firestore collections as needed
 - `intl` for currency, date, time formatting
-- `auto_route` for route generation 
 - `mockito` for testing
+
+Also imported from my [flutter_core_packages repo](https://github.com/bizz84/flutter_core_packages):
+
+- `firebase_auth_service`
+- `auth_widget_builder`
+- `firestore_service`
+- `custom_buttons`
+- `alert_dialogs`
+- `email_password_sign_in_ui`
 
 ## References
 
