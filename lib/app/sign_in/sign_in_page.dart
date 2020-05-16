@@ -10,11 +10,11 @@ import 'package:firebase_auth_service/firebase_auth_service.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.dart';
 import 'package:email_password_sign_in_ui/email_password_sign_in_ui.dart';
 
-extension EmailPasswordSignInPageBuilderX on EmailPasswordSignInPageBuilder {
+extension EmailPasswordSignInPageX on EmailPasswordSignInPage {
   static Future<void> show(BuildContext context) async {
     final navigator = Navigator.of(context);
     await navigator.pushNamed(
-      Routes.emailPasswordSignInPageBuilder,
+      Routes.emailPasswordSignInPage,
       arguments: () => navigator.pop(),
     );
   }
@@ -105,7 +105,7 @@ class SignInPage extends StatelessWidget {
             text: Strings.signInWithEmailPassword,
             onPressed: viewModel.isLoading
                 ? null
-                : () => EmailPasswordSignInPageBuilderX.show(context),
+                : () => EmailPasswordSignInPageX.show(context),
             textColor: Colors.white,
             color: Theme.of(context).primaryColor,
           ),

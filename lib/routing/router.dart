@@ -6,8 +6,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 
 class Routes {
-  static const emailPasswordSignInPageBuilder =
-      '/email-password-sign-in-page-builder';
+  static const emailPasswordSignInPage = '/email-password-sign-in-page';
   static const editJobPage = '/edit-job-page';
   static const entryPage = '/entry-page';
 }
