@@ -2,6 +2,8 @@
 
 This is a **reference architecture demo** that can be used as a **starting point** for apps using Flutter & Firebase.
 
+*Also see my [flutter_core_packages repo](https://github.com/bizz84/flutter_core_packages), which contains the most reusable parts of this project as packages.*
+
 ## Motivation
 
 Flutter & Firebase are a great combo for getting apps to market in record time.
