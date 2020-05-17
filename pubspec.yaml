@@ -22,28 +22,28 @@ dependencies:
   firebase_auth: ^0.16.0
   firebase_auth_service:
     git:
-      url: https://github.com/bizz84/flutter_core_packages
+      url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/firebase_auth_service
   auth_widget_builder:
     git:
-      url: https://github.com/bizz84/flutter_core_packages
+      url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/auth_widget_builder
   cloud_firestore: ^0.13.5
   firestore_service:
     git:
-      url: https://github.com/bizz84/flutter_core_packages
+      url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/firestore_service
   custom_buttons:
     git:
-      url: https://github.com/bizz84/flutter_core_packages
+      url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/custom_buttons
   alert_dialogs:
     git:
-      url: https://github.com/bizz84/flutter_core_packages
+      url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/alert_dialogs
   email_password_sign_in_ui:
     git:
-      url: https://github.com/bizz84/flutter_core_packages
+      url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/email_password_sign_in_ui
   provider: ^4.1.2
   rxdart: ^0.24.1
