@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_button.dart';
@@ -87,45 +89,50 @@ class SignInPage extends StatelessWidget {
   }
 
   Widget _buildSignIn(BuildContext context) {
-    // Make content scrollable so that it fits on small screens
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          const SizedBox(height: 32.0),
-          SizedBox(
-            height: 50.0,
-            child: _buildHeader(),
+    return Center(
+      child: LayoutBuilder(builder: (context, constraints) {
+        return Container(
+          width: min(constraints.maxWidth, 600),
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const SizedBox(height: 32.0),
+              SizedBox(
+                height: 50.0,
+                child: _buildHeader(),
+              ),
+              const SizedBox(height: 32.0),
+              SignInButton(
+                key: emailPasswordButtonKey,
+                text: Strings.signInWithEmailPassword,
+                onPressed: viewModel.isLoading
+                    ? null
+                    : () => EmailPasswordSignInPageX.show(context),
+                textColor: Colors.white,
+                color: Theme.of(context).primaryColor,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                Strings.or,
+                style: TextStyle(fontSize: 14.0, color: Colors.black87),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              SignInButton(
+                key: anonymousButtonKey,
+                text: Strings.goAnonymous,
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                onPressed: viewModel.isLoading
+                    ? null
+                    : () => _signInAnonymously(context),
+              ),
+            ],
           ),
-          const SizedBox(height: 32.0),
-          SignInButton(
-            key: emailPasswordButtonKey,
-            text: Strings.signInWithEmailPassword,
-            onPressed: viewModel.isLoading
-                ? null
-                : () => EmailPasswordSignInPageX.show(context),
-            textColor: Colors.white,
-            color: Theme.of(context).primaryColor,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            Strings.or,
-            style: TextStyle(fontSize: 14.0, color: Colors.black87),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
-          SignInButton(
-            key: anonymousButtonKey,
-            text: Strings.goAnonymous,
-            color: Theme.of(context).primaryColor,
-            textColor: Colors.white,
-            onPressed:
-                viewModel.isLoading ? null : () => _signInAnonymously(context),
-          ),
-        ],
-      ),
+        );
+      }),
     );
   }
 }
