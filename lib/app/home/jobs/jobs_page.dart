@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/job_entries_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
@@ -59,7 +60,9 @@ class _JobsPageState extends State<JobsPage> {
     return StreamBuilder<List<Job>>(
       stream: _jobsStream,
       builder: (context, snapshot) {
-        print('Jobs StreamBuilder rebuild: ${snapshot.connectionState}');
+        context
+            .watch<Logger>()
+            .d('Jobs StreamBuilder rebuild: ${snapshot.connectionState}');
         return ListItemsBuilder<Job>(
           snapshot: snapshot,
           itemBuilder: (context, job) => Dismissible(

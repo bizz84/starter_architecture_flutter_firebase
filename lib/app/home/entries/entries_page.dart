@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/entries/entries_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/entries/entries_list_tile.dart';
@@ -44,7 +45,9 @@ class _EntriesPageState extends State<EntriesPage> {
     return StreamBuilder<List<EntriesListTileModel>>(
       stream: _entriesTileModelStream,
       builder: (context, snapshot) {
-        print('Entries StreamBuilder rebuild: ${snapshot.connectionState}');
+        context
+            .watch<Logger>()
+            .d('Entries StreamBuilder rebuild: ${snapshot.connectionState}');
         return ListItemsBuilder<EntriesListTileModel>(
           snapshot: snapshot,
           itemBuilder: (context, model) => EntriesListTile(model: model),

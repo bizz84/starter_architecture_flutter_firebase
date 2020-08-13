@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_list_item.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
@@ -45,7 +46,9 @@ class _JobEntriesPageState extends State<JobEntriesPage> {
     return StreamBuilder<Job>(
       stream: _jobStream,
       builder: (context, snapshot) {
-        print('Job StreamBuilder rebuild: ${snapshot.connectionState}');
+        context
+            .watch<Logger>()
+            .d('Job StreamBuilder rebuild: ${snapshot.connectionState}');
         final job = snapshot.data;
         final jobName = job?.name ?? '';
         return Scaffold(
@@ -113,7 +116,9 @@ class _JobEntriesContentsState extends State<JobEntriesContents> {
     return StreamBuilder<List<Entry>>(
       stream: _entriesStream,
       builder: (context, snapshot) {
-        print('JobEntries StreamBuilder rebuild: ${snapshot.connectionState}');
+        context
+            .watch<Logger>()
+            .d('JobEntries StreamBuilder rebuild: ${snapshot.connectionState}');
         return ListItemsBuilder<Entry>(
           snapshot: snapshot,
           itemBuilder: (context, entry) {
