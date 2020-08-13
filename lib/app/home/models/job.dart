@@ -14,11 +14,11 @@ class Job {
     if (data == null) {
       return null;
     }
-    final String name = data['name'];
+    final name = data['name'] as String;
     if (name == null) {
       return null;
     }
-    final int ratePerHour = data['ratePerHour'];
+    final ratePerHour = data['ratePerHour'] as int;
     return Job(id: documentId, name: name, ratePerHour: ratePerHour);
   }
 
@@ -36,7 +36,7 @@ class Job {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (runtimeType != other.runtimeType) return false;
-    final Job otherJob = other;
+    final otherJob = other as Job;
     return id == otherJob.id &&
         name == otherJob.name &&
         ratePerHour == otherJob.ratePerHour;

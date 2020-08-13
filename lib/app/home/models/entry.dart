@@ -19,8 +19,8 @@ class Entry {
       end.difference(start).inMinutes.toDouble() / 60.0;
 
   factory Entry.fromMap(Map<dynamic, dynamic> value, String id) {
-    final int startMilliseconds = value['start'];
-    final int endMilliseconds = value['end'];
+    final startMilliseconds = value['start'] as int;
+    final endMilliseconds = value['end'] as int;
     return Entry(
       id: id,
       jobId: value['jobId'],

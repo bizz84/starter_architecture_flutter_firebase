@@ -40,7 +40,7 @@ analyzer:
     # Custom errors to be ignored
     argument_type_not_assignable: ignore
     implicit_dynamic_type: ignore
-    invalid_assignment: ignore
+    #invalid_assignment: ignore
     implicit_dynamic_map_literal: ignore
     always_put_control_body_on_new_line: ignore
   exclude:
