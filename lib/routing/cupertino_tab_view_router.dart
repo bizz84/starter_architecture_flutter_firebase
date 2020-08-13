@@ -14,7 +14,7 @@ class CupertinoTabViewRouter {
         return CupertinoPageRoute(
           builder: (_) => JobEntriesPage(job: job),
           settings: settings,
-          fullscreenDialog: true,
+          fullscreenDialog: false,
         );
     }
     return null;
