@@ -1,4 +1,5 @@
 import 'package:auth_widget_builder/auth_widget_builder.dart';
+import 'package:logger/logger.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/home_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_page.dart';
 import 'package:starter_architecture_flutter_firebase/routing/router.dart';
@@ -29,6 +30,14 @@ class MyApp extends StatelessWidget {
         Provider<FirebaseAuthService>(
           create: authServiceBuilder,
         ),
+        Provider<Logger>(
+          create: (_) => Logger(
+            printer: PrettyPrinter(
+              methodCount: 1,
+              printEmojis: false,
+            ),
+          ),
+        )
       ],
       child: AuthWidgetBuilder(
         userProvidersBuilder: (_, user) => [
