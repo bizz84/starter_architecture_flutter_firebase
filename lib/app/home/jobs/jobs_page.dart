@@ -11,10 +11,24 @@ import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';
 
-class JobsPage extends StatelessWidget {
-  Future<void> _delete(BuildContext context, Job job) async {
+class JobsPage extends StatefulWidget {
+  @override
+  _JobsPageState createState() => _JobsPageState();
+}
+
+class _JobsPageState extends State<JobsPage> {
+  Stream<List<Job>> _jobsStream;
+
+  @override
+  void initState() {
+    super.initState();
+    final database = context.read<FirestoreDatabase>();
+    _jobsStream = database.jobsStream();
+  }
+
+  Future<void> _delete(Job job) async {
     try {
-      final database = Provider.of<FirestoreDatabase>(context, listen: false);
+      final database = context.read<FirestoreDatabase>();
       await database.deleteJob(job);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
@@ -32,7 +46,7 @@ class JobsPage extends StatelessWidget {
         title: const Text(Strings.jobs),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.add, color: Colors.white),
+            icon: const Icon(Icons.add, color: Colors.white),
             onPressed: () => EditJobPage.show(context),
           ),
         ],
@@ -42,17 +56,17 @@ class JobsPage extends StatelessWidget {
   }
 
   Widget _buildContents(BuildContext context) {
-    final database = Provider.of<FirestoreDatabase>(context, listen: false);
     return StreamBuilder<List<Job>>(
-      stream: database.jobsStream(),
+      stream: _jobsStream,
       builder: (context, snapshot) {
+        print('Jobs StreamBuilder rebuild: ${snapshot.connectionState}');
         return ListItemsBuilder<Job>(
           snapshot: snapshot,
           itemBuilder: (context, job) => Dismissible(
             key: Key('job-${job.id}'),
             background: Container(color: Colors.red),
             direction: DismissDirection.endToStart,
-            onDismissed: (direction) => _delete(context, job),
+            onDismissed: (direction) => _delete(job),
             child: JobListTile(
               job: job,
               onTap: () => JobEntriesPage.show(context, job),
