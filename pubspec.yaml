@@ -30,32 +30,26 @@ dependencies:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/firebase_auth_service
-      ref: update-firebase-packages
   auth_widget_builder:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/auth_widget_builder
-      ref: update-firebase-packages
   firestore_service:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/firestore_service
-      ref: update-firebase-packages
   custom_buttons:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/custom_buttons
-      ref: update-firebase-packages
   alert_dialogs:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/alert_dialogs
-      ref: update-firebase-packages
   email_password_sign_in_ui:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/email_password_sign_in_ui
-      ref: update-firebase-packages
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
