@@ -40,14 +40,14 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    final user = Provider.of<AppUser>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.accountPage),
+        title: const Text(Strings.accountPage),
         actions: <Widget>[
           FlatButton(
-            key: Key(Keys.logout),
-            child: Text(
+            key: const Key(Keys.logout),
+            child: const Text(
               Strings.logout,
               style: TextStyle(
                 fontSize: 18.0,
@@ -65,11 +65,11 @@ class AccountPage extends StatelessWidget {
     );
   }
 
-  Widget _buildUserInfo(User user) {
+  Widget _buildUserInfo(AppUser user) {
     return Column(
       children: [
         Avatar(
-          photoUrl: user.photoUrl,
+          photoUrl: user.photoURL,
           radius: 50,
           borderColor: Colors.black54,
           borderWidth: 2.0,
@@ -78,7 +78,7 @@ class AccountPage extends StatelessWidget {
         if (user.displayName != null)
           Text(
             user.displayName,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         const SizedBox(height: 8),
       ],

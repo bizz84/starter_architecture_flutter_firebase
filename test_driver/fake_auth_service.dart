@@ -22,21 +22,18 @@ class FakeAuthService implements FirebaseAuthService {
 
   final Map<String, _UserData> _usersStore = <String, _UserData>{};
 
-  User _currentUser;
+  AppUser _currentUser;
 
-  final StreamController<User> _onAuthStateChangedController =
-      StreamController<User>();
+  final StreamController<AppUser> _onAuthStateChangedController =
+      StreamController<AppUser>();
   @override
-  Stream<User> get onAuthStateChanged => _onAuthStateChangedController.stream;
-
-  @override
-  Future<User> currentUser() async {
-    await Future<void>.delayed(startupTime);
-    return _currentUser;
-  }
+  Stream<AppUser> authStateChanges() => _onAuthStateChangedController.stream;
 
   @override
-  Future<User> createUserWithEmailAndPassword(
+  AppUser get currentUser => _currentUser;
+
+  @override
+  Future<AppUser> createUserWithEmailAndPassword(
       String email, String password) async {
     await Future<void>.delayed(responseTime);
     if (_usersStore.keys.contains(email)) {
@@ -45,14 +42,16 @@ class FakeAuthService implements FirebaseAuthService {
         message: 'The email address is already registered. Sign in instead?',
       );
     }
-    final User user = User(uid: random.randomAlphaNumeric(32), email: email);
+    final AppUser user =
+        AppUser(uid: random.randomAlphaNumeric(32), email: email);
     _usersStore[email] = _UserData(password: password, user: user);
     _add(user);
     return user;
   }
 
   @override
-  Future<User> signInWithEmailAndPassword(String email, String password) async {
+  Future<AppUser> signInWithEmailAndPassword(
+      String email, String password) async {
     await Future<void>.delayed(responseTime);
     if (!_usersStore.keys.contains(email)) {
       throw PlatformException(
@@ -79,15 +78,15 @@ class FakeAuthService implements FirebaseAuthService {
     _add(null);
   }
 
-  void _add(User user) {
+  void _add(AppUser user) {
     _currentUser = user;
     _onAuthStateChangedController.add(user);
   }
 
   @override
-  Future<User> signInAnonymously() async {
+  Future<AppUser> signInAnonymously() async {
     await Future<void>.delayed(responseTime);
-    final User user = User(uid: random.randomAlphaNumeric(32));
+    final AppUser user = AppUser(uid: random.randomAlphaNumeric(32));
     _add(user);
     return user;
   }
@@ -100,5 +99,5 @@ class FakeAuthService implements FirebaseAuthService {
 class _UserData {
   _UserData({@required this.password, @required this.user});
   final String password;
-  final User user;
+  final AppUser user;
 }

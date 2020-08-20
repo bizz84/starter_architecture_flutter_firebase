@@ -310,9 +310,9 @@ To use this project with Firebase, some configuration steps are required.
 - On iOS, use `com.example.starterArchitectureFlutterFirebase` as the bundle ID.
 - then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_ios_app) `GoogleService-Info.plist` into `iOS/Runner`, and add it to the Runner target in Xcode.
 
-See this document for full instructions:
+See this page for full instructions:
 
-- [https://firebase.google.com/docs/flutter/setup](https://firebase.google.com/docs/flutter/setup) 
+- [FlutterFire Overview](https://firebase.flutter.dev/docs/overview) 
 
 ## Running on Flutter Web
 
@@ -378,9 +378,7 @@ Also imported from my [flutter_core_packages repo](https://github.com/bizz84/flu
 
 This project borrows many ideas from my Udemy course: [Flutter & Firebase Course: Build a Complete App for iOS & Android](https://www.udemy.com/course/flutter-firebase-build-a-complete-app-for-ios-android/?couponCode=FEB-20), as well as my [Reference Authentication Flow with Flutter & Firebase](https://github.com/bizz84/firebase_auth_demo_flutter).
 
-The Flutter ecosystem keeps evolving, and so does this project. For example, I just recently added [auto_route](https://pub.dev/packages/auto_route), a route generation library that makes navigation super-easy.
-
-By the way, here are some other GitHub projects that also attempt to formalize a good approach to Flutter development:
+Here are some other GitHub projects that also attempt to formalize a good approach to Flutter development:
 
 - [Beyond - An approach to scalable Flutter development](https://github.com/MisterJimson/beyond)
 - This [starter app](https://github.com/gregertw/actingweb_firstapp) that includes many different production app features. Related articles: [A Production-Quality Flutter Starter App](https://stuff.greger.io/2019/07/production-quality-flutter-starter-app.html), and [this follow up](https://stuff.greger.io/2020/01/production-quality-flutter-starter-app-take-two.html). 

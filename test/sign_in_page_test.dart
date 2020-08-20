@@ -14,12 +14,12 @@ void main() {
   group('sign-in page', () {
     MockAuthService mockAuthService;
     MockNavigatorObserver mockNavigatorObserver;
-    StreamController<User> onAuthStateChangedController;
+    StreamController<AppUser> onAuthStateChangedController;
 
     setUp(() {
       mockAuthService = MockAuthService();
       mockNavigatorObserver = MockNavigatorObserver();
-      onAuthStateChangedController = StreamController<User>();
+      onAuthStateChangedController = StreamController<AppUser>();
     });
 
     tearDown(() {

@@ -83,6 +83,7 @@ unlinked_spec.ds
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 **/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/.last_build_id
 
 # web
 web/firebase-config.js

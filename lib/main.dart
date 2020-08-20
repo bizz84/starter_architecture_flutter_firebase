@@ -1,4 +1,5 @@
 import 'package:auth_widget_builder/auth_widget_builder.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:logger/logger.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/home_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_page.dart';
@@ -8,10 +9,14 @@ import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:firebase_auth_service/firebase_auth_service.dart';
 
-void main() => runApp(MyApp(
-      authServiceBuilder: (_) => FirebaseAuthService(),
-      databaseBuilder: (_, uid) => FirestoreDatabase(uid: uid),
-    ));
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp(
+    authServiceBuilder: (_) => FirebaseAuthService(),
+    databaseBuilder: (_, uid) => FirestoreDatabase(uid: uid),
+  ));
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key, this.authServiceBuilder, this.databaseBuilder})
@@ -41,7 +46,7 @@ class MyApp extends StatelessWidget {
       ],
       child: AuthWidgetBuilder(
         userProvidersBuilder: (_, user) => [
-          Provider<User>.value(value: user),
+          Provider<AppUser>.value(value: user),
           Provider<FirestoreDatabase>(
             create: (_) => FirestoreDatabase(uid: user.uid),
           ),
