@@ -24,7 +24,7 @@ void main() {
 
   void stubSignInAnonymouslyReturnsUser() {
     when(mockAuthService.signInAnonymously())
-        .thenAnswer((_) => Future<User>.value(const User(uid: '123')));
+        .thenAnswer((_) => Future<AppUser>.value(const AppUser(uid: '123')));
   }
 
   void stubSignInAnonymouslyThrows(Exception exception) {

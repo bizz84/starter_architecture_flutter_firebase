@@ -9,7 +9,7 @@ class SignInViewModel with ChangeNotifier {
   final FirebaseAuthService auth;
   bool isLoading = false;
 
-  Future<User> _signIn(Future<User> Function() signInMethod) async {
+  Future<AppUser> _signIn(Future<AppUser> Function() signInMethod) async {
     try {
       isLoading = true;
       notifyListeners();
@@ -21,7 +21,7 @@ class SignInViewModel with ChangeNotifier {
     }
   }
 
-  Future<User> signInAnonymously() async {
+  Future<AppUser> signInAnonymously() async {
     return _signIn(auth.signInAnonymously);
   }
 }
