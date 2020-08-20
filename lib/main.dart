@@ -10,6 +10,7 @@ import 'package:starter_architecture_flutter_firebase/services/firestore_databas
 import 'package:firebase_auth_service/firebase_auth_service.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp(
     authServiceBuilder: (_) => FirebaseAuthService(),
