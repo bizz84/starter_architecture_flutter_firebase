@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth_service/firebase_auth_service.dart';
-import 'package:starter_architecture_flutter_firebase/routing/router.dart';
+import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 
 class SignInPageBuilder extends StatelessWidget {
   @override
@@ -55,7 +55,7 @@ class SignInPage extends StatelessWidget {
   Future<void> _showEmailPasswordSignInPage(BuildContext context) async {
     final navigator = Navigator.of(context);
     await navigator.pushNamed(
-      Routes.emailPasswordSignInPage,
+      AppRoutes.emailPasswordSignInPage,
       arguments: () => navigator.pop(),
     );
   }

@@ -5,29 +5,29 @@ import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_pag
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 
-class Routes {
+class AppRoutes {
   static const emailPasswordSignInPage = '/email-password-sign-in-page';
   static const editJobPage = '/edit-job-page';
   static const entryPage = '/entry-page';
 }
 
-class Router {
+class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
-      case Routes.emailPasswordSignInPage:
+      case AppRoutes.emailPasswordSignInPage:
         return MaterialPageRoute<dynamic>(
           builder: (_) => EmailPasswordSignInPage(onSignedIn: args),
           settings: settings,
           fullscreenDialog: true,
         );
-      case Routes.editJobPage:
+      case AppRoutes.editJobPage:
         return MaterialPageRoute<dynamic>(
           builder: (_) => EditJobPage(job: args),
           settings: settings,
           fullscreenDialog: true,
         );
-      case Routes.entryPage:
+      case AppRoutes.entryPage:
         final mapArgs = args as Map<String, dynamic>;
         final job = mapArgs['job'] as Job;
         final entry = mapArgs['entry'] as Entry;

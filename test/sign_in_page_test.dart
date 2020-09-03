@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-import 'package:starter_architecture_flutter_firebase/routing/router.dart';
+import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:firebase_auth_service/firebase_auth_service.dart';
 
 import 'mocks.dart';
@@ -36,7 +36,7 @@ void main() {
           ],
           child: MaterialApp(
             home: SignInPageBuilder(),
-            onGenerateRoute: Router.onGenerateRoute,
+            onGenerateRoute: AppRouter.onGenerateRoute,
             navigatorObservers: [mockNavigatorObserver],
           ),
         ),

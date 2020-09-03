@@ -7,7 +7,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/job_entries/forma
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
-import 'package:starter_architecture_flutter_firebase/routing/router.dart';
+import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';
 
@@ -18,7 +18,7 @@ class EntryPage extends StatefulWidget {
 
   static Future<void> show({BuildContext context, Job job, Entry entry}) async {
     await Navigator.of(context, rootNavigator: true).pushNamed(
-      Routes.entryPage,
+      AppRoutes.entryPage,
       arguments: {
         'job': job,
         'entry': entry,
