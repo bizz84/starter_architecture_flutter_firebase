@@ -19,7 +19,6 @@ class AuthWidget extends ConsumerWidget {
     final authStateChangesProvider =
         StreamProvider<User>((ref) => authService.authStateChanges());
     final authStateChanges = watch(authStateChangesProvider);
-    authStateChanges.data;
     return authStateChanges.when(
       data: (user) => _data(context, user),
       loading: const Scaffold(
