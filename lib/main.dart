@@ -1,4 +1,5 @@
 import 'package:auth_widget_builder/auth_widget_builder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:logger/logger.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/home_page.dart';
@@ -7,13 +8,12 @@ import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
-import 'package:firebase_auth_service/firebase_auth_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp(
-    authServiceBuilder: (_) => FirebaseAuthService(),
+    authServiceBuilder: (_) => FirebaseAuth.instance,
     databaseBuilder: (_, uid) => FirestoreDatabase(uid: uid),
   ));
 }
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       : super(key: key);
   // Expose builders for 3rd party services at the root of the widget tree
   // This is useful when mocking services while testing
-  final FirebaseAuthService Function(BuildContext context) authServiceBuilder;
+  final FirebaseAuth Function(BuildContext context) authServiceBuilder;
   final FirestoreDatabase Function(BuildContext context, String uid)
       databaseBuilder;
 
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     // MultiProvider for top-level services that don't depend on any runtime values (e.g. uid)
     return MultiProvider(
       providers: [
-        Provider<FirebaseAuthService>(
+        Provider<FirebaseAuth>(
           create: authServiceBuilder,
         ),
         Provider<Logger>(
@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
       ],
       child: AuthWidgetBuilder(
         userProvidersBuilder: (_, user) => [
-          Provider<AppUser>.value(value: user),
           Provider<FirestoreDatabase>(
             create: (_) => FirestoreDatabase(uid: user.uid),
           ),

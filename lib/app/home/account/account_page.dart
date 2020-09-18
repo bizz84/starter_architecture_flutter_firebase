@@ -1,19 +1,18 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/avatar.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth_service/firebase_auth_service.dart';
 import 'package:pedantic/pedantic.dart';
 
 class AccountPage extends StatelessWidget {
   Future<void> _signOut(BuildContext context) async {
     try {
-      final FirebaseAuthService auth =
-          Provider.of<FirebaseAuthService>(context, listen: false);
+      final auth = Provider.of<FirebaseAuth>(context, listen: false);
       await auth.signOut();
     } catch (e) {
       unawaited(showExceptionAlertDialog(
@@ -40,7 +39,8 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AppUser>(context);
+    final auth = Provider.of<FirebaseAuth>(context, listen: false);
+    final user = auth.currentUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.accountPage),
@@ -65,7 +65,7 @@ class AccountPage extends StatelessWidget {
     );
   }
 
-  Widget _buildUserInfo(AppUser user) {
+  Widget _buildUserInfo(User user) {
     return Column(
       children: [
         Avatar(

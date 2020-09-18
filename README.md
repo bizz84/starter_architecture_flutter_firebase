@@ -144,6 +144,7 @@ These are created above the `MaterialApp`, so that all widgets have access to th
 
 Here is a simplified widget tree for the entire app:
 
+<!-- TODO: This needs updating -->
 ![](media/time-tracker-widget-tree.png)
 
 [Provider](https://pub.dev/packages/provider) is used in various ways:
@@ -350,7 +351,7 @@ This is then imported in the `index.html` file:
 
 ## Future Roadmap
 
-TODO
+- Migrate the project from Provider to Riverpod (WIP branch [here](https://github.com/bizz84/starter_architecture_flutter_firebase/tree/flutter-riverpod)).
 
 ## Non Goals
 
@@ -367,7 +368,6 @@ TODO
 
 Also imported from my [flutter_core_packages repo](https://github.com/bizz84/flutter_core_packages):
 
-- `firebase_auth_service`
 - `auth_widget_builder`
 - `firestore_service`
 - `custom_buttons`

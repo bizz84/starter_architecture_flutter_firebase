@@ -1,19 +1,19 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
-import 'package:firebase_auth_service/firebase_auth_service.dart';
 
 class SignInViewModel with ChangeNotifier {
   SignInViewModel({@required this.auth});
-  final FirebaseAuthService auth;
+  final FirebaseAuth auth;
   bool isLoading = false;
 
-  Future<AppUser> _signIn(Future<AppUser> Function() signInMethod) async {
+  Future<void> _signIn(Future<UserCredential> Function() signInMethod) async {
     try {
       isLoading = true;
       notifyListeners();
-      return await signInMethod();
+      await signInMethod();
     } catch (e) {
       isLoading = false;
       notifyListeners();
@@ -21,7 +21,7 @@ class SignInViewModel with ChangeNotifier {
     }
   }
 
-  Future<AppUser> signInAnonymously() async {
-    return _signIn(auth.signInAnonymously);
+  Future<void> signInAnonymously() async {
+    await _signIn(auth.signInAnonymously);
   }
 }
