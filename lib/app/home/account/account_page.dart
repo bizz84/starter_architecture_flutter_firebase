@@ -40,8 +40,8 @@ class AccountPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final authService = watch(authServiceProvider);
-    final user = authService.currentUser;
+    final firebaseAuth = watch(firebaseAuthProvider);
+    final user = firebaseAuth.currentUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.accountPage),
@@ -55,7 +55,7 @@ class AccountPage extends ConsumerWidget {
                 color: Colors.white,
               ),
             ),
-            onPressed: () => _confirmSignOut(context, authService),
+            onPressed: () => _confirmSignOut(context, firebaseAuth),
           ),
         ],
         bottom: PreferredSize(

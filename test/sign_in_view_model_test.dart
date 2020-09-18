@@ -12,22 +12,22 @@ void main() {
   SignInViewModel viewModel;
 
   setUp(() {
-    mockAuthService = MockAuthService();
+    mockFirebaseAuth = MockAuthService();
     viewModel = SignInViewModel(auth: mockAuthService);
   });
 
   tearDown(() {
-    mockAuthService = null;
+    mockFirebaseAuth = null;
     viewModel = null;
   });
 
   void stubSignInAnonymouslyReturnsUser() {
-    when(mockAuthService.signInAnonymously())
+    when(mockfirebaseAuth.signInAnonymously())
         .thenAnswer((_) => Future.value(MockUserCredential()));
   }
 
   void stubSignInAnonymouslyThrows(Exception exception) {
-    when(mockAuthService.signInAnonymously()).thenThrow(exception);
+    when(mockfirebaseAuth.signInAnonymously()).thenThrow(exception);
   }
 
   test(

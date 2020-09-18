@@ -15,9 +15,9 @@ class AuthWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final authService = watch(authServiceProvider);
+    final firebaseAuth = watch(firebaseAuthProvider);
     final authStateChangesProvider =
-        StreamProvider<User>((ref) => authService.authStateChanges());
+        StreamProvider<User>((ref) => firebaseAuth.authStateChanges());
     final authStateChanges = watch(authStateChangesProvider);
     return authStateChanges.when(
       data: (user) => _data(context, user),

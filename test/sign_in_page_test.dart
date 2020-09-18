@@ -17,7 +17,7 @@ void main() {
     StreamController<User> onAuthStateChangedController;
 
     setUp(() {
-      mockAuthService = MockAuthService();
+      mockFirebaseAuth = MockAuthService();
       mockNavigatorObserver = MockNavigatorObserver();
       onAuthStateChangedController = StreamController<User>();
     });
