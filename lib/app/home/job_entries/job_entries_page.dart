@@ -62,16 +62,15 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    final database = watch<FirestoreDatabase>(databaseProvider);
     final jobStreamProvider = StreamProvider<Job>(
-      (ref) => ref
-          .watch<FirestoreDatabase>(databaseProvider)
-          .jobStream(jobId: job.id),
+      (ref) => database.jobStream(jobId: job.id),
     );
     final jobStream = watch(jobStreamProvider);
-    return jobStream.when(
+    return jobStream.when<Widget>(
       data: (job) => Text(job.name),
-      loading: null,
-      error: null,
+      loading: () => null,
+      error: (_, __) => null,
     );
   }
 }

@@ -19,14 +19,14 @@ class AuthWidget extends ConsumerWidget {
     final authStateChangesProvider =
         StreamProvider<User>((ref) => firebaseAuth.authStateChanges());
     final authStateChanges = watch(authStateChangesProvider);
-    return authStateChanges.when(
+    return authStateChanges.when<Widget>(
       data: (user) => _data(context, user),
-      loading: const Scaffold(
+      loading: () => const Scaffold(
         body: Center(
           child: CircularProgressIndicator(),
         ),
       ),
-      error: const Scaffold(
+      error: (_, __) => const Scaffold(
         body: Center(
           child: Text('Error reading authStateChanges()'),
         ),
