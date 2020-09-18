@@ -1,4 +1,5 @@
 import 'package:email_password_sign_in_ui/email_password_sign_in_ui.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
@@ -17,7 +18,9 @@ class AppRouter {
     switch (settings.name) {
       case AppRoutes.emailPasswordSignInPage:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => EmailPasswordSignInPage(onSignedIn: args),
+          builder: (_) => EmailPasswordSignInPage.withFirebaseAuth(
+              FirebaseAuth.instance,
+              onSignedIn: args),
           settings: settings,
           fullscreenDialog: true,
         );

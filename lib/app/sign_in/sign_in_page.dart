@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:alert_dialogs/alert_dialogs.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_button.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
@@ -8,14 +9,12 @@ import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth_service/firebase_auth_service.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 
 class SignInPageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuthService auth =
-        Provider.of<FirebaseAuthService>(context, listen: false);
+    final FirebaseAuth auth = Provider.of<FirebaseAuth>(context, listen: false);
     return ChangeNotifierProvider<SignInViewModel>(
       create: (_) => SignInViewModel(auth: auth),
       child: Consumer<SignInViewModel>(
