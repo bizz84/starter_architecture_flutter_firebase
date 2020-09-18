@@ -23,13 +23,18 @@ dependencies:
   cloud_firestore: ^0.14.0+1
   firebase_core: ^0.5.0
   logger: ^0.9.2
-  provider: ^4.3.2
+  #provider: ^4.3.2
   rxdart: ^0.24.1
   intl: ^0.16.1
-  auth_widget_builder:
-    git:
-      url: https://github.com/bizz84/codewithandrea_flutter_packages
-      path: packages/auth_widget_builder
+  flutter_riverpod: ^0.10.1
+  # firebase_auth_service:
+  #   git:
+  #     url: https://github.com/bizz84/codewithandrea_flutter_packages
+  #     path: packages/firebase_auth_service
+  # auth_widget_builder:
+  #   git:
+  #     url: https://github.com/bizz84/codewithandrea_flutter_packages
+  #     path: packages/auth_widget_builder
   firestore_service:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
