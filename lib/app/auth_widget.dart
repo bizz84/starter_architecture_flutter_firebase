@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/app/providers.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
+final authStateChangesProvider = StreamProvider<User>(
+    (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
+
 class AuthWidget extends ConsumerWidget {
   const AuthWidget({
     Key key,
@@ -15,9 +18,6 @@ class AuthWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final firebaseAuth = watch(firebaseAuthProvider);
-    final authStateChangesProvider =
-        StreamProvider<User>((ref) => firebaseAuth.authStateChanges());
     final authStateChanges = watch(authStateChangesProvider);
     return authStateChanges.when<Widget>(
       data: (user) => _data(context, user),
@@ -44,6 +44,12 @@ class AuthWidget extends ConsumerWidget {
         child: signedInBuilder(context),
       );
     }
+    // return ProviderScope(
+    //   overrides: [
+    //     databaseProvider.overrideAs((watch) => throw UnimplementedError()),
+    //   ],
+    //   child: nonSignedInBuilder(context),
+    // );
     return nonSignedInBuilder(context);
   }
 }
