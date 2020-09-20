@@ -12,6 +12,10 @@ import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
+final jobsStreamProvider = StreamProvider.family<List<Job>, FirestoreDatabase>(
+  (ref, database) => database.jobsStream(),
+);
+
 // watch database
 class JobsPage extends ConsumerWidget {
   Future<void> _delete(
@@ -45,10 +49,7 @@ class JobsPage extends ConsumerWidget {
   }
 
   Widget _buildContents(BuildContext context, ScopedReader watch) {
-    final jobsStreamProvider = StreamProvider<List<Job>>(
-      (ref) => watch<FirestoreDatabase>(databaseProvider).jobsStream(),
-    );
-    final jobsStream = watch(jobsStreamProvider);
+    final jobsStream = watch(jobsStreamProvider(watch(databaseProvider)));
     return ListItemsBuilder<Job>(
       data: jobsStream,
       itemBuilder: (context, job) => Dismissible(
