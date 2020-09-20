@@ -16,7 +16,7 @@ import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';
 
-class JobEntriesPage extends ConsumerWidget {
+class JobEntriesPage extends StatelessWidget {
   const JobEntriesPage({@required this.job});
   final Job job;
 
@@ -28,7 +28,7 @@ class JobEntriesPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
@@ -93,7 +93,7 @@ class JobEntriesContents extends ConsumerWidget {
   Future<void> _deleteEntry(
       BuildContext context, ScopedReader watch, Entry entry) async {
     try {
-      final database = watch<FirestoreDatabase>(databaseProvider);
+      final database = watch(databaseProvider);
       await database.deleteEntry(entry);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
