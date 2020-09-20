@@ -10,11 +10,11 @@ import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
-final jobsStreamProvider = StreamProvider.family<List<Job>, FirestoreDatabase>(
-  (ref, database) => database.jobsStream(),
-);
+final jobsStreamProvider = StreamProvider<List<Job>>((ref) {
+  final database = ref.watch(databaseProvider);
+  return database?.jobsStream() ?? const Stream.empty();
+});
 
 // watch database
 class JobsPage extends ConsumerWidget {
@@ -49,7 +49,7 @@ class JobsPage extends ConsumerWidget {
   }
 
   Widget _buildContents(BuildContext context, ScopedReader watch) {
-    final jobsStream = watch(jobsStreamProvider(watch(databaseProvider)));
+    final jobsStream = watch(jobsStreamProvider);
     return ListItemsBuilder<Job>(
       data: jobsStream,
       itemBuilder: (context, job) => Dismissible(

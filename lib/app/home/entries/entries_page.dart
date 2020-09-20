@@ -6,6 +6,18 @@ import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_b
 import 'package:starter_architecture_flutter_firebase/app/providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 
+final entriesTileModelStreamProvider =
+    StreamProvider<List<EntriesListTileModel>>(
+  (ref) {
+    final database = ref.watch(databaseProvider);
+    if (database != null) {
+      final vm = EntriesViewModel(database: database);
+      return vm.entriesTileModelStream;
+    }
+    return const Stream.empty();
+  },
+);
+
 class EntriesPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -19,12 +31,6 @@ class EntriesPage extends ConsumerWidget {
   }
 
   Widget _buildContents(BuildContext context, ScopedReader watch) {
-    final database = watch(databaseProvider);
-    final vm = EntriesViewModel(database: database);
-    final entriesTileModelStreamProvider =
-        StreamProvider<List<EntriesListTileModel>>(
-      (ref) => vm.entriesTileModelStream,
-    );
     final entriesTileModelStream = watch(entriesTileModelStreamProvider);
     return ListItemsBuilder<EntriesListTileModel>(
       data: entriesTileModelStream,

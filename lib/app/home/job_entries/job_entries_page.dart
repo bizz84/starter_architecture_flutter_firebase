@@ -56,24 +56,35 @@ class JobEntriesPage extends ConsumerWidget {
   }
 }
 
+final jobStreamProvider = StreamProvider.family<Job, String>((ref, jobId) {
+  final database = ref.watch(databaseProvider);
+  return database != null && jobId != null
+      ? database.jobStream(jobId: jobId)
+      : const Stream.empty();
+});
+
 class JobEntriesAppBarTitle extends ConsumerWidget {
   const JobEntriesAppBarTitle({@required this.job});
   final Job job;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final database = watch<FirestoreDatabase>(databaseProvider);
-    final jobStreamProvider = StreamProvider<Job>(
-      (ref) => database.jobStream(jobId: job.id),
-    );
-    final jobStream = watch(jobStreamProvider);
-    return jobStream.when<Widget>(
+    final jobStream = watch(jobStreamProvider(job.id));
+    return jobStream.when(
       data: (job) => Text(job.name),
-      loading: () => null,
-      error: (_, __) => null,
+      loading: () => Container(),
+      error: (_, __) => Container(),
     );
   }
 }
+
+final jobEntriesStreamProvider =
+    StreamProvider.family<List<Entry>, Job>((ref, job) {
+  final database = ref.watch(databaseProvider);
+  return database != null && job != null
+      ? database.entriesStream(job: job)
+      : const Stream.empty();
+});
 
 class JobEntriesContents extends ConsumerWidget {
   final Job job;
@@ -95,11 +106,7 @@ class JobEntriesContents extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final jobEntriesStreamProvider = StreamProvider<List<Entry>>(
-      (ref) =>
-          watch<FirestoreDatabase>(databaseProvider).entriesStream(job: job),
-    );
-    final entriesStream = watch(jobEntriesStreamProvider);
+    final entriesStream = watch(jobEntriesStreamProvider(job));
     return ListItemsBuilder<Entry>(
       data: entriesStream,
       itemBuilder: (context, entry) {

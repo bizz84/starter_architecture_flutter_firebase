@@ -15,7 +15,7 @@ class ListItemsBuilder<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return data.when<Widget>(
+    return data.when(
       data: (items) =>
           items.isNotEmpty ? _buildList(items) : const EmptyContent(),
       loading: () => const Center(child: CircularProgressIndicator()),
