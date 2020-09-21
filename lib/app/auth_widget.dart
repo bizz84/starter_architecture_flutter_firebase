@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/jobs/empty_content.dart';
 import 'package:starter_architecture_flutter_firebase/app/providers.dart';
 
 class AuthWidget extends ConsumerWidget {
@@ -23,8 +24,9 @@ class AuthWidget extends ConsumerWidget {
         ),
       ),
       error: (_, __) => const Scaffold(
-        body: Center(
-          child: Text('Error reading authStateChanges()'),
+        body: EmptyContent(
+          title: 'Something went wrong',
+          message: 'Can\'t load data right now.',
         ),
       ),
     );
