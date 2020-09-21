@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
-class MockAuthService extends Mock implements FirebaseAuth {}
+class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
 class MockDatabase extends Mock implements FirestoreDatabase {}
 

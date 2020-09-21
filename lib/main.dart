@@ -2,6 +2,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:starter_architecture_flutter_firebase/app/auth_widget.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/home_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/providers.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_page.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,11 @@ Future<void> main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
     // MultiProvider for top-level services that don't depend on any runtime values (e.g. uid)
+    final firebaseAuth = watch(firebaseAuthProvider);
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.indigo),
       debugShowCheckedModeBanner: false,
@@ -26,7 +28,8 @@ class MyApp extends StatelessWidget {
         nonSignedInBuilder: (_) => SignInPageBuilder(),
         signedInBuilder: (_) => HomePage(),
       ),
-      onGenerateRoute: AppRouter.onGenerateRoute,
+      onGenerateRoute: (settings) =>
+          AppRouter.onGenerateRoute(settings, firebaseAuth),
     );
   }
 }
