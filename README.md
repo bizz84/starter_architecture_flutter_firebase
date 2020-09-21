@@ -30,11 +30,9 @@ That's because Firebase can **push** updates directly to **subscribed** clients 
 
 For example, widgets can **rebuild** themselves when certain Firestore *documents* or *collections* are updated.
 
-Many Firebase APIs are **inherently** stream-based. As a result, the **simplest** way of making our widgets reactive is to use [`StreamBuilder`](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) (or [`StreamProvider`](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html)).
+Many Firebase APIs are **inherently** stream-based. As a result, the **simplest** way of making our widgets reactive is to use [`StreamProvider`](https://pub.dev/documentation/riverpod/latest/all/StreamProvider-class.html) from the [Riverpod package](https://riverpod.dev). This provides a convenient way of **watching** changes in your Firebase streams, and automatically rebuilding widgets with minimal boilerplate code.
 
-Yes, you could use [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) or other state management techniques that implement observables/listeners. 
-
-But you would need additional "glue" code if you want to "convert" your input streams into reactive models based on `ChangeNotifier`.
+Yes, you could use [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) or other state management techniques that implement observables/listeners. But you would need additional "glue" code if you want to "convert" your input streams into reactive models based on `ChangeNotifier`.
 
 > Note: streams are the default way of pushing changes not only with Firebase, but with many other services as well. For example, you can get location updates with the `onLocationChanged()` stream of the [location](https://pub.dev/packages/location) package. Whether you use Firestore, or want to get data from your device's input sensors, streams are the most convenient way of delivering **asynchronous** data over time.
 
@@ -83,7 +81,7 @@ Widgets **subscribe** themselves as listeners, while view models **publish** upd
 
 The publish/subscribe pattern comes in many variants (e.g. ChangeNotifier, BLoC), and this architecture does not prescribe which one to use.
 
-As a rule of thumb, the most appropriate variant is often the simplest one (on a case-by-case basis). In practice, this means using `Stream`s + `StreamBuilder`/`StreamProvider` when reading and manipulating data from Firestore. But when dealing with **local** application state, `StatefulWidget`+`setState` or `ChangeNotifier` are perfectly acceptable solutions.
+By using Riverpod, we can easily use the most convenient pattern on a case-by-case bsis. In practice, this means using `Stream`s with `StreamProvider` when reading and manipulating data from Firestore. But when dealing with **local** application state, `StatefulWidget`+`setState` or `ChangeNotifier` are sometimes used.
 
 Let's look at the three application layers in more detail.
 
@@ -138,19 +136,20 @@ All the data is persisted with Firestore, and is kept in sync across multiple de
 
 ## Widget tree
 
-The two most important services in the app are `FirebaseAuthService` and `FirestoreDatabase`.
+The two most important services in the app are `FirebaseAuth` (used direcly) and `FirestoreDatabase` (as a wrapper for `FirebaseFirestore`).
 
-These are created above the `MaterialApp`, so that all widgets have access to them.
+These are created as global providers (using Riverpod), so that all widgets have access to them (using a `ScopedReader watch` made available by `Consumer` or `ConsumerWidget`).
 
 Here is a simplified widget tree for the entire app:
 
-<!-- TODO: This needs updating -->
+_TODO: Update this section._
+
 ![](media/time-tracker-widget-tree.png)
 
-[Provider](https://pub.dev/packages/provider) is used in various ways:
+[Riverpod](https://pub.dev/packages/riverpod) is used in various ways:
 
 - to create view models for widgets that need them (and dispose them when no longer needed).
-- to provide **scoped access** to services from the widget classes.
+- to provide **global access** to services from the widget classes (while perserving testability via overrides).
 - to propagate data **synchronously** down the widget tree.
 
 The last point is particularly important. Reactive widgets can read data from asynchronous APIs (futures or streams), and make that data available **synchronously** to all their descendants. This minimizes API calls, improves performance, and minimizes boilerplate code.
@@ -177,7 +176,7 @@ Services and routing classes are defined at the root, along with constants and c
   /services
 ```
 
-This is a purely arbitrary structure. Choose what works best for **your** project.
+This is an arbitrary structure. Choose what works best for **your** project.
 
 ## Use Case: Firestore Service
 
@@ -368,7 +367,6 @@ TODO
 
 Also imported from my [flutter_core_packages repo](https://github.com/bizz84/flutter_core_packages):
 
-- `auth_widget_builder`
 - `firestore_service`
 - `custom_buttons`
 - `alert_dialogs`
