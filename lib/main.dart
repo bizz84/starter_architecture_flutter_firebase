@@ -2,7 +2,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:starter_architecture_flutter_firebase/app/auth_widget.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/home_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/providers.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_page.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:flutter/material.dart';

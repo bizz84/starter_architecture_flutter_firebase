@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
-import 'package:starter_architecture_flutter_firebase/app/providers.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';

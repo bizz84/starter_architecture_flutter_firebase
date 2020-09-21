@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/providers.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_button.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';

@@ -11,7 +11,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_b
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
-import 'package:starter_architecture_flutter_firebase/app/providers.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
 import 'package:pedantic/pedantic.dart';
 

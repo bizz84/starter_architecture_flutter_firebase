@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/providers.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/date_time_picker.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/format.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';

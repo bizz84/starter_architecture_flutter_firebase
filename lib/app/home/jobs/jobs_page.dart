@@ -7,7 +7,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/jobs/job_list_til
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
-import 'package:starter_architecture_flutter_firebase/app/providers.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
 
