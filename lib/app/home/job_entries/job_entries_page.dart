@@ -13,7 +13,6 @@ import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/providers.dart';
 import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
-import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';
 
 class JobEntriesPage extends StatelessWidget {
@@ -56,7 +55,8 @@ class JobEntriesPage extends StatelessWidget {
   }
 }
 
-final jobStreamProvider = StreamProvider.family<Job, String>((ref, jobId) {
+final jobStreamProvider =
+    StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
   final database = ref.watch(databaseProvider);
   return database != null && jobId != null
       ? database.jobStream(jobId: jobId)
@@ -79,7 +79,7 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 }
 
 final jobEntriesStreamProvider =
-    StreamProvider.family<List<Entry>, Job>((ref, job) {
+    StreamProvider.autoDispose.family<List<Entry>, Job>((ref, job) {
   final database = ref.watch(databaseProvider);
   return database != null && job != null
       ? database.entriesStream(job: job)

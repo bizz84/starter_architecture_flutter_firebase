@@ -7,7 +7,7 @@ import 'package:starter_architecture_flutter_firebase/app/providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 
 final entriesTileModelStreamProvider =
-    StreamProvider<List<EntriesListTileModel>>(
+    StreamProvider.autoDispose<List<EntriesListTileModel>>(
   (ref) {
     final database = ref.watch(databaseProvider);
     if (database != null) {

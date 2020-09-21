@@ -11,7 +11,7 @@ import 'package:starter_architecture_flutter_firebase/app/providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
 
-final jobsStreamProvider = StreamProvider<List<Job>>((ref) {
+final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
   final database = ref.watch(databaseProvider);
   return database?.jobsStream() ?? const Stream.empty();
 });
