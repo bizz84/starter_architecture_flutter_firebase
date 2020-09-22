@@ -363,13 +363,6 @@ This is then imported in the `index.html` file:
   </script>
 ```
 
-## Future Roadmap
-
-- 
-## Non Goals
-
-TODO
-
 ## Packages
 
 - `firebase_auth` for authentication
