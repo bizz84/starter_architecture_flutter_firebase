@@ -393,4 +393,4 @@ Other relevant articles about app architecture:
 - [Widget-Async-Bloc-Service: A Practical Architecture for Flutter Apps](https://codewithandrea.com/articles/2019-05-21-wabs-practical-architecture-flutter-apps/)
 - [Flutter TDD Clean Architecture Course [1] – Explanation & Project Structure](https://resocoder.com/2019/08/27/flutter-tdd-clean-architecture-course-1-explanation-project-structure/)
 
-## [License: MIT](LICENSE.md)`
+## [License: MIT](LICENSE.md)
