@@ -15,9 +15,10 @@ class SignInViewModel with ChangeNotifier {
       notifyListeners();
       await signInMethod();
     } catch (e) {
+      rethrow;
+    } finally {
       isLoading = false;
       notifyListeners();
-      rethrow;
     }
   }
 

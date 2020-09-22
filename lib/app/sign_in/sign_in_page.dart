@@ -1,34 +1,35 @@
 import 'dart:math';
 
 import 'package:alert_dialogs/alert_dialogs.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_button.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 
-class SignInPageBuilder extends StatelessWidget {
+final signInModelProvider = ChangeNotifierProvider<SignInViewModel>(
+  (ref) => SignInViewModel(auth: ref.watch(firebaseAuthProvider)),
+);
+
+class SignInPageBuilder extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    final FirebaseAuth auth = Provider.of<FirebaseAuth>(context, listen: false);
-    return ChangeNotifierProvider<SignInViewModel>(
-      create: (_) => SignInViewModel(auth: auth),
-      child: Consumer<SignInViewModel>(
-        builder: (_, viewModel, __) => SignInPage._(
-          viewModel: viewModel,
-          title: 'Architecture Demo',
-        ),
-      ),
+  Widget build(BuildContext context, ScopedReader watch) {
+    final signInModel = watch(signInModelProvider);
+    return SignInPage._(
+      viewModel: signInModel,
+      title: 'Architecture Demo',
     );
   }
 }
 
 class SignInPage extends StatelessWidget {
-  const SignInPage._({Key key, this.viewModel, this.title}) : super(key: key);
+  const SignInPage._(
+      {Key key, this.viewModel, this.title = 'Architecture Demo'})
+      : super(key: key);
   final SignInViewModel viewModel;
   final String title;
 

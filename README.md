@@ -30,11 +30,9 @@ That's because Firebase can **push** updates directly to **subscribed** clients 
 
 For example, widgets can **rebuild** themselves when certain Firestore *documents* or *collections* are updated.
 
-Many Firebase APIs are **inherently** stream-based. As a result, the **simplest** way of making our widgets reactive is to use [`StreamBuilder`](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) (or [`StreamProvider`](https://pub.dev/documentation/provider/latest/provider/StreamProvider-class.html)).
+Many Firebase APIs are **inherently** stream-based. As a result, the **simplest** way of making our widgets reactive is to use [`StreamProvider`](https://pub.dev/documentation/riverpod/latest/all/StreamProvider-class.html) from the [Riverpod package](https://riverpod.dev). This provides a convenient way of **watching** changes in your Firebase streams, and automatically rebuilding widgets with minimal boilerplate code.
 
-Yes, you could use [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) or other state management techniques that implement observables/listeners. 
-
-But you would need additional "glue" code if you want to "convert" your input streams into reactive models based on `ChangeNotifier`.
+Yes, you could use [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) or other state management techniques that implement observables/listeners. But you would need additional "glue" code if you want to "convert" your input streams into reactive models based on `ChangeNotifier`.
 
 > Note: streams are the default way of pushing changes not only with Firebase, but with many other services as well. For example, you can get location updates with the `onLocationChanged()` stream of the [location](https://pub.dev/packages/location) package. Whether you use Firestore, or want to get data from your device's input sensors, streams are the most convenient way of delivering **asynchronous** data over time.
 
@@ -83,7 +81,7 @@ Widgets **subscribe** themselves as listeners, while view models **publish** upd
 
 The publish/subscribe pattern comes in many variants (e.g. ChangeNotifier, BLoC), and this architecture does not prescribe which one to use.
 
-As a rule of thumb, the most appropriate variant is often the simplest one (on a case-by-case basis). In practice, this means using `Stream`s + `StreamBuilder`/`StreamProvider` when reading and manipulating data from Firestore. But when dealing with **local** application state, `StatefulWidget`+`setState` or `ChangeNotifier` are perfectly acceptable solutions.
+By using Riverpod, we can easily use the most convenient pattern on a case-by-case bsis. In practice, this means using `Stream`s with `StreamProvider` when reading and manipulating data from Firestore. But when dealing with **local** application state, `StatefulWidget`+`setState` or `ChangeNotifier` are sometimes used.
 
 Let's look at the three application layers in more detail.
 
@@ -136,24 +134,72 @@ A separate screen shows a daily breakdown of all jobs, hours worked and pay, alo
 
 All the data is persisted with Firestore, and is kept in sync across multiple devices. 
 
-## Widget tree
+## Riverpod
 
-The two most important services in the app are `FirebaseAuthService` and `FirestoreDatabase`.
+[Riverpod](https://pub.dev/packages/riverpod) is a rewrite of the popular [Provider package](https://pub.dev/packages/provider), and improves on its weaknesses. It is a natural fit for this app.
 
-These are created above the `MaterialApp`, so that all widgets have access to them.
+The two most important services in the app are `FirebaseAuth` (used direcly) and `FirestoreDatabase` (as a wrapper for `FirebaseFirestore`).
 
-Here is a simplified widget tree for the entire app:
+These are created as global providers like so:
 
-<!-- TODO: This needs updating -->
-![](media/time-tracker-widget-tree.png)
+```dart
+final firebaseAuthProvider =
+    Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
-[Provider](https://pub.dev/packages/provider) is used in various ways:
+final authStateChangesProvider = StreamProvider<User>(
+    (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
 
-- to create view models for widgets that need them (and dispose them when no longer needed).
-- to provide **scoped access** to services from the widget classes.
-- to propagate data **synchronously** down the widget tree.
+final databaseProvider = Provider<FirestoreDatabase>((ref) {
+  final auth = ref.watch(authStateChangesProvider);
 
-The last point is particularly important. Reactive widgets can read data from asynchronous APIs (futures or streams), and make that data available **synchronously** to all their descendants. This minimizes API calls, improves performance, and minimizes boilerplate code.
+  // we only have a valid DB if the user is signed in
+  if (auth.data?.value?.uid != null) {
+    return FirestoreDatabase(uid: auth.data?.value?.uid);
+  }
+  return null;
+});
+```
+
+Widgets can access these providers with a `ScopedReader`, either via `Consumer` or `ConsumerWidget`.
+
+For example, here is some sample code demonstrating how to use `StreamProvider` to read some data from a stream (note the use of `.family` to read a `jobId` parameter that is only known at runtime):
+
+```dart
+final jobStreamProvider =
+    StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
+  final database = ref.watch(databaseProvider);
+  return database != null && jobId != null
+      ? database.jobStream(jobId: jobId)
+      : const Stream.empty();
+});
+```
+
+And here's a widget that *watches* this `StreamProvider` and uses it to show some UI based on the stream's latest state (data available / loading / error):
+
+```dart
+class JobEntriesAppBarTitle extends ConsumerWidget {
+  const JobEntriesAppBarTitle({@required this.job});
+  final Job job;
+
+  @override
+  Widget build(BuildContext context, ScopedReader watch) {
+    final jobStream = watch(jobStreamProvider(job.id));
+    return jobStream.when(
+      data: (job) => Text(job.name),
+      loading: () => Container(),
+      error: (_, __) => Container(),
+    );
+  }
+}
+```
+
+Note how all the logic for setting up the `StreamProvider` lives inside the provider itself, and is completely separate from the UI code. The widget class only needs to watch the provider, and map the stream data to the UI.
+
+--------
+
+In addition to the top-level providers and the `StreamProvider`s that read data from Firestore, Riverpod is also used to create and configure view models for widgets that require local state.
+
+These view models can hold any app-specific business logic, and if they're based on `ChangeNotifier` or `StateNotifier`, they can be easily hooked up to their widgets with corresponding providers. See the [SignInViewModel](https://github.com/bizz84/starter_architecture_flutter_firebase/blob/master/lib/app/sign_in/sign_in_view_model.dart) and [SignInPage](https://github.com/bizz84/starter_architecture_flutter_firebase/blob/master/lib/app/sign_in/sign_in_page.dart) widget for an example of this.
 
 ## Project structure
 
@@ -177,14 +223,14 @@ Services and routing classes are defined at the root, along with constants and c
   /services
 ```
 
-This is a purely arbitrary structure. Choose what works best for **your** project.
+This is an arbitrary structure. Choose what works best for **your** project.
 
 ## Use Case: Firestore Service
 
 Widgets can subscribe to updates from Firestore data via streams.
 Equally, write operations can be issued with Future-based APIs.
 
-Here's the entire Database API for the demo app, showing all the possible CRUD operations:
+Here's the entire Database API for the demo app, showing all the supported CRUD operations:
 
 ```dart
 class FirestoreDatabase { // implementation omitted for brevity
@@ -199,20 +245,7 @@ class FirestoreDatabase { // implementation omitted for brevity
 }
 ```
 
-With this setup, creating a widget that shows a list of jobs becomes simple:
-
-```dart
-@override
-Widget build(BuildContext context) {
-  final database = Provider.of<FirestoreDatabase>(context, listen: false);
-  return StreamBuilder<List<Job>>(
-    stream: database.jobsStream(),
-    builder: (context, snapshot) {
-      // TODO: return widget based on snapshot
-    },
-  );
-}
-```
+As shown above, widgets can read these input streams via `StreamProvider`s, and use a _watch_ to reactively rebuild the UI.
 
 For convenience, all available collections and documents are listed in a single class:
 
@@ -231,41 +264,22 @@ These classes are strongly-typed and immutable.
 
 See the [FirestoreDatabase](https://github.com/bizz84/starter_architecture_flutter_firebase/blob/master/lib/services/firestore_database.dart) and [FirestoreService](https://github.com/bizz84/starter_architecture_flutter_firebase/blob/master/lib/services/firestore_service.dart) classes for a full picture of how everything fits together.
 
-### Note about stream-dependant services
-
-When using Firestore, is common to organize all the user data inside documents and collections that depend on the `uid`. For example, this app stores the user's data inside the `users/$uid/jobs` and `users/$uid/entries` collections.
-
-When reading or writing to those collections, the app needs access to the user `uid`. This can change at runtime as users can sign out and sign back in with a different account.
-
-To make the database API simpler, `FirestoreDatabase` takes the `uid` of the signed-in user as a constructor argument.
-This is a big win for maintainability, as we don't need to fetch the `FirebaseUser`, just so that we can pass the `uid` to the database when performing CRUD operations.
-
-To accomplish this, `FirestoreDatabase` is *re*-created inside a "user-bound" `Provider`, everytime `onAuthStateChanged` emits a new `FirebaseUser`.
-
-For more information about his approach and the problems it solves, see my Advanced Provider Series on YouTube:
-
-- [Advanced Provider Tutorial - Part 1: Project Setup & Authentication Flow](https://youtu.be/j8P__wcq2YM)
-- [Advanced Provider Tutorial - Part 2: MultiProvider, Multiple Services & Stream Dependencies](https://youtu.be/wxN1L3RfulI)
-- [Advanced Provider Tutorial - Part 3: Better APIs, Navigation, Widget Rebuilds](https://youtu.be/B0QX2woHxaU)
-
 ## Routing
 
 The app uses named routes, which are defined in a `Routes` class:
 
 ```dart
-class Routes {
-  static const authWidget = '/';
-  static const emailPasswordSignInPageBuilder =
-      '/email-password-sign-in-page-builder';
+class AppRoutes {
+  static const emailPasswordSignInPage = '/email-password-sign-in-page';
   static const editJobPage = '/edit-job-page';
   static const entryPage = '/entry-page';
 }
 ```
 
-A `Router` is then used to generate all the routes with a switch statement:
+A `AppRouter` is then used to generate all the routes with a switch statement:
 
 ```dart
-class Router {
+class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
@@ -349,14 +363,6 @@ This is then imported in the `index.html` file:
   </script>
 ```
 
-## Future Roadmap
-
-- Migrate the project from Provider to Riverpod (WIP branch [here](https://github.com/bizz84/starter_architecture_flutter_firebase/tree/flutter-riverpod)).
-
-## Non Goals
-
-TODO
-
 ## Packages
 
 - `firebase_auth` for authentication
@@ -368,7 +374,6 @@ TODO
 
 Also imported from my [flutter_core_packages repo](https://github.com/bizz84/flutter_core_packages):
 
-- `auth_widget_builder`
 - `firestore_service`
 - `custom_buttons`
 - `alert_dialogs`
@@ -376,7 +381,7 @@ Also imported from my [flutter_core_packages repo](https://github.com/bizz84/flu
 
 ## References
 
-This project borrows many ideas from my Udemy course: [Flutter & Firebase Course: Build a Complete App for iOS & Android](https://www.udemy.com/course/flutter-firebase-build-a-complete-app-for-ios-android/?couponCode=FEB-20), as well as my [Reference Authentication Flow with Flutter & Firebase](https://github.com/bizz84/firebase_auth_demo_flutter).
+This project borrows many ideas from my [Flutter & Firebase Udemy Course](https://nnbd.me/flutter-firebase), as well as my [Reference Authentication Flow with Flutter & Firebase](https://github.com/bizz84/firebase_auth_demo_flutter), and takes them to the next level by using Riverpod.
 
 Here are some other GitHub projects that also attempt to formalize a good approach to Flutter development:
 
@@ -388,4 +393,4 @@ Other relevant articles about app architecture:
 - [Widget-Async-Bloc-Service: A Practical Architecture for Flutter Apps](https://codewithandrea.com/articles/2019-05-21-wabs-practical-architecture-flutter-apps/)
 - [Flutter TDD Clean Architecture Course [1] – Explanation & Project Structure](https://resocoder.com/2019/08/27/flutter-tdd-clean-architecture-course-1-explanation-project-structure/)
 
-## [License: MIT](LICENSE.md)
+## [License: MIT](LICENSE.md)`

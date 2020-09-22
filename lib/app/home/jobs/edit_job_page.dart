@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';
@@ -46,10 +47,10 @@ class _EditJobPageState extends State<EditJobPage> {
     return false;
   }
 
-  Future<void> _submit() async {
+  Future<void> _submit(ScopedReader watch) async {
     if (_validateAndSaveForm()) {
       try {
-        final database = Provider.of<FirestoreDatabase>(context, listen: false);
+        final database = watch(databaseProvider);
         final jobs = await database.jobsStream().first;
         final allLowerCaseNames =
             jobs.map((job) => job.name.toLowerCase()).toList();
@@ -86,12 +87,14 @@ class _EditJobPageState extends State<EditJobPage> {
         elevation: 2.0,
         title: Text(widget.job == null ? 'New Job' : 'Edit Job'),
         actions: <Widget>[
-          FlatButton(
-            child: Text(
-              'Save',
-              style: TextStyle(fontSize: 18, color: Colors.white),
+          Consumer(
+            builder: (_, watch, __) => FlatButton(
+              child: Text(
+                'Save',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+              onPressed: () => _submit(watch),
             ),
-            onPressed: _submit,
           ),
         ],
       ),

@@ -13,13 +13,13 @@ class AppRoutes {
 }
 
 class AppRouter {
-  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+  static Route<dynamic> onGenerateRoute(
+      RouteSettings settings, FirebaseAuth firebaseAuth) {
     final args = settings.arguments;
     switch (settings.name) {
       case AppRoutes.emailPasswordSignInPage:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => EmailPasswordSignInPage.withFirebaseAuth(
-              FirebaseAuth.instance,
+          builder: (_) => EmailPasswordSignInPage.withFirebaseAuth(firebaseAuth,
               onSignedIn: args),
           settings: settings,
           fullscreenDialog: true,

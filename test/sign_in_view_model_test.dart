@@ -8,37 +8,37 @@ import 'package:mockito/mockito.dart';
 import 'mocks.dart';
 
 void main() {
-  MockAuthService mockAuthService;
+  MockFirebaseAuth mockFirebaseAuth;
   SignInViewModel viewModel;
 
   setUp(() {
-    mockAuthService = MockAuthService();
-    viewModel = SignInViewModel(auth: mockAuthService);
+    mockFirebaseAuth = MockFirebaseAuth();
+    viewModel = SignInViewModel(auth: mockFirebaseAuth);
   });
 
   tearDown(() {
-    mockAuthService = null;
+    mockFirebaseAuth = null;
     viewModel = null;
   });
 
   void stubSignInAnonymouslyReturnsUser() {
-    when(mockAuthService.signInAnonymously())
+    when(mockFirebaseAuth.signInAnonymously())
         .thenAnswer((_) => Future.value(MockUserCredential()));
   }
 
   void stubSignInAnonymouslyThrows(Exception exception) {
-    when(mockAuthService.signInAnonymously()).thenThrow(exception);
+    when(mockFirebaseAuth.signInAnonymously()).thenThrow(exception);
   }
 
   test(
       'WHEN view model signs in anonymously'
       'AND auth returns valid user'
-      'THEN isLoading is true', () async {
+      'THEN isLoading is false', () async {
     stubSignInAnonymouslyReturnsUser();
 
     await viewModel.signInAnonymously();
 
-    expect(viewModel.isLoading, true);
+    expect(viewModel.isLoading, false);
   });
 
   test(

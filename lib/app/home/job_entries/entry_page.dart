@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/date_time_picker.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/format.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
@@ -66,9 +67,9 @@ class _EntryPageState extends State<EntryPage> {
     );
   }
 
-  Future<void> _setEntryAndDismiss() async {
+  Future<void> _setEntryAndDismiss(ScopedReader watch) async {
     try {
-      final database = Provider.of<FirestoreDatabase>(context, listen: false);
+      final database = watch(databaseProvider);
       final entry = _entryFromState();
       await database.setEntry(entry);
       Navigator.of(context).pop();
@@ -88,12 +89,14 @@ class _EntryPageState extends State<EntryPage> {
         elevation: 2.0,
         title: Text(widget.job.name),
         actions: <Widget>[
-          FlatButton(
-            child: Text(
-              widget.entry != null ? 'Update' : 'Create',
-              style: TextStyle(fontSize: 18.0, color: Colors.white),
+          Consumer(
+            builder: (_, watch, __) => FlatButton(
+              child: Text(
+                widget.entry != null ? 'Update' : 'Create',
+                style: TextStyle(fontSize: 18.0, color: Colors.white),
+              ),
+              onPressed: () => _setEntryAndDismiss(watch),
             ),
-            onPressed: _setEntryAndDismiss,
           )
         ],
       ),

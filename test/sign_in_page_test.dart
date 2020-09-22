@@ -1,23 +1,24 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 
 import 'mocks.dart';
 
 void main() {
   group('sign-in page', () {
-    MockAuthService mockAuthService;
+    MockFirebaseAuth mockFirebaseAuth;
     MockNavigatorObserver mockNavigatorObserver;
     StreamController<User> onAuthStateChangedController;
 
     setUp(() {
-      mockAuthService = MockAuthService();
+      mockFirebaseAuth = MockFirebaseAuth();
       mockNavigatorObserver = MockNavigatorObserver();
       onAuthStateChangedController = StreamController<User>();
     });
@@ -28,17 +29,20 @@ void main() {
 
     Future<void> pumpSignInPage(WidgetTester tester) async {
       await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            Provider<FirebaseAuth>(
-              create: (_) => mockAuthService,
-            ),
+        ProviderScope(
+          overrides: [
+            firebaseAuthProvider
+                .overrideWithProvider(Provider((ref) => mockFirebaseAuth)),
           ],
-          child: MaterialApp(
-            home: SignInPageBuilder(),
-            onGenerateRoute: AppRouter.onGenerateRoute,
-            navigatorObservers: [mockNavigatorObserver],
-          ),
+          child: Consumer(builder: (context, watch, __) {
+            final firebaseAuth = watch(firebaseAuthProvider);
+            return MaterialApp(
+              home: SignInPageBuilder(),
+              onGenerateRoute: (settings) =>
+                  AppRouter.onGenerateRoute(settings, firebaseAuth),
+              navigatorObservers: [mockNavigatorObserver],
+            );
+          }),
         ),
       );
       // didPush is called once when the widget is first built
@@ -55,6 +59,6 @@ void main() {
       await tester.pumpAndSettle();
 
       verify(mockNavigatorObserver.didPush(any, any)).called(1);
-    }, skip: true);
+    });
   });
 }
