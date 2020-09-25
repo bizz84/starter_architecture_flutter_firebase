@@ -16,11 +16,11 @@ Future<void> main() async {
   ));
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context) {
     // MultiProvider for top-level services that don't depend on any runtime values (e.g. uid)
-    final firebaseAuth = watch(firebaseAuthProvider);
+    final firebaseAuth = context.read(firebaseAuthProvider);
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.indigo),
       debugShowCheckedModeBanner: false,

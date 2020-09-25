@@ -47,10 +47,10 @@ class _EditJobPageState extends State<EditJobPage> {
     return false;
   }
 
-  Future<void> _submit(ScopedReader watch) async {
+  Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       try {
-        final database = watch(databaseProvider);
+        final database = context.read(databaseProvider);
         final jobs = await database.jobsStream().first;
         final allLowerCaseNames =
             jobs.map((job) => job.name.toLowerCase()).toList();
@@ -87,14 +87,12 @@ class _EditJobPageState extends State<EditJobPage> {
         elevation: 2.0,
         title: Text(widget.job == null ? 'New Job' : 'Edit Job'),
         actions: <Widget>[
-          Consumer(
-            builder: (_, watch, __) => FlatButton(
-              child: Text(
-                'Save',
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-              onPressed: () => _submit(watch),
+          FlatButton(
+            child: Text(
+              'Save',
+              style: TextStyle(fontSize: 18, color: Colors.white),
             ),
+            onPressed: () => _submit(),
           ),
         ],
       ),

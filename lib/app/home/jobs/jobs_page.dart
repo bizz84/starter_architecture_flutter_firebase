@@ -12,16 +12,15 @@ import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
 
 final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
-  final database = ref.watch(databaseProvider);
+  final database = ref.read(databaseProvider);
   return database?.jobsStream() ?? const Stream.empty();
 });
 
 // watch database
 class JobsPage extends ConsumerWidget {
-  Future<void> _delete(
-      BuildContext context, ScopedReader watch, Job job) async {
+  Future<void> _delete(BuildContext context, Job job) async {
     try {
-      final database = watch(databaseProvider);
+      final database = context.read(databaseProvider);
       await database.deleteJob(job);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
@@ -56,7 +55,7 @@ class JobsPage extends ConsumerWidget {
         key: Key('job-${job.id}'),
         background: Container(color: Colors.red),
         direction: DismissDirection.endToStart,
-        onDismissed: (direction) => _delete(context, watch, job),
+        onDismissed: (direction) => _delete(context, job),
         child: JobListTile(
           job: job,
           onTap: () => JobEntriesPage.show(context, job),

@@ -147,7 +147,7 @@ final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
 final authStateChangesProvider = StreamProvider<User>(
-    (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
+    (ref) => ref.read(firebaseAuthProvider).authStateChanges());
 
 final databaseProvider = Provider<FirestoreDatabase>((ref) {
   final auth = ref.watch(authStateChangesProvider);
@@ -167,7 +167,7 @@ For example, here is some sample code demonstrating how to use `StreamProvider` 
 ```dart
 final jobStreamProvider =
     StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
-  final database = ref.watch(databaseProvider);
+  final database = ref.read(databaseProvider);
   return database != null && jobId != null
       ? database.jobStream(jobId: jobId)
       : const Stream.empty();

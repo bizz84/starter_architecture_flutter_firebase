@@ -10,7 +10,7 @@ import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:pedantic/pedantic.dart';
 
-class AccountPage extends ConsumerWidget {
+class AccountPage extends StatelessWidget {
   Future<void> _signOut(BuildContext context, FirebaseAuth firebaseAuth) async {
     try {
       await firebaseAuth.signOut();
@@ -39,8 +39,8 @@ class AccountPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final firebaseAuth = watch(firebaseAuthProvider);
+  Widget build(BuildContext context) {
+    final firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser;
     return Scaffold(
       appBar: AppBar(
