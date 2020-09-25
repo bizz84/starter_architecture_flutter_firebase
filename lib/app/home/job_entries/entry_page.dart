@@ -67,9 +67,9 @@ class _EntryPageState extends State<EntryPage> {
     );
   }
 
-  Future<void> _setEntryAndDismiss(ScopedReader watch) async {
+  Future<void> _setEntryAndDismiss() async {
     try {
-      final database = watch(databaseProvider);
+      final database = context.read(databaseProvider);
       final entry = _entryFromState();
       await database.setEntry(entry);
       Navigator.of(context).pop();
@@ -89,15 +89,13 @@ class _EntryPageState extends State<EntryPage> {
         elevation: 2.0,
         title: Text(widget.job.name),
         actions: <Widget>[
-          Consumer(
-            builder: (_, watch, __) => FlatButton(
-              child: Text(
-                widget.entry != null ? 'Update' : 'Create',
-                style: TextStyle(fontSize: 18.0, color: Colors.white),
-              ),
-              onPressed: () => _setEntryAndDismiss(watch),
+          FlatButton(
+            child: Text(
+              widget.entry != null ? 'Update' : 'Create',
+              style: TextStyle(fontSize: 18.0, color: Colors.white),
             ),
-          )
+            onPressed: () => _setEntryAndDismiss(),
+          ),
         ],
       ),
       body: SingleChildScrollView(
