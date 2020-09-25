@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 
 final signInModelProvider = ChangeNotifierProvider<SignInViewModel>(
-  (ref) => SignInViewModel(auth: ref.read(firebaseAuthProvider)),
+  (ref) => SignInViewModel(auth: ref.watch(firebaseAuthProvider)),
 );
 
 class SignInPageBuilder extends ConsumerWidget {

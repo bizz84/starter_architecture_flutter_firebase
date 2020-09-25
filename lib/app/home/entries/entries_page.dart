@@ -9,7 +9,7 @@ import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 final entriesTileModelStreamProvider =
     StreamProvider.autoDispose<List<EntriesListTileModel>>(
   (ref) {
-    final database = ref.read(databaseProvider);
+    final database = ref.watch(databaseProvider);
     if (database != null) {
       final vm = EntriesViewModel(database: database);
       return vm.entriesTileModelStream;

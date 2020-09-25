@@ -12,7 +12,7 @@ import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
 
 final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
-  final database = ref.read(databaseProvider);
+  final database = ref.watch(databaseProvider);
   return database?.jobsStream() ?? const Stream.empty();
 });
 

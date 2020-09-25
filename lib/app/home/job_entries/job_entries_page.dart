@@ -57,7 +57,7 @@ class JobEntriesPage extends StatelessWidget {
 
 final jobStreamProvider =
     StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
-  final database = ref.read(databaseProvider);
+  final database = ref.watch(databaseProvider);
   return database != null && jobId != null
       ? database.jobStream(jobId: jobId)
       : const Stream.empty();
@@ -80,7 +80,7 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 
 final jobEntriesStreamProvider =
     StreamProvider.autoDispose.family<List<Entry>, Job>((ref, job) {
-  final database = ref.read(databaseProvider);
+  final database = ref.watch(databaseProvider);
   return database != null && job != null
       ? database.entriesStream(job: job)
       : const Stream.empty();
