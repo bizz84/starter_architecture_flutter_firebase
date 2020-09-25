@@ -15,19 +15,31 @@ final signInModelProvider = ChangeNotifierProvider<SignInViewModel>(
   (ref) => SignInViewModel(auth: ref.watch(firebaseAuthProvider)),
 );
 
-class SignInPageBuilder extends ConsumerWidget {
+class SignInPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final signInModel = watch(signInModelProvider);
-    return SignInPage._(
-      viewModel: signInModel,
-      title: 'Architecture Demo',
+    return ProviderListener<SignInViewModel>(
+      provider: signInModelProvider,
+      onChange: (context, model) async {
+        if (model.error != null) {
+          await showExceptionAlertDialog(
+            context: context,
+            title: Strings.signInFailed,
+            exception: model.error,
+          );
+        }
+      },
+      child: SignInPageContents(
+        viewModel: signInModel,
+        title: 'Architecture Demo',
+      ),
     );
   }
 }
 
-class SignInPage extends StatelessWidget {
-  const SignInPage._(
+class SignInPageContents extends StatelessWidget {
+  const SignInPageContents(
       {Key key, this.viewModel, this.title = 'Architecture Demo'})
       : super(key: key);
   final SignInViewModel viewModel;
@@ -35,22 +47,6 @@ class SignInPage extends StatelessWidget {
 
   static const Key emailPasswordButtonKey = Key(Keys.emailPassword);
   static const Key anonymousButtonKey = Key(Keys.anonymous);
-
-  Future<void> _showSignInError(BuildContext context, dynamic exception) async {
-    await showExceptionAlertDialog(
-      context: context,
-      title: Strings.signInFailed,
-      exception: exception,
-    );
-  }
-
-  Future<void> _signInAnonymously(BuildContext context) async {
-    try {
-      await viewModel.signInAnonymously();
-    } catch (e) {
-      await _showSignInError(context, e);
-    }
-  }
 
   Future<void> _showEmailPasswordSignInPage(BuildContext context) async {
     final navigator = Navigator.of(context);
@@ -122,9 +118,8 @@ class SignInPage extends StatelessWidget {
                 text: Strings.goAnonymous,
                 color: Theme.of(context).primaryColor,
                 textColor: Colors.white,
-                onPressed: viewModel.isLoading
-                    ? null
-                    : () => _signInAnonymously(context),
+                onPressed:
+                    viewModel.isLoading ? null : viewModel.signInAnonymously,
               ),
             ],
           ),

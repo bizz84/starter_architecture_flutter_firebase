@@ -37,7 +37,7 @@ void main() {
           child: Consumer(builder: (context, watch, __) {
             final firebaseAuth = watch(firebaseAuthProvider);
             return MaterialApp(
-              home: SignInPageBuilder(),
+              home: SignInPage(),
               onGenerateRoute: (settings) =>
                   AppRouter.onGenerateRoute(settings, firebaseAuth),
               navigatorObservers: [mockNavigatorObserver],
@@ -52,7 +52,8 @@ void main() {
     testWidgets('email & password navigation', (tester) async {
       await pumpSignInPage(tester);
 
-      final emailPasswordButton = find.byKey(SignInPage.emailPasswordButtonKey);
+      final emailPasswordButton =
+          find.byKey(SignInPageContents.emailPasswordButtonKey);
       expect(emailPasswordButton, findsOneWidget);
 
       await tester.tap(emailPasswordButton);

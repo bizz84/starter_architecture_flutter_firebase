@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.indigo),
       debugShowCheckedModeBanner: false,
       home: AuthWidget(
-        nonSignedInBuilder: (_) => SignInPageBuilder(),
+        nonSignedInBuilder: (_) => SignInPage(),
         signedInBuilder: (_) => HomePage(),
       ),
       onGenerateRoute: (settings) =>
