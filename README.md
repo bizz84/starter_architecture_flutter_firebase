@@ -371,6 +371,7 @@ This is then imported in the `index.html` file:
 - `rxdart` for combining multiple Firestore collections as needed
 - `intl` for currency, date, time formatting
 - `mockito` for testing
+- `equatable` to reduce boilerplate code in model classes
 
 Also imported from my [flutter_core_packages repo](https://github.com/bizz84/flutter_core_packages):
 

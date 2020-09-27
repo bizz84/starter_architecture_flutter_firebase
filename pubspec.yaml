@@ -26,6 +26,7 @@ dependencies:
   rxdart: ^0.24.1
   intl: ^0.16.1
   flutter_riverpod: ^0.10.1
+  equatable: ^1.2.5
   firestore_service:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
