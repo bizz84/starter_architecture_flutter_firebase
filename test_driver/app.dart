@@ -1,5 +1,3 @@
-//import 'package:starter_architecture_flutter_firebase/main.dart' as app;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mockito/mockito.dart';

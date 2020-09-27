@@ -88,7 +88,7 @@ class _EditJobPageState extends State<EditJobPage> {
         title: Text(widget.job == null ? 'New Job' : 'Edit Job'),
         actions: <Widget>[
           FlatButton(
-            child: Text(
+            child: const Text(
               'Save',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),

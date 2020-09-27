@@ -92,7 +92,7 @@ class _EntryPageState extends State<EntryPage> {
           FlatButton(
             child: Text(
               widget.entry != null ? 'Update' : 'Create',
-              style: TextStyle(fontSize: 18.0, color: Colors.white),
+              style: const TextStyle(fontSize: 18.0, color: Colors.white),
             ),
             onPressed: () => _setEntryAndDismiss(),
           ),
@@ -146,7 +146,7 @@ class _EntryPageState extends State<EntryPage> {
       children: <Widget>[
         Text(
           'Duration: $durationFormatted',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+          style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -159,12 +159,12 @@ class _EntryPageState extends State<EntryPage> {
       keyboardType: TextInputType.text,
       maxLength: 50,
       controller: TextEditingController(text: _comment),
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: 'Comment',
         labelStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
       ),
       keyboardAppearance: Brightness.light,
-      style: TextStyle(fontSize: 20.0, color: Colors.black),
+      style: const TextStyle(fontSize: 20.0, color: Colors.black),
       maxLines: null,
       onChanged: (comment) => _comment = comment,
     );

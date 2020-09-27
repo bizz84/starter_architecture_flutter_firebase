@@ -74,7 +74,7 @@ class SignInPageContents extends StatelessWidget {
         child: CircularProgressIndicator(),
       );
     }
-    return Text(
+    return const Text(
       Strings.signIn,
       textAlign: TextAlign.center,
       style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600),
@@ -107,7 +107,7 @@ class SignInPageContents extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
               ),
               const SizedBox(height: 8),
-              Text(
+              const Text(
                 Strings.or,
                 style: TextStyle(fontSize: 14.0, color: Colors.black87),
                 textAlign: TextAlign.center,
