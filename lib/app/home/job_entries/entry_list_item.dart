@@ -25,7 +25,7 @@ class EntryListItem extends StatelessWidget {
             Expanded(
               child: _buildContents(context),
             ),
-            Icon(Icons.chevron_right, color: Colors.grey),
+            const Icon(Icons.chevron_right, color: Colors.grey),
           ],
         ),
       ),
@@ -46,7 +46,8 @@ class EntryListItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Row(children: <Widget>[
-          Text(dayOfWeek, style: TextStyle(fontSize: 18.0, color: Colors.grey)),
+          Text(dayOfWeek,
+              style: const TextStyle(fontSize: 18.0, color: Colors.grey)),
           const SizedBox(width: 15.0),
           Text(startDate, style: const TextStyle(fontSize: 18.0)),
           if (job.ratePerHour > 0.0) ...<Widget>[
