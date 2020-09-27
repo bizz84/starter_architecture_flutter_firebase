@@ -32,4 +32,17 @@ void main() {
       });
     });
   });
+
+  group('equality', () {
+    test('different properties, equality returns false', () {
+      const job1 = Job(name: 'Blogging', ratePerHour: 10, id: 'abc');
+      const job2 = Job(name: 'Blogging', ratePerHour: 5, id: 'abc');
+      expect(job1 == job2, false);
+    });
+    test('same properties, equality returns true', () {
+      const job1 = Job(name: 'Blogging', ratePerHour: 10, id: 'abc');
+      const job2 = Job(name: 'Blogging', ratePerHour: 10, id: 'abc');
+      expect(job1 == job2, true);
+    });
+  });
 }
