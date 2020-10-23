@@ -2,6 +2,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:starter_architecture_flutter_firebase/app/auth_widget.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/home_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/onboarding/onboarding_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/onboarding/onboarding_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_page.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
@@ -25,7 +27,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.indigo),
       debugShowCheckedModeBanner: false,
       home: AuthWidget(
-        nonSignedInBuilder: (_) => SignInPage(),
+        nonSignedInBuilder: (_) => Consumer(
+          builder: (context, watch, _) {
+            final didCompleteOnboarding =
+                watch(onboardingViewModelProvider.state);
+            return didCompleteOnboarding ? SignInPage() : OnboardingPage();
+          },
+        ),
         signedInBuilder: (_) => HomePage(),
       ),
       onGenerateRoute: (settings) =>
