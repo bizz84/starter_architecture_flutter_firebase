@@ -5,9 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:starter_architecture_flutter_firebase/app/onboarding/onboarding_view_model.dart';
 
 class OnboardingPage extends StatelessWidget {
-  void onGetStarted(BuildContext context) {
+  Future<void> onGetStarted(BuildContext context) async {
     final onboardingViewModel = context.read(onboardingViewModelProvider);
-    onboardingViewModel.completeOnboarding();
+    await onboardingViewModel.completeOnboarding();
   }
 
   @override

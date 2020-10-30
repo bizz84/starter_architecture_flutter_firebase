@@ -45,6 +45,7 @@ dependencies:
   intl: ^0.16.1
   logger: ^0.9.2
   rxdart: ^0.24.1
+  shared_preferences: ^0.5.12+2
   state_notifier: ^0.6.0
 
 dev_dependencies:

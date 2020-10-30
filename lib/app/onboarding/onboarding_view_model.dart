@@ -1,14 +1,27 @@
-import 'package:flutter_riverpod/all.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/services/shared_preferences_service.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 final onboardingViewModelProvider = StateNotifierProvider<OnboardingViewModel>(
-  (ref) => OnboardingViewModel(),
+  (ref) => OnboardingViewModel(ref),
 );
 
 class OnboardingViewModel extends StateNotifier<bool> {
-  OnboardingViewModel() : super(false);
+  OnboardingViewModel(this.ref) : super(false) {
+    init();
+  }
+  final ProviderReference ref;
 
-  void completeOnboarding() => state = true;
+  Future<void> init() async {
+    final sharedPreferencesService =
+        await ref.read(sharedPreferencesServiceProvider.future);
+    state = sharedPreferencesService.isOnboardingComplete();
+  }
 
-  bool get didCompleteOnboarding => state;
+  Future<void> completeOnboarding() async {
+    final sharedPreferencesService =
+        await ref.read(sharedPreferencesServiceProvider.future);
+    await sharedPreferencesService.setOnboardingComplete();
+    state = true;
+  }
 }
