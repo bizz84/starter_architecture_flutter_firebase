@@ -17,4 +17,6 @@ class OnboardingViewModel extends StateNotifier<bool> {
     await sharedPreferencesService.setOnboardingComplete();
     state = true;
   }
+
+  bool get isOnboardingComplete => state;
 }
