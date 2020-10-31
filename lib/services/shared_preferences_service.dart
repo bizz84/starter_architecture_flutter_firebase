@@ -15,5 +15,5 @@ class SharedPreferencesService {
   }
 
   bool isOnboardingComplete() =>
-      sharedPreferences.getBool(onboardingCompleteKey);
+      sharedPreferences.getBool(onboardingCompleteKey) ?? false;
 }
