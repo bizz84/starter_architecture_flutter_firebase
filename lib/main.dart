@@ -29,7 +29,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // MultiProvider for top-level services that don't depend on any runtime values (e.g. uid)
     final firebaseAuth = context.read(firebaseAuthProvider);
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.indigo),
