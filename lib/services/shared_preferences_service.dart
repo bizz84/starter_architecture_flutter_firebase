@@ -2,10 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sharedPreferencesServiceProvider =
-    FutureProvider<SharedPreferencesService>(
-  (ref) async =>
-      SharedPreferencesService(await SharedPreferences.getInstance()),
-);
+    Provider<SharedPreferencesService>((ref) => throw UnimplementedError());
 
 class SharedPreferencesService {
   SharedPreferencesService(this.sharedPreferences);
