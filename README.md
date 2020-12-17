@@ -138,17 +138,22 @@ All the data is persisted with Firestore, and is kept in sync across multiple de
 
 [Riverpod](https://pub.dev/packages/riverpod) is a rewrite of the popular [Provider package](https://pub.dev/packages/provider), and improves on its weaknesses. It is a natural fit for this app.
 
-The two most important services in the app are `FirebaseAuth` (used direcly) and `FirestoreDatabase` (as a wrapper for `FirebaseFirestore`).
+Riverpod can be used to create **global** providers that are not tied to the widget tree, and these can then be accessed by **reference**. In this sense, Riverpod works more like a **service locator**.
 
-These are created as global providers like so:
+### Creating Providers with Riverpod
+
+For example, here are some providers that are created using Riverpod:
 
 ```dart
+// 1
 final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
+// 2
 final authStateChangesProvider = StreamProvider<User>(
     (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
 
+// 3
 final databaseProvider = Provider<FirestoreDatabase>((ref) {
   final auth = ref.watch(authStateChangesProvider);
 
@@ -160,9 +165,19 @@ final databaseProvider = Provider<FirestoreDatabase>((ref) {
 });
 ```
 
+As we can see, `authStateChangesProvider` **depends** on `firebaseAuthProvider`, and can get access to it using `ref.watch`.
+
+Similarly, `databaseProvider` **depends** on `authStateChangesProvider`.
+
+One powerful feature of Riverpod is that we can **watch** a provider's value and rebuild all dependent providers and widgets **when the value changes**.
+
+An example of this is the `databaseProvider` above. This provider's value is rebuilt every time the `authStateChangesProvider`'s value **changes**. This is used to return either a `FirestoreDatabase` object or `null` depending on the authentication state.
+
+### Using Riverpod inside widgets
+
 Widgets can access these providers with a `ScopedReader`, either via `Consumer` or `ConsumerWidget`.
 
-For example, here is some sample code demonstrating how to use `StreamProvider` to read some data from a stream (note the use of `.family` to read a `jobId` parameter that is only known at runtime):
+For example, here is some sample code demonstrating how to use `StreamProvider` to read some data from a stream:
 
 ```dart
 final jobStreamProvider =
@@ -174,7 +189,13 @@ final jobStreamProvider =
 });
 ```
 
-And here's a widget that *watches* this `StreamProvider` and uses it to show some UI based on the stream's latest state (data available / loading / error):
+There is a lot to unpack here:
+
+- the `StreamProvider` can auto-dispose itself when all its listeners unsubscribe
+- we're using `.family` to read a `jobId` parameter that is only known at runtime
+- we only return a `jobStream` if both the `database` and the `jobId` are not `null`, otherwise we return an empty stream.
+
+Here's a widget that *watches* this `StreamProvider` and uses it to show some UI based on the stream's latest state (data available / loading / error):
 
 ```dart
 class JobEntriesAppBarTitle extends ConsumerWidget {
@@ -183,8 +204,10 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final jobStream = watch(jobStreamProvider(job.id));
-    return jobStream.when(
+    // 1: watch changes in the stream
+    final jobAsyncValue = watch(jobStreamProvider(job.id));
+    // 2: return the correct widget depending on the stream value
+    return jobAsyncValue.when(
       data: (job) => Text(job.name),
       loading: () => Container(),
       error: (_, __) => Container(),
@@ -193,7 +216,9 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 }
 ```
 
-Note how all the logic for setting up the `StreamProvider` lives inside the provider itself, and is completely separate from the UI code. The widget class only needs to watch the provider, and map the stream data to the UI.
+This widget class is as simple as it can be, as it only needs to **watch** for changes in the stream (step 1), and return the correct widget depending on the stream value (step 2).
+
+This is great because all the logic for setting up the `StreamProvider` lives inside the provider itself, and is completely separate from the UI code.
 
 --------
 

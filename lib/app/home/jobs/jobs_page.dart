@@ -48,9 +48,9 @@ class JobsPage extends ConsumerWidget {
   }
 
   Widget _buildContents(BuildContext context, ScopedReader watch) {
-    final jobsStream = watch(jobsStreamProvider);
+    final jobsAsyncValue = watch(jobsStreamProvider);
     return ListItemsBuilder<Job>(
-      data: jobsStream,
+      data: jobsAsyncValue,
       itemBuilder: (context, job) => Dismissible(
         key: Key('job-${job.id}'),
         background: Container(color: Colors.red),

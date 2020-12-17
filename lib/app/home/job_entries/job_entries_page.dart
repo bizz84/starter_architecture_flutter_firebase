@@ -69,8 +69,8 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final jobStream = watch(jobStreamProvider(job.id));
-    return jobStream.when(
+    final jobAsyncValue = watch(jobStreamProvider(job.id));
+    return jobAsyncValue.when(
       data: (job) => Text(job.name),
       loading: () => Container(),
       error: (_, __) => Container(),

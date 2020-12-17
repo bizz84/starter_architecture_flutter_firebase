@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_page.dart';
@@ -15,16 +14,10 @@ void main() {
   group('sign-in page', () {
     MockFirebaseAuth mockFirebaseAuth;
     MockNavigatorObserver mockNavigatorObserver;
-    StreamController<User> onAuthStateChangedController;
 
     setUp(() {
       mockFirebaseAuth = MockFirebaseAuth();
       mockNavigatorObserver = MockNavigatorObserver();
-      onAuthStateChangedController = StreamController<User>();
-    });
-
-    tearDown(() {
-      onAuthStateChangedController.close();
     });
 
     Future<void> pumpSignInPage(WidgetTester tester) async {
