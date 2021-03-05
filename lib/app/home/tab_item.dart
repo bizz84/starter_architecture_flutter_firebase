@@ -6,7 +6,7 @@ enum TabItem { jobs, entries, account }
 
 class TabItemData {
   const TabItemData(
-      {@required this.key, @required this.title, @required this.icon});
+      {required this.key, required this.title, required this.icon});
 
   final String key;
   final String title;

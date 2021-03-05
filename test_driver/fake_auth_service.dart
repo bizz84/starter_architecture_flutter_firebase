@@ -50,7 +50,7 @@ class FakeAuthService implements FirebaseAuth {
 
   @override
   Future<UserCredential> createUserWithEmailAndPassword(
-      {@required String email, @required String password}) async {
+      {required String email, required String password}) async {
     await Future<void>.delayed(responseTime);
     if (_usersStore.keys.contains(email)) {
       throw PlatformException(
@@ -281,7 +281,7 @@ class FakeAuthService implements FirebaseAuth {
 }
 
 class _UserData {
-  _UserData({@required this.password, @required this.user});
+  _UserData({required this.password, required this.user});
   final String password;
   final User user;
 }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:firestore_service/firestore_service.dart';
-import 'package:meta/meta.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_path.dart';
@@ -9,8 +8,7 @@ import 'package:starter_architecture_flutter_firebase/services/firestore_path.da
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
 class FirestoreDatabase {
-  FirestoreDatabase({@required this.uid})
-      : assert(uid != null, 'Cannot create FirestoreDatabase with null uid');
+  FirestoreDatabase({required this.uid});
   final String uid;
 
   final _service = FirestoreService.instance;
@@ -32,7 +30,7 @@ class FirestoreDatabase {
     await _service.deleteData(path: FirestorePath.job(uid, job.id));
   }
 
-  Stream<Job> jobStream({@required String jobId}) => _service.documentStream(
+  Stream<Job> jobStream({required String jobId}) => _service.documentStream(
         path: FirestorePath.job(uid, jobId),
         builder: (data, documentId) => Job.fromMap(data, documentId),
       );
@@ -50,7 +48,7 @@ class FirestoreDatabase {
   Future<void> deleteEntry(Entry entry) =>
       _service.deleteData(path: FirestorePath.entry(uid, entry.id));
 
-  Stream<List<Entry>> entriesStream({Job job}) =>
+  Stream<List<Entry>> entriesStream({Job? job}) =>
       _service.collectionStream<Entry>(
         path: FirestorePath.entries(uid),
         queryBuilder: job != null

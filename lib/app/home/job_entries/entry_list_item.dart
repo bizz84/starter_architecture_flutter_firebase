@@ -5,9 +5,9 @@ import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 
 class EntryListItem extends StatelessWidget {
   const EntryListItem({
-    @required this.entry,
-    @required this.job,
-    @required this.onTap,
+    required this.entry,
+    required this.job,
+    required this.onTap,
   });
 
   final Entry entry;
@@ -63,7 +63,7 @@ class EntryListItem extends StatelessWidget {
           Expanded(child: Container()),
           Text(durationFormatted, style: const TextStyle(fontSize: 16.0)),
         ]),
-        if (entry.comment.isNotEmpty)
+        if (entry.comment?.isNotEmpty ?? false)
           Text(
             entry.comment,
             style: const TextStyle(fontSize: 12.0),
@@ -77,9 +77,9 @@ class EntryListItem extends StatelessWidget {
 
 class DismissibleEntryListItem extends StatelessWidget {
   const DismissibleEntryListItem({
-    this.dismissibleKey,
-    this.entry,
-    this.job,
+    required this.dismissibleKey,
+    required this.entry,
+    required this.job,
     this.onDismissed,
     this.onTap,
   });
@@ -87,8 +87,8 @@ class DismissibleEntryListItem extends StatelessWidget {
   final Key dismissibleKey;
   final Entry entry;
   final Job job;
-  final VoidCallback onDismissed;
-  final VoidCallback onTap;
+  final VoidCallback? onDismissed;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,7 @@ class DismissibleEntryListItem extends StatelessWidget {
       background: Container(color: Colors.red),
       key: dismissibleKey,
       direction: DismissDirection.endToStart,
-      onDismissed: (direction) => onDismissed(),
+      onDismissed: (direction) => onDismissed?.call(),
       child: EntryListItem(
         entry: entry,
         job: job,

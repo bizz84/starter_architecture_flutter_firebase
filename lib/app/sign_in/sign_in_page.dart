@@ -40,7 +40,7 @@ class SignInPage extends ConsumerWidget {
 
 class SignInPageContents extends StatelessWidget {
   const SignInPageContents(
-      {Key key, this.viewModel, this.title = 'Architecture Demo'})
+      {Key? key, required this.viewModel, this.title = 'Architecture Demo'})
       : super(key: key);
   final SignInViewModel viewModel;
   final String title;

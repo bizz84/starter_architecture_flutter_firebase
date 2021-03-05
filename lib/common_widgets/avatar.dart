@@ -4,15 +4,15 @@ import 'package:meta/meta.dart';
 
 class Avatar extends StatelessWidget {
   const Avatar({
-    @required this.photoUrl,
-    @required this.radius,
+    this.photoUrl,
+    required this.radius,
     this.borderColor,
     this.borderWidth,
   });
-  final String photoUrl;
+  final String? photoUrl;
   final double radius;
-  final Color borderColor;
-  final double borderWidth;
+  final Color? borderColor;
+  final double? borderWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class Avatar extends StatelessWidget {
     );
   }
 
-  Decoration _borderDecoration() {
+  Decoration? _borderDecoration() {
     if (borderColor != null && borderWidth != null) {
       return BoxDecoration(
         shape: BoxShape.circle,

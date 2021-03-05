@@ -7,7 +7,7 @@ class CupertinoTabViewRoutes {
 }
 
 class CupertinoTabViewRouter {
-  static Route generateRoute(RouteSettings settings) {
+  static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case CupertinoTabViewRoutes.jobEntriesPage:
         final job = settings.arguments as Job;

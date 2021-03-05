@@ -107,3 +107,5 @@ linter:
     sort_child_properties_last: false
     # Many constructors not declared for widgets that take no arguments
     use_key_in_widget_constructors: false
+    # Disable: DO reference all public properties in debug method implementations.
+    diagnostic_describe_all_properties: false

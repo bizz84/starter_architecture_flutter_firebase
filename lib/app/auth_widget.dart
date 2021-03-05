@@ -6,9 +6,9 @@ import 'package:starter_architecture_flutter_firebase/app/top_level_providers.da
 
 class AuthWidget extends ConsumerWidget {
   const AuthWidget({
-    Key key,
-    @required this.signedInBuilder,
-    @required this.nonSignedInBuilder,
+    Key? key,
+    required this.signedInBuilder,
+    required this.nonSignedInBuilder,
   }) : super(key: key);
   final WidgetBuilder nonSignedInBuilder;
   final WidgetBuilder signedInBuilder;

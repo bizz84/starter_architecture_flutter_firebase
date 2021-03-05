@@ -13,7 +13,7 @@ class AppRoutes {
 }
 
 class AppRouter {
-  static Route<dynamic> onGenerateRoute(
+  static Route<dynamic>? onGenerateRoute(
       RouteSettings settings, FirebaseAuth firebaseAuth) {
     final args = settings.arguments;
     switch (settings.name) {
