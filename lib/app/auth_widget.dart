@@ -32,7 +32,7 @@ class AuthWidget extends ConsumerWidget {
     );
   }
 
-  Widget _data(BuildContext context, User user) {
+  Widget _data(BuildContext context, User? user) {
     if (user != null) {
       return signedInBuilder(context);
     }

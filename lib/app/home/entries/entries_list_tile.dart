@@ -29,7 +29,7 @@ class EntriesListTile extends StatelessWidget {
           Expanded(child: Container()),
           if (model.middleText != null)
             Text(
-              model.middleText,
+              model.middleText!,
               style: TextStyle(color: Colors.green[700], fontSize: fontSize),
               textAlign: TextAlign.right,
             ),

@@ -50,7 +50,7 @@ class _EditJobPageState extends State<EditJobPage> {
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       try {
-        final database = context.read<FirestoreDatabase?>(databaseProvider)!;
+        final database = context.read<FirestoreDatabase>(databaseProvider);
         final jobs = await database.jobsStream().first;
         final allLowerCaseNames =
             jobs.map((job) => job.name.toLowerCase()).toList();
@@ -66,7 +66,8 @@ class _EditJobPageState extends State<EditJobPage> {
           ));
         } else {
           final id = widget.job?.id ?? documentIdFromCurrentDate();
-          final job = Job(id: id, name: _name, ratePerHour: _ratePerHour);
+          final job =
+              Job(id: id, name: _name ?? '', ratePerHour: _ratePerHour ?? 0);
           await database.setJob(job);
           Navigator.of(context).pop();
         }
@@ -143,7 +144,7 @@ class _EditJobPageState extends State<EditJobPage> {
           signed: false,
           decimal: false,
         ),
-        onSaved: (value) => _ratePerHour = int.tryParse(value) ?? 0,
+        onSaved: (value) => _ratePerHour = int.tryParse(value ?? '') ?? 0,
       ),
     ];
   }

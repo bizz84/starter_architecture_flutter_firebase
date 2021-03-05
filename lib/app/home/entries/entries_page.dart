@@ -10,11 +10,8 @@ final entriesTileModelStreamProvider =
     StreamProvider.autoDispose<List<EntriesListTileModel>>(
   (ref) {
     final database = ref.watch(databaseProvider);
-    if (database != null) {
-      final vm = EntriesViewModel(database: database);
-      return vm.entriesTileModelStream;
-    }
-    return const Stream.empty();
+    final vm = EntriesViewModel(database: database);
+    return vm.entriesTileModelStream;
   },
 );
 

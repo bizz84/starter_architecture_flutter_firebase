@@ -21,7 +21,7 @@ class Avatar extends StatelessWidget {
       child: CircleAvatar(
         radius: radius,
         backgroundColor: Colors.black12,
-        backgroundImage: photoUrl != null ? NetworkImage(photoUrl) : null,
+        backgroundImage: photoUrl != null ? NetworkImage(photoUrl!) : null,
         child: photoUrl == null ? Icon(Icons.camera_alt, size: radius) : null,
       ),
     );
@@ -32,8 +32,8 @@ class Avatar extends StatelessWidget {
       return BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: borderColor,
-          width: borderWidth,
+          color: borderColor!,
+          width: borderWidth!,
         ),
       );
     }

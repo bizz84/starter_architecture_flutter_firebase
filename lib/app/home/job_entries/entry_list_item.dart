@@ -7,12 +7,12 @@ class EntryListItem extends StatelessWidget {
   const EntryListItem({
     required this.entry,
     required this.job,
-    required this.onTap,
+    this.onTap,
   });
 
   final Entry entry;
   final Job job;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class EntryListItem extends StatelessWidget {
         ]),
         if (entry.comment?.isNotEmpty ?? false)
           Text(
-            entry.comment,
+            entry.comment!,
             style: const TextStyle(fontSize: 12.0),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,

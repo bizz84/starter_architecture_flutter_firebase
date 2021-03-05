@@ -14,14 +14,14 @@ import 'package:starter_architecture_flutter_firebase/services/firestore_databas
 
 final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
   final database = ref.watch(databaseProvider);
-  return database?.jobsStream() ?? const Stream.empty();
+  return database.jobsStream();
 });
 
 // watch database
 class JobsPage extends ConsumerWidget {
   Future<void> _delete(BuildContext context, Job job) async {
     try {
-      final database = context.read<FirestoreDatabase?>(databaseProvider)!;
+      final database = context.read<FirestoreDatabase>(databaseProvider);
       await database.deleteJob(job);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
