@@ -1,14 +1,20 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:starter_architecture_flutter_firebase/services/shared_preferences_service.dart';
-import 'mocks.dart';
+import 'shared_preferences_service_test.mocks.dart';
 
+@GenerateMocks([SharedPreferences])
 void main() {
   group('SharedPreferencesService', () {
-    test('writes to SharedPreferences', () {
+    test('writes to SharedPreferences', () async {
       final preferences = MockSharedPreferences();
+      when(preferences.setBool(
+              SharedPreferencesService.onboardingCompleteKey, true))
+          .thenAnswer((realInvocation) => Future.value(true));
       final service = SharedPreferencesService(preferences);
-      service.setOnboardingComplete();
+      await service.setOnboardingComplete();
       verify(preferences.setBool(
           SharedPreferencesService.onboardingCompleteKey, true));
     });

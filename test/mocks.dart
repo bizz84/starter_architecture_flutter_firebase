@@ -5,19 +5,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/services/shared_preferences_service.dart';
 
-class MockFirebaseAuth extends Mock implements FirebaseAuth {}
+// @GenerateMocks([FirebaseAuth, FirestoreDatabase, WidgetsBinding, NavigatorObserver, User, UserCredential, SharedPreferencesService, SharedPreferences])
 
-class MockDatabase extends Mock implements FirestoreDatabase {}
+// class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
-class MockWidgetsBinding extends Mock implements WidgetsBinding {}
+// class MockDatabase extends Mock implements FirestoreDatabase {}
 
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+// class MockWidgetsBinding extends Mock implements WidgetsBinding {}
 
-class MockUser extends Mock implements User {}
+// class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
-class MockUserCredential extends Mock implements UserCredential {}
+// class MockUser extends Mock implements User {}
 
-class MockSharedPreferencesService extends Mock
-    implements SharedPreferencesService {}
+// class MockUserCredential extends Mock implements UserCredential {}
 
-class MockSharedPreferences extends Mock implements SharedPreferences {}
+// class MockSharedPreferencesService extends Mock
+//     implements SharedPreferencesService {}
+
+// class MockSharedPreferences extends Mock implements SharedPreferences {}
