@@ -6,17 +6,17 @@ class Entry extends Equatable {
     required this.jobId,
     required this.start,
     required this.end,
-    this.comment,
+    required this.comment,
   });
 
   final String id;
   final String jobId;
   final DateTime start;
   final DateTime end;
-  final String? comment;
+  final String comment;
 
   @override
-  List<Object?> get props => [id, jobId, start, end, comment];
+  List<Object> get props => [id, jobId, start, end, comment];
 
   @override
   bool get stringify => true;
@@ -27,7 +27,6 @@ class Entry extends Equatable {
   factory Entry.fromMap(Map<dynamic, dynamic>? value, String id) {
     if (value == null) {
       throw StateError('missing data for entryId: $id');
-      //return null;
     }
     final startMilliseconds = value['start'] as int;
     final endMilliseconds = value['end'] as int;
@@ -36,7 +35,7 @@ class Entry extends Equatable {
       jobId: value['jobId'],
       start: DateTime.fromMillisecondsSinceEpoch(startMilliseconds),
       end: DateTime.fromMillisecondsSinceEpoch(endMilliseconds),
-      comment: value['comment'],
+      comment: value['comment'] ?? '',
     );
   }
 

@@ -33,7 +33,7 @@ class AppRouter {
       case AppRoutes.entryPage:
         final mapArgs = args as Map<String, dynamic>;
         final job = mapArgs['job'] as Job;
-        final entry = mapArgs['entry'] as Entry;
+        final entry = mapArgs['entry'] as Entry?;
         return MaterialPageRoute<dynamic>(
           builder: (_) => EntryPage(job: job, entry: entry),
           settings: settings,

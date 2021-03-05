@@ -133,7 +133,7 @@ class _EditJobPageState extends State<EditJobPage> {
         keyboardAppearance: Brightness.light,
         initialValue: _name,
         validator: (value) =>
-            (value?.isNotEmpty ?? false) ? null : 'Name can\'t be empty',
+            (value ?? '').isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _name = value,
       ),
       TextFormField(

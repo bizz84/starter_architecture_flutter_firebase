@@ -45,8 +45,9 @@ class DailyJobsDetails {
   static List<DailyJobsDetails> all(List<EntryJob> entries) {
     final byDate = _entriesByDate(entries);
     final List<DailyJobsDetails> list = [];
-    for (final date in byDate.keys) {
-      final entriesByDate = byDate[date]!;
+    for (final pair in byDate.entries) {
+      final date = pair.key;
+      final entriesByDate = pair.value;
       final byJob = _jobsDetails(entriesByDate);
       list.add(DailyJobsDetails(date: date, jobsDetails: byJob));
     }

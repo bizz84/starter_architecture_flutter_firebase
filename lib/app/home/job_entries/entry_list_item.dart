@@ -63,9 +63,9 @@ class EntryListItem extends StatelessWidget {
           Expanded(child: Container()),
           Text(durationFormatted, style: const TextStyle(fontSize: 16.0)),
         ]),
-        if (entry.comment?.isNotEmpty ?? false)
+        if (entry.comment.isNotEmpty)
           Text(
-            entry.comment!,
+            entry.comment,
             style: const TextStyle(fontSize: 12.0),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
