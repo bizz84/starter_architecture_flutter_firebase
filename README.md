@@ -159,9 +159,9 @@ final databaseProvider = Provider<FirestoreDatabase>((ref) {
 
   // we only have a valid DB if the user is signed in
   if (auth.data?.value?.uid != null) {
-    return FirestoreDatabase(uid: auth.data?.value?.uid);
+    return FirestoreDatabase(uid: auth.data!.value!.uid);
   }
-  return null;
+  throw UnimplementedError();
 });
 ```
 
@@ -183,23 +183,17 @@ For example, here is some sample code demonstrating how to use `StreamProvider` 
 final jobStreamProvider =
     StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
   final database = ref.watch(databaseProvider);
-  return database != null && jobId != null
-      ? database.jobStream(jobId: jobId)
-      : const Stream.empty();
+  return database.jobStream(jobId: jobId);
 });
 ```
 
-There is a lot to unpack here:
-
-- the `StreamProvider` can auto-dispose itself when all its listeners unsubscribe
-- we're using `.family` to read a `jobId` parameter that is only known at runtime
-- we only return a `jobStream` if both the `database` and the `jobId` are not `null`, otherwise we return an empty stream.
+In this case the `StreamProvider` can auto-dispose itself when all its listeners unsubscribe. And we're using `.family` to read a `jobId` parameter that is only known at runtime.
 
 Here's a widget that *watches* this `StreamProvider` and uses it to show some UI based on the stream's latest state (data available / loading / error):
 
 ```dart
 class JobEntriesAppBarTitle extends ConsumerWidget {
-  const JobEntriesAppBarTitle({@required this.job});
+  const JobEntriesAppBarTitle({required this.job});
   final Job job;
 
   @override
@@ -262,7 +256,7 @@ class FirestoreDatabase { // implementation omitted for brevity
   Future<void> setJob(Job job); // create / update
   Future<void> deleteJob(Job job); // delete
   Stream<List<Job>> jobsStream(); // read
-  Stream<Job> jobStream({@required String jobId}); // read
+  Stream<Job> jobStream({required String jobId}); // read
 
   Future<void> setEntry(Entry entry); // create / update
   Future<void> deleteEntry(Entry entry); // delete
@@ -318,7 +312,7 @@ Given a page that needs to be presented inside a route, we can call `pushNamed` 
 
 ```dart
 class EntryPage extends StatefulWidget {
-  const EntryPage({@required this.job, this.entry});
+  const EntryPage({required this.job, this.entry});
   final Job job;
   final Entry entry;
 
