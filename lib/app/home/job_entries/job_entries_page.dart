@@ -16,7 +16,7 @@ import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view
 import 'package:pedantic/pedantic.dart';
 
 class JobEntriesPage extends StatelessWidget {
-  const JobEntriesPage({@required this.job});
+  const JobEntriesPage({required this.job});
   final Job job;
 
   static Future<void> show(BuildContext context, Job job) async {
@@ -58,13 +58,11 @@ class JobEntriesPage extends StatelessWidget {
 final jobStreamProvider =
     StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
   final database = ref.watch(databaseProvider);
-  return database != null && jobId != null
-      ? database.jobStream(jobId: jobId)
-      : const Stream.empty();
+  return database.jobStream(jobId: jobId);
 });
 
 class JobEntriesAppBarTitle extends ConsumerWidget {
-  const JobEntriesAppBarTitle({@required this.job});
+  const JobEntriesAppBarTitle({required this.job});
   final Job job;
 
   @override
@@ -81,14 +79,12 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 final jobEntriesStreamProvider =
     StreamProvider.autoDispose.family<List<Entry>, Job>((ref, job) {
   final database = ref.watch(databaseProvider);
-  return database != null && job != null
-      ? database.entriesStream(job: job)
-      : const Stream.empty();
+  return database.entriesStream(job: job);
 });
 
 class JobEntriesContents extends ConsumerWidget {
   final Job job;
-  const JobEntriesContents({@required this.job});
+  const JobEntriesContents({required this.job});
 
   Future<void> _deleteEntry(
       BuildContext context, ScopedReader watch, Entry entry) async {

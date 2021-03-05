@@ -1,19 +1,18 @@
-
 import 'package:flutter/material.dart';
 
 class InputDropdown extends StatelessWidget {
   const InputDropdown({
-    Key key,
+    Key? key,
     this.labelText,
-    this.valueText,
-    this.valueStyle,
+    required this.valueText,
+    required this.valueStyle,
     this.onPressed,
   }) : super(key: key);
 
-  final String labelText;
+  final String? labelText;
   final String valueText;
   final TextStyle valueStyle;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

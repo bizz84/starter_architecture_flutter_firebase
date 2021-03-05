@@ -9,10 +9,10 @@ import 'package:starter_architecture_flutter_firebase/services/firestore_databas
 import 'package:pedantic/pedantic.dart';
 
 class EditJobPage extends StatefulWidget {
-  const EditJobPage({Key key, this.job}) : super(key: key);
-  final Job job;
+  const EditJobPage({Key? key, this.job}) : super(key: key);
+  final Job? job;
 
-  static Future<void> show(BuildContext context, {Job job}) async {
+  static Future<void> show(BuildContext context, {Job? job}) async {
     await Navigator.of(context, rootNavigator: true).pushNamed(
       AppRoutes.editJobPage,
       arguments: job,
@@ -26,20 +26,20 @@ class EditJobPage extends StatefulWidget {
 class _EditJobPageState extends State<EditJobPage> {
   final _formKey = GlobalKey<FormState>();
 
-  String _name;
-  int _ratePerHour;
+  String? _name;
+  int? _ratePerHour;
 
   @override
   void initState() {
     super.initState();
     if (widget.job != null) {
-      _name = widget.job.name;
-      _ratePerHour = widget.job.ratePerHour;
+      _name = widget.job?.name;
+      _ratePerHour = widget.job?.ratePerHour;
     }
   }
 
   bool _validateAndSaveForm() {
-    final form = _formKey.currentState;
+    final form = _formKey.currentState!;
     if (form.validate()) {
       form.save();
       return true;
@@ -50,14 +50,14 @@ class _EditJobPageState extends State<EditJobPage> {
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       try {
-        final database = context.read(databaseProvider);
+        final database = context.read<FirestoreDatabase>(databaseProvider);
         final jobs = await database.jobsStream().first;
         final allLowerCaseNames =
             jobs.map((job) => job.name.toLowerCase()).toList();
         if (widget.job != null) {
-          allLowerCaseNames.remove(widget.job.name.toLowerCase());
+          allLowerCaseNames.remove(widget.job!.name.toLowerCase());
         }
-        if (allLowerCaseNames.contains(_name.toLowerCase())) {
+        if (allLowerCaseNames.contains(_name?.toLowerCase())) {
           unawaited(showAlertDialog(
             context: context,
             title: 'Name already used',
@@ -66,7 +66,8 @@ class _EditJobPageState extends State<EditJobPage> {
           ));
         } else {
           final id = widget.job?.id ?? documentIdFromCurrentDate();
-          final job = Job(id: id, name: _name, ratePerHour: _ratePerHour);
+          final job =
+              Job(id: id, name: _name ?? '', ratePerHour: _ratePerHour ?? 0);
           await database.setJob(job);
           Navigator.of(context).pop();
         }
@@ -131,7 +132,8 @@ class _EditJobPageState extends State<EditJobPage> {
         decoration: const InputDecoration(labelText: 'Job name'),
         keyboardAppearance: Brightness.light,
         initialValue: _name,
-        validator: (value) => value.isNotEmpty ? null : 'Name can\'t be empty',
+        validator: (value) =>
+            (value ?? '').isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _name = value,
       ),
       TextFormField(
@@ -142,7 +144,7 @@ class _EditJobPageState extends State<EditJobPage> {
           signed: false,
           decimal: false,
         ),
-        onSaved: (value) => _ratePerHour = int.tryParse(value) ?? 0,
+        onSaved: (value) => _ratePerHour = int.tryParse(value ?? '') ?? 0,
       ),
     ];
   }

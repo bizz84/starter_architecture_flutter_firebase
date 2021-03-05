@@ -1,13 +1,12 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 class Entry extends Equatable {
   const Entry({
-    @required this.id,
-    @required this.jobId,
-    @required this.start,
-    @required this.end,
-    this.comment,
+    required this.id,
+    required this.jobId,
+    required this.start,
+    required this.end,
+    required this.comment,
   });
 
   final String id;
@@ -25,7 +24,10 @@ class Entry extends Equatable {
   double get durationInHours =>
       end.difference(start).inMinutes.toDouble() / 60.0;
 
-  factory Entry.fromMap(Map<dynamic, dynamic> value, String id) {
+  factory Entry.fromMap(Map<dynamic, dynamic>? value, String id) {
+    if (value == null) {
+      throw StateError('missing data for entryId: $id');
+    }
     final startMilliseconds = value['start'] as int;
     final endMilliseconds = value['end'] as int;
     return Entry(
@@ -33,7 +35,7 @@ class Entry extends Equatable {
       jobId: value['jobId'],
       start: DateTime.fromMillisecondsSinceEpoch(startMilliseconds),
       end: DateTime.fromMillisecondsSinceEpoch(endMilliseconds),
-      comment: value['comment'],
+      comment: value['comment'] ?? '',
     );
   }
 

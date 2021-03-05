@@ -1,8 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 import 'package:starter_architecture_flutter_firebase/app/onboarding/onboarding_view_model.dart';
-import 'mocks.dart';
+import 'package:starter_architecture_flutter_firebase/services/shared_preferences_service.dart';
 
+import 'onboarding_view_model_test.mocks.dart';
+
+@GenerateMocks([SharedPreferencesService])
 void main() {
   group('OnboardingViewModel', () {
     test('OnboardingViewModel loads state from service', () {

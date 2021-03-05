@@ -3,8 +3,7 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Job extends Equatable {
-  const Job(
-      {@required this.id, @required this.name, @required this.ratePerHour});
+  const Job({required this.id, required this.name, required this.ratePerHour});
   final String id;
   final String name;
   final int ratePerHour;
@@ -15,13 +14,13 @@ class Job extends Equatable {
   @override
   bool get stringify => true;
 
-  factory Job.fromMap(Map<String, dynamic> data, String documentId) {
+  factory Job.fromMap(Map<String, dynamic>? data, String documentId) {
     if (data == null) {
-      return null;
+      throw StateError('missing data for jobId: $documentId');
     }
-    final name = data['name'] as String;
+    final name = data['name'] as String?;
     if (name == null) {
-      return null;
+      throw StateError('missing name for jobId: $documentId');
     }
     final ratePerHour = data['ratePerHour'] as int;
     return Job(id: documentId, name: name, ratePerHour: ratePerHour);

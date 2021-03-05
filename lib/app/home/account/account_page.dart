@@ -41,7 +41,7 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final firebaseAuth = context.read(firebaseAuthProvider);
-    final user = firebaseAuth.currentUser;
+    final user = firebaseAuth.currentUser!;
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.accountPage),
@@ -78,7 +78,7 @@ class AccountPage extends StatelessWidget {
         const SizedBox(height: 8),
         if (user.displayName != null)
           Text(
-            user.displayName,
+            user.displayName!,
             style: const TextStyle(color: Colors.white),
           ),
         const SizedBox(height: 8),

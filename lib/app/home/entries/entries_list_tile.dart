@@ -1,21 +1,20 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class EntriesListTileModel {
   const EntriesListTileModel({
-    @required this.leadingText,
-    @required this.trailingText,
+    required this.leadingText,
+    required this.trailingText,
     this.middleText,
     this.isHeader = false,
   });
   final String leadingText;
   final String trailingText;
-  final String middleText;
+  final String? middleText;
   final bool isHeader;
 }
 
 class EntriesListTile extends StatelessWidget {
-  const EntriesListTile({@required this.model});
+  const EntriesListTile({required this.model});
   final EntriesListTileModel model;
 
   @override
@@ -30,7 +29,7 @@ class EntriesListTile extends StatelessWidget {
           Expanded(child: Container()),
           if (model.middleText != null)
             Text(
-              model.middleText,
+              model.middleText!,
               style: TextStyle(color: Colors.green[700], fontSize: fontSize),
               textAlign: TextAlign.right,
             ),

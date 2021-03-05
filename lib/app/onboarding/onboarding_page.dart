@@ -37,7 +37,7 @@ class OnboardingPage extends StatelessWidget {
                 'Get Started',
                 style: Theme.of(context)
                     .textTheme
-                    .headline5
+                    .headline5!
                     .copyWith(color: Colors.white),
               ),
             ),

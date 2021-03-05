@@ -1,24 +1,21 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_view_model.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
+import 'sign_in_view_model_test.mocks.dart';
 
-import 'mocks.dart';
-
+@GenerateMocks([FirebaseAuth, UserCredential])
 void main() {
-  MockFirebaseAuth mockFirebaseAuth;
-  SignInViewModel viewModel;
+  late MockFirebaseAuth mockFirebaseAuth;
+  late SignInViewModel viewModel;
 
   setUp(() {
     mockFirebaseAuth = MockFirebaseAuth();
     viewModel = SignInViewModel(auth: mockFirebaseAuth);
-  });
-
-  tearDown(() {
-    mockFirebaseAuth = null;
-    viewModel = null;
   });
 
   void stubSignInAnonymouslyReturnsUser() {
