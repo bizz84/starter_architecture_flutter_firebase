@@ -23,22 +23,18 @@ dependencies:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/alert_dialogs
-      ref: null-safety
   custom_buttons:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/custom_buttons
-      ref: null-safety
   email_password_sign_in_ui:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/email_password_sign_in_ui
-      ref: null-safety
   firestore_service:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/firestore_service
-      ref: null-safety
   cloud_firestore: ^1.0.0
   cupertino_icons: ^1.0.2
   equatable: ^2.0.0
