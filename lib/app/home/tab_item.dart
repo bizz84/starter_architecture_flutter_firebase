@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 
-enum TabItem { jobs, entries, account, search }
+enum TabItem { search, jobs, entries, account }
 
 class TabItemData {
   const TabItemData(
@@ -13,6 +13,11 @@ class TabItemData {
   final IconData icon;
 
   static const Map<TabItem, TabItemData> allTabs = {
+    TabItem.search: TabItemData(
+        key: Keys.searchTab,
+        title: Strings.search,
+        icon: Icons.search
+    ),
     TabItem.jobs: TabItemData(
       key: Keys.jobsTab,
       title: Strings.jobs,
@@ -27,12 +32,6 @@ class TabItemData {
       key: Keys.accountTab,
       title: Strings.account,
       icon: Icons.person,
-    ),
-    TabItem.search: TabItemData(
-      key: Keys.searchTab,
-      title: Strings.search,
-      icon: Icons.search
-
     )
   };
 }
