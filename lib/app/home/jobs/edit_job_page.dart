@@ -27,14 +27,15 @@ class _EditJobPageState extends State<EditJobPage> {
   final _formKey = GlobalKey<FormState>();
 
   String? _name;
-  int? _ratePerHour;
-  String? _desc;
+  int? _price;
+  String? _description;
   @override
   void initState() {
     super.initState();
     if (widget.job != null) {
       _name = widget.job?.name;
-      _ratePerHour = widget.job?.ratePerHour;
+      _price = widget.job?.price;
+      _description = widget.job?.description;
     }
   }
 
@@ -67,7 +68,7 @@ class _EditJobPageState extends State<EditJobPage> {
         } else {
           final id = widget.job?.id ?? documentIdFromCurrentDate();
           final job =
-              Job(id: id, name: _name ?? '', ratePerHour: _ratePerHour ?? 0);
+              Job(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '');
           await database.setJob(job);
           Navigator.of(context).pop();
         }
@@ -139,18 +140,18 @@ class _EditJobPageState extends State<EditJobPage> {
       TextFormField(
         decoration: const InputDecoration(labelText: 'Price'),
         keyboardAppearance: Brightness.light,
-        initialValue: _ratePerHour != null ? '$_ratePerHour' : null,
+        initialValue: _price != null ? '$_price' : null,
         keyboardType: const TextInputType.numberWithOptions(
           signed: false,
           decimal: false,
         ),
-        onSaved: (value) => _ratePerHour = int.tryParse(value ?? '') ?? 0,
+        onSaved: (value) => _price = int.tryParse(value ?? '') ?? 0,
       ),
       TextFormField(
         decoration: const InputDecoration(labelText: 'Description'),
         keyboardAppearance: Brightness.light,
-        initialValue:  _desc,
-        onSaved: (value) => _desc = value,
+        initialValue:  _description,
+        onSaved: (value) => _description = value,
       ),
     ];
   }
