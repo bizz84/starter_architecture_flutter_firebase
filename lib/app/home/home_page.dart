@@ -3,6 +3,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/account/account_p
 import 'package:starter_architecture_flutter_firebase/app/home/cupertino_home_scaffold.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/entries/entries_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/jobs_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/search/search_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/tab_item.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
     TabItem.jobs: GlobalKey<NavigatorState>(),
     TabItem.entries: GlobalKey<NavigatorState>(),
     TabItem.account: GlobalKey<NavigatorState>(),
+    TabItem.search: GlobalKey<NavigatorState>()
   };
 
   Map<TabItem, WidgetBuilder> get widgetBuilders {
@@ -24,6 +26,7 @@ class _HomePageState extends State<HomePage> {
       TabItem.jobs: (_) => JobsPage(),
       TabItem.entries: (_) => EntriesPage(),
       TabItem.account: (_) => AccountPage(),
+      TabItem.search: (_) => SearchPage()
     };
   }
 
