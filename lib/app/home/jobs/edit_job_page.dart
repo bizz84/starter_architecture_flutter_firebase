@@ -28,7 +28,7 @@ class _EditJobPageState extends State<EditJobPage> {
 
   String? _name;
   int? _ratePerHour;
-
+  String? _desc;
   @override
   void initState() {
     super.initState();
@@ -86,7 +86,7 @@ class _EditJobPageState extends State<EditJobPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
-        title: Text(widget.job == null ? 'New Job' : 'Edit Job'),
+        title: Text(widget.job == null ? 'New Product' : 'Edit Product'),
         actions: <Widget>[
           FlatButton(
             child: const Text(
@@ -129,7 +129,7 @@ class _EditJobPageState extends State<EditJobPage> {
   List<Widget> _buildFormChildren() {
     return [
       TextFormField(
-        decoration: const InputDecoration(labelText: 'Job name'),
+        decoration: const InputDecoration(labelText: 'Product name'),
         keyboardAppearance: Brightness.light,
         initialValue: _name,
         validator: (value) =>
@@ -137,7 +137,7 @@ class _EditJobPageState extends State<EditJobPage> {
         onSaved: (value) => _name = value,
       ),
       TextFormField(
-        decoration: const InputDecoration(labelText: 'Rate per hour'),
+        decoration: const InputDecoration(labelText: 'Price'),
         keyboardAppearance: Brightness.light,
         initialValue: _ratePerHour != null ? '$_ratePerHour' : null,
         keyboardType: const TextInputType.numberWithOptions(
@@ -145,6 +145,12 @@ class _EditJobPageState extends State<EditJobPage> {
           decimal: false,
         ),
         onSaved: (value) => _ratePerHour = int.tryParse(value ?? '') ?? 0,
+      ),
+      TextFormField(
+        decoration: const InputDecoration(labelText: 'Description'),
+        keyboardAppearance: Brightness.light,
+        initialValue:  _desc,
+        onSaved: (value) => _desc = value,
       ),
     ];
   }

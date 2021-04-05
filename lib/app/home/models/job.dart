@@ -7,6 +7,7 @@ class Job extends Equatable {
   final String id;
   final String name;
   final int ratePerHour;
+  // final String description;
 
   @override
   List<Object> get props => [id, name, ratePerHour];
@@ -23,6 +24,10 @@ class Job extends Equatable {
       throw StateError('missing name for jobId: $documentId');
     }
     final ratePerHour = data['ratePerHour'] as int;
+    // final description = data['description'] as String?;
+    // if (description == null) {
+    //   throw StateError('missing description for jobId: $documentId');
+    // }
     return Job(id: documentId, name: name, ratePerHour: ratePerHour);
   }
 
@@ -30,6 +35,7 @@ class Job extends Equatable {
     return {
       'name': name,
       'ratePerHour': ratePerHour,
+      // 'description': description,
     };
   }
 }
