@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/job_entries/job_entries_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/jobs/job_list_tile.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_builder.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/job_entries/edit_job_entries.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/sells/add_sells_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/sells/job_list_tile.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/sells/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
@@ -36,7 +36,7 @@ class SearchPage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.jobs),
+        title: const Text(Strings.search),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add, color: Colors.white),

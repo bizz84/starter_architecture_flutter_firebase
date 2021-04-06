@@ -69,16 +69,10 @@ class AccountPage extends StatelessWidget {
   Widget _buildUserInfo(User user) {
     return Column(
       children: [
-        Avatar(
-          photoUrl: user.photoURL,
-          radius: 50,
-          borderColor: Colors.black54,
-          borderWidth: 2.0,
-        ),
         const SizedBox(height: 8),
-        if (user.displayName != null)
+        if (user.email != null)
           Text(
-            user.displayName!,
+            user.email!,
             style: const TextStyle(color: Colors.white),
           ),
         const SizedBox(height: 8),

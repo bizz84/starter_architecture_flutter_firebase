@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/entries/entries_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/entries/entries_list_tile.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_builder.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/sells/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 
@@ -15,7 +15,7 @@ final entriesTileModelStreamProvider =
   },
 );
 
-class EntriesPage extends ConsumerWidget {
+class BuyPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
@@ -35,3 +35,4 @@ class EntriesPage extends ConsumerWidget {
     );
   }
 }
+

@@ -21,7 +21,7 @@ class EntriesListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     const fontSize = 16.0;
     return Container(
-      color: model.isHeader ? Colors.indigo[100] : null,
+      color: model.isHeader ? Colors.red : null,
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: Row(
         children: <Widget>[

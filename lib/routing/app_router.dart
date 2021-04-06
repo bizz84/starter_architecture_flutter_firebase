@@ -2,7 +2,7 @@ import 'package:email_password_sign_in_ui/email_password_sign_in_ui.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/sells/add_sells_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 

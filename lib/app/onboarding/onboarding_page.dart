@@ -31,7 +31,7 @@ class OnboardingPage extends StatelessWidget {
             ),
             CustomRaisedButton(
               onPressed: () => onGetStarted(context),
-              color: Colors.indigo,
+              color: Colors.red,
               borderRadius: 30,
               child: Text(
                 'Get Started',
