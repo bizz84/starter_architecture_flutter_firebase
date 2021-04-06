@@ -18,7 +18,7 @@ final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
 });
 
 // watch database
-class JobsPage extends ConsumerWidget {
+class SellsPage extends ConsumerWidget {
   Future<void> _delete(BuildContext context, Job job) async {
     try {
       final database = context.read<FirestoreDatabase>(databaseProvider);
@@ -36,7 +36,7 @@ class JobsPage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.jobs),
+        title: const Text(Strings.sells),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add, color: Colors.white),

@@ -20,12 +20,12 @@ class TabItemData {
     ),
     TabItem.sell: TabItemData(
       key: Keys.jobsTab,
-      title: Strings.jobs,
+      title: Strings.sells,
       icon: Icons.view_headline,
     ),
     TabItem.buy: TabItemData(
       key: Keys.entriesTab,
-      title: Strings.entries,
+      title: Strings.buys,
       icon: Icons.payments,
     ),
     TabItem.account: TabItemData(

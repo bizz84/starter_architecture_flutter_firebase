@@ -36,13 +36,7 @@ class SearchPage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.search),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add, color: Colors.white),
-            onPressed: () => EditJobPage.show(context),
-          ),
-        ],
+        title: const Text(Strings.search)
       ),
       body: _buildContents(context, watch),
     );

@@ -128,7 +128,7 @@ class _EditJobPageState extends State<EditJobPage> {
       ),
     );
   }
-  var _categories = [
+  final _categories = [
     'phones',
     'laptop',
     'others'
@@ -164,7 +164,7 @@ class _EditJobPageState extends State<EditJobPage> {
      FormField<String>(
           builder: (FormFieldState<String> state) {
             return InputDecorator(
-              decoration: InputDecoration(labelText: 'Categories'),
+              decoration: const InputDecoration(labelText: 'Categories'),
               isEmpty: _currentSelectedValue == '',
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(

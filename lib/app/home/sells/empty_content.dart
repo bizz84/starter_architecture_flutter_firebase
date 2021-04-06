@@ -4,7 +4,7 @@ class EmptyContent extends StatelessWidget {
   const EmptyContent({
     Key? key,
     this.title = 'You have nothing yet',
-    this.message = 'Click the + to sell something, or search to look for items to buy',
+    this.message = 'Click + to sell, or search to buy',
   }) : super(key: key);
   final String title;
   final String message;

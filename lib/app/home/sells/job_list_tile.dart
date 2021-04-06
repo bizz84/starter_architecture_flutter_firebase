@@ -14,8 +14,10 @@ class JobListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser!;
+    final String emailAbsolute = user.email!;
     return ListTile(
       title: Text(job.name),
+      subtitle: Text(emailAbsolute),
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
     );

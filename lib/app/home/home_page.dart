@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   Map<TabItem, WidgetBuilder> get widgetBuilders {
     return {
       TabItem.search: (_) => SearchPage(),
-      TabItem.sell: (_) => JobsPage(),
+      TabItem.sell: (_) => SellsPage(),
       TabItem.buy: (_) => BuyPage(),
       TabItem.account: (_) => AccountPage()
     };
