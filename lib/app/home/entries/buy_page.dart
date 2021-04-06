@@ -12,7 +12,6 @@ import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
-
 final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
   final database = ref.watch(databaseProvider);
   return database.jobsStream();
@@ -20,6 +19,32 @@ final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
 
 // watch database
 class BuyPage extends ConsumerWidget {
+  // pop up message implementation
+  /* 
+    
+    Usage: onPressed:(){
+      createAlertDialog(context)
+    }
+
+    */
+  Future<void> createAlertDialog(BuildContext context) async {
+    return showDialog<void>(
+        context: context,
+        builder: (contexy) {
+          return AlertDialog(
+              title: Text("Email to the seller sent"),
+              content: Text(
+                  "We sent an email to the seller you are buying a product from"),
+              actions: <Widget>[
+                MaterialButton(
+                    child: const Text(Strings.ok),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    })
+              ]);
+        });
+  }
+
   Future<void> _delete(BuildContext context, Job job) async {
     try {
       final database = context.read<FirestoreDatabase>(databaseProvider);
@@ -36,9 +61,7 @@ class BuyPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(Strings.buys)
-      ),
+      appBar: AppBar(title: const Text(Strings.buys)),
       body: _buildContents(context, watch),
     );
   }
