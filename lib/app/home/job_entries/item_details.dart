@@ -1,12 +1,9 @@
 import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
-import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
-import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
+import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:flutter/material.dart';
 
 final jobStreamProvider =
@@ -32,6 +29,7 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 
 class JobEntriesPage extends StatelessWidget {
   const JobEntriesPage({required this.job});
+
   final Job job;
 
   static Future<void> show(BuildContext context, Job job) async {
@@ -41,33 +39,59 @@ class JobEntriesPage extends StatelessWidget {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     final firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser!;
     return Scaffold(
       appBar: AppBar(
-        title: JobEntriesAppBarTitle(job: job),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(130.0),
-          child: _buildUserInfo(user),
-        ),
+          title: JobEntriesAppBarTitle(job: job)
       ),
+      body: _buildItemDetails(job, context),
+
     );
   }
 
-  Widget _buildUserInfo(User user) {
+  Widget _buildItemDetails(Job job, BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 8),
-        if (user.email != null)
-          Text(
-            user.email!,
-            style: const TextStyle(color: Colors.white),
+        Text(
+          'Name: ${job.name}',
+          style: const TextStyle(color: Colors.black),
+        ),
+        Text(
+          job.price.toString(),
+          style: const TextStyle(color: Colors.black),
+        ),
+        Text(
+          job.description,
+          style: const TextStyle(color: Colors.black),
+        ),
+        Text(
+          job.category,
+          style: const TextStyle(color: Colors.black),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: RaisedButton(
+              onPressed: () => showAlertDialog(
+                context: context,
+                title: 'Item Bought',
+                content: 'Item is bought! We will inform the seller that you have bought the item',
+                defaultActionText: 'OK',
+              ),
+              child: const Text('Buy!', style: TextStyle(fontSize: 20)),
+              color: Colors.blue,
+              textColor: Colors.white,
+              elevation: 5
           ),
-        const SizedBox(height: 8),
+        )
       ],
     );
   }
+  // Widget _buyAction(BuildContext context) {
+  //
+  // }
 }
+
+

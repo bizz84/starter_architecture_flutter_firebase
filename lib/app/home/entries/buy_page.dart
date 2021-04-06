@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/job_entries/edit_job_entries.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/job_entries/item_details.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/sells/add_sells_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/sells/job_list_tile.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/sells/list_items_builder.dart';

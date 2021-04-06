@@ -27,7 +27,7 @@ class FirestoreDatabase {
       }
     }
     // delete job
-    await _service.deleteData(path: FirestorePath.job(uid, job.id));
+      await _service.deleteData(path: FirestorePath.job(uid, job.id));
   }
 
   Stream<Job> jobStream({required String jobId}) => _service.documentStream(

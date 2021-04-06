@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/job_entries/edit_job_entries.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/job_entries/item_details.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 
 class CupertinoTabViewRoutes {
