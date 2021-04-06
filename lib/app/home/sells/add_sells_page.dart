@@ -29,6 +29,7 @@ class _EditJobPageState extends State<EditJobPage> {
   String? _name;
   int? _price;
   String? _description;
+  String? _category; 
   @override
   void initState() {
     super.initState();
@@ -36,6 +37,7 @@ class _EditJobPageState extends State<EditJobPage> {
       _name = widget.job?.name;
       _price = widget.job?.price;
       _description = widget.job?.description;
+      _category = widget.job?.category; 
     }
   }
 
@@ -62,13 +64,13 @@ class _EditJobPageState extends State<EditJobPage> {
           unawaited(showAlertDialog(
             context: context,
             title: 'Name already used',
-            content: 'Please choose a different job name',
+            content: 'Please choose a different product name',
             defaultActionText: 'OK',
           ));
         } else {
           final id = widget.job?.id ?? documentIdFromCurrentDate();
           final job =
-              Job(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '');
+              Job(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '', category: _category ?? 'phone');
           await database.setJob(job);
           Navigator.of(context).pop();
         }
@@ -126,8 +128,14 @@ class _EditJobPageState extends State<EditJobPage> {
       ),
     );
   }
-
+  var _categories = [
+    'phones',
+    'laptop',
+    'others'
+  ];
+  String _currentSelectedValue ='phones'; 
   List<Widget> _buildFormChildren() {
+    
     return [
       TextFormField(
         decoration: const InputDecoration(labelText: 'Product name'),
@@ -153,6 +161,33 @@ class _EditJobPageState extends State<EditJobPage> {
         initialValue:  _description,
         onSaved: (value) => _description = value,
       ),
+     FormField<String>(
+          builder: (FormFieldState<String> state) {
+            return InputDecorator(
+              decoration: InputDecoration(labelText: 'Categories'),
+              isEmpty: _currentSelectedValue == '',
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: _currentSelectedValue,
+                  isDense: true,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _currentSelectedValue = newValue!;
+                      state.didChange(newValue);
+                    });
+                  },
+                  items: _categories.map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+            );
+          },
+          onSaved: (value) => _category = value, 
+        )
     ];
   }
 }
