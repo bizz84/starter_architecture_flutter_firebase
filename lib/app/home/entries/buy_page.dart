@@ -27,23 +27,6 @@ class BuyPage extends ConsumerWidget {
     }
 
     */
-  Future<void> createAlertDialog(BuildContext context) async {
-    return showDialog<void>(
-        context: context,
-        builder: (contexy) {
-          return AlertDialog(
-              title: Text("Email to the seller sent"),
-              content: Text(
-                  "We sent an email to the seller you are buying a product from"),
-              actions: <Widget>[
-                MaterialButton(
-                    child: const Text(Strings.ok),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    })
-              ]);
-        });
-  }
 
   Future<void> _delete(BuildContext context, Job job) async {
     try {

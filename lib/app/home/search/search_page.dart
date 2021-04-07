@@ -70,7 +70,7 @@ class _SearchPageState extends State<SearchPage> {
         actions: <Widget>[
           FlatButton(
             child: const Text(
-              'Save',
+              'Search',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             onPressed: () => _search(),

@@ -38,6 +38,24 @@ class JobEntriesPage extends StatelessWidget {
       arguments: job,
     );
   }
+  Future<void> createAlertDialog(BuildContext context) async {
+    //TODO: edit database here
+    return showDialog<void>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text("Email to the seller sent"),
+              content: Text(
+                  "We sent an email to the seller you are buying a product from"),
+              actions: <Widget>[
+                MaterialButton(
+                    child: const Text('ok'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    })
+              ]);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,12 +92,7 @@ class JobEntriesPage extends StatelessWidget {
         Align(
           alignment: Alignment.bottomCenter,
           child: RaisedButton(
-              onPressed: () => showAlertDialog(
-                context: context,
-                title: 'Item Bought',
-                content: 'Item is bought! We will inform the seller that you have bought the item',
-                defaultActionText: 'OK',
-              ),
+              onPressed: () => createAlertDialog(context),
               child: const Text('Buy!', style: TextStyle(fontSize: 20)),
               color: Colors.blue,
               textColor: Colors.white,
