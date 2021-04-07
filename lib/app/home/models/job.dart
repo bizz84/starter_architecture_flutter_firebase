@@ -3,15 +3,16 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Job extends Equatable {
-  const Job({required this.id, required this.name, required this.price, required this.description, required this.category});
+  const Job({required this.id, required this.name, required this.price, required this.description, required this.category, required this.bought});
   final String id;
   final String name;
   final int price;
   final String description;
   final String category; 
+  final bool bought; // default Falss
 
   @override
-  List<Object> get props => [id, name, price, description, category];
+  List<Object> get props => [id, name, price, description, category, bought];
 
   @override
   bool get stringify => true;
@@ -33,8 +34,8 @@ class Job extends Equatable {
     if (category == null){
       throw StateError('missing category for product Id: $documentId');
     } 
-
-    return Job(id: documentId, name: name, price: price, description: description, category: category);
+    final bought = data['bought'] as bool; 
+    return Job(id: documentId, name: name, price: price, description: description, category: category, bought: bought);
   }
 
   Map<String, dynamic> toMap() {
@@ -43,6 +44,7 @@ class Job extends Equatable {
       'price': price,
       'description': description,
       'category': category, 
+      'bought': bought, 
     };
   }
 }

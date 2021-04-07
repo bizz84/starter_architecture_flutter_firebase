@@ -70,7 +70,7 @@ class _EditJobPageState extends State<EditJobPage> {
         } else {
           final id = widget.job?.id ?? documentIdFromCurrentDate();
           final job =
-              Job(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '', category: _category ?? 'phone');
+              Job(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '', category: _category ?? 'phone', bought: false);
           await database.setJob(job);
           Navigator.of(context).pop();
         }

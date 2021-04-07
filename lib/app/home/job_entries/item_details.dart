@@ -5,6 +5,7 @@ import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:flutter/material.dart';
+import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
 final jobStreamProvider =
 StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
@@ -56,7 +57,6 @@ class JobEntriesPage extends StatelessWidget {
               ]);
         });
   }
-
   @override
   Widget build(BuildContext context) {
     final firebaseAuth = context.read(firebaseAuthProvider);
