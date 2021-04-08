@@ -119,14 +119,6 @@ class _SearchPageState extends State<SearchPage> {
   List<Widget> _buildFormChildren() {
     _bought = false;
     return [
-      TextFormField(
-        decoration: const InputDecoration(labelText: 'Product name'),
-        keyboardAppearance: Brightness.light,
-        initialValue: _name,
-        validator: (value) =>
-            (value ?? '').isNotEmpty ? null : 'Name can\'t be empty',
-        onSaved: (value) => _name = value,
-      ),
       FormField<String>(
         builder: (FormFieldState<String> state) {
           return InputDecorator(

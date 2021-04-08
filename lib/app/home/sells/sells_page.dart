@@ -11,6 +11,7 @@ import 'package:starter_architecture_flutter_firebase/app/top_level_providers.da
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/sells/sells_details.dart';
 
 final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
   final database = ref.watch(databaseProvider);
@@ -59,7 +60,7 @@ class SellsPage extends ConsumerWidget {
         onDismissed: (direction) => _delete(context, job),
         child: JobListTile(
           job: job,
-          onTap: () => JobEntriesPage.show(context, job),
+          onTap: () => SellProductPage.show(context, job),
         ),
       ),
     );

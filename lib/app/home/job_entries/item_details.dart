@@ -6,6 +6,7 @@ import 'package:starter_architecture_flutter_firebase/app/top_level_providers.da
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
+import 'package:pedantic/pedantic.dart';
 
 final jobStreamProvider =
 StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
@@ -13,6 +14,21 @@ StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
   return database.jobStream(jobId: jobId);
 });
 
+Future<void> _change(BuildContext context, Job job) async {
+    try {
+      final database = context.read<FirestoreDatabase>(databaseProvider);
+      
+          final jobs =
+              Job(id: job.id, name: job.name , price: job.price, description: job.description, category: job.category, bought: true);
+          await database.setJob(jobs);
+    } catch (e) {
+      unawaited(showExceptionAlertDialog(
+        context: context,
+        title: 'Operation failed',
+        exception: e,
+      ));
+    }
+  }
 class JobEntriesAppBarTitle extends ConsumerWidget {
   const JobEntriesAppBarTitle({required this.job});
   final Job job;
@@ -71,6 +87,32 @@ class JobEntriesPage extends StatelessWidget {
   }
 
   Widget _buildItemDetails(Job job, BuildContext context) {
+    // align for sold item
+    Align align; 
+    if (job.bought){ 
+          align =  Align(
+          alignment: Alignment.bottomCenter,
+          child: RaisedButton(
+              onPressed: null,
+              child: const Text('Sold', style: TextStyle(fontSize: 20)),
+              color: Colors.grey,
+              textColor: Colors.white,
+              elevation: 5
+          ),
+        );
+    }
+    else{
+          align =  Align(
+          alignment: Alignment.bottomCenter,
+          child: RaisedButton(
+              onPressed: () => [createAlertDialog(context), _change(context, job)],
+              child: const Text('Buy!', style: TextStyle(fontSize: 20)),
+              color: Colors.blue,
+              textColor: Colors.white,
+              elevation: 5
+          ),
+        );
+    }
     return Column(
       children: [
         Text(
@@ -89,16 +131,7 @@ class JobEntriesPage extends StatelessWidget {
           job.category,
           style: const TextStyle(color: Colors.black),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: RaisedButton(
-              onPressed: () => createAlertDialog(context),
-              child: const Text('Buy!', style: TextStyle(fontSize: 20)),
-              color: Colors.blue,
-              textColor: Colors.white,
-              elevation: 5
-          ),
-        )
+        align,
       ],
     );
   }
