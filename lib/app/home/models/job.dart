@@ -38,6 +38,28 @@ class Job extends Equatable {
     return Job(id: documentId, name: name, price: price, description: description, category: category, bought: bought);
   }
 
+  //TODO: fromMap from the backend
+  factory Job.fromMapItem(Map<String, dynamic>? data, String documentId) {
+    if (data == null) {
+      throw StateError('missing data for product Id: $documentId');
+    }
+    final name = data['name'] as String?;
+    if (name == null) {
+      throw StateError('missing name for product Id: $documentId');
+    }
+    final price = data['price'] as int;
+    final description = data['description'] as String?;
+    if (description == null) {
+      throw StateError('missing description for product Id: $documentId');
+    }
+    final category = data['category'] as String?;
+    if (category == null){
+      throw StateError('missing category for product Id: $documentId');
+    }
+    final bought = data['bought'] as bool;
+    return Job(id: documentId, name: name, price: price, description: description, category: category, bought: bought);
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -47,4 +69,16 @@ class Job extends Equatable {
       'bought': bought, 
     };
   }
+  Map<String, dynamic> toMapItem(String uid) {
+    return {
+      'name': name,
+      'price': price,
+      'description': description,
+      'category': category,
+      'bought': bought,
+      'buyerUUID': 'Not Sold',
+      'sellerUUID': uid
+    };
+  }
+
 }

@@ -6,7 +6,11 @@ import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
+import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/search/search_page_result.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:developer';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key, this.job}) : super(key: key);
@@ -28,12 +32,15 @@ class _SearchPageState extends State<SearchPage> {
 
   String? _name;
   String? _category;
+  bool? _bought;
+
   @override
   void initState() {
     super.initState();
     if (widget.job != null) {
       _name = widget.job?.name;
       _category = widget.job?.category;
+      _bought = widget.job?.bought;
     }
   }
 
@@ -50,7 +57,8 @@ class _SearchPageState extends State<SearchPage> {
     if (_validateAndSaveForm()) {
       try {
         final database = context.read<FirestoreDatabase>(databaseProvider);
-        final jobs = await database.jobsStream().first;
+        await SearchPageResult.show(context, _category);
+
       } catch (e) {
         unawaited(showExceptionAlertDialog(
           context: context,
@@ -106,9 +114,10 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  var _categories = ['phones', 'laptop', 'others'];
+
   String _currentSelectedValue = 'phones';
   List<Widget> _buildFormChildren() {
+    _bought = false;
     return [
       TextFormField(
         decoration: const InputDecoration(labelText: 'Product name'),
@@ -133,7 +142,7 @@ class _SearchPageState extends State<SearchPage> {
                     state.didChange(newValue);
                   });
                 },
-                items: _categories.map((String value) {
+                items: Strings.categories.map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
@@ -144,7 +153,7 @@ class _SearchPageState extends State<SearchPage> {
           );
         },
         onSaved: (value) => _category = value,
-      )
+      ),
     ];
   }
 }

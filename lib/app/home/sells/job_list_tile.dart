@@ -17,7 +17,7 @@ class JobListTile extends StatelessWidget {
     final String emailAbsolute = user.email!;
     return ListTile(
       title: Text(job.name),
-      subtitle: Text(emailAbsolute),
+      subtitle: Text(job.category),
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
     );

@@ -22,6 +22,7 @@ class Strings {
 
   // Jobs page
   static const String sells = 'Sell List';
+  static const String searchList = 'Search List';
 
   // Entries page
   static const String buys = 'Buy List';
@@ -32,4 +33,7 @@ class Strings {
 
   //search page
   static const String search = 'Search';
+
+  //categories
+  static const categories = ['phones', 'laptop', 'others'];
 }

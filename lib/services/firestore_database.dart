@@ -16,7 +16,18 @@ class FirestoreDatabase {
   Future<void> setJob(Job job) => _service.setData(
         path: FirestorePath.job(uid, job.id),
         data: job.toMap(),
-      );
+  );
+
+  Future<void> setSold(Job job) => _service.setData(
+    path: FirestorePath.categories(job.category, job.id),
+    data: job.toMapItem(uid)
+  );
+
+  //TODO: this one
+  Stream<List<Job>> itemsSoldStream(String? category) => _service.collectionStream(
+    path: FirestorePath.searchCategory(category),
+    builder: (data, documentId) => Job.fromMap(data, documentId),
+  );
 
   Future<void> deleteJob(Job job) async {
     // delete where entry.jobId == job.jobId
@@ -31,9 +42,9 @@ class FirestoreDatabase {
   }
 
   Stream<Job> jobStream({required String jobId}) => _service.documentStream(
-        path: FirestorePath.job(uid, jobId),
-        builder: (data, documentId) => Job.fromMap(data, documentId),
-      );
+      path: FirestorePath.job(uid, jobId),
+      builder: (data, documentId) => Job.fromMap(data, documentId),
+  );
 
   Stream<List<Job>> jobsStream() => _service.collectionStream(
         path: FirestorePath.jobs(uid),
