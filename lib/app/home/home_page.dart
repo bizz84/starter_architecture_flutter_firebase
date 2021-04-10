@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/account/account_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/cupertino_home_scaffold.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/history/history.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/history/history_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/browse/browse_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/tab_item.dart';
 
