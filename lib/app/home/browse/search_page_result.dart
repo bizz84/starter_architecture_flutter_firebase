@@ -1,3 +1,4 @@
+import 'package:starter_architecture_flutter_firebase/app/home/history/sell_product_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/item.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
@@ -7,6 +8,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/history/add_sells
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
 import '../Templates/item_details.dart';
 import '../Templates/item_list_tile.dart';
 import '../Templates/list_items_builder.dart';
@@ -24,8 +26,8 @@ class SearchPageResult extends ConsumerWidget {
 
   static Future<void> show(BuildContext context, String? category) async {
     _category = category;
-    await Navigator.of(context, rootNavigator: true).pushNamed(
-      AppRoutes.browsePage,
+    await Navigator.of(context).pushNamed(
+      CupertinoTabViewRoutes.searchResultPage,
     );
   }
 
@@ -46,19 +48,13 @@ class SearchPageResult extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.searchList),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add, color: Colors.white),
-            onPressed: () => EditItemPage.show(context),
-          ),
-        ],
+        title: const Text(Strings.searchList)
       ),
-      body: _buildContents(context, watch),
+      body: _buildSearchContents(context, watch),
     );
   }
 
-  Widget _buildContents(BuildContext context, ScopedReader watch) {
+  Widget _buildSearchContents(BuildContext context, ScopedReader watch) {
     final itemsAsyncValue = watch(itemsStreamProvider);
     return ListItemsBuilder<Item>(
       data: itemsAsyncValue,
@@ -69,7 +65,7 @@ class SearchPageResult extends ConsumerWidget {
         // onDismissed: (direction) => _delete(context, item),
         child: ItemListTile(
           item: item,
-          onTap: () => ItemEntriesPage.show(context, item),
+          onTap: () => SellProductPage.show(context, item),
         ),
       ),
     );

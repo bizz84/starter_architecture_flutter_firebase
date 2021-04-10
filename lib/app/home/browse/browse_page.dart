@@ -10,76 +10,25 @@ import 'package:starter_architecture_flutter_firebase/app/home/browse/search_pag
 import 'package:pedantic/pedantic.dart';
 import 'package:flutter/foundation.dart';
 
-class BrowsePage extends StatefulWidget {
-  const BrowsePage({Key? key, this.item}) : super(key: key);
-  final Item? item;
+class BrowsePage extends ConsumerWidget {
 
-  static Future<void> show(BuildContext context, {Item? item}) async {
-    await Navigator.of(context, rootNavigator: true).pushNamed(
-      AppRoutes.editItemPage,
-      arguments: item,
-    );
-  }
-
-  @override
-  _BrowsePageState createState() => _BrowsePageState();
-}
-
-class _BrowsePageState extends State<BrowsePage> {
   final _formKey = GlobalKey<FormState>();
-
-  String? _name;
   String? _category;
   bool? _bought;
 
   @override
-  void initState() {
-    super.initState();
-    if (widget.item != null) {
-      _name = widget.item?.name;
-      _category = widget.item?.category;
-      _bought = widget.item?.bought;
-    }
-  }
-
-  bool _validateAndSaveForm() {
-    final form = _formKey.currentState!;
-    if (form.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
-  }
-
-  Future<void> _search() async {
-    if (_validateAndSaveForm()) {
-      try {
-        final database = context.read<FirestoreDatabase>(databaseProvider);
-        await SearchPageResult.show(context, _category);
-
-      } catch (e) {
-        unawaited(showExceptionAlertDialog(
-          context: context,
-          title: 'Operation failed',
-          exception: e,
-        ));
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
-        title: Text(widget.item == null ? 'New Product' : 'Edit Product'),
+        title: Text('Search'),
         actions: <Widget>[
           FlatButton(
             child: const Text(
               'Search',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
-            onPressed: () => _search(),
+            onPressed: () => SearchPageResult.show(context, _category),
           ),
         ],
       ),
@@ -115,6 +64,7 @@ class _BrowsePageState extends State<BrowsePage> {
 
   String _currentSelectedValue = 'phones';
   List<Widget> _buildFormChildren() {
+    debugPrint("_currentSelectedValue");
     _bought = false;
     return [
       FormField<String>(
@@ -127,11 +77,10 @@ class _BrowsePageState extends State<BrowsePage> {
                 value: _currentSelectedValue,
                 isDense: true,
                 onChanged: (String? newValue) {
-                  setState(() {
                     _currentSelectedValue = newValue!;
                     state.didChange(newValue);
-                  });
-                },
+                    _category = _currentSelectedValue;
+                  },
                 items: Strings.categories.map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -142,7 +91,9 @@ class _BrowsePageState extends State<BrowsePage> {
             ),
           );
         },
-        onSaved: (value) => _category = value,
+        onSaved: (value) {
+          _category = _currentSelectedValue;
+        },
       ),
     ];
   }

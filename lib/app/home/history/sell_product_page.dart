@@ -54,7 +54,8 @@ class SellProductPage extends StatelessWidget {
 
   Widget _buildItemDetails(Item item, BuildContext context) {
     // align for sold item
-    Align align; 
+    Align align;
+    //use case.
     if (item.bought){ 
           align =  Align(
           alignment: Alignment.bottomCenter,

@@ -5,7 +5,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/history/add_sells
 import 'package:starter_architecture_flutter_firebase/app/home/models/item.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/history/history_details.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/history/sell_product_page.dart';
 
 import '../Templates/item_list_tile.dart';
 import '../Templates/list_items_builder.dart';
