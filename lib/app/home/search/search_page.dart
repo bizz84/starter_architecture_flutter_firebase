@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/item.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
-import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
+import 'package:starter_architecture_flutter_firebase/firebase/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/search/search_page_result.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:flutter/foundation.dart';
-import 'dart:developer';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key, this.job}) : super(key: key);
-  final Job? job;
+  const SearchPage({Key? key, this.item}) : super(key: key);
+  final Item? item;
 
-  static Future<void> show(BuildContext context, {Job? job}) async {
+  static Future<void> show(BuildContext context, {Item? item}) async {
     await Navigator.of(context, rootNavigator: true).pushNamed(
-      AppRoutes.editJobPage,
-      arguments: job,
+      AppRoutes.editItemPage,
+      arguments: item,
     );
   }
 
@@ -37,10 +35,10 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.job != null) {
-      _name = widget.job?.name;
-      _category = widget.job?.category;
-      _bought = widget.job?.bought;
+    if (widget.item != null) {
+      _name = widget.item?.name;
+      _category = widget.item?.category;
+      _bought = widget.item?.bought;
     }
   }
 
@@ -74,7 +72,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
-        title: Text(widget.job == null ? 'New Product' : 'Edit Product'),
+        title: Text(widget.item == null ? 'New Product' : 'Edit Product'),
         actions: <Widget>[
           FlatButton(
             child: const Text(

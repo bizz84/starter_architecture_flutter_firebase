@@ -3,20 +3,20 @@ import 'package:equatable/equatable.dart';
 class Entry extends Equatable {
   const Entry({
     required this.id,
-    required this.jobId,
+    required this.itemId,
     required this.start,
     required this.end,
     required this.comment,
   });
 
   final String id;
-  final String jobId;
+  final String itemId;
   final DateTime start;
   final DateTime end;
   final String comment;
 
   @override
-  List<Object> get props => [id, jobId, start, end, comment];
+  List<Object> get props => [id, itemId, start, end, comment];
 
   @override
   bool get stringify => true;
@@ -32,7 +32,7 @@ class Entry extends Equatable {
     final endMilliseconds = value['end'] as int;
     return Entry(
       id: id,
-      jobId: value['jobId'],
+      itemId: value['itemId'],
       start: DateTime.fromMillisecondsSinceEpoch(startMilliseconds),
       end: DateTime.fromMillisecondsSinceEpoch(endMilliseconds),
       comment: value['comment'] ?? '',
@@ -41,7 +41,7 @@ class Entry extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'jobId': jobId,
+      'itemId': itemId,
       'start': start.millisecondsSinceEpoch,
       'end': end.millisecondsSinceEpoch,
       'comment': comment,

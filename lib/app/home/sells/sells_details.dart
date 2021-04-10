@@ -1,29 +1,26 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/item.dart';
 import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
-import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:flutter/material.dart';
-import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
-import 'package:pedantic/pedantic.dart';
 
-final jobStreamProvider =
-StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
+final itemStreamProvider =
+StreamProvider.autoDispose.family<Item, String>((ref, itemId) {
   final database = ref.watch(databaseProvider);
-  return database.jobStream(jobId: jobId);
+  return database.itemStream(itemId: itemId);
 });
 
 
-class JobEntriesAppBarTitle extends ConsumerWidget {
-  const JobEntriesAppBarTitle({required this.job});
-  final Job job;
+class ItemEntriesAppBarTitle extends ConsumerWidget {
+  const ItemEntriesAppBarTitle({required this.item});
+  final Item item;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final jobAsyncValue = watch(jobStreamProvider(job.id));
-    return jobAsyncValue.when(
-      data: (job) => Text(job.name),
+    final itemAsyncValue = watch(itemStreamProvider(item.id));
+    return itemAsyncValue.when(
+      data: (item) => Text(item.name),
       loading: () => Container(),
       error: (_, __) => Container(),
     );
@@ -31,14 +28,14 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 }
 
 class SellProductPage extends StatelessWidget {
-  const SellProductPage({required this.job});
+  const SellProductPage({required this.item});
 
-  final Job job;
+  final Item item;
 
-  static Future<void> show(BuildContext context, Job job) async {
+  static Future<void> show(BuildContext context, Item item) async {
     await Navigator.of(context).pushNamed(
       CupertinoTabViewRoutes.sellProductPage,
-      arguments: job,
+      arguments: item,
     );
   }
   
@@ -48,17 +45,17 @@ class SellProductPage extends StatelessWidget {
     final user = firebaseAuth.currentUser!;
     return Scaffold(
       appBar: AppBar(
-          title: JobEntriesAppBarTitle(job: job)
+          title: ItemEntriesAppBarTitle(item: item)
       ),
-      body: _buildItemDetails(job, context),
+      body: _buildItemDetails(item, context),
 
     );
   }
 
-  Widget _buildItemDetails(Job job, BuildContext context) {
+  Widget _buildItemDetails(Item item, BuildContext context) {
     // align for sold item
     Align align; 
-    if (job.bought){ 
+    if (item.bought){ 
           align =  Align(
           alignment: Alignment.bottomCenter,
           child: RaisedButton(
@@ -85,19 +82,19 @@ class SellProductPage extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Name: ${job.name}',
+          'Name: ${item.name}',
           style: const TextStyle(color: Colors.black),
         ),
         Text(
-          job.price.toString(),
+          item.price.toString(),
           style: const TextStyle(color: Colors.black),
         ),
         Text(
-          job.description,
+          item.description,
           style: const TextStyle(color: Colors.black),
         ),
         Text(
-          job.category,
+          item.category,
           style: const TextStyle(color: Colors.black),
         ),
         align, 

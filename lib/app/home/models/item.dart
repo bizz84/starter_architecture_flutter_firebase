@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class Job extends Equatable {
-  const Job({required this.id, required this.name, required this.price, required this.description, required this.category, required this.bought});
+class Item extends Equatable {
+  const Item({required this.id, required this.name, required this.price, required this.description, required this.category, required this.bought});
   final String id;
   final String name;
   final int price;
@@ -17,7 +17,7 @@ class Job extends Equatable {
   @override
   bool get stringify => true;
 
-  factory Job.fromMap(Map<String, dynamic>? data, String documentId) {
+  factory Item.fromMap(Map<String, dynamic>? data, String documentId) {
     if (data == null) {
       throw StateError('missing data for product Id: $documentId');
     }
@@ -35,11 +35,11 @@ class Job extends Equatable {
       throw StateError('missing category for product Id: $documentId');
     } 
     final bought = data['bought'] as bool; 
-    return Job(id: documentId, name: name, price: price, description: description, category: category, bought: bought);
+    return Item(id: documentId, name: name, price: price, description: description, category: category, bought: bought);
   }
 
   //TODO: fromMap from the backend
-  factory Job.fromMapItem(Map<String, dynamic>? data, String documentId) {
+  factory Item.fromMapItem(Map<String, dynamic>? data, String documentId) {
     if (data == null) {
       throw StateError('missing data for product Id: $documentId');
     }
@@ -57,7 +57,7 @@ class Job extends Equatable {
       throw StateError('missing category for product Id: $documentId');
     }
     final bought = data['bought'] as bool;
-    return Job(id: documentId, name: name, price: price, description: description, category: category, bought: bought);
+    return Item(id: documentId, name: name, price: price, description: description, category: category, bought: bought);
   }
 
   Map<String, dynamic> toMap() {

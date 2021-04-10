@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/services/shared_preferences_service.dart';
+import 'package:starter_architecture_flutter_firebase/firebase/shared_preferences_service.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 final onboardingViewModelProvider =

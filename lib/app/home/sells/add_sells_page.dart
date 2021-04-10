@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/item.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
-import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
+import 'package:starter_architecture_flutter_firebase/firebase/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';
 
-class EditJobPage extends StatefulWidget {
-  const EditJobPage({Key? key, this.job}) : super(key: key);
-  final Job? job;
+class EditItemPage extends StatefulWidget {
+  const EditItemPage({Key? key, this.item}) : super(key: key);
+  final Item? item;
 
-  static Future<void> show(BuildContext context, {Job? job}) async {
+  static Future<void> show(BuildContext context, {Item? item}) async {
     await Navigator.of(context, rootNavigator: true).pushNamed(
-      AppRoutes.editJobPage,
-      arguments: job,
+      AppRoutes.editItemPage,
+      arguments: item,
     );
   }
 
   @override
-  _EditJobPageState createState() => _EditJobPageState();
+  _EditItemPageState createState() => _EditItemPageState();
 }
 
-class _EditJobPageState extends State<EditJobPage> {
+class _EditItemPageState extends State<EditItemPage> {
   final _formKey = GlobalKey<FormState>();
 
   String? _name;
@@ -33,11 +33,11 @@ class _EditJobPageState extends State<EditJobPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.job != null) {
-      _name = widget.job?.name;
-      _price = widget.job?.price;
-      _description = widget.job?.description;
-      _category = widget.job?.category; 
+    if (widget.item != null) {
+      _name = widget.item?.name;
+      _price = widget.item?.price;
+      _description = widget.item?.description;
+      _category = widget.item?.category; 
     }
   }
 
@@ -54,11 +54,11 @@ class _EditJobPageState extends State<EditJobPage> {
     if (_validateAndSaveForm()) {
       try {
         final database = context.read<FirestoreDatabase>(databaseProvider);
-        final jobs = await database.jobsStream().first;
+        final items = await database.itemsStream().first;
         final allLowerCaseNames =
-            jobs.map((job) => job.name.toLowerCase()).toList();
-        if (widget.job != null) {
-          allLowerCaseNames.remove(widget.job!.name.toLowerCase());
+            items.map((item) => item.name.toLowerCase()).toList();
+        if (widget.item != null) {
+          allLowerCaseNames.remove(widget.item!.name.toLowerCase());
         }
         if (allLowerCaseNames.contains(_name?.toLowerCase())) {
           unawaited(showAlertDialog(
@@ -68,11 +68,11 @@ class _EditJobPageState extends State<EditJobPage> {
             defaultActionText: 'OK',
           ));
         } else {
-          final id = widget.job?.id ?? documentIdFromCurrentDate();
-          final job =
-              Job(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '', category: _category ?? 'phones', bought: false);
-          await database.setJob(job);
-          await database.setSold(job);
+          final id = widget.item?.id ?? documentIdFromCurrentDate();
+          final item =
+              Item(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '', category: _category ?? 'phones', bought: false);
+          await database.setItem(item);
+          await database.setSold(item);
           Navigator.of(context).pop();
         }
       } catch (e) {
@@ -90,7 +90,7 @@ class _EditJobPageState extends State<EditJobPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
-        title: Text(widget.job == null ? 'New Product' : 'Edit Product'),
+        title: Text(widget.item == null ? 'New Product' : 'Edit Product'),
         actions: <Widget>[
           FlatButton(
             child: const Text(

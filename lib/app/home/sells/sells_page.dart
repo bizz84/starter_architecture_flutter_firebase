@@ -1,37 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/job_entries/item_details.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/sells/add_sells_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/sells/job_list_tile.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/sells/list_items_builder.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:alert_dialogs/alert_dialogs.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/item.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
-import 'package:pedantic/pedantic.dart';
-import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/sells/sells_details.dart';
 
-final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
+import '../Templates/item_list_tile.dart';
+import '../Templates/list_items_builder.dart';
+
+
+final itemsStreamProvider = StreamProvider.autoDispose<List<Item>>((ref) {
   final database = ref.watch(databaseProvider);
-  return database.jobsStream();
+  return database.itemsStream();
 });
 
 // watch database
 class SellsPage extends ConsumerWidget {
-  Future<void> _delete(BuildContext context, Job job) async {
-    try {
-      final database = context.read<FirestoreDatabase>(databaseProvider);
-      await database.deleteJob(job);
-    } catch (e) {
-      unawaited(showExceptionAlertDialog(
-        context: context,
-        title: 'Operation failed',
-        exception: e,
-      ));
-    }
-  }
+//   Future<void> _delete(BuildContext context, Item item) async {
+//     try {
+//       final database = context.read<FirestoreDatabase>(databaseProvider);
+//       await database.deleteItem(item);
+//     } catch (e) {
+//       unawaited(showExceptionAlertDialog(
+//         context: context,
+//         title: 'Operation failed',
+//         exception: e,
+//       ));
+//     }
+//   }
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -41,7 +39,7 @@ class SellsPage extends ConsumerWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add, color: Colors.white),
-            onPressed: () => EditJobPage.show(context),
+            onPressed: () => EditItemPage.show(context),
           ),
         ],
       ),
@@ -50,17 +48,17 @@ class SellsPage extends ConsumerWidget {
   }
 
   Widget _buildContents(BuildContext context, ScopedReader watch) {
-    final jobsAsyncValue = watch(jobsStreamProvider);
-    return ListItemsBuilder<Job>(
-      data: jobsAsyncValue,
-      itemBuilder: (context, job) => Dismissible(
-        key: Key('job-${job.id}'),
+    final itemsAsyncValue = watch(itemsStreamProvider);
+    return ListItemsBuilder<Item>(
+      data: itemsAsyncValue,
+      itemBuilder: (context, item) => Dismissible(
+        key: Key('item-${item.id}'),
         background: Container(color: Colors.red),
         direction: DismissDirection.endToStart,
-        onDismissed: (direction) => _delete(context, job),
-        child: JobListTile(
-          job: job,
-          onTap: () => SellProductPage.show(context, job),
+        // onDismissed: (direction) => _delete(context, item),
+        child: ItemListTile(
+          item: item,
+          onTap: () => SellProductPage.show(context, item),
         ),
       ),
     );

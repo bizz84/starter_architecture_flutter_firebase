@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/item.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 
 
-class JobListTile extends StatelessWidget {
-  const JobListTile({Key? key, required this.job, this.onTap})
+class ItemListTile extends StatelessWidget {
+  const ItemListTile({Key? key, required this.item, this.onTap})
       : super(key: key);
-  final Job job;
+  final Item item;
   final VoidCallback? onTap;
 
   @override
@@ -16,10 +16,10 @@ class JobListTile extends StatelessWidget {
     final user = firebaseAuth.currentUser!;
     final String emailAbsolute = user.email!;
     String tag = '[on listing]';
-    if(job.bought) tag = '[bought]';  
+    if(item.bought) tag = '[bought]';  
     return ListTile(
-      title: Text(job.name),
-      subtitle: Text(job.category + " " + tag),
+      title: Text(item.name),
+      subtitle: Text(item.category + " " + tag),
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
     );

@@ -10,7 +10,7 @@ import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_page.d
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/services/shared_preferences_service.dart';
+import 'package:starter_architecture_flutter_firebase/firebase/shared_preferences_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
