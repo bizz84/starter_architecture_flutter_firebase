@@ -21,18 +21,18 @@ class Strings {
   static const String homePage = 'Home Page';
 
   // Jobs page
-  static const String sells = 'Sell List';
+  static const String history = 'History';
   static const String searchList = 'Search List';
 
   // Entries page
-  static const String buys = 'Buy List';
+  static const String buys = 'Bought History';
 
   // Account page
   static const String account = 'Account';
   static const String accountPage = 'Account Page';
 
   //search page
-  static const String search = 'Search';
+  static const String browse = 'Browse';
 
   //categories
   static const categories = ['phones', 'laptop', 'others'];

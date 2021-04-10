@@ -6,12 +6,12 @@ import 'package:starter_architecture_flutter_firebase/app/top_level_providers.da
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/firebase/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/search/search_page_result.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/browse/search_page_result.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:flutter/foundation.dart';
 
-class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key, this.item}) : super(key: key);
+class BrowsePage extends StatefulWidget {
+  const BrowsePage({Key? key, this.item}) : super(key: key);
   final Item? item;
 
   static Future<void> show(BuildContext context, {Item? item}) async {
@@ -22,10 +22,10 @@ class SearchPage extends StatefulWidget {
   }
 
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _BrowsePageState createState() => _BrowsePageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _BrowsePageState extends State<BrowsePage> {
   final _formKey = GlobalKey<FormState>();
 
   String? _name;

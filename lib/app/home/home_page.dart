@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/account/account_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/cupertino_home_scaffold.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/buy/buy_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/sells/sells_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/search/search_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/history/history.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/browse/browse_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/tab_item.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,20 +11,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TabItem _currentTab = TabItem.search;
+  TabItem _currentTab = TabItem.history;
 
   final Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
-    TabItem.search: GlobalKey<NavigatorState>(),
-    TabItem.sell: GlobalKey<NavigatorState>(),
-    TabItem.buy: GlobalKey<NavigatorState>(),
+    TabItem.history: GlobalKey<NavigatorState>(),
+    TabItem.browse: GlobalKey<NavigatorState>(),
     TabItem.account: GlobalKey<NavigatorState>()
   };
 
   Map<TabItem, WidgetBuilder> get widgetBuilders {
     return {
-      TabItem.search: (_) => SearchPage(),
-      TabItem.sell: (_) => SellsPage(),
-      TabItem.buy: (_) => BuyPage(),
+      TabItem.history: (_) => HistoryPage(),
+      TabItem.browse: (_) => BrowsePage(),
       TabItem.account: (_) => AccountPage()
     };
   }

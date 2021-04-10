@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import '../app/home/Templates/item_details.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/item.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/sells/sells_details.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/history/history_details.dart';
 
 class CupertinoTabViewRoutes {
   static const itemEntriesPage = '/item-entries-page';

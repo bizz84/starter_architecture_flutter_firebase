@@ -2,7 +2,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/models/item.dart'
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/sells/add_sells_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/history/add_sells_page.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class SearchPageResult extends ConsumerWidget {
   static Future<void> show(BuildContext context, String? category) async {
     _category = category;
     await Navigator.of(context, rootNavigator: true).pushNamed(
-      AppRoutes.searchPage,
+      AppRoutes.browsePage,
     );
   }
 

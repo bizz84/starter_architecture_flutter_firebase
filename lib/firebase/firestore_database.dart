@@ -28,6 +28,12 @@ class FirestoreDatabase {
     builder: (data, documentId) => Item.fromMap(data, documentId),
   );
 
+  Stream<List<Item>> historyStream() =>_service.collectionStream(
+    path: FirestorePath.history(),
+    builder: (data, documentId) => Item.fromMap(data, documentId),
+
+  );
+
   // Future<void> deleteItem(Item item) async {
   //   // delete where entry.itemId == item.itemId
   //   final allEntries = await entriesStream(item: item).first;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 
-enum TabItem { search, sell, buy, account }
+enum TabItem { history, browse, account }
 
 class TabItemData {
   const TabItemData(
@@ -13,21 +13,18 @@ class TabItemData {
   final IconData icon;
 
   static const Map<TabItem, TabItemData> allTabs = {
-    TabItem.search: TabItemData(
-        key: Keys.searchTab,
-        title: Strings.search,
-        icon: Icons.search
-    ),
-    TabItem.sell: TabItemData(
-      key: Keys.jobsTab,
-      title: Strings.sells,
+    TabItem.history: TabItemData(
+      key: Keys.historyTab,
+      title: Strings.history,
       icon: Icons.view_headline,
     ),
-    TabItem.buy: TabItemData(
-      key: Keys.entriesTab,
-      title: Strings.buys,
-      icon: Icons.payments,
+
+    TabItem.browse: TabItemData(
+        key: Keys.browseTab,
+        title: Strings.browse,
+        icon: Icons.search
     ),
+
     TabItem.account: TabItemData(
       key: Keys.accountTab,
       title: Strings.account,
