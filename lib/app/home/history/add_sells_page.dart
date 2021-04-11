@@ -70,7 +70,7 @@ class _EditItemPageState extends State<EditItemPage> {
         } else {
           final id = widget.item?.id ?? documentIdFromCurrentDate();
           final item =
-              Item(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '', category: _category ?? 'phones', bought: false);
+              Item(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '', category: _category ?? 'phones', bought: false, sellerUUID: 'null', buyerUUID: 'null');
           await database.setItem(item);
           await database.setSold(item);
           Navigator.of(context).pop();

@@ -4,6 +4,10 @@ import 'package:starter_architecture_flutter_firebase/app/home/models/item.dart'
 import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:starter_architecture_flutter_firebase/firebase/firestore_database.dart';
+
+
+String? _origin;
 
 final itemStreamProvider =
     StreamProvider.autoDispose.family<Item, String>((ref, itemId) {
@@ -31,7 +35,8 @@ class SellProductPage extends StatelessWidget {
 
   final Item item;
 
-  static Future<void> show(BuildContext context, Item item) async {
+  static Future<void> show(BuildContext context, Item item, String origin) async {
+    _origin = origin;
     await Navigator.of(context).pushNamed(
       CupertinoTabViewRoutes.sellProductPage,
       arguments: item,
@@ -58,34 +63,6 @@ class SellProductPage extends StatelessWidget {
     String price = item.price.toString();
     RaisedButton button;
 
-/*
-    we should:
-    - check if it is a history page or search page (using context)
-
-    - if history:
-      - check if it was created by us: (myid == db.(this user).products.contain()?)
-        - if (item.bought==false) button = onlisting (unclickable) 
-          - we dont give a buy option
-          - we just say its on listing
-        - if (item.bought) button = sold (unclickable)
-      - if not by us
-        - if (item.bought==true) button = bought (unclickable)
-    - if search:
-      - if (item.bought==false) button = onlisting 
-        - we have to provide the buy button
-      - check if it is sold:
-        - grey button that says sold
-
-    extra:
-    history: 
-    - color the tags if they were bought or not
-
-    search:
-    - color the tags if they are on listing and grey if they are bought
-    - clear it from the search
-
-*/
-
     Future<void> createAlertDialog(BuildContext context) async {
       //TODO: edit database here
       return showDialog<void>(
@@ -104,68 +81,66 @@ class SellProductPage extends StatelessWidget {
                 ]);
           });
     }
-
-// Template
-
-    // if(history page){
-    //   if(db.(this user).products.contain(item)){
-    //     if(!item.bought){
-    //               button = RaisedButton(
-    //                         onPressed: () => null,
-    //                         child: Text('On Listing',
-    //                             style: TextStyle(fontSize: 20)),
-    //                         color: Colors.grey,
-    //                         textColor: Colors.white,
-    //                         elevation: 5);
-
-    //     }else{
-    //                         button = RaisedButton(
-    //                         onPressed: () => null,
-    //                         child: Text('Sold',
-    //                             style: TextStyle(fontSize: 20)),
-    //                         color: Colors.grey,
-    //                         textColor: Colors.white,
-    //                         elevation: 5);
-
-    //     }
-
-    //   }else{
-    //     if(item.bought==true){
-    //                                   button = RaisedButton(
-    //                         onPressed: () => null,
-    //                         child: Text('Bought',
-    //                             style: TextStyle(fontSize: 20)),
-    //                         color: Colors.grey,
-    //                         textColor: Colors.white,
-    //                         elevation: 5);
-
-    //     }
-    //   }
-
-    // }else if(searchresults){
-    //   if(!db.(this user).products.contain(item)){
-    //   if(item.bought==false){
-    //                       button = RaisedButton(
-    //                         onPressed: () => createAlertDialog(context),
-    //                         child: Text('Buy',
-    //                             style: TextStyle(fontSize: 20)),
-    //                         color: Colors.grey,
-    //                         textColor: Colors.white,
-    //                         elevation: 5);
-
-    //   }else{
-    //           if(item.bought==false){
-    //                       button = RaisedButton(
-    //                         onPressed: () => null,
-    //                         child: Text('Sold',
-    //                             style: TextStyle(fontSize: 20)),
-    //                         color: Colors.grey,
-    //                         textColor: Colors.white,
-    //                         elevation: 5);
-
-    //   }
-    // }}
-
+//
+// // Template
+//     final firebaseAuth = context.read(firebaseAuthProvider);
+//     final user = firebaseAuth.currentUser!;
+//
+//     if(_origin == 'history'){
+//       //TODO: get Seller UUID and current UUID
+//       if(item.sellerUUID == user.uid){
+//         if(!item.bought){
+//           button = RaisedButton(
+//             onPressed: () => null,
+//             child: Text('On Listing',
+//                 style: TextStyle(fontSize: 20)),
+//             color: Colors.grey,
+//             textColor: Colors.white,
+//             elevation: 5);
+//         }else{
+//           button = RaisedButton(
+//             onPressed: () => null,
+//             child: Text('Sold',
+//                 style: TextStyle(fontSize: 20)),
+//             color: Colors.grey,
+//             textColor: Colors.white,
+//             elevation: 5);
+//         }
+//       }else{
+//         if(item.bought){
+//           button = RaisedButton(
+//             onPressed: () => null,
+//             child: Text('Bought',
+//                 style: TextStyle(fontSize: 20)),
+//             color: Colors.grey,
+//             textColor: Colors.white,
+//             elevation: 5);
+//         }
+//       }
+//
+//     }else{
+//       if(item.sellerUUID == user.uid){
+//       if(item.bought==false){
+//         button = RaisedButton(
+//           onPressed: () => createAlertDialog(context),
+//           child: Text('Buy',
+//               style: TextStyle(fontSize: 20)),
+//           color: Colors.grey,
+//           textColor: Colors.white,
+//           elevation: 5);
+//
+//       }else{
+//         if(item.bought==false){
+//           button = RaisedButton(
+//             onPressed: () => null,
+//             child: Text('Sold',
+//                 style: TextStyle(fontSize: 20)),
+//             color: Colors.grey,
+//             textColor: Colors.white,
+//             elevation: 5);
+//       }
+//     }}
+    //
     if (item.bought) {
       buttonText = 'Sold';
       // align = Align(

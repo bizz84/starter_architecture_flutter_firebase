@@ -65,7 +65,7 @@ class SearchPageResult extends ConsumerWidget {
         // onDismissed: (direction) => _delete(context, item),
         child: ItemListTile(
           item: item,
-          onTap: () => SellProductPage.show(context, item),
+          onTap: () => SellProductPage.show(context, item, 'search'),
         ),
       ),
     );

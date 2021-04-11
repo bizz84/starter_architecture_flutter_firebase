@@ -13,14 +13,16 @@ class FirestoreDatabase {
 
   final _service = FirestoreService.instance;
 
+  String getUID() => uid;
+
   Future<void> setItem(Item item) => _service.setData(
         path: FirestorePath.item(uid, item.id),
-        data: item.toMap(),
+        data: item.toMap(uid),
   );
 
   Future<void> setSold(Item item) => _service.setData(
     path: FirestorePath.categories(item.category, item.id),
-    data: item.toMapItem(uid)
+    data: item.toMap(uid)
   );
 
   Stream<List<Item>> itemsSoldStream(String? category) => _service.collectionStream(

@@ -19,7 +19,7 @@ Future<void> _change(BuildContext context, Item item) async {
       final database = context.read<FirestoreDatabase>(databaseProvider);
       
           final items =
-              Item(id: item.id, name: item.name , price: item.price, description: item.description, category: item.category, bought: true);
+              Item(id: item.id, name: item.name , price: item.price, description: item.description, category: item.category, bought: true, buyerUUID: 'null', sellerUUID: 'null');
           await database.setItem(items);
     } catch (e) {
       unawaited(showExceptionAlertDialog(

@@ -64,7 +64,6 @@ class BrowsePage extends ConsumerWidget {
 
   String _currentSelectedValue = 'phones';
   List<Widget> _buildFormChildren() {
-    debugPrint("_currentSelectedValue");
     _bought = false;
     return [
       FormField<String>(

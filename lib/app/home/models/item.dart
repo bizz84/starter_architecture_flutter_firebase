@@ -3,16 +3,19 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Item extends Equatable {
-  const Item({required this.id, required this.name, required this.price, required this.description, required this.category, required this.bought});
+  const Item({required this.id, required this.name, required this.price, required this.description, required this.category, required this.bought, required this.sellerUUID, required this.buyerUUID});
+
   final String id;
   final String name;
   final int price;
   final String description;
   final String category; 
-  final bool bought; // default Falss
+  final bool bought; // default False
+  final String sellerUUID;
+  final String buyerUUID;
 
   @override
-  List<Object> get props => [id, name, price, description, category, bought];
+  List<Object> get props => [id, name, price, description, category, bought, sellerUUID, buyerUUID];
 
   @override
   bool get stringify => true;
@@ -34,51 +37,54 @@ class Item extends Equatable {
     if (category == null){
       throw StateError('missing category for product Id: $documentId');
     } 
-    final bought = data['bought'] as bool; 
-    return Item(id: documentId, name: name, price: price, description: description, category: category, bought: bought);
-  }
-
-  //TODO: fromMap from the backend
-  factory Item.fromMapItem(Map<String, dynamic>? data, String documentId) {
-    if (data == null) {
-      throw StateError('missing data for product Id: $documentId');
-    }
-    final name = data['name'] as String?;
-    if (name == null) {
-      throw StateError('missing name for product Id: $documentId');
-    }
-    final price = data['price'] as int;
-    final description = data['description'] as String?;
-    if (description == null) {
-      throw StateError('missing description for product Id: $documentId');
-    }
-    final category = data['category'] as String?;
-    if (category == null){
-      throw StateError('missing category for product Id: $documentId');
-    }
     final bought = data['bought'] as bool;
-    return Item(id: documentId, name: name, price: price, description: description, category: category, bought: bought);
+    final sellerUUID = data['sellerUUID'] as String;
+    final buyerUUID = data['buyerUUID'] as String;
+    return Item(id: documentId, name: name, price: price, description: description, category: category, bought: bought, sellerUUID: sellerUUID, buyerUUID: buyerUUID);
   }
 
-  Map<String, dynamic> toMap() {
+  // //TODO: fromMap from category
+  // factory Item.fromMapCategory(Map<String, dynamic>? data, String documentId) {
+  //   if (data == null) {
+  //     throw StateError('missing data for product Id: $documentId');
+  //   }
+  //   final name = data['name'] as String?;
+  //   if (name == null) {
+  //     throw StateError('missing name for product Id: $documentId');
+  //   }
+  //   final price = data['price'] as int;
+  //   final description = data['description'] as String?;
+  //   if (description == null) {
+  //     throw StateError('missing description for product Id: $documentId');
+  //   }
+  //   final category = data['category'] as String?;
+  //   if (category == null){
+  //     throw StateError('missing category for product Id: $documentId');
+  //   }
+  //   final bought = data['bought'] as bool;
+  //   return Item(id: documentId, name: name, price: price, description: description, category: category, bought: bought, sellerUUID: selleruuid);
+  // }
+
+  Map<String, dynamic> toMap(String uid) {
     return {
       'name': name,
       'price': price,
       'description': description,
       'category': category, 
-      'bought': bought, 
-    };
-  }
-  Map<String, dynamic> toMapItem(String uid) {
-    return {
-      'name': name,
-      'price': price,
-      'description': description,
-      'category': category,
       'bought': bought,
       'buyerUUID': 'Not Sold',
-      'sellerUUID': uid
+      'sellerUUID': uid,
     };
   }
+  // Map<String, dynamic> toMapCategory() {
+  //   return {
+  //     'name': name,
+  //     'price': price,
+  //     'description': description,
+  //     'category': category,
+  //     'bought': bought,
+  //
+  //   };
+  // }
 
 }

@@ -58,7 +58,7 @@ class HistoryPage extends ConsumerWidget {
         // onDismissed: (direction) => _delete(context, item),
         child: ItemListTile(
           item: item,
-          onTap: () => SellProductPage.show(context, item),
+          onTap: () => SellProductPage.show(context, item, 'history'),
         ),
       ),
     );

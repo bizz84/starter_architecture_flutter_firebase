@@ -18,6 +18,7 @@ final databaseProvider = Provider<FirestoreDatabase>((ref) {
   throw UnimplementedError();
 });
 
+
 final loggerProvider = Provider<Logger>((ref) => Logger(
       printer: PrettyPrinter(
         methodCount: 1,
