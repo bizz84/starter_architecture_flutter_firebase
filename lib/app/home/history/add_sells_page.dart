@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -70,7 +71,7 @@ class _EditItemPageState extends State<EditItemPage> {
         } else {
           final id = widget.item?.id ?? documentIdFromCurrentDate();
           final item =
-              Item(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '', category: _category ?? 'phones', bought: false, sellerUUID: 'null', buyerUUID: 'null');
+              Item(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '', category: _category ?? 'phones', bought: false, sellerUUID: 'null', buyerUUID: 'null', time: Timestamp.now());
           await database.setItem(item);
           await database.setSold(item);
           Navigator.of(context).pop();

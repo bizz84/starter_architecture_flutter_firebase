@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
 class Item extends Equatable {
-  const Item({required this.id, required this.name, required this.price, required this.description, required this.category, required this.bought, required this.sellerUUID, required this.buyerUUID});
+  const Item({required this.id, required this.name, required this.price, required this.description, required this.category, required this.bought, required this.sellerUUID, required this.buyerUUID, required this.time});
 
   final String id;
   final String name;
@@ -13,9 +14,10 @@ class Item extends Equatable {
   final bool bought; // default False
   final String sellerUUID;
   final String buyerUUID;
+  final Timestamp time;
 
   @override
-  List<Object> get props => [id, name, price, description, category, bought, sellerUUID, buyerUUID];
+  List<Object> get props => [id, name, price, description, category, bought, sellerUUID, buyerUUID, time];
 
   @override
   bool get stringify => true;
@@ -40,7 +42,8 @@ class Item extends Equatable {
     final bought = data['bought'] as bool;
     final sellerUUID = data['sellerUUID'] as String;
     final buyerUUID = data['buyerUUID'] as String;
-    return Item(id: documentId, name: name, price: price, description: description, category: category, bought: bought, sellerUUID: sellerUUID, buyerUUID: buyerUUID);
+    final time = data['time'] as Timestamp;
+    return Item(id: documentId, name: name, price: price, description: description, category: category, bought: bought, sellerUUID: sellerUUID, buyerUUID: buyerUUID, time: time);
   }
 
   // //TODO: fromMap from category
@@ -74,6 +77,7 @@ class Item extends Equatable {
       'bought': bought,
       'buyerUUID': 'Not Sold',
       'sellerUUID': uid,
+      'time': time
     };
   }
   // Map<String, dynamic> toMapCategory() {

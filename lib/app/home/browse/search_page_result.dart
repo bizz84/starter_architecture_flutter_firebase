@@ -9,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
-import '../Templates/item_details.dart';
 import '../Templates/item_list_tile.dart';
 import '../Templates/list_items_builder.dart';
 
