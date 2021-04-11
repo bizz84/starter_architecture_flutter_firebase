@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/firebase/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 
-
 String? _origin;
 
 final itemStreamProvider =
@@ -36,7 +35,8 @@ class SellProductPage extends StatelessWidget {
 
   final Item item;
 
-  static Future<void> show(BuildContext context, Item item, String origin) async {
+  static Future<void> show(
+      BuildContext context, Item item, String origin) async {
     _origin = origin;
     await Navigator.of(context).pushNamed(
       CupertinoTabViewRoutes.sellProductPage,
@@ -76,6 +76,9 @@ class SellProductPage extends StatelessWidget {
     }
     Future<void> createAlertDialog(BuildContext context) async {
       //TODO: edit database here
+
+      // item.bought = true;
+
       return showDialog<void>(
           context: context,
           builder: (context) {
@@ -95,76 +98,10 @@ class SellProductPage extends StatelessWidget {
     
     Function()? template = () => null;
     Color color  = Colors.grey;
-// // Template
-//     final firebaseAuth = context.read(firebaseAuthProvider);
-//     final user = firebaseAuth.currentUser!;
-//
-//     if(_origin == 'history'){
-//       //TODO: get Seller UUID and current UUID
-//       if(item.sellerUUID == user.uid){
-//         if(!item.bought){
-//           button = RaisedButton(
-//             onPressed: () => null,
-//             child: Text('On Listing',
-//                 style: TextStyle(fontSize: 20)),
-//             color: Colors.grey,
-//             textColor: Colors.white,
-//             elevation: 5);
-//         }else{
-//           button = RaisedButton(
-//             onPressed: () => null,
-//             child: Text('Sold',
-//                 style: TextStyle(fontSize: 20)),
-//             color: Colors.grey,
-//             textColor: Colors.white,
-//             elevation: 5);
-//         }
-//       }else{
-//         if(item.bought){
-//           button = RaisedButton(
-//             onPressed: () => null,
-//             child: Text('Bought',
-//                 style: TextStyle(fontSize: 20)),
-//             color: Colors.grey,
-//             textColor: Colors.white,
-//             elevation: 5);
-//         }
-//       }
-//
-//     }else{
-//       if(item.sellerUUID == user.uid){
-//       if(item.bought==false){
-//         button = RaisedButton(
-//           onPressed: () => createAlertDialog(context),
-//           child: Text('Buy',
-//               style: TextStyle(fontSize: 20)),
-//           color: Colors.grey,
-//           textColor: Colors.white,
-//           elevation: 5);
-//
-//       }else{
-//         if(item.bought==false){
-//           button = RaisedButton(
-//             onPressed: () => null,
-//             child: Text('Sold',
-//                 style: TextStyle(fontSize: 20)),
-//             color: Colors.grey,
-//             textColor: Colors.white,
-//             elevation: 5);
-//       }
-//     }}
-    //
+
     if (item.bought) {
       buttonText = 'Sold';
-      // align = Align(
-      //   alignment: Alignment.bottomCenter,
-      //   child: RaisedButton(
-      //       onPressed: null,
-      //       child: const Text('Sold', style: TextStyle(fontSize: 20)),
-      //       color: Colors.grey,
-      //       textColor: Colors.white,
-      //       elevation: 5),
-      // );
+      
     } else {
       if (item.sellerUUID == user.uid){
         buttonText = 'On Listing';
@@ -175,22 +112,12 @@ class SellProductPage extends StatelessWidget {
         template = template = () => [createAlertDialog(context), _buy(item)];
         
       }
-      
-      // align = Align(
-      //   alignment: Alignment.bottomRight,
-      //   child: RaisedButton(
-      //       onPressed: () => null,
-      //       child: const Text('on listing', style: TextStyle(fontSize: 20)),
-      //       color: Colors.grey,
-      //       textColor: Colors.white,
-      //       elevation: 5),
-      // );
-
     }
+ 
 
     return Column(
       children: [
-        // Image.asset("assets/mac.jpeg"),
+
         Container(
           width: 300,
           height: 300,
@@ -214,14 +141,16 @@ class SellProductPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Price: \$$price',
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 28),
+                      Container(
+                        // padding: EdgeInsets.only(right: 20),
+                        child: Text(
+                          'Price: \$$price',
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 25),
+                        ),
                       ),
-                      // button,
 
                       ButtonTheme(
                         minWidth: 200.0,
