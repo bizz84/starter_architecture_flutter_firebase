@@ -6,6 +6,7 @@ import 'package:starter_architecture_flutter_firebase/app/top_level_providers.da
 import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/firebase/firestore_database.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 String? _origin;
 
@@ -68,12 +69,46 @@ class SellProductPage extends StatelessWidget {
 
     Future<void> _buy(Item items) async {
       final database = context.read<FirestoreDatabase>(databaseProvider);
-      final item =
-            Item(id: items.id, name: items.name , price: items.price, description: items.description, category: items.category, bought: true, sellerUUID: items.sellerUUID, buyerUUID: user.uid, time: items.time);
+      final item = Item(
+          id: items.id,
+          name: items.name,
+          price: items.price,
+          description: items.description,
+          category: items.category,
+          bought: true,
+          sellerUUID: items.sellerUUID,
+          buyerUUID: user.uid,
+          time: items.time);
       await database.setItem(item);
       await database.setSold(item);
       Navigator.of(context).pop();
     }
+
+    // Future<void> sendEmail() async {
+    //   final Email email = Email(
+    //     body: 'body of email',
+    //     subject: 'subjecrt of email',
+    //     recipients: ['daniiarov.adilet@gmail.com'],
+    //     attachmentPaths: null,
+    //     isHTML: false,
+    //   );
+
+    //   String platformResponse;
+
+    //   try {
+    //     await FlutterEmailSender.send(email);
+    //     platformResponse = 'success';
+    //   } catch (error) {
+    //     platformResponse = error.toString();
+    //   }
+
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text(platformResponse),
+    //     ),
+    //   );
+    // }
+
     Future<void> createAlertDialog(BuildContext context) async {
       //TODO: edit database here
 
@@ -95,29 +130,28 @@ class SellProductPage extends StatelessWidget {
                 ]);
           });
     }
-    
+
     Function()? template = () => null;
-    Color color  = Colors.grey;
+    Color color = Colors.grey;
 
     if (item.bought) {
       buttonText = 'Sold';
-      
     } else {
-      if (item.sellerUUID == user.uid){
+      if (item.sellerUUID == user.uid) {
         buttonText = 'On Listing';
-      }
-      else{
+      } else {
         buttonText = 'Buy!';
-        color = Colors.blue; 
-        template = template = () => [createAlertDialog(context), _buy(item)];
-        
+        color = Colors.blue;
+        template = template = () => [
+              createAlertDialog(context), _buy(item),
+
+              // sendEmail()
+            ];
       }
     }
- 
 
     return Column(
       children: [
-
         Container(
           width: 300,
           height: 300,
@@ -151,7 +185,6 @@ class SellProductPage extends StatelessWidget {
                               fontSize: 25),
                         ),
                       ),
-
                       ButtonTheme(
                         minWidth: 200.0,
                         height: 50.0,

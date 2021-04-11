@@ -47,6 +47,7 @@ dependencies:
   rxdart: ^0.26.0
   shared_preferences: ^2.0.3
   state_notifier: ^0.7.0
+  flutter_email_sender: ^5.0.0
 
 dev_dependencies:
   flutter_driver:
