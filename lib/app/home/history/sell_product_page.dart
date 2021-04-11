@@ -59,14 +59,9 @@ class SellProductPage extends StatelessWidget {
   Widget _buildItemDetails(Item item, BuildContext context) {
     // align for sold item
     Align align;
-    String buttonText;
+    String buttonText = "default";
     String price = item.price.toString();
-    RaisedButton button = RaisedButton(
-        onPressed: () => null,
-        child: Text('On Listing', style: TextStyle(fontSize: 20)),
-        color: Colors.grey,
-        textColor: Colors.white,
-        elevation: 5);
+    RaisedButton button;
 
     Future<void> createAlertDialog(BuildContext context) async {
       //TODO: edit database here
@@ -198,18 +193,18 @@ class SellProductPage extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                             fontSize: 28),
                       ),
-                      button,
-                      // ButtonTheme(
-                      //   minWidth: 200.0,
-                      //   height: 50.0,
-                      //   child: RaisedButton(
-                      //       onPressed: () => null,
-                      //       child: Text(buttonText,
-                      //           style: TextStyle(fontSize: 20)),
-                      //       color: Colors.grey,
-                      //       textColor: Colors.white,
-                      //       elevation: 5),
-                      // ),
+                      // button,
+                      ButtonTheme(
+                        minWidth: 200.0,
+                        height: 50.0,
+                        child: RaisedButton(
+                            onPressed: () => null,
+                            child: Text(buttonText,
+                                style: TextStyle(fontSize: 20)),
+                            color: Colors.grey,
+                            textColor: Colors.white,
+                            elevation: 5),
+                      ),
                     ],
                   )),
             ]),
