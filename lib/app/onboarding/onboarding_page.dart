@@ -20,13 +20,13 @@ class OnboardingPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Track your time.\nBecause time counts.',
+              'Find it, love it, buy it.\nA fresh approach to shopping.',
               style: Theme.of(context).textTheme.headline4,
               textAlign: TextAlign.center,
             ),
             FractionallySizedBox(
               widthFactor: 0.5,
-              child: SvgPicture.asset('assets/time-tracking.svg',
+              child: SvgPicture.asset('assets/store.svg',
                   semanticsLabel: 'Time tracking logo'),
             ),
             CustomRaisedButton(
