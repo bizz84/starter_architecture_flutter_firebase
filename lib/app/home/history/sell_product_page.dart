@@ -61,7 +61,12 @@ class SellProductPage extends StatelessWidget {
     Align align;
     String buttonText = "default";
     String price = item.price.toString();
-    RaisedButton button;
+    RaisedButton button = RaisedButton(
+        onPressed: () => null,
+        child: Text('Default button', style: TextStyle(fontSize: 20)),
+        color: Colors.grey,
+        textColor: Colors.white,
+        elevation: 5);
 
     Future<void> createAlertDialog(BuildContext context) async {
       //TODO: edit database here
@@ -194,17 +199,7 @@ class SellProductPage extends StatelessWidget {
                             fontSize: 28),
                       ),
                       // button,
-                      ButtonTheme(
-                        minWidth: 200.0,
-                        height: 50.0,
-                        child: RaisedButton(
-                            onPressed: () => null,
-                            child: Text(buttonText,
-                                style: TextStyle(fontSize: 20)),
-                            color: Colors.grey,
-                            textColor: Colors.white,
-                            elevation: 5),
-                      ),
+                      ButtonTheme(minWidth: 200.0, height: 50.0, child: button),
                     ],
                   )),
             ]),
