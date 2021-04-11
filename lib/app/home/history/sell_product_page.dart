@@ -5,6 +5,7 @@ import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/firebase/firestore_database.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 
 
 String? _origin;
@@ -62,7 +63,17 @@ class SellProductPage extends StatelessWidget {
     String buttonText;
     String price = item.price.toString();
     RaisedButton button;
+    final firebaseAuth = context.read(firebaseAuthProvider);
+    final user = firebaseAuth.currentUser!;
 
+    Future<void> _buy(Item items) async {
+      final database = context.read<FirestoreDatabase>(databaseProvider);
+      final item =
+            Item(id: items.id, name: items.name , price: items.price, description: items.description, category: items.category, bought: true, sellerUUID: items.sellerUUID, buyerUUID: user.uid, time: items.time);
+      await database.setItem(item);
+      await database.setSold(item);
+      Navigator.of(context).pop();
+    }
     Future<void> createAlertDialog(BuildContext context) async {
       //TODO: edit database here
       return showDialog<void>(
@@ -81,7 +92,9 @@ class SellProductPage extends StatelessWidget {
                 ]);
           });
     }
-//
+    
+    Function()? template = () => null;
+    Color color  = Colors.grey;
 // // Template
 //     final firebaseAuth = context.read(firebaseAuthProvider);
 //     final user = firebaseAuth.currentUser!;
@@ -153,7 +166,16 @@ class SellProductPage extends StatelessWidget {
       //       elevation: 5),
       // );
     } else {
-      buttonText = 'On Listing';
+      if (item.sellerUUID == user.uid){
+        buttonText = 'On Listing';
+      }
+      else{
+        buttonText = 'Buy!';
+        color = Colors.blue; 
+        template = template = () => [createAlertDialog(context), _buy(item)];
+        
+      }
+      
       // align = Align(
       //   alignment: Alignment.bottomRight,
       //   child: RaisedButton(
@@ -205,10 +227,10 @@ class SellProductPage extends StatelessWidget {
                         minWidth: 200.0,
                         height: 50.0,
                         child: RaisedButton(
-                            onPressed: () => null,
+                            onPressed: template,
                             child: Text(buttonText,
                                 style: TextStyle(fontSize: 20)),
-                            color: Colors.grey,
+                            color: color,
                             textColor: Colors.white,
                             elevation: 5),
                       ),

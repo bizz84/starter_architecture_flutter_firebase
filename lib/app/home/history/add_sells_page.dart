@@ -56,6 +56,8 @@ class _EditItemPageState extends State<EditItemPage> {
       try {
         final database = context.read<FirestoreDatabase>(databaseProvider);
         final items = await database.itemsStream().first;
+        final firebaseAuth = context.read(firebaseAuthProvider);
+        final user = firebaseAuth.currentUser!;
         final allLowerCaseNames =
             items.map((item) => item.name.toLowerCase()).toList();
         if (widget.item != null) {
@@ -71,7 +73,7 @@ class _EditItemPageState extends State<EditItemPage> {
         } else {
           final id = widget.item?.id ?? documentIdFromCurrentDate();
           final item =
-              Item(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '', category: _category ?? 'phones', bought: false, sellerUUID: 'null', buyerUUID: 'null', time: Timestamp.now());
+              Item(id: id, name: _name ?? '', price: _price ?? 0, description: _description ?? '', category: _category ?? 'phones', bought: false, sellerUUID: user.uid, buyerUUID: 'Not Sold', time: Timestamp.now());
           await database.setItem(item);
           await database.setSold(item);
           Navigator.of(context).pop();

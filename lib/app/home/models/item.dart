@@ -75,8 +75,8 @@ class Item extends Equatable {
       'description': description,
       'category': category, 
       'bought': bought,
-      'buyerUUID': 'Not Sold',
-      'sellerUUID': uid,
+      'buyerUUID': buyerUUID,
+      'sellerUUID': sellerUUID,
       'time': time
     };
   }
