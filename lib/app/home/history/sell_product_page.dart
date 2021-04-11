@@ -57,16 +57,6 @@ class SellProductPage extends StatelessWidget {
   }
 
   Widget _buildItemDetails(Item item, BuildContext context) {
-    // align for sold item
-    Align align;
-    String buttonText = "default";
-    String price = item.price.toString();
-    RaisedButton button = RaisedButton(
-        onPressed: () => null,
-        child: Text('Default button', style: TextStyle(fontSize: 20)),
-        color: Colors.grey,
-        textColor: Colors.white,
-        elevation: 5);
 
     Future<void> createAlertDialog(BuildContext context) async {
       //TODO: edit database here
@@ -87,58 +77,77 @@ class SellProductPage extends StatelessWidget {
           });
     }
 
+    // align for sold item
+    Align align;
+    String buttonText = "default";
+    String price = item.price.toString();
+    RaisedButton? button;
+
 // Template
     final firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser!;
 
-    if (_origin == 'history') {
-      //TODO: get Seller UUID and current UUID
-      if (item.sellerUUID == user.uid) {
-        if (!item.bought) {
-          button = RaisedButton(
-              onPressed: () => null,
-              child: Text('On Listing', style: TextStyle(fontSize: 20)),
-              color: Colors.grey,
-              textColor: Colors.white,
-              elevation: 5);
-        } else {
-          button = RaisedButton(
-              onPressed: () => null,
-              child: Text('Sold', style: TextStyle(fontSize: 20)),
-              color: Colors.grey,
-              textColor: Colors.white,
-              elevation: 5);
-        }
-      } else {
-        if (item.bought) {
-          button = RaisedButton(
-              onPressed: () => null,
-              child: Text('Bought', style: TextStyle(fontSize: 20)),
-              color: Colors.grey,
-              textColor: Colors.white,
-              elevation: 5);
-        }
-      }
+    if (item.sellerUUID == user.uid && !item.bought) {
+        button = RaisedButton(
+            onPressed: () => null,
+            child: Text('On Listing', style: TextStyle(fontSize: 20)),
+            color: Colors.grey,
+            textColor: Colors.white,
+            elevation: 5);
+    } else if (item.sellerUUID == user.uid && item.bought){
+      button = RaisedButton(
+          onPressed: () => null,
+          child: Text('Sold', style: TextStyle(fontSize: 20)),
+          color: Colors.grey,
+          textColor: Colors.white,
+          elevation: 5);
+    } else if (item.sellerUUID != user.uid && item.bought){
+        button = RaisedButton(
+            onPressed: () => null,
+            child: Text('Bought', style: TextStyle(fontSize: 20)),
+            color: Colors.grey,
+            textColor: Colors.white,
+            elevation: 5);
+    } else if (item.sellerUUID != user.uid && !item.bought){
+      button = RaisedButton(
+          onPressed: () => createAlertDialog(context),
+          child: Text('Buy', style: TextStyle(fontSize: 20)),
+          color: Colors.grey,
+          textColor: Colors.white,
+          elevation: 5);
     } else {
-      if (item.sellerUUID == user.uid) {
-        if (item.bought == false) {
-          button = RaisedButton(
-              onPressed: () => createAlertDialog(context),
-              child: Text('Buy', style: TextStyle(fontSize: 20)),
-              color: Colors.grey,
-              textColor: Colors.white,
-              elevation: 5);
-        } else {
-          if (item.bought == false) {
-            button = RaisedButton(
-                onPressed: () => null,
-                child: Text('Sold', style: TextStyle(fontSize: 20)),
-                color: Colors.grey,
-                textColor: Colors.white,
-                elevation: 5);
-          }
-        }
-      }
+      button = RaisedButton(
+          onPressed: () => null,
+          child: Text('Default button', style: TextStyle(fontSize: 20)),
+          color: Colors.grey,
+          textColor: Colors.white,
+          elevation: 5);
+    }
+    // else if (_origin == 'browse'){
+    //
+    //
+    //
+    //
+    // }
+    //
+    //   }
+    // } else {
+    //   if (item.sellerUUID == user.uid) {
+    //     if (item.bought == false) {
+    //
+    //     } else {
+    //       if (item.bought == false) {
+    //         button = RaisedButton(
+    //             onPressed: () => null,
+    //             child: Text('Sold', style: TextStyle(fontSize: 20)),
+    //             color: Colors.grey,
+    //             textColor: Colors.white,
+    //             elevation: 5);
+    //       }
+    //     }
+    //   }
+
+
 
       // if (item.bought) {
       //   buttonText = 'Sold';
@@ -162,8 +171,6 @@ class SellProductPage extends StatelessWidget {
       //   //       textColor: Colors.white,
       //   //       elevation: 5),
       //   // );
-
-    }
 
     return Column(
       children: [
