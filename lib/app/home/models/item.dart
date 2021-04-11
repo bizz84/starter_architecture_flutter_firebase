@@ -4,20 +4,39 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Item extends Equatable {
-  const Item({required this.id, required this.name, required this.price, required this.description, required this.category, required this.bought, required this.sellerUUID, required this.buyerUUID, required this.time});
+  const Item(
+      {required this.id,
+      required this.name,
+      required this.price,
+      required this.description,
+      required this.category,
+      required this.bought,
+      required this.sellerUUID,
+      required this.buyerUUID,
+      required this.time});
 
   final String id;
   final String name;
   final int price;
   final String description;
-  final String category; 
+  final String category;
   final bool bought; // default False
   final String sellerUUID;
   final String buyerUUID;
   final Timestamp time;
 
   @override
-  List<Object> get props => [id, name, price, description, category, bought, sellerUUID, buyerUUID, time];
+  List<Object> get props => [
+        id,
+        name,
+        price,
+        description,
+        category,
+        bought,
+        sellerUUID,
+        buyerUUID,
+        time
+      ];
 
   @override
   bool get stringify => true;
@@ -35,15 +54,24 @@ class Item extends Equatable {
     if (description == null) {
       throw StateError('missing description for product Id: $documentId');
     }
-    final category = data['category'] as String?; 
-    if (category == null){
+    final category = data['category'] as String?;
+    if (category == null) {
       throw StateError('missing category for product Id: $documentId');
-    } 
+    }
     final bought = data['bought'] as bool;
     final sellerUUID = data['sellerUUID'] as String;
     final buyerUUID = data['buyerUUID'] as String;
     final time = data['time'] as Timestamp;
-    return Item(id: documentId, name: name, price: price, description: description, category: category, bought: bought, sellerUUID: sellerUUID, buyerUUID: buyerUUID, time: time);
+    return Item(
+        id: documentId,
+        name: name,
+        price: price,
+        description: description,
+        category: category,
+        bought: bought,
+        sellerUUID: sellerUUID,
+        buyerUUID: buyerUUID,
+        time: time);
   }
 
   // //TODO: fromMap from category
@@ -73,7 +101,7 @@ class Item extends Equatable {
       'name': name,
       'price': price,
       'description': description,
-      'category': category, 
+      'category': category,
       'bought': bought,
       'buyerUUID': 'Not Sold',
       'sellerUUID': uid,

@@ -27,7 +27,7 @@
 //           children: [
 //             SvgPicture.asset(
 //               icon,
-//               color: kPrimaryColor,
+//               color: PrimaryColor,
 //               width: 22,
 //             ),
 //             SizedBox(width: 20),
