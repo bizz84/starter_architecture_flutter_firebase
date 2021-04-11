@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/account/components/body.dart';
+// import 'package:starter_architecture_flutter_firebase/app/home/account/components/body.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
@@ -43,39 +43,59 @@ class AccountPage extends StatelessWidget {
     final firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser!;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(Strings.accountPage),
-        actions: <Widget>[
-          FlatButton(
-            key: const Key(Keys.logout),
-            child: const Text(
-              Strings.logout,
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.white,
+        appBar: AppBar(
+          title: const Text(Strings.accountPage),
+          actions: <Widget>[
+            FlatButton(
+              key: const Key(Keys.logout),
+              child: const Text(
+                Strings.logout,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white,
+                ),
               ),
+              onPressed: () => _confirmSignOut(context, firebaseAuth),
             ),
-            onPressed: () => _confirmSignOut(context, firebaseAuth),
+          ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(220.0),
+            child: _buildUserInfo(user),
           ),
-        ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(130.0),
-          child: _buildUserInfo(user),
         ),
-      ),
-      // body: Body(),
-    );
+        body: Container(
+            margin: new EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (user.email != null)
+                  Text(
+                    'Email:   ' + user.email!,
+                    style: const TextStyle(
+                        color: Colors.black, height: 3, fontSize: 25),
+                  ),
+              ],
+            ))
+
+        // body: Body(),
+        );
   }
 
   Widget _buildUserInfo(User user) {
     return Column(
       children: [
         const SizedBox(height: 8),
-        if (user.email != null)
-          Text(
-            user.email!,
-            style: const TextStyle(color: Colors.white),
+        Container(
+          width: 280,
+          height: 200,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+                image: NetworkImage(
+                    'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
+                fit: BoxFit.fill),
           ),
+        ),
         const SizedBox(height: 8),
       ],
     );
