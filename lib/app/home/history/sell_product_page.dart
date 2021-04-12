@@ -132,7 +132,7 @@ class SellProductPage extends StatelessWidget {
     }
 
     Function()? template = () => null;
-    Color color = Colors.grey;
+    Color color = Colors.blue;
 
     if (item.bought) {
       buttonText = 'Sold';

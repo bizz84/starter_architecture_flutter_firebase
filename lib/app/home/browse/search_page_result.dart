@@ -51,10 +51,12 @@ class SearchPageResult extends ConsumerWidget {
 
   Widget _buildSearchContents(BuildContext context, ScopedReader watch) {
     final itemsAsyncValue = watch(itemsStreamProvider);
+
+    print(itemsAsyncValue);
     return ListItemsBuilder<Item>(
       data: itemsAsyncValue,
       itemBuilder: (context, item) => Dismissible(
-        key: Key('item-${item.id}'),
+        key: Key('viewable item-${item.id}'),
         background: Container(color: Colors.blue),
         direction: DismissDirection.endToStart,
         // onDismissed: (direction) => _delete(context, item),
