@@ -32,6 +32,7 @@ class BrowsePage extends ConsumerWidget {
   bool? _bought;
 
   List<Book> books = GetBooks.books;
+  List<Item> items = [];
   //get items list
 //   Future<List<String>> items () async  {
 //   return await itemsStreamProvider.first;
@@ -123,7 +124,8 @@ class BrowsePage extends ConsumerWidget {
         //itemCount: books.length,
 
         itemBuilder: (BuildContext context, int index) {
-          Book book = books[index];
+          // Book book = books[index];
+          Book items = items[index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
