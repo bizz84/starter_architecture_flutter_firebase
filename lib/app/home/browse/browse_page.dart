@@ -124,8 +124,8 @@ class BrowsePage extends ConsumerWidget {
         //itemCount: books.length,
 
         itemBuilder: (BuildContext context, int index) {
-          // Book book = books[index];
-          Book items = items[index];
+          Book book = books[index];
+          // Item items = items[index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
