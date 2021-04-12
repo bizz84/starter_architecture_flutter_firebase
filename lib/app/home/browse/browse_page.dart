@@ -9,19 +9,31 @@ import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/browse/search_page_result.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:flutter/foundation.dart';
+import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
+
+import 'book.dart';
+import 'get_books.dart';
+
+String? _category = 'phones';
+
+final itemsStreamProvider = StreamProvider.autoDispose<List<Item>>((ref) {
+  final database = ref.watch(databaseProvider);
+  return database.itemsSoldStream(_category);
+});
 
 class BrowsePage extends ConsumerWidget {
-
   final _formKey = GlobalKey<FormState>();
   String? _category;
   bool? _bought;
+
+  List<Book> books = GetBooks.books;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
-        title: Text('Search'),
+        title: Text('Marketplace'),
         actions: <Widget>[
           FlatButton(
             child: const Text(
@@ -39,6 +51,34 @@ class BrowsePage extends ConsumerWidget {
 
   Widget _buildContents() {
     return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _searchBar(),
+          _header("Recent Listings"),
+          _buildCarousel("recent"),
+          _header("Phones"),
+          _buildCarousel("phones"),
+          _header("Laptops"),
+          _buildCarousel("laptops"),
+        ],
+      ),
+    );
+    // return SingleChildScrollView(
+    // child: Padding(
+    //   padding: const EdgeInsets.all(16.0),
+    //   child: Card(
+    //     child: Padding(
+    //       padding: const EdgeInsets.all(16.0),
+    //       child: _buildForm(),
+    //     ),
+    //   ),
+    // ),
+    // );
+  }
+
+  Widget _searchBar() {
+    return Container(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Card(
@@ -47,6 +87,73 @@ class BrowsePage extends ConsumerWidget {
             child: _buildForm(),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _header(String title) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+      child: Text(
+        title,
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Widget _buildCarousel(String category) {
+    _category = category;
+
+    return Container(
+      height: 200,
+      child: PageView.builder(
+        controller: PageController(viewportFraction: 0.45),
+        scrollDirection: Axis.horizontal,
+        itemCount: books.length,
+        itemBuilder: (BuildContext context, int index) {
+          Book book = books[index];
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      height: 100,
+                      width: 300,
+                      color: Colors.red,
+                    ),
+                    // child: Image(
+                    //   height: 200,
+                    //   width: 180,
+                    //   image: AssetImage(book.image),
+                    //   fit: BoxFit.cover,
+                    // ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      '${book.name}',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(
+                      '${book.author}',
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -60,7 +167,6 @@ class BrowsePage extends ConsumerWidget {
       ),
     );
   }
-
 
   String _currentSelectedValue = 'phones';
   List<Widget> _buildFormChildren() {
@@ -76,10 +182,10 @@ class BrowsePage extends ConsumerWidget {
                 value: _currentSelectedValue,
                 isDense: true,
                 onChanged: (String? newValue) {
-                    _currentSelectedValue = newValue!;
-                    state.didChange(newValue);
-                    _category = _currentSelectedValue;
-                  },
+                  _currentSelectedValue = newValue!;
+                  state.didChange(newValue);
+                  _category = _currentSelectedValue;
+                },
                 items: Strings.categories.map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,

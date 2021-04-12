@@ -12,8 +12,7 @@ import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view
 import '../Templates/item_list_tile.dart';
 import '../Templates/list_items_builder.dart';
 
-
-String? _category='phones';
+String? _category = 'phones';
 
 final itemsStreamProvider = StreamProvider.autoDispose<List<Item>>((ref) {
   final database = ref.watch(databaseProvider);
@@ -22,7 +21,6 @@ final itemsStreamProvider = StreamProvider.autoDispose<List<Item>>((ref) {
 
 // watch database
 class SearchPageResult extends ConsumerWidget {
-
   static Future<void> show(BuildContext context, String? category) async {
     _category = category;
     await Navigator.of(context).pushNamed(
@@ -46,9 +44,7 @@ class SearchPageResult extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(Strings.searchList)
-      ),
+      appBar: AppBar(title: const Text(Strings.searchList)),
       body: _buildSearchContents(context, watch),
     );
   }
@@ -59,7 +55,7 @@ class SearchPageResult extends ConsumerWidget {
       data: itemsAsyncValue,
       itemBuilder: (context, item) => Dismissible(
         key: Key('item-${item.id}'),
-        background: Container(color: Colors.red),
+        background: Container(color: Colors.blue),
         direction: DismissDirection.endToStart,
         // onDismissed: (direction) => _delete(context, item),
         child: ItemListTile(
