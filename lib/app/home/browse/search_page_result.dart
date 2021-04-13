@@ -52,7 +52,6 @@ class SearchPageResult extends ConsumerWidget {
   Widget _buildSearchContents(BuildContext context, ScopedReader watch) {
     final itemsAsyncValue = watch(itemsStreamProvider);
 
-    print(itemsAsyncValue);
     return ListItemsBuilder<Item>(
       data: itemsAsyncValue,
       itemBuilder: (context, item) => Dismissible(

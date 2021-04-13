@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,25 +20,26 @@ import 'package:flutter/cupertino.dart';
 import 'book.dart';
 import 'get_books.dart';
 
-String? _category = 'phones';
+// String? _category = 'phones';
 
 //db stream of _category
-final itemsStreamProvider = StreamProvider.autoDispose<List<Item>>((ref) {
+final itemsStreamProviderPhone = StreamProvider.autoDispose<List<Item>>((ref) {
   final database = ref.watch(databaseProvider);
-  return database.itemsSoldStream(_category);
+  return database.itemsSoldStream('phones');
+});
+final itemsStreamProviderLaptop = StreamProvider.autoDispose<List<Item>>((ref) {
+  final database = ref.watch(databaseProvider);
+  return database.itemsSoldStream('laptop');
+});
+final itemsStreamProviderOther = StreamProvider.autoDispose<List<Item>>((ref) {
+  final database = ref.watch(databaseProvider);
+  return database.itemsSoldStream('others');
 });
 
 class BrowsePage extends ConsumerWidget {
   final _formKey = GlobalKey<FormState>();
   String? _category;
   bool? _bought;
-
-  List<Book> books = GetBooks.books;
-  List<Item> items = [];
-  //get items list
-//   Future<List<String>> items () async  {
-//   return await itemsStreamProvider.first;
-// }
 
   Future<void> show(BuildContext context, String? category) async {
     _category = category;
@@ -45,12 +48,26 @@ class BrowsePage extends ConsumerWidget {
     );
   }
 
+  // List<Book> books = GetBooks.books;
+  List<Item> items = [];
+  //get items list
+//   Future<List<String>> items () async  {
+//   return await itemsStreamProvider.first;
+// }
+
   //put stream into array => list out in build
   // final itemsAsyncValue = watch(itemsStreamProvider);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final itemsAsyncValue = watch(itemsStreamProvider);
+    final itemsAsyncValuePhone = watch(itemsStreamProviderPhone);
+    final itemsAsyncValueLaptop = watch(itemsStreamProviderLaptop);
+    final itemsAsyncValueOther = watch(itemsStreamProviderOther);
+
+    final List<Item>? items = itemsAsyncValuePhone.data?.value;
+    final List<Item>? laptops = itemsAsyncValueLaptop.data?.value;
+    final List<Item>? others = itemsAsyncValueOther.data?.value;
+    // final List<Item>? books = itemsAsyncValue.data?.value;
 
     return Scaffold(
       appBar: AppBar(
@@ -66,23 +83,27 @@ class BrowsePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: _buildContents(),
+      body: _buildContents(items, laptops, others),
       backgroundColor: Colors.grey[200],
     );
   }
 
-  Widget _buildContents() {
+  Widget _buildContents(
+      List<Item>? items, List<Item>? laptops, List<Item>? others) {
+    List<Item> temp = [];
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _searchBar(),
           _header("Recent Listings"),
-          _buildCarousel("recent"),
+          _buildCarousel("Recent Listings", items),
           _header("Phones"),
-          _buildCarousel("phones"),
+          _buildCarousel("phones", items),
           _header("Laptops"),
-          _buildCarousel("laptops"),
+          _buildCarousel("laptops", laptops),
+          _header("Others"),
+          _buildCarousel("others", others),
         ],
       ),
     );
@@ -112,7 +133,7 @@ class BrowsePage extends ConsumerWidget {
     );
   }
 
-  Widget _buildCarousel(String category) {
+  Widget _buildCarousel(String category, List<Item>? items) {
     _category = category;
 
     return Container(
@@ -120,12 +141,12 @@ class BrowsePage extends ConsumerWidget {
       child: PageView.builder(
         controller: PageController(viewportFraction: 0.45),
         scrollDirection: Axis.horizontal,
-        itemCount: books.length,
+        itemCount: items!.length,
         //itemCount: books.length,
 
         itemBuilder: (BuildContext context, int index) {
-          Book book = books[index];
-          // Item items = items[index];
+          // Item item = items![index];
+          Item item = items[index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
@@ -148,8 +169,7 @@ class BrowsePage extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      // '${itemsAsyncValue.data.name}',
-                      '${book.name}',
+                      '${item.name}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 15,
@@ -160,7 +180,8 @@ class BrowsePage extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Text(
-                      '${book.author}',
+                      // '${itemsAsyncValue.data.name}',
+                      '${item.price}',
                       textAlign: TextAlign.center,
                     ),
                   )
