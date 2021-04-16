@@ -16,10 +16,6 @@ import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view
 
 import 'package:flutter/cupertino.dart';
 
-// delete after testing
-import 'book.dart';
-import 'get_books.dart';
-
 // String? _category = 'phones';
 
 //db stream of _category
@@ -50,13 +46,6 @@ class BrowsePage extends ConsumerWidget {
 
   // List<Book> books = GetBooks.books;
   List<Item> items = [];
-  //get items list
-//   Future<List<String>> items () async  {
-//   return await itemsStreamProvider.first;
-// }
-
-  //put stream into array => list out in build
-  // final itemsAsyncValue = watch(itemsStreamProvider);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
