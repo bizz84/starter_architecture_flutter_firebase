@@ -135,7 +135,7 @@ class SellProductPage extends StatelessWidget {
     Color color = Colors.blue;
 
     if (item.bought) {
-      buttonText = 'Sold';
+      buttonText = 'Bought';
     } else {
       if (item.sellerUUID == user.uid) {
         buttonText = 'On Listing';
