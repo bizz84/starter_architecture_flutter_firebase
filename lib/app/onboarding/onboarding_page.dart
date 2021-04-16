@@ -24,10 +24,14 @@ class OnboardingPage extends StatelessWidget {
               style: Theme.of(context).textTheme.headline4,
               textAlign: TextAlign.center,
             ),
-            FractionallySizedBox(
-              widthFactor: 0.5,
-              child: SvgPicture.asset('assets/store.svg',
-                  semanticsLabel: 'Time tracking logo'),
+            Container(
+              padding: const EdgeInsets.only(top: 80.0, bottom: 80),
+              child: SizedBox(
+                  // width: 125.0,
+                  height: 250.0,
+                  child: SvgPicture.asset(
+                    'assets/store.svg',
+                  )),
             ),
             CustomRaisedButton(
               onPressed: () => onGetStarted(context),
