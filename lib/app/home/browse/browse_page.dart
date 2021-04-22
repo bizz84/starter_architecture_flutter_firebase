@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +12,7 @@ import 'package:starter_architecture_flutter_firebase/app/home/browse/search_pag
 import 'package:pedantic/pedantic.dart';
 import 'package:flutter/foundation.dart';
 import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
-
+import 'package:starter_architecture_flutter_firebase/app/home/history/sell_product_page.dart';
 import 'package:flutter/cupertino.dart';
 
 // String? _category = 'phones';
@@ -141,19 +140,22 @@ class BrowsePage extends ConsumerWidget {
             child: Container(
               child: Column(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      height: 100,
-                      width: 300,
-                      color: Colors.red,
+                  GestureDetector(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        height: 100,
+                        width: 300,
+                        color: Colors.red,
+                      ),
+                      // child: Image(
+                      //   height: 200,
+                      //   width: 180,
+                      //   image: AssetImage(book.image),
+                      //   fit: BoxFit.cover,
+                      // ),
                     ),
-                    // child: Image(
-                    //   height: 200,
-                    //   width: 180,
-                    //   image: AssetImage(book.image),
-                    //   fit: BoxFit.cover,
-                    // ),
+                    onTap: () => SellProductPage.show(context, item, 'history'),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
