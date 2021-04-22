@@ -15,9 +15,6 @@ import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view
 import 'package:starter_architecture_flutter_firebase/app/home/history/sell_product_page.dart';
 import 'package:flutter/cupertino.dart';
 
-// String? _category = 'phones';
-
-//db stream of _category
 final itemsStreamProviderPhone = StreamProvider.autoDispose<List<Item>>((ref) {
   final database = ref.watch(databaseProvider);
   return database.itemsSoldStream('phones');
@@ -42,9 +39,6 @@ class BrowsePage extends ConsumerWidget {
       CupertinoTabViewRoutes.searchResultPage,
     );
   }
-
-  // List<Book> books = GetBooks.books;
-  List<Item> items = [];
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -74,10 +68,6 @@ class BrowsePage extends ConsumerWidget {
         othersBuyable.add(others[i]);
       }
     }
-
-    // final List<Item>? books = itemsAsyncValue.data?.value;
-    print("printing list");
-    print(itemsBuyable);
 
     return Scaffold(
       appBar: AppBar(
@@ -109,11 +99,14 @@ class BrowsePage extends ConsumerWidget {
           // _header("Recent Listings"),
           // _buildCarousel("Recent Listings", itemsBuyable),
           _header("Phones"),
-          _buildCarousel("phones", itemsBuyable),
+          _buildCarousel("phones", itemsBuyable,
+              'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-12-og-202010?wid=1200&hei=630&fmt=jpeg&qlt=95&.v=1601435256000'),
           _header("Laptops"),
-          _buildCarousel("laptops", laptopsBuyable),
+          _buildCarousel("laptops", laptopsBuyable,
+              'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp13touch-space-select-202005?wid=892&hei=820&&qlt=80&.v=1587460552755%27'),
           _header("Others"),
-          _buildCarousel("others", othersBuyable),
+          _buildCarousel("others", othersBuyable,
+              'https://firebasestorage.googleapis.com/v0/b/mobilecomp-5c1d5.appspot.com/o/others.png?alt=media&token=aa451243-584c-48a7-bca9-b5ba2a0ed1f1'),
         ],
       ),
     );
@@ -143,66 +136,66 @@ class BrowsePage extends ConsumerWidget {
     );
   }
 
-  Widget _buildCarousel(String category, List<Item>? items) {
+  Widget _buildCarousel(String category, List<Item>? items, String imageurl) {
     _category = category;
 
-    return Container(
-      height: 200,
-      child: PageView.builder(
-        controller: PageController(viewportFraction: 0.45),
-        scrollDirection: Axis.horizontal,
-        itemCount: items!.length,
-        //itemCount: books.length,
-
-        itemBuilder: (BuildContext context, int index) {
-          // Item item = items![index];
-          Item item = items[index];
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              child: Column(
-                children: [
-                  GestureDetector(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        height: 100,
-                        width: 300,
-                        color: Colors.red,
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        height: 200,
+        child: PageView.builder(
+          controller: PageController(viewportFraction: 0.35),
+          scrollDirection: Axis.horizontal,
+          itemCount: items!.length,
+          itemBuilder: (BuildContext context, int index) {
+            final Item item = items[index];
+            return Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Container(
+                          height: 105,
+                          width: 300,
+                          child: Image.network(imageurl),
+                        ),
+                        // child: Image(
+                        //   height: 200,
+                        //   width: 180,
+                        //   image: AssetImage(book.image),
+                        //   fit: BoxFit.cover,
+                        // ),
                       ),
-                      // child: Image(
-                      //   height: 200,
-                      //   width: 180,
-                      //   image: AssetImage(book.image),
-                      //   fit: BoxFit.cover,
-                      // ),
+                      onTap: () =>
+                          SellProductPage.show(context, item, 'history'),
                     ),
-                    onTap: () => SellProductPage.show(context, item, 'history'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      '${item.name}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        '${item.name}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
-                      // '${itemsAsyncValue.data.name}',
-                      '${item.price}',
-                      textAlign: TextAlign.center,
-                    ),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        '\$ ${item.price}',
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
