@@ -55,7 +55,29 @@ class BrowsePage extends ConsumerWidget {
     final List<Item>? items = itemsAsyncValuePhone.data?.value;
     final List<Item>? laptops = itemsAsyncValueLaptop.data?.value;
     final List<Item>? others = itemsAsyncValueOther.data?.value;
+    List<Item>? itemsBuyable = [];
+    List<Item>? laptopsBuyable = [];
+    List<Item>? othersBuyable = [];
+
+    for (int i = 0; i < items!.length; i++) {
+      if (!items[i].bought) {
+        itemsBuyable.add(items[i]);
+      }
+    }
+    for (int i = 0; i < laptops!.length; i++) {
+      if (!laptops[i].bought) {
+        laptopsBuyable.add(laptops[i]);
+      }
+    }
+    for (int i = 0; i < others!.length; i++) {
+      if (!others[i].bought) {
+        othersBuyable.add(others[i]);
+      }
+    }
+
     // final List<Item>? books = itemsAsyncValue.data?.value;
+    print("printing list");
+    print(itemsBuyable);
 
     return Scaffold(
       appBar: AppBar(
@@ -71,27 +93,27 @@ class BrowsePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: _buildContents(items, laptops, others),
+      body: _buildContents(itemsBuyable, laptopsBuyable, othersBuyable),
       backgroundColor: Colors.grey[200],
     );
   }
 
-  Widget _buildContents(
-      List<Item>? items, List<Item>? laptops, List<Item>? others) {
+  Widget _buildContents(List<Item>? itemsBuyable, List<Item>? laptopsBuyable,
+      List<Item>? othersBuyable) {
     List<Item> temp = [];
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _searchBar(),
-          _header("Recent Listings"),
-          _buildCarousel("Recent Listings", items),
+          // _header("Recent Listings"),
+          // _buildCarousel("Recent Listings", itemsBuyable),
           _header("Phones"),
-          _buildCarousel("phones", items),
+          _buildCarousel("phones", itemsBuyable),
           _header("Laptops"),
-          _buildCarousel("laptops", laptops),
+          _buildCarousel("laptops", laptopsBuyable),
           _header("Others"),
-          _buildCarousel("others", others),
+          _buildCarousel("others", othersBuyable),
         ],
       ),
     );
