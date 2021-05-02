@@ -3,7 +3,7 @@ import 'package:starter_architecture_flutter_firebase/services/shared_preference
 import 'package:state_notifier/state_notifier.dart';
 
 final onboardingViewModelProvider =
-    StateNotifierProvider<OnboardingViewModel,bool>((ref) {
+    StateNotifierProvider<OnboardingViewModel, bool>((ref) {
   final sharedPreferencesService = ref.watch(sharedPreferencesServiceProvider);
   return OnboardingViewModel(sharedPreferencesService);
 });
