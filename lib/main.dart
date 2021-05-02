@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         nonSignedInBuilder: (_) => Consumer(
           builder: (context, watch, _) {
             final didCompleteOnboarding =
-                watch(onboardingViewModelProvider.state);
+                watch(onboardingViewModelProvider);
             return didCompleteOnboarding ? SignInPage() : OnboardingPage();
           },
         ),
