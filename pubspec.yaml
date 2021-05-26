@@ -35,7 +35,7 @@ dependencies:
     git:
       url: https://github.com/bizz84/codewithandrea_flutter_packages
       path: packages/firestore_service
-  cloud_firestore: ^1.0.0
+  cloud_firestore: ^2.2.0
   cupertino_icons: ^1.0.2
   equatable: ^2.0.0
   firebase_auth: ^1.0.0
