@@ -6,7 +6,7 @@ import 'package:starter_architecture_flutter_firebase/app/onboarding/onboarding_
 
 class OnboardingPage extends StatelessWidget {
   Future<void> onGetStarted(BuildContext context) async {
-    final onboardingViewModel = context.read(onboardingViewModelProvider);
+    final onboardingViewModel = context.read(onboardingViewModelProvider.notifier);
     await onboardingViewModel.completeOnboarding();
   }
 
