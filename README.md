@@ -353,10 +353,10 @@ See this page for full instructions:
 
 This project now runs on Flutter web.
 
-To test this, add a web app in the Firebase project settings, and export the generated `firebaseConfig` variable inside a `./firebase-config.js` file in your project (this file is included in `.gitignore`). Example:
+To test this, add a web app in the Firebase project settings, and export the generated `firebaseConfig` variable inside a `./web/firebase-config.js` file in your project (this file is included in `.gitignore`). Example:
 
 ```js
-export var firebaseConfig = {
+var firebaseConfig = {
     apiKey: "<your-api-key>",
     authDomain: "<your-auth-domain>",
     databaseURL: "<your-database-url>",
@@ -374,9 +374,9 @@ This is then imported in the `index.html` file:
   <script src="./firebase-config.js"></script>
 
   <!-- https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file -->
-  <script type="module">
+  <script>
     // Your web app's Firebase configuration
-    import { firebaseConfig } from './firebase-config.js';
+    // import { firebaseConfig } from './firebase-config.js';
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
