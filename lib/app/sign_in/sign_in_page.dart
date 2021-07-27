@@ -17,23 +17,20 @@ final signInModelProvider = ChangeNotifierProvider<SignInViewModel>(
 
 class SignInPage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final signInModel = watch(signInModelProvider);
-    return ProviderListener<SignInViewModel>(
-      provider: signInModelProvider,
-      onChange: (context, model) async {
-        if (model.error != null) {
-          await showExceptionAlertDialog(
-            context: context,
-            title: Strings.signInFailed,
-            exception: model.error,
-          );
-        }
-      },
-      child: SignInPageContents(
-        viewModel: signInModel,
-        title: 'Architecture Demo',
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final signInModel = ref.watch(signInModelProvider);
+    ref.listen(signInModelProvider, (SignInViewModel model) async {
+      if (model.error != null) {
+        await showExceptionAlertDialog(
+          context: context,
+          title: Strings.signInFailed,
+          exception: model.error,
+        );
+      }
+    });
+    return SignInPageContents(
+      viewModel: signInModel,
+      title: 'Architecture Demo',
     );
   }
 }

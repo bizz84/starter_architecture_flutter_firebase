@@ -26,18 +26,18 @@ Future<void> main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    final firebaseAuth = context.read(firebaseAuthProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final firebaseAuth = ref.watch(firebaseAuthProvider);
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.indigo),
       debugShowCheckedModeBanner: false,
       home: AuthWidget(
         nonSignedInBuilder: (_) => Consumer(
-          builder: (context, watch, _) {
+          builder: (context, ref, _) {
             final didCompleteOnboarding =
-                watch(onboardingViewModelProvider);
+                ref.watch(onboardingViewModelProvider);
             return didCompleteOnboarding ? SignInPage() : OnboardingPage();
           },
         ),

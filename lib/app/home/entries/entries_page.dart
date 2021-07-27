@@ -17,21 +17,17 @@ final entriesTileModelStreamProvider =
 
 class EntriesPage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final entriesTileModelStream = ref.watch(entriesTileModelStreamProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.entries),
         elevation: 2.0,
       ),
-      body: _buildContents(context, watch),
-    );
-  }
-
-  Widget _buildContents(BuildContext context, ScopedReader watch) {
-    final entriesTileModelStream = watch(entriesTileModelStreamProvider);
-    return ListItemsBuilder<EntriesListTileModel>(
-      data: entriesTileModelStream,
-      itemBuilder: (context, model) => EntriesListTile(model: model),
+      body: ListItemsBuilder<EntriesListTileModel>(
+        data: entriesTileModelStream,
+        itemBuilder: (context, model) => EntriesListTile(model: model),
+      ),
     );
   }
 }

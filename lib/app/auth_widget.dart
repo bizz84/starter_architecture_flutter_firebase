@@ -14,8 +14,8 @@ class AuthWidget extends ConsumerWidget {
   final WidgetBuilder signedInBuilder;
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final authStateChanges = watch(authStateChangesProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authStateChanges = ref.watch(authStateChangesProvider);
     return authStateChanges.when(
       data: (user) => _data(context, user),
       loading: () => const Scaffold(

@@ -66,8 +66,8 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
   final Job job;
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final jobAsyncValue = watch(jobStreamProvider(job.id));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final jobAsyncValue = ref.watch(jobStreamProvider(job.id));
     return jobAsyncValue.when(
       data: (job) => Text(job.name),
       loading: () => Container(),
@@ -87,9 +87,9 @@ class JobEntriesContents extends ConsumerWidget {
   const JobEntriesContents({required this.job});
 
   Future<void> _deleteEntry(
-      BuildContext context, ScopedReader watch, Entry entry) async {
+      BuildContext context, WidgetRef ref, Entry entry) async {
     try {
-      final database = watch(databaseProvider);
+      final database = ref.read(databaseProvider);
       await database.deleteEntry(entry);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
@@ -101,8 +101,8 @@ class JobEntriesContents extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final entriesStream = watch(jobEntriesStreamProvider(job));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final entriesStream = ref.watch(jobEntriesStreamProvider(job));
     return ListItemsBuilder<Entry>(
       data: entriesStream,
       itemBuilder: (context, entry) {
@@ -110,7 +110,7 @@ class JobEntriesContents extends ConsumerWidget {
           dismissibleKey: Key('entry-${entry.id}'),
           entry: entry,
           job: job,
-          onDismissed: () => _deleteEntry(context, watch, entry),
+          onDismissed: () => _deleteEntry(context, ref, entry),
           onTap: () => EntryPage.show(
             context: context,
             job: job,
