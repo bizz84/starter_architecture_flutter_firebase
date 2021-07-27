@@ -58,6 +58,7 @@ dev_dependencies:
   mockito: ^5.0.0-nullsafety.7
   random_string: ^2.2.0-nullsafety
   test: ^1.16.5
+  flutter_lints: ^1.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

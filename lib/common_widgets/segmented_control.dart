@@ -5,12 +5,12 @@ class SegmentedControl<T extends Object> extends StatelessWidget {
     required this.header,
     required this.value,
     required this.children,
-    this.onValueChanged,
+    required this.onValueChanged,
   });
   final Widget header;
   final T value;
   final Map<T, Widget> children;
-  final ValueChanged<T>? onValueChanged;
+  final ValueChanged<T> onValueChanged;
 
   @override
   Widget build(BuildContext context) {
