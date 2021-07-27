@@ -28,7 +28,6 @@ analyzer:
     # Please see https://github.com/flutter/flutter/pull/24528 for details.
     sdk_version_async_exported_from_core: ignore
     # Custom errors to be ignored
-    argument_type_not_assignable: ignore
     implicit_dynamic_type: ignore
     #invalid_assignment: ignore
     implicit_dynamic_map_literal: ignore

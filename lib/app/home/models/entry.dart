@@ -32,10 +32,10 @@ class Entry extends Equatable {
     final endMilliseconds = value['end'] as int;
     return Entry(
       id: id,
-      jobId: value['jobId'],
+      jobId: value['jobId'] as String,
       start: DateTime.fromMillisecondsSinceEpoch(startMilliseconds),
       end: DateTime.fromMillisecondsSinceEpoch(endMilliseconds),
-      comment: value['comment'] ?? '',
+      comment: value['comment'] as String? ?? '',
     );
   }
 
