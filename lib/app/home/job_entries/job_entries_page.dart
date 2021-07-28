@@ -57,7 +57,7 @@ class JobEntriesPage extends StatelessWidget {
 
 final jobStreamProvider =
     StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
-  final database = ref.watch(databaseProvider);
+  final database = ref.watch(databaseProvider)!;
   return database.jobStream(jobId: jobId);
 });
 
@@ -78,7 +78,7 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 
 final jobEntriesStreamProvider =
     StreamProvider.autoDispose.family<List<Entry>, Job>((ref, job) {
-  final database = ref.watch(databaseProvider);
+  final database = ref.watch(databaseProvider)!;
   return database.entriesStream(job: job);
 });
 
@@ -89,7 +89,7 @@ class JobEntriesContents extends ConsumerWidget {
   Future<void> _deleteEntry(
       BuildContext context, WidgetRef ref, Entry entry) async {
     try {
-      final database = ref.read(databaseProvider);
+      final database = ref.read(databaseProvider)!;
       await database.deleteEntry(entry);
     } catch (e) {
       unawaited(showExceptionAlertDialog(

@@ -70,7 +70,7 @@ class _EntryPageState extends ConsumerState<EntryPage> {
 
   Future<void> _setEntryAndDismiss() async {
     try {
-      final database = ref.read<FirestoreDatabase>(databaseProvider);
+      final database = ref.read<FirestoreDatabase?>(databaseProvider)!;
       final entry = _entryFromState();
       await database.setEntry(entry);
       Navigator.of(context).pop();

@@ -13,8 +13,8 @@ import 'package:pedantic/pedantic.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
 final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
-  final database = ref.watch(databaseProvider);
   print('rebuild jobsStreamProvider');
+  final database = ref.watch(databaseProvider)!;
   return database.jobsStream();
 });
 
@@ -22,7 +22,7 @@ final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
 class JobsPage extends ConsumerWidget {
   Future<void> _delete(BuildContext context, WidgetRef ref, Job job) async {
     try {
-      final database = ref.read<FirestoreDatabase>(databaseProvider);
+      final database = ref.read<FirestoreDatabase?>(databaseProvider)!;
       await database.deleteJob(job);
     } catch (e) {
       unawaited(showExceptionAlertDialog(

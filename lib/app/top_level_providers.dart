@@ -9,15 +9,14 @@ final firebaseAuthProvider =
 final authStateChangesProvider = StreamProvider<User?>(
     (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
 
-final databaseProvider = Provider<FirestoreDatabase>((ref) {
+final databaseProvider = Provider<FirestoreDatabase?>((ref) {
   final auth = ref.watch(authStateChangesProvider);
 
   if (auth.data?.value?.uid != null) {
     print('return FirestoreDatabase');
     return FirestoreDatabase(uid: auth.data!.value!.uid);
   }
-  print('throw UnimplementedError');
-  throw UnimplementedError();
+  return null;
 });
 
 final loggerProvider = Provider<Logger>((ref) => Logger(

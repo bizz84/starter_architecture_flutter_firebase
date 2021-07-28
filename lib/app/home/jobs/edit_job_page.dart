@@ -50,7 +50,7 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       try {
-        final database = ref.read<FirestoreDatabase>(databaseProvider);
+        final database = ref.read<FirestoreDatabase?>(databaseProvider)!;
         final jobs = await database.jobsStream().first;
         final allLowerCaseNames =
             jobs.map((job) => job.name.toLowerCase()).toList();
