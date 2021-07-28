@@ -13,7 +13,6 @@ import 'package:pedantic/pedantic.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
 final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
-  print('rebuild jobsStreamProvider');
   final database = ref.watch(databaseProvider)!;
   return database.jobsStream();
 });

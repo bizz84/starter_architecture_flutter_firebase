@@ -13,7 +13,6 @@ final databaseProvider = Provider<FirestoreDatabase?>((ref) {
   final auth = ref.watch(authStateChangesProvider);
 
   if (auth.data?.value?.uid != null) {
-    print('return FirestoreDatabase');
     return FirestoreDatabase(uid: auth.data!.value!.uid);
   }
   return null;
