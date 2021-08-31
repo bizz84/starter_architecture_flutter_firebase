@@ -4,14 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:starter_architecture_flutter_firebase/app/onboarding/onboarding_view_model.dart';
 
-class OnboardingPage extends StatelessWidget {
-  Future<void> onGetStarted(BuildContext context) async {
-    final onboardingViewModel = context.read(onboardingViewModelProvider.notifier);
+class OnboardingPage extends ConsumerWidget {
+  Future<void> onGetStarted(BuildContext context, WidgetRef ref) async {
+    final onboardingViewModel = ref.read(onboardingViewModelProvider.notifier);
     await onboardingViewModel.completeOnboarding();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -30,7 +30,7 @@ class OnboardingPage extends StatelessWidget {
                   semanticsLabel: 'Time tracking logo'),
             ),
             CustomRaisedButton(
-              onPressed: () => onGetStarted(context),
+              onPressed: () => onGetStarted(context, ref),
               color: Colors.indigo,
               borderRadius: 30,
               child: Text(

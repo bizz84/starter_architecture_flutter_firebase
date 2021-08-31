@@ -29,8 +29,8 @@ void main() {
             firebaseAuthProvider
                 .overrideWithProvider(Provider((ref) => mockFirebaseAuth)),
           ],
-          child: Consumer(builder: (context, watch, __) {
-            final firebaseAuth = watch(firebaseAuthProvider);
+          child: Consumer(builder: (context, ref, __) {
+            final firebaseAuth = ref.watch(firebaseAuthProvider);
             return MaterialApp(
               home: SignInPage(),
               onGenerateRoute: (settings) =>

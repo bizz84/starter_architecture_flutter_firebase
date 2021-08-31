@@ -8,7 +8,7 @@ import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';
 
-class EditJobPage extends StatefulWidget {
+class EditJobPage extends ConsumerStatefulWidget {
   const EditJobPage({Key? key, this.job}) : super(key: key);
   final Job? job;
 
@@ -23,7 +23,7 @@ class EditJobPage extends StatefulWidget {
   _EditJobPageState createState() => _EditJobPageState();
 }
 
-class _EditJobPageState extends State<EditJobPage> {
+class _EditJobPageState extends ConsumerState<EditJobPage> {
   final _formKey = GlobalKey<FormState>();
 
   String? _name;
@@ -50,7 +50,7 @@ class _EditJobPageState extends State<EditJobPage> {
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       try {
-        final database = context.read<FirestoreDatabase>(databaseProvider);
+        final database = ref.read<FirestoreDatabase?>(databaseProvider)!;
         final jobs = await database.jobsStream().first;
         final allLowerCaseNames =
             jobs.map((job) => job.name.toLowerCase()).toList();

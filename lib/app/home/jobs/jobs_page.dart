@@ -13,15 +13,15 @@ import 'package:pedantic/pedantic.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
 final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
-  final database = ref.watch(databaseProvider);
+  final database = ref.watch(databaseProvider)!;
   return database.jobsStream();
 });
 
 // watch database
 class JobsPage extends ConsumerWidget {
-  Future<void> _delete(BuildContext context, Job job) async {
+  Future<void> _delete(BuildContext context, WidgetRef ref, Job job) async {
     try {
-      final database = context.read<FirestoreDatabase>(databaseProvider);
+      final database = ref.read<FirestoreDatabase?>(databaseProvider)!;
       await database.deleteJob(job);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
@@ -33,7 +33,7 @@ class JobsPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.jobs),
@@ -44,19 +44,19 @@ class JobsPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: _buildContents(context, watch),
+      body: _buildContents(context, ref),
     );
   }
 
-  Widget _buildContents(BuildContext context, ScopedReader watch) {
-    final jobsAsyncValue = watch(jobsStreamProvider);
+  Widget _buildContents(BuildContext context, WidgetRef ref) {
+    final jobsAsyncValue = ref.watch(jobsStreamProvider);
     return ListItemsBuilder<Job>(
       data: jobsAsyncValue,
       itemBuilder: (context, job) => Dismissible(
         key: Key('job-${job.id}'),
         background: Container(color: Colors.red),
         direction: DismissDirection.endToStart,
-        onDismissed: (direction) => _delete(context, job),
+        onDismissed: (direction) => _delete(context, ref, job),
         child: JobListTile(
           job: job,
           onTap: () => JobEntriesPage.show(context, job),

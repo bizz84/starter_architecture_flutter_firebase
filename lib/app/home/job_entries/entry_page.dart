@@ -12,7 +12,7 @@ import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';
 
-class EntryPage extends StatefulWidget {
+class EntryPage extends ConsumerStatefulWidget {
   const EntryPage({required this.job, this.entry});
   final Job job;
   final Entry? entry;
@@ -29,10 +29,10 @@ class EntryPage extends StatefulWidget {
   }
 
   @override
-  State<StatefulWidget> createState() => _EntryPageState();
+  _EntryPageState createState() => _EntryPageState();
 }
 
-class _EntryPageState extends State<EntryPage> {
+class _EntryPageState extends ConsumerState<EntryPage> {
   late DateTime _startDate;
   late TimeOfDay _startTime;
   late DateTime _endDate;
@@ -70,7 +70,7 @@ class _EntryPageState extends State<EntryPage> {
 
   Future<void> _setEntryAndDismiss() async {
     try {
-      final database = context.read<FirestoreDatabase>(databaseProvider);
+      final database = ref.read<FirestoreDatabase?>(databaseProvider)!;
       final entry = _entryFromState();
       await database.setEntry(entry);
       Navigator.of(context).pop();
