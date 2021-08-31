@@ -154,14 +154,14 @@ final authStateChangesProvider = StreamProvider<User>(
     (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
 
 // 3
-final databaseProvider = Provider<FirestoreDatabase>((ref) {
+final databaseProvider = Provider<FirestoreDatabase?>((ref) {
   final auth = ref.watch(authStateChangesProvider);
 
   // we only have a valid DB if the user is signed in
   if (auth.data?.value?.uid != null) {
     return FirestoreDatabase(uid: auth.data!.value!.uid);
   }
-  throw UnimplementedError();
+  return null;
 });
 ```
 
@@ -182,7 +182,7 @@ For example, here is some sample code demonstrating how to use `StreamProvider` 
 ```dart
 final jobStreamProvider =
     StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
-  final database = ref.watch(databaseProvider);
+  final database = ref.watch(databaseProvider)!;
   return database.jobStream(jobId: jobId);
 });
 ```
@@ -197,9 +197,9 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
   final Job job;
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // 1: watch changes in the stream
-    final jobAsyncValue = watch(jobStreamProvider(job.id));
+    final jobAsyncValue = ref.watch(jobStreamProvider(job.id));
     // 2: return the correct widget depending on the stream value
     return jobAsyncValue.when(
       data: (job) => Text(job.name),
@@ -311,14 +311,15 @@ class AppRouter {
 Given a page that needs to be presented inside a route, we can call `pushNamed` with the name of the route, and pass all required arguments. If more than one argument is needed, we can use a map:
 
 ```dart
-class EntryPage extends StatefulWidget {
+class EntryPage extends ConsumerStatefulWidget {
   const EntryPage({required this.job, this.entry});
   final Job job;
-  final Entry entry;
+  final Entry? entry;
 
-  static Future<void> show({BuildContext context, Job job, Entry entry}) async {
+  static Future<void> show(
+      {required BuildContext context, required Job job, Entry? entry}) async {
     await Navigator.of(context, rootNavigator: true).pushNamed(
-      Routes.entryPage,
+      AppRoutes.entryPage,
       arguments: {
         'job': job,
         'entry': entry,
@@ -327,8 +328,9 @@ class EntryPage extends StatefulWidget {
   }
 
   @override
-  State<StatefulWidget> createState() => _EntryPageState();
+  _EntryPageState createState() => _EntryPageState();
 }
+
 ```
 
 Note: previously the app was using [`auto_route`](https://pub.dev/packages/auto_route), which uses code generation to make routes **strongly-typed**. This has caused subtle issues, that took some time to investigate. So the project now uses manual routes, which are much more predictable.
@@ -402,7 +404,7 @@ Also imported from my [flutter_core_packages repo](https://github.com/bizz84/flu
 
 ## References
 
-This project borrows many ideas from my [Flutter & Firebase Udemy Course](https://nnbd.me/flutter-firebase), as well as my [Reference Authentication Flow with Flutter & Firebase](https://github.com/bizz84/firebase_auth_demo_flutter), and takes them to the next level by using Riverpod.
+This project borrows many ideas from my [Flutter & Firebase Course](https://nnbd.me/ff), as well as my [Reference Authentication Flow with Flutter & Firebase](https://github.com/bizz84/firebase_auth_demo_flutter), and takes them to the next level by using Riverpod.
 
 Here are some other GitHub projects that also attempt to formalize a good approach to Flutter development:
 
