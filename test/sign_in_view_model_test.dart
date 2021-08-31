@@ -1,14 +1,11 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_view_model.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:mockito/annotations.dart';
-import 'sign_in_view_model_test.mocks.dart';
+import 'package:mocktail/mocktail.dart';
+import 'mocks.dart';
 
-@GenerateMocks([FirebaseAuth, UserCredential])
 void main() {
   late MockFirebaseAuth mockFirebaseAuth;
   late SignInViewModel viewModel;
@@ -19,12 +16,12 @@ void main() {
   });
 
   void stubSignInAnonymouslyReturnsUser() {
-    when(mockFirebaseAuth.signInAnonymously())
+    when(() => mockFirebaseAuth.signInAnonymously())
         .thenAnswer((_) => Future.value(MockUserCredential()));
   }
 
   void stubSignInAnonymouslyThrows(Exception exception) {
-    when(mockFirebaseAuth.signInAnonymously()).thenThrow(exception);
+    when(() => mockFirebaseAuth.signInAnonymously()).thenThrow(exception);
   }
 
   test(
