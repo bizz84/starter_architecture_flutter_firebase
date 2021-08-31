@@ -387,7 +387,7 @@ This is then imported in the `index.html` file:
 
 - `firebase_auth` for authentication
 - `cloud_firestore` for the remote database
-- `provider` for dependency injection and propagating stream values down the widget tree
+- `flutter_riverpod` for dependency injection and propagating stream values down the widget tree
 - `rxdart` for combining multiple Firestore collections as needed
 - `intl` for currency, date, time formatting
 - `mockito` for testing
