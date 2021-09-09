@@ -90,7 +90,7 @@ class _EntryPageState extends ConsumerState<EntryPage> {
         elevation: 2.0,
         title: Text(widget.job.name),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text(
               widget.entry != null ? 'Update' : 'Create',
               style: const TextStyle(fontSize: 18.0, color: Colors.white),

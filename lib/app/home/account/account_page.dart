@@ -46,7 +46,7 @@ class AccountPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text(Strings.accountPage),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             key: const Key(Keys.logout),
             child: const Text(
               Strings.logout,

@@ -88,7 +88,7 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
         elevation: 2.0,
         title: Text(widget.job == null ? 'New Job' : 'Edit Job'),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: const Text(
               'Save',
               style: TextStyle(fontSize: 18, color: Colors.white),
