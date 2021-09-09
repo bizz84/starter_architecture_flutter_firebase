@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/entries/daily_jobs_details.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/entries/entries_list_tile.dart';
