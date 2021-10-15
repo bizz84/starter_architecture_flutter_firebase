@@ -28,8 +28,7 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            firebaseAuthProvider
-                .overrideWithProvider(Provider((ref) => mockFirebaseAuth)),
+            firebaseAuthProvider.overrideWithValue(mockFirebaseAuth),
           ],
           child: Consumer(builder: (context, ref, __) {
             final firebaseAuth = ref.watch(firebaseAuthProvider);

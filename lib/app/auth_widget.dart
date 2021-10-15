@@ -18,12 +18,12 @@ class AuthWidget extends ConsumerWidget {
     final authStateChanges = ref.watch(authStateChangesProvider);
     return authStateChanges.when(
       data: (user) => _data(context, user),
-      loading: () => const Scaffold(
+      loading: (_) => const Scaffold(
         body: Center(
           child: CircularProgressIndicator(),
         ),
       ),
-      error: (_, __) => const Scaffold(
+      error: (_, __, ___) => const Scaffold(
         body: EmptyContent(
           title: 'Something went wrong',
           message: 'Can\'t load data right now.',
