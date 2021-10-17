@@ -18,7 +18,7 @@ class ListItemsBuilder<T> extends StatelessWidget {
     return data.when(
       data: (items) =>
           items.isNotEmpty ? _buildList(items) : const EmptyContent(),
-      loading: (items) => const Center(child: CircularProgressIndicator()),
+      loading: (_) => const Center(child: CircularProgressIndicator()),
       error: (_, __, ___) => const EmptyContent(
         title: 'Something went wrong',
         message: 'Can\'t load items right now',
