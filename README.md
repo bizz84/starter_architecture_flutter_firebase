@@ -158,8 +158,8 @@ final databaseProvider = Provider<FirestoreDatabase?>((ref) {
   final auth = ref.watch(authStateChangesProvider);
 
   // we only have a valid DB if the user is signed in
-  if (auth.data?.value?.uid != null) {
-    return FirestoreDatabase(uid: auth.data!.value!.uid);
+  if (auth.asData?.value?.uid != null) {
+    return FirestoreDatabase(uid: auth.asData!.value!.uid);
   }
   return null;
 });
@@ -389,7 +389,7 @@ This is then imported in the `index.html` file:
 
 - `firebase_auth` for authentication
 - `cloud_firestore` for the remote database
-- `flutter_riverpod` for dependency injection and propagating stream values down the widget tree
+- `flutter_riverpod` for state management
 - `rxdart` for combining multiple Firestore collections as needed
 - `intl` for currency, date, time formatting
 - `mockito` for testing
