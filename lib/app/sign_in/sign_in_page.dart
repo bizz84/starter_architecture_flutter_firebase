@@ -19,7 +19,7 @@ class SignInPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final signInModel = ref.watch(signInModelProvider);
-    ref.listen(signInModelProvider, (SignInViewModel model) async {
+    ref.listen<SignInViewModel>(signInModelProvider, (_, model) async {
       if (model.error != null) {
         await showExceptionAlertDialog(
           context: context,
