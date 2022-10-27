@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/job_entries_page.dart';
@@ -6,14 +6,11 @@ import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_pag
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/job_list_tile.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
-import 'package:pedantic/pedantic.dart';
-import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
 final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
-  final database = ref.watch(databaseProvider)!;
+  final database = ref.watch(databaseProvider);
   return database.jobsStream();
 });
 
@@ -21,14 +18,13 @@ final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
 class JobsPage extends ConsumerWidget {
   Future<void> _delete(BuildContext context, WidgetRef ref, Job job) async {
     try {
-      final database = ref.read<FirestoreDatabase?>(databaseProvider)!;
-      await database.deleteJob(job);
+      await ref.read(databaseProvider).deleteJob(job);
     } catch (e) {
-      unawaited(showExceptionAlertDialog(
+      await showExceptionAlertDialog(
         context: context,
         title: 'Operation failed',
         exception: e,
-      ));
+      );
     }
   }
 
@@ -44,23 +40,23 @@ class JobsPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: _buildContents(context, ref),
-    );
-  }
-
-  Widget _buildContents(BuildContext context, WidgetRef ref) {
-    final jobsAsyncValue = ref.watch(jobsStreamProvider);
-    return ListItemsBuilder<Job>(
-      data: jobsAsyncValue,
-      itemBuilder: (context, job) => Dismissible(
-        key: Key('job-${job.id}'),
-        background: Container(color: Colors.red),
-        direction: DismissDirection.endToStart,
-        onDismissed: (direction) => _delete(context, ref, job),
-        child: JobListTile(
-          job: job,
-          onTap: () => JobEntriesPage.show(context, job),
-        ),
+      body: Consumer(
+        builder: (context, ref, child) {
+          final jobsAsyncValue = ref.watch(jobsStreamProvider);
+          return ListItemsBuilder<Job>(
+            data: jobsAsyncValue,
+            itemBuilder: (context, job) => Dismissible(
+              key: Key('job-${job.id}'),
+              background: Container(color: Colors.red),
+              direction: DismissDirection.endToStart,
+              onDismissed: (direction) => _delete(context, ref, job),
+              child: JobListTile(
+                job: job,
+                onTap: () => JobEntriesPage.show(context, job),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -1,6 +1,7 @@
-import 'package:email_password_sign_in_ui/email_password_sign_in_ui.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_form_type.dart';
+import 'package:starter_architecture_flutter_firebase/app/sign_in/email_password/email_password_sign_in_screen.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
@@ -12,6 +13,7 @@ class AppRoutes {
   static const entryPage = '/entry-page';
 }
 
+// ignore: avoid_classes_with_only_static_members
 class AppRouter {
   static Route<dynamic>? onGenerateRoute(
       RouteSettings settings, FirebaseAuth firebaseAuth) {
@@ -19,8 +21,9 @@ class AppRouter {
     switch (settings.name) {
       case AppRoutes.emailPasswordSignInPage:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => EmailPasswordSignInPage.withFirebaseAuth(firebaseAuth,
-              onSignedIn: args as void Function()),
+          builder: (_) => const EmailPasswordSignInScreen(
+            formType: EmailPasswordSignInFormType.signIn,
+          ),
           settings: settings,
           fullscreenDialog: true,
         );

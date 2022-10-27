@@ -1,16 +1,13 @@
-import 'package:flutter/cupertino.dart';
+import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/date_time_picker.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/format.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:alert_dialogs/alert_dialogs.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/date_time_picker.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
-import 'package:pedantic/pedantic.dart';
 
 class EntryPage extends ConsumerStatefulWidget {
   const EntryPage({required this.job, this.entry});
@@ -29,7 +26,7 @@ class EntryPage extends ConsumerStatefulWidget {
   }
 
   @override
-  _EntryPageState createState() => _EntryPageState();
+  ConsumerState<EntryPage> createState() => _EntryPageState();
 }
 
 class _EntryPageState extends ConsumerState<EntryPage> {
@@ -70,16 +67,16 @@ class _EntryPageState extends ConsumerState<EntryPage> {
 
   Future<void> _setEntryAndDismiss() async {
     try {
-      final database = ref.read<FirestoreDatabase?>(databaseProvider)!;
+      final database = ref.read(databaseProvider);
       final entry = _entryFromState();
       await database.setEntry(entry);
       Navigator.of(context).pop();
     } catch (e) {
-      unawaited(showExceptionAlertDialog(
+      await showExceptionAlertDialog(
         context: context,
         title: 'Operation failed',
         exception: e,
-      ));
+      );
     }
   }
 

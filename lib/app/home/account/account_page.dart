@@ -1,25 +1,24 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
-import 'package:starter_architecture_flutter_firebase/common_widgets/avatar.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/app/repositories/fake_auth_repository.dart';
+import 'package:starter_architecture_flutter_firebase/common_widgets/avatar.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
-import 'package:flutter/material.dart';
-import 'package:pedantic/pedantic.dart';
 
 class AccountPage extends ConsumerWidget {
-  Future<void> _signOut(BuildContext context, FirebaseAuth firebaseAuth) async {
+  Future<void> _signOut(BuildContext context, WidgetRef ref) async {
     try {
-      await firebaseAuth.signOut();
+      await ref.read(authRepositoryProvider).signOut();
     } catch (e) {
-      unawaited(showExceptionAlertDialog(
+      await showExceptionAlertDialog(
         context: context,
         title: Strings.logoutFailed,
         exception: e,
-      ));
+      );
     }
   }
 
@@ -40,8 +39,7 @@ class AccountPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final firebaseAuth = ref.watch(firebaseAuthProvider);
-    final user = firebaseAuth.currentUser!;
+    final user = ref.watch(authRepositoryProvider).currentUser!;
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.accountPage),
@@ -55,7 +53,7 @@ class AccountPage extends ConsumerWidget {
                 color: Colors.white,
               ),
             ),
-            onPressed: () => _confirmSignOut(context, firebaseAuth),
+            onPressed: () => _confirmSignOut(context, ref),
           ),
         ],
         bottom: PreferredSize(

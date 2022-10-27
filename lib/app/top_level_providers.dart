@@ -6,16 +6,16 @@ import 'package:starter_architecture_flutter_firebase/services/firestore_databas
 final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
-final authStateChangesProvider = StreamProvider.autoDispose<User?>(
+final authStateChangesProvider = StreamProvider<User?>(
     (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
 
-final databaseProvider = Provider.autoDispose<FirestoreDatabase?>((ref) {
-  final auth = ref.watch(authStateChangesProvider);
+final databaseProvider = Provider<FirestoreDatabase>((ref) {
+  final authStateAsync = ref.watch(authStateChangesProvider);
 
-  if (auth.asData?.value?.uid != null) {
-    return FirestoreDatabase(uid: auth.asData!.value!.uid);
+  if (authStateAsync.value?.uid != null) {
+    return FirestoreDatabase(uid: authStateAsync.value!.uid);
   }
-  return null;
+  throw UnimplementedError();
 });
 
 final loggerProvider = Provider<Logger>((ref) => Logger(

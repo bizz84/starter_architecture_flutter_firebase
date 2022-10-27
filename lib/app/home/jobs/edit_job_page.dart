@@ -1,12 +1,10 @@
+import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
-import 'package:pedantic/pedantic.dart';
 
 class EditJobPage extends ConsumerStatefulWidget {
   const EditJobPage({Key? key, this.job}) : super(key: key);
@@ -20,7 +18,7 @@ class EditJobPage extends ConsumerStatefulWidget {
   }
 
   @override
-  _EditJobPageState createState() => _EditJobPageState();
+  ConsumerState<EditJobPage> createState() => _EditJobPageState();
 }
 
 class _EditJobPageState extends ConsumerState<EditJobPage> {
@@ -50,7 +48,7 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       try {
-        final database = ref.read<FirestoreDatabase?>(databaseProvider)!;
+        final database = ref.read(databaseProvider);
         final jobs = await database.jobsStream().first;
         final allLowerCaseNames =
             jobs.map((job) => job.name.toLowerCase()).toList();
@@ -58,12 +56,12 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
           allLowerCaseNames.remove(widget.job!.name.toLowerCase());
         }
         if (allLowerCaseNames.contains(_name?.toLowerCase())) {
-          unawaited(showAlertDialog(
+          await showAlertDialog(
             context: context,
             title: 'Name already used',
             content: 'Please choose a different job name',
             defaultActionText: 'OK',
-          ));
+          );
         } else {
           final id = widget.job?.id ?? documentIdFromCurrentDate();
           final job =
@@ -72,11 +70,11 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
           Navigator.of(context).pop();
         }
       } catch (e) {
-        unawaited(showExceptionAlertDialog(
+        await showExceptionAlertDialog(
           context: context,
           title: 'Operation failed',
           exception: e,
-        ));
+        );
       }
     }
   }

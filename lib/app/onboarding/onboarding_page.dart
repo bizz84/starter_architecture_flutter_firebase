@@ -5,11 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:starter_architecture_flutter_firebase/app/onboarding/onboarding_view_model.dart';
 
 class OnboardingPage extends ConsumerWidget {
-  Future<void> onGetStarted(BuildContext context, WidgetRef ref) async {
-    final onboardingViewModel = ref.read(onboardingViewModelProvider.notifier);
-    await onboardingViewModel.completeOnboarding();
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -30,7 +25,9 @@ class OnboardingPage extends ConsumerWidget {
                   semanticsLabel: 'Time tracking logo'),
             ),
             CustomRaisedButton(
-              onPressed: () => onGetStarted(context, ref),
+              onPressed: () => ref
+                  .read(onboardingViewModelProvider.notifier)
+                  .completeOnboarding(),
               color: Colors.indigo,
               borderRadius: 30,
               child: Text(

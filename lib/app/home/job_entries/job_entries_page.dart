@@ -1,11 +1,8 @@
 import 'dart:async';
 
 import 'package:alert_dialogs/alert_dialogs.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_list_item.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
@@ -57,7 +54,7 @@ class JobEntriesPage extends StatelessWidget {
 
 final jobStreamProvider =
     StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
-  final database = ref.watch(databaseProvider)!;
+  final database = ref.watch(databaseProvider);
   return database.jobStream(jobId: jobId);
 });
 
@@ -78,7 +75,7 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 
 final jobEntriesStreamProvider =
     StreamProvider.autoDispose.family<List<Entry>, Job>((ref, job) {
-  final database = ref.watch(databaseProvider)!;
+  final database = ref.watch(databaseProvider);
   return database.entriesStream(job: job);
 });
 
@@ -89,7 +86,7 @@ class JobEntriesContents extends ConsumerWidget {
   Future<void> _deleteEntry(
       BuildContext context, WidgetRef ref, Entry entry) async {
     try {
-      final database = ref.read(databaseProvider)!;
+      final database = ref.read(databaseProvider);
       await database.deleteEntry(entry);
     } catch (e) {
       unawaited(showExceptionAlertDialog(

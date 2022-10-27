@@ -1,6 +1,5 @@
 name: starter_architecture_flutter_firebase
 description: A new Flutter project.
-publish_to: none
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -12,53 +11,38 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.1.0+2
+version: 1.1.0+1
 
 environment:
-  sdk: ">=2.14.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   alert_dialogs:
-    git:
-      url: https://github.com/bizz84/codewithandrea_flutter_packages
-      path: packages/alert_dialogs
+    path: packages/alert_dialogs
   custom_buttons:
-    git:
-      url: https://github.com/bizz84/codewithandrea_flutter_packages
-      path: packages/custom_buttons
-  email_password_sign_in_ui:
-    git:
-      url: https://github.com/bizz84/codewithandrea_flutter_packages
-      path: packages/email_password_sign_in_ui
+    path: packages/custom_buttons
   firestore_service:
-    git:
-      url: https://github.com/bizz84/codewithandrea_flutter_packages
-      path: packages/firestore_service
-  cloud_firestore: ^2.2.2
-  cupertino_icons: ^1.0.2
-  equatable: ^2.0.3
-  firebase_auth: ^1.4.1
-  firebase_core: ^1.3.0
-  flutter_riverpod: ^1.0.0
-  flutter_svg: ^0.22.0
-  intl: ^0.17.0
-  logger: ^1.0.0
-  rxdart: ^0.27.1
-  shared_preferences: ^2.0.6
-  state_notifier: ^0.7.0
+    path: packages/firestore_service
+  cloud_firestore:
+  cupertino_icons:
+  equatable:
+  firebase_auth:
+  firebase_core:
+  flutter_riverpod: 2.0.2
+  flutter_svg:
+  intl:
+  logger:
+  rxdart:
+  shared_preferences:
 
 dev_dependencies:
-  flutter_driver:
-    sdk: flutter
   flutter_test:
     sdk: flutter
-  build_runner: ^1.11.5
-  mocktail: ^0.1.4
-  random_string: ^2.3.1
-  test: ^1.16.5
-  flutter_lints: ^1.0.4
+  build_runner:
+  mocktail:
+  random_string:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
