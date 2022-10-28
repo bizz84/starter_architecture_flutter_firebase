@@ -22,8 +22,7 @@ class AccountPage extends ConsumerWidget {
     }
   }
 
-  Future<void> _confirmSignOut(
-      BuildContext context, FirebaseAuth firebaseAuth) async {
+  Future<void> _confirmSignOut(BuildContext context, WidgetRef ref) async {
     final bool didRequestSignOut = await showAlertDialog(
           context: context,
           title: Strings.logout,
@@ -33,7 +32,7 @@ class AccountPage extends ConsumerWidget {
         ) ??
         false;
     if (didRequestSignOut == true) {
-      await _signOut(context, firebaseAuth);
+      await _signOut(context, ref);
     }
   }
 
