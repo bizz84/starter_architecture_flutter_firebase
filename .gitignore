@@ -98,3 +98,5 @@ web/firebase-config.js
 # Firebase configuration files
 ios/Runner/GoogleService-Info.plist
 android/app/google-services.json
+lib/firebase_options.dart
+ios/firebase_app_id_file.json

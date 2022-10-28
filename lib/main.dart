@@ -9,12 +9,15 @@ import 'package:starter_architecture_flutter_firebase/app/onboarding/onboarding_
 import 'package:starter_architecture_flutter_firebase/app/onboarding/onboarding_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_page.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
+import 'package:starter_architecture_flutter_firebase/firebase_options.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/shared_preferences_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   final sharedPreferences = await SharedPreferences.getInstance();
   runApp(ProviderScope(
     overrides: [
