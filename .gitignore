@@ -1,6 +1,6 @@
 # Miscellaneous
 *.class
-*.lock
+#*.lock
 *.log
 *.pyc
 *.swp
