@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +7,7 @@ import 'package:starter_architecture_flutter_firebase/src/common_widgets/avatar.
 import 'package:starter_architecture_flutter_firebase/src/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/src/repositories/fake_auth_repository.dart';
+import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
 class AccountPage extends ConsumerWidget {
   Future<void> _signOut(BuildContext context, WidgetRef ref) async {

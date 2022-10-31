@@ -1,5 +1,5 @@
-import 'package:custom_buttons/custom_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:starter_architecture_flutter_firebase/src/common_widgets/custom_buttons.dart';
 
 class SignInButton extends CustomRaisedButton {
   SignInButton({

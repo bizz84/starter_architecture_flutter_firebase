@@ -1,7 +1,7 @@
-import 'package:custom_buttons/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:starter_architecture_flutter_firebase/src/common_widgets/custom_buttons.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/onboarding_view_model.dart';
 
 class OnboardingPage extends ConsumerWidget {
@@ -16,7 +16,7 @@ class OnboardingPage extends ConsumerWidget {
           children: [
             Text(
               'Track your time.\nBecause time counts.',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headline5,
               textAlign: TextAlign.center,
             ),
             FractionallySizedBox(

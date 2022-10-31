@@ -15,13 +15,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  alert_dialogs:
-    dependency: "direct main"
-    description:
-      path: "packages/alert_dialogs"
-      relative: true
-    source: path
-    version: "0.2.0"
   analyzer:
     dependency: transitive
     description:
@@ -190,13 +183,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  custom_buttons:
-    dependency: "direct main"
-    description:
-      path: "packages/custom_buttons"
-      relative: true
-    source: path
-    version: "0.1.0"
   dart_style:
     dependency: transitive
     description:

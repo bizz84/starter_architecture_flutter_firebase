@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/entry_list_item.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/entry_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/edit_job_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/list_items_builder.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/cupertino_tab_view_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/top_level_providers.dart';
+import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
 class JobEntriesPage extends StatelessWidget {
   const JobEntriesPage({required this.job});
