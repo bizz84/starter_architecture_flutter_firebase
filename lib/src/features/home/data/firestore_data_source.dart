@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FirestoreService {
-  FirestoreService._();
-  static final instance = FirestoreService._();
+class FirestoreDataSource {
+  FirestoreDataSource._();
+  static final instance = FirestoreDataSource._();
 
   Future<void> setData({
     required String path,

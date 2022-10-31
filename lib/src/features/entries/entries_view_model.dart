@@ -2,14 +2,14 @@ import 'package:rxdart/rxdart.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/daily_jobs_details.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/entries_list_tile.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/entry_job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/format.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/services/firestore_database.dart';
 
 class EntriesViewModel {
   EntriesViewModel({required this.database});
-  final FirestoreDatabase database;
+  final FirestoreRepository database;
 
   /// combine List<Job>, List<Entry> into List<EntryJob>
   Stream<List<EntryJob>> get _allEntriesStream => CombineLatestStream.combine2(

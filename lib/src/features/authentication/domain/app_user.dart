@@ -1,3 +1,4 @@
+// TODO: FirebaseAppUser?
 /// Simple class representing the user UID and email.
 class AppUser {
   const AppUser({

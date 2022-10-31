@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/empty_content.dart';
-import 'package:starter_architecture_flutter_firebase/src/top_level_providers.dart';
 
 class AuthWidget extends ConsumerWidget {
   const AuthWidget({

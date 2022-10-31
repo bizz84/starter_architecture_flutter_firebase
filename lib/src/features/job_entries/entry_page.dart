@@ -3,12 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/date_time_picker.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/format.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
-import 'package:starter_architecture_flutter_firebase/src/services/firestore_database.dart';
-import 'package:starter_architecture_flutter_firebase/src/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
 class EntryPage extends ConsumerStatefulWidget {

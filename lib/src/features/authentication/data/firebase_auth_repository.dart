@@ -22,8 +22,11 @@ class AuthRepository {
   }
 }
 
+final firebaseAuthProvider =
+    Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
+
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  return AuthRepository(FirebaseAuth.instance);
+  return AuthRepository(ref.watch(firebaseAuthProvider));
 });
 
 final authStateChangesProvider = StreamProvider<User?>((ref) {

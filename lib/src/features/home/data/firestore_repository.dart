@@ -1,17 +1,26 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/repositories/firestore_service.dart';
-import 'package:starter_architecture_flutter_firebase/src/services/firestore_path.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_data_source.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
-class FirestoreDatabase {
-  FirestoreDatabase({required this.uid});
+class FirestorePath {
+  static String job(String uid, String jobId) => 'users/$uid/jobs/$jobId';
+  static String jobs(String uid) => 'users/$uid/jobs';
+  static String entry(String uid, String entryId) =>
+      'users/$uid/entries/$entryId';
+  static String entries(String uid) => 'users/$uid/entries';
+}
+
+class FirestoreRepository {
+  FirestoreRepository({required this.uid});
   final String uid;
 
-  final _service = FirestoreService.instance;
+  final _service = FirestoreDataSource.instance;
 
   Future<void> setJob(Job job) => _service.setData(
         path: FirestorePath.job(uid, job.id),
@@ -58,3 +67,17 @@ class FirestoreDatabase {
         sort: (lhs, rhs) => rhs.start.compareTo(lhs.start),
       );
 }
+
+final databaseProvider = Provider<FirestoreRepository>((ref) {
+  final authStateAsync = ref.watch(authStateChangesProvider);
+
+  if (authStateAsync.value?.uid != null) {
+    return FirestoreRepository(uid: authStateAsync.value!.uid);
+  }
+  throw UnimplementedError();
+});
+
+final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
+  final database = ref.watch(databaseProvider);
+  return database.jobsStream();
+});
