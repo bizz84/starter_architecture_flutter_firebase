@@ -1,4 +1,5 @@
 import 'package:rxdart/rxdart.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/domain/app_user.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/daily_jobs_details.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/entries_list_tile.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/entry_job.dart';
@@ -12,9 +13,10 @@ class EntriesViewModel {
   final FirestoreRepository database;
 
   /// combine List<Job>, List<Entry> into List<EntryJob>
-  Stream<List<EntryJob>> get _allEntriesStream => CombineLatestStream.combine2(
-        database.entriesStream(),
-        database.jobsStream(),
+  Stream<List<EntryJob>> _allEntriesStream(UserID uid) =>
+      CombineLatestStream.combine2(
+        database.entriesStream(uid: uid),
+        database.jobsStream(uid: uid),
         _entriesJobsCombiner,
       );
 
@@ -27,8 +29,8 @@ class EntriesViewModel {
   }
 
   /// Output stream
-  Stream<List<EntriesListTileModel>> get entriesTileModelStream =>
-      _allEntriesStream.map(_createModels);
+  Stream<List<EntriesListTileModel>> entriesTileModelStream(UserID uid) =>
+      _allEntriesStream(uid).map(_createModels);
 
   static List<EntriesListTileModel> _createModels(List<EntryJob> allEntries) {
     if (allEntries.isEmpty) {

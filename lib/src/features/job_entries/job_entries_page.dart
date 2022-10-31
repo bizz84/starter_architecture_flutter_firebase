@@ -12,6 +12,8 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/list_ite
 import 'package:starter_architecture_flutter_firebase/src/routing/cupertino_tab_view_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
+import '../authentication/data/firebase_auth_repository.dart';
+
 class JobEntriesPage extends StatelessWidget {
   const JobEntriesPage({required this.job});
   final Job job;
@@ -54,8 +56,12 @@ class JobEntriesPage extends StatelessWidget {
 
 final jobStreamProvider =
     StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
+  final user = ref.watch(authStateChangesProvider).value;
+  if (user == null) {
+    throw AssertionError('User can\'t be null when fetching jobs');
+  }
   final database = ref.watch(databaseProvider);
-  return database.jobStream(jobId: jobId);
+  return database.jobStream(uid: user.uid, jobId: jobId);
 });
 
 class JobEntriesAppBarTitle extends ConsumerWidget {
@@ -75,8 +81,12 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 
 final jobEntriesStreamProvider =
     StreamProvider.autoDispose.family<List<Entry>, Job>((ref, job) {
+  final user = ref.watch(authStateChangesProvider).value;
+  if (user == null) {
+    throw AssertionError('User can\'t be null when fetching jobs');
+  }
   final database = ref.watch(databaseProvider);
-  return database.entriesStream(job: job);
+  return database.entriesStream(uid: user.uid, job: job);
 });
 
 class JobEntriesContents extends ConsumerWidget {
@@ -86,8 +96,9 @@ class JobEntriesContents extends ConsumerWidget {
   Future<void> _deleteEntry(
       BuildContext context, WidgetRef ref, Entry entry) async {
     try {
+      final currentUser = ref.read(authRepositoryProvider).currentUser!;
       final database = ref.read(databaseProvider);
-      await database.deleteEntry(entry);
+      await database.deleteEntry(uid: currentUser.uid, entry: entry);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
         context: context,

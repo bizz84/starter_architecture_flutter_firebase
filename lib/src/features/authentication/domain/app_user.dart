@@ -1,3 +1,6 @@
+/// Type defining a user ID from Firebase.
+typedef UserID = String;
+
 // TODO: FirebaseAppUser?
 /// Simple class representing the user UID and email.
 class AppUser {

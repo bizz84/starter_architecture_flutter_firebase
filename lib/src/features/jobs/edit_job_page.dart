@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
@@ -49,8 +50,9 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       try {
+        final currentUser = ref.read(authRepositoryProvider).currentUser!;
         final database = ref.read(databaseProvider);
-        final jobs = await database.jobsStream().first;
+        final jobs = await database.jobsStream(uid: currentUser.uid).first;
         final allLowerCaseNames =
             jobs.map((job) => job.name.toLowerCase()).toList();
         if (widget.job != null) {
@@ -67,7 +69,7 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
           final id = widget.job?.id ?? documentIdFromCurrentDate();
           final job =
               Job(id: id, name: _name ?? '', ratePerHour: _ratePerHour ?? 0);
-          await database.setJob(job);
+          await database.setJob(uid: currentUser.uid, job: job);
           Navigator.of(context).pop();
         }
       } catch (e) {

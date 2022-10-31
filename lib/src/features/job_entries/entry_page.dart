@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/date_time_picker.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
@@ -68,9 +69,10 @@ class _EntryPageState extends ConsumerState<EntryPage> {
 
   Future<void> _setEntryAndDismiss() async {
     try {
+      final currentUser = ref.read(authRepositoryProvider).currentUser!;
       final database = ref.read(databaseProvider);
       final entry = _entryFromState();
-      await database.setEntry(entry);
+      await database.setEntry(uid: currentUser.uid, entry: entry);
       Navigator.of(context).pop();
     } catch (e) {
       unawaited(showExceptionAlertDialog(

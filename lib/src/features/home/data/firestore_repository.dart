@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/domain/app_user.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_data_source.dart';
@@ -17,48 +17,50 @@ class FirestorePath {
 }
 
 class FirestoreRepository {
-  FirestoreRepository({required this.uid});
-  final String uid;
+  const FirestoreRepository(this._dataSource);
+  final FirestoreDataSource _dataSource;
 
-  final _service = FirestoreDataSource.instance;
-
-  Future<void> setJob(Job job) => _service.setData(
+  Future<void> setJob({required UserID uid, required Job job}) =>
+      _dataSource.setData(
         path: FirestorePath.job(uid, job.id),
         data: job.toMap(),
       );
 
-  Future<void> deleteJob(Job job) async {
+  Future<void> deleteJob({required UserID uid, required Job job}) async {
     // delete where entry.jobId == job.jobId
-    final allEntries = await entriesStream(job: job).first;
+    final allEntries = await entriesStream(uid: uid, job: job).first;
     for (final entry in allEntries) {
       if (entry.jobId == job.id) {
-        await deleteEntry(entry);
+        await deleteEntry(uid: uid, entry: entry);
       }
     }
     // delete job
-    await _service.deleteData(path: FirestorePath.job(uid, job.id));
+    await _dataSource.deleteData(path: FirestorePath.job(uid, job.id));
   }
 
-  Stream<Job> jobStream({required String jobId}) => _service.documentStream(
+  Stream<Job> jobStream({required UserID uid, required String jobId}) =>
+      _dataSource.documentStream(
         path: FirestorePath.job(uid, jobId),
         builder: (data, documentId) => Job.fromMap(data, documentId),
       );
 
-  Stream<List<Job>> jobsStream() => _service.collectionStream(
+  Stream<List<Job>> jobsStream({required UserID uid}) =>
+      _dataSource.collectionStream(
         path: FirestorePath.jobs(uid),
         builder: (data, documentId) => Job.fromMap(data, documentId),
       );
 
-  Future<void> setEntry(Entry entry) => _service.setData(
+  Future<void> setEntry({required UserID uid, required Entry entry}) =>
+      _dataSource.setData(
         path: FirestorePath.entry(uid, entry.id),
         data: entry.toMap(),
       );
 
-  Future<void> deleteEntry(Entry entry) =>
-      _service.deleteData(path: FirestorePath.entry(uid, entry.id));
+  Future<void> deleteEntry({required UserID uid, required Entry entry}) =>
+      _dataSource.deleteData(path: FirestorePath.entry(uid, entry.id));
 
-  Stream<List<Entry>> entriesStream({Job? job}) =>
-      _service.collectionStream<Entry>(
+  Stream<List<Entry>> entriesStream({required UserID uid, Job? job}) =>
+      _dataSource.collectionStream<Entry>(
         path: FirestorePath.entries(uid),
         queryBuilder: job != null
             ? (query) => query.where('jobId', isEqualTo: job.id)
@@ -69,15 +71,11 @@ class FirestoreRepository {
 }
 
 final databaseProvider = Provider<FirestoreRepository>((ref) {
-  final authStateAsync = ref.watch(authStateChangesProvider);
-
-  if (authStateAsync.value?.uid != null) {
-    return FirestoreRepository(uid: authStateAsync.value!.uid);
-  }
-  throw UnimplementedError();
+  return FirestoreRepository(ref.watch(firestoreDataSourceProvider));
 });
 
-final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
+final jobsStreamProvider =
+    StreamProvider.autoDispose.family<List<Job>, UserID>((ref, uid) {
   final database = ref.watch(databaseProvider);
-  return database.jobsStream();
+  return database.jobsStream(uid: uid);
 });

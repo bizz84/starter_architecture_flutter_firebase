@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/job_entries_page.dart';
@@ -15,7 +16,10 @@ import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.da
 class JobsPage extends ConsumerWidget {
   Future<void> _delete(BuildContext context, WidgetRef ref, Job job) async {
     try {
-      await ref.read(databaseProvider).deleteJob(job);
+      final currentUser = ref.read(authRepositoryProvider).currentUser!;
+      await ref
+          .read(databaseProvider)
+          .deleteJob(uid: currentUser.uid, job: job);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
         context: context,
@@ -39,7 +43,8 @@ class JobsPage extends ConsumerWidget {
       ),
       body: Consumer(
         builder: (context, ref, child) {
-          final jobsAsyncValue = ref.watch(jobsStreamProvider);
+          final user = ref.watch(authStateChangesProvider).value!;
+          final jobsAsyncValue = ref.watch(jobsStreamProvider(user.uid));
           return ListItemsBuilder<Job>(
             data: jobsAsyncValue,
             itemBuilder: (context, job) => Dismissible(

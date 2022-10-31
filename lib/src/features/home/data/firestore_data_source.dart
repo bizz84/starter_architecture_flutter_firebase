@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FirestoreDataSource {
-  FirestoreDataSource._();
-  static final instance = FirestoreDataSource._();
+  const FirestoreDataSource._();
 
   Future<void> setData({
     required String path,
@@ -57,3 +57,7 @@ class FirestoreDataSource {
     return snapshots.map((snapshot) => builder(snapshot.data(), snapshot.id));
   }
 }
+
+final firestoreDataSourceProvider = Provider<FirestoreDataSource>((ref) {
+  return FirestoreDataSource._();
+});
