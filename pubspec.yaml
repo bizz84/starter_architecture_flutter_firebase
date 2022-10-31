@@ -17,6 +17,7 @@ dependencies:
     sdk: flutter
   flutter_riverpod: 2.0.2
   flutter_svg:
+  go_router: ^5.1.1
   intl:
   logger:
   rxdart:

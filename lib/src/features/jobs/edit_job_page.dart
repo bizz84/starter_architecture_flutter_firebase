@@ -5,19 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
 class EditJobPage extends ConsumerStatefulWidget {
-  const EditJobPage({Key? key, this.job}) : super(key: key);
+  const EditJobPage({Key? key, this.jobId, this.job}) : super(key: key);
+  final JobID? jobId;
   final Job? job;
-
-  static Future<void> show(BuildContext context, {Job? job}) async {
-    await Navigator.of(context, rootNavigator: true).pushNamed(
-      AppRoutes.editJobPage,
-      arguments: job,
-    );
-  }
 
   @override
   ConsumerState<EditJobPage> createState() => _EditJobPageState();

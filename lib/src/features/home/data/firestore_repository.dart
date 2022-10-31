@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/domain/app_user.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
@@ -38,7 +39,7 @@ class FirestoreRepository {
     await _dataSource.deleteData(path: FirestorePath.job(uid, job.id));
   }
 
-  Stream<Job> jobStream({required UserID uid, required String jobId}) =>
+  Stream<Job> jobStream({required UserID uid, required JobID jobId}) =>
       _dataSource.documentStream(
         path: FirestorePath.job(uid, jobId),
         builder: (data, documentId) => Job.fromMap(data, documentId),
@@ -74,8 +75,31 @@ final databaseProvider = Provider<FirestoreRepository>((ref) {
   return FirestoreRepository(ref.watch(firestoreDataSourceProvider));
 });
 
-final jobsStreamProvider =
-    StreamProvider.autoDispose.family<List<Job>, UserID>((ref, uid) {
+final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
+  final user = ref.watch(authStateChangesProvider).value;
+  if (user == null) {
+    throw AssertionError('User can\'t be null');
+  }
   final database = ref.watch(databaseProvider);
-  return database.jobsStream(uid: uid);
+  return database.jobsStream(uid: user.uid);
+});
+
+final jobStreamProvider =
+    StreamProvider.autoDispose.family<Job, JobID>((ref, jobId) {
+  final user = ref.watch(authStateChangesProvider).value;
+  if (user == null) {
+    throw AssertionError('User can\'t be null');
+  }
+  final database = ref.watch(databaseProvider);
+  return database.jobStream(uid: user.uid, jobId: jobId);
+});
+
+final jobEntriesStreamProvider =
+    StreamProvider.autoDispose.family<List<Entry>, Job>((ref, job) {
+  final user = ref.watch(authStateChangesProvider).value;
+  if (user == null) {
+    throw AssertionError('User can\'t be null when fetching jobs');
+  }
+  final database = ref.watch(databaseProvider);
+  return database.entriesStream(uid: user.uid, job: job);
 });

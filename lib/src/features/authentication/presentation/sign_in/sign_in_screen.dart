@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/sign_in/sign_in_button.dart';
@@ -11,6 +12,7 @@ import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dar
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
 class SignInScreen extends ConsumerWidget {
+  const SignInScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<SignInViewModel>(signInModelProvider, (prev, model) async {
@@ -39,14 +41,6 @@ class SignInPageContents extends StatelessWidget {
 
   static const Key emailPasswordButtonKey = Key(Keys.emailPassword);
   static const Key anonymousButtonKey = Key(Keys.anonymous);
-
-  Future<void> _showEmailPasswordSignInPage(BuildContext context) async {
-    final navigator = Navigator.of(context);
-    await navigator.pushNamed(
-      AppRoutes.emailPasswordSignInPage,
-      arguments: () => navigator.pop(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +88,7 @@ class SignInPageContents extends StatelessWidget {
                 text: Strings.signInWithEmailPassword,
                 onPressed: viewModel.isLoading
                     ? null
-                    : () => _showEmailPasswordSignInPage(context),
+                    : () => context.goNamed(AppRoute.emailPassword.name),
                 textColor: Colors.white,
                 color: Theme.of(context).primaryColor,
               ),

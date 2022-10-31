@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
@@ -9,21 +10,48 @@ import 'package:starter_architecture_flutter_firebase/src/features/job_entries/e
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/entry_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/edit_job_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/list_items_builder.dart';
-import 'package:starter_architecture_flutter_firebase/src/routing/cupertino_tab_view_router.dart';
+import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
 import '../authentication/data/firebase_auth_repository.dart';
 
-class JobEntriesPage extends StatelessWidget {
-  const JobEntriesPage({required this.job});
-  final Job job;
+class JobEntriesPage extends ConsumerWidget {
+  const JobEntriesPage({required this.jobId, this.job});
+  final JobID jobId;
+  final Job? job;
 
-  static Future<void> show(BuildContext context, Job job) async {
-    await Navigator.of(context).pushNamed(
-      CupertinoTabViewRoutes.jobEntriesPage,
-      arguments: job,
-    );
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (job != null) {
+      return JobEntriesPageContents(job: job!);
+    } else {
+      final jobAsync = ref.watch(jobStreamProvider(jobId));
+      return jobAsync.when(
+        error: (e, st) => Scaffold(
+          appBar: AppBar(
+            elevation: 2.0,
+            title: Text('Error'),
+            centerTitle: true,
+          ),
+          body: Center(child: Text(e.toString())),
+        ),
+        loading: () => Scaffold(
+          appBar: AppBar(
+            elevation: 2.0,
+            title: Text('Loading'),
+            centerTitle: true,
+          ),
+          body: Center(child: CircularProgressIndicator()),
+        ),
+        data: (job) => JobEntriesPageContents(job: job),
+      );
+    }
   }
+}
+
+class JobEntriesPageContents extends StatelessWidget {
+  const JobEntriesPageContents({super.key, required this.job});
+  final Job job;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +63,8 @@ class JobEntriesPage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.edit, color: Colors.white),
-            onPressed: () => EditJobPage.show(
+            onPressed: () => context.goNamed(AppRoute.editJob.name, params: { 'id': job.id })
+            EditJobPage.show(
               context,
               job: job,
             ),
@@ -49,20 +78,10 @@ class JobEntriesPage extends StatelessWidget {
           ),
         ],
       ),
-      body: JobEntriesContents(job: job),
+      body: JobEntriesList(job: job),
     );
   }
 }
-
-final jobStreamProvider =
-    StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
-  final user = ref.watch(authStateChangesProvider).value;
-  if (user == null) {
-    throw AssertionError('User can\'t be null when fetching jobs');
-  }
-  final database = ref.watch(databaseProvider);
-  return database.jobStream(uid: user.uid, jobId: jobId);
-});
 
 class JobEntriesAppBarTitle extends ConsumerWidget {
   const JobEntriesAppBarTitle({required this.job});
@@ -79,19 +98,9 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
   }
 }
 
-final jobEntriesStreamProvider =
-    StreamProvider.autoDispose.family<List<Entry>, Job>((ref, job) {
-  final user = ref.watch(authStateChangesProvider).value;
-  if (user == null) {
-    throw AssertionError('User can\'t be null when fetching jobs');
-  }
-  final database = ref.watch(databaseProvider);
-  return database.entriesStream(uid: user.uid, job: job);
-});
-
-class JobEntriesContents extends ConsumerWidget {
+class JobEntriesList extends ConsumerWidget {
   final Job job;
-  const JobEntriesContents({required this.job});
+  const JobEntriesList({required this.job});
 
   Future<void> _deleteEntry(
       BuildContext context, WidgetRef ref, Entry entry) async {
