@@ -7,8 +7,6 @@ import 'package:starter_architecture_flutter_firebase/src/features/home/data/fir
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/entry_list_item.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/job_entries/entry_page.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/edit_job_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
@@ -63,19 +61,18 @@ class JobEntriesPageContents extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.edit, color: Colors.white),
-            onPressed: () => context.goNamed(AppRoute.editJob.name, params: { 'id': job.id })
-            EditJobPage.show(
-              context,
-              job: job,
-            ),
+            // EditJobPage
+            onPressed: () =>
+                context.goNamed(AppRoute.editJob.name, params: {'id': job.id}),
           ),
-          IconButton(
-            icon: const Icon(Icons.add, color: Colors.white),
-            onPressed: () => EntryPage.show(
-              context: context,
-              job: job,
-            ),
-          ),
+          // TODO: Restore
+          // IconButton(
+          //   icon: const Icon(Icons.add, color: Colors.white),
+          //   onPressed: () => EntryPage.show(
+          //     context: context,
+          //     job: job,
+          //   ),
+          // ),
         ],
       ),
       body: JobEntriesList(job: job),
@@ -128,11 +125,12 @@ class JobEntriesList extends ConsumerWidget {
           entry: entry,
           job: job,
           onDismissed: () => _deleteEntry(context, ref, entry),
-          onTap: () => EntryPage.show(
-            context: context,
-            job: job,
-            entry: entry,
-          ),
+          // TODO: Restore
+          // onTap: () => EntryPage.show(
+          //   context: context,
+          //   job: job,
+          //   entry: entry,
+          // ),
         );
       },
     );
