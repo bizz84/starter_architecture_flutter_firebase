@@ -14,8 +14,6 @@ dependencies:
     path: packages/alert_dialogs
   custom_buttons:
     path: packages/custom_buttons
-  firestore_service:
-    path: packages/firestore_service
   cloud_firestore:
   cupertino_icons:
   equatable:
@@ -34,6 +32,10 @@ dev_dependencies:
   build_runner:
   mocktail:
   random_string:
+
+# https://stackoverflow.com/a/74234079/436422
+#dependency_overrides:
+#  firebase_core_platform_interface: 4.5.1
 
 flutter:
   uses-material-design: true
