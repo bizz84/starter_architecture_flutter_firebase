@@ -3,8 +3,8 @@ import 'package:starter_architecture_flutter_firebase/src/features/entries/daily
 import 'package:starter_architecture_flutter_firebase/src/features/entries/entries_list_tile.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/entry_job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/format.dart';
-import 'package:starter_architecture_flutter_firebase/src/home/models/entry.dart';
-import 'package:starter_architecture_flutter_firebase/src/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/services/firestore_database.dart';
 
 class EntriesViewModel {

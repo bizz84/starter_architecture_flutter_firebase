@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/keys.dart';
-import 'package:starter_architecture_flutter_firebase/src/home/tab_item.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/tab_item.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/cupertino_tab_view_router.dart';
 
 @immutable

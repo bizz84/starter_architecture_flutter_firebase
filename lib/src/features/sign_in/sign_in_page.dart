@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
-import 'package:starter_architecture_flutter_firebase/src/sign_in/sign_in_button.dart';
-import 'package:starter_architecture_flutter_firebase/src/sign_in/sign_in_view_model.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/sign_in/sign_in_button.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/sign_in/sign_in_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/src/top_level_providers.dart';
 
 final signInModelProvider = ChangeNotifierProvider<SignInViewModel>(

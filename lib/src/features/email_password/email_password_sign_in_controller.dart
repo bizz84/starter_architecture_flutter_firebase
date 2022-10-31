@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/repositories/fake_auth_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/sign_in/email_password/email_password_sign_in_form_type.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/email_password/email_password_sign_in_form_type.dart';
 
 class EmailPasswordSignInController extends AutoDisposeAsyncNotifier<void> {
   @override

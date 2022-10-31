@@ -6,7 +6,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/job_entries/j
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/edit_job_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/job_list_tile.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/list_items_builder.dart';
-import 'package:starter_architecture_flutter_firebase/src/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/top_level_providers.dart';
 
 final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {

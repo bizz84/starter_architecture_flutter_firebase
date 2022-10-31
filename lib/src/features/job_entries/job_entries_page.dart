@@ -7,8 +7,8 @@ import 'package:starter_architecture_flutter_firebase/src/features/job_entries/e
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/entry_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/edit_job_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/list_items_builder.dart';
-import 'package:starter_architecture_flutter_firebase/src/home/models/entry.dart';
-import 'package:starter_architecture_flutter_firebase/src/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/cupertino_tab_view_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/top_level_providers.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:starter_architecture_flutter_firebase/src/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 
 class JobListTile extends StatelessWidget {
   const JobListTile({Key? key, required this.job, this.onTap})
