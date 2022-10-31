@@ -1,11 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final sharedPreferencesServiceProvider =
-    Provider<SharedPreferencesService>((ref) => throw UnimplementedError());
-
-class SharedPreferencesService {
-  SharedPreferencesService(this.sharedPreferences);
+class OnboardingRepository {
+  OnboardingRepository(this.sharedPreferences);
   final SharedPreferences sharedPreferences;
 
   static const onboardingCompleteKey = 'onboardingComplete';
@@ -17,3 +14,6 @@ class SharedPreferencesService {
   bool isOnboardingComplete() =>
       sharedPreferences.getBool(onboardingCompleteKey) ?? false;
 }
+
+final onboardingRepositoryProvider =
+    Provider<OnboardingRepository>((ref) => throw UnimplementedError());

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/custom_raised_button.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/onboarding/onboarding_view_model.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/onboarding/presentation/onboarding_controller.dart';
 
-class OnboardingPage extends ConsumerWidget {
+class OnboardingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -26,7 +26,7 @@ class OnboardingPage extends ConsumerWidget {
             ),
             CustomRaisedButton(
               onPressed: () => ref
-                  .read(onboardingViewModelProvider.notifier)
+                  .read(onboardingControllerProvider.notifier)
                   .completeOnboarding(),
               color: Colors.indigo,
               borderRadius: 30,
