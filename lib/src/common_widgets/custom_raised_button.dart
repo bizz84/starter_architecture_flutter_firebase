@@ -1,9 +1,8 @@
-part of custom_buttons;
+import 'package:flutter/material.dart';
 
-@immutable
 class CustomRaisedButton extends StatelessWidget {
   const CustomRaisedButton({
-    Key? key,
+    super.key,
     required this.child,
     this.color,
     this.textColor,
@@ -11,7 +10,7 @@ class CustomRaisedButton extends StatelessWidget {
     this.borderRadius = 4.0,
     this.loading = false,
     this.onPressed,
-  }) : super(key: key);
+  });
   final Widget child;
   final Color? color;
   final Color? textColor;
@@ -23,7 +22,9 @@ class CustomRaisedButton extends StatelessWidget {
   Widget buildSpinner(BuildContext context) {
     final ThemeData data = Theme.of(context);
     return Theme(
-      data: data.copyWith(accentColor: Colors.white70),
+      data: data.copyWith(
+          colorScheme:
+              ColorScheme.fromSwatch().copyWith(secondary: Colors.white70)),
       child: const SizedBox(
         width: 28,
         height: 28,

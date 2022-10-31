@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:starter_architecture_flutter_firebase/src/common_widgets/custom_buttons.dart';
+import 'package:starter_architecture_flutter_firebase/src/common_widgets/custom_raised_button.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/onboarding_view_model.dart';
 
 class OnboardingPage extends ConsumerWidget {
