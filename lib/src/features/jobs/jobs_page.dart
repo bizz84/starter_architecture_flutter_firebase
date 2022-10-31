@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
@@ -20,11 +22,11 @@ class JobsPage extends ConsumerWidget {
     try {
       await ref.read(databaseProvider).deleteJob(job);
     } catch (e) {
-      await showExceptionAlertDialog(
+      unawaited(showExceptionAlertDialog(
         context: context,
         title: 'Operation failed',
         exception: e,
-      );
+      ));
     }
   }
 

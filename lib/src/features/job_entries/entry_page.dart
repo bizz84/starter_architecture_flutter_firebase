@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/date_time_picker.dart';
@@ -72,11 +74,11 @@ class _EntryPageState extends ConsumerState<EntryPage> {
       await database.setEntry(entry);
       Navigator.of(context).pop();
     } catch (e) {
-      await showExceptionAlertDialog(
+      unawaited(showExceptionAlertDialog(
         context: context,
         title: 'Operation failed',
         exception: e,
-      );
+      ));
     }
   }
 

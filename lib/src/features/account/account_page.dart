@@ -14,11 +14,11 @@ class AccountPage extends ConsumerWidget {
     try {
       await ref.read(authRepositoryProvider).signOut();
     } catch (e) {
-      await showExceptionAlertDialog(
+      unawaited(showExceptionAlertDialog(
         context: context,
         title: Strings.logoutFailed,
         exception: e,
-      );
+      ));
     }
   }
 

@@ -38,7 +38,7 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       home: AuthWidget(
         nonSignedInBuilder: (_) => Consumer(
-          builder: (context, watch, _) {
+          builder: (context, ref, _) {
             final didCompleteOnboarding =
                 ref.watch(onboardingViewModelProvider);
             return didCompleteOnboarding ? SignInPage() : OnboardingPage();

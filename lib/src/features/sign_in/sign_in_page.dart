@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -19,11 +20,11 @@ class SignInPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<SignInViewModel>(signInModelProvider, (prev, model) async {
       if (model.error != null) {
-        await showExceptionAlertDialog(
+        unawaited(showExceptionAlertDialog(
           context: context,
           title: Strings.signInFailed,
           exception: model.error,
-        );
+        ));
       }
     });
     final signInModel = ref.watch(signInModelProvider);
