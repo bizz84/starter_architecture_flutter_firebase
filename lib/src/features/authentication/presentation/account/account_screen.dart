@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/avatar.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
-import 'package:starter_architecture_flutter_firebase/src/repositories/fake_auth_repository.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
-class AccountPage extends ConsumerWidget {
+// TODO create corresponding notifier
+class AccountScreen extends ConsumerWidget {
   Future<void> _signOut(BuildContext context, WidgetRef ref) async {
     try {
       await ref.read(authRepositoryProvider).signOut();
@@ -57,29 +57,25 @@ class AccountPage extends ConsumerWidget {
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(130.0),
-          child: _buildUserInfo(user),
+          child: Column(
+            children: [
+              Avatar(
+                photoUrl: user.photoURL,
+                radius: 50,
+                borderColor: Colors.black54,
+                borderWidth: 2.0,
+              ),
+              const SizedBox(height: 8),
+              if (user.displayName != null)
+                Text(
+                  user.displayName!,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              const SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
-    );
-  }
-
-  Widget _buildUserInfo(User user) {
-    return Column(
-      children: [
-        Avatar(
-          photoUrl: user.photoURL,
-          radius: 50,
-          borderColor: Colors.black54,
-          borderWidth: 2.0,
-        ),
-        const SizedBox(height: 8),
-        if (user.displayName != null)
-          Text(
-            user.displayName!,
-            style: const TextStyle(color: Colors.white),
-          ),
-        const SizedBox(height: 8),
-      ],
     );
   }
 }

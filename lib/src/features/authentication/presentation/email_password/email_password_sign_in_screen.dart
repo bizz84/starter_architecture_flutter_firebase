@@ -5,11 +5,11 @@ import 'package:starter_architecture_flutter_firebase/src/common_widgets/custom_
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/primary_button.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/responsive_scrollable_card.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/app_sizes.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/email_password_sign_in_controller.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/email_password_sign_in_form_type.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/email_password_sign_in_validators.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/string_validators.dart';
 import 'package:starter_architecture_flutter_firebase/src/localization/string_hardcoded.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/email_password/email_password_sign_in_controller.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/email_password/email_password_sign_in_form_type.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/email_password/email_password_sign_in_validators.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/email_password/string_validators.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 
 /// Email & password sign in screen.

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/account/account_page.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/entries_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/cupertino_home_scaffold.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/tab_item.dart';
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     return {
       TabItem.jobs: (_) => JobsPage(),
       TabItem.entries: (_) => EntriesPage(),
-      TabItem.account: (_) => AccountPage(),
+      TabItem.account: (_) => AccountScreen(),
     };
   }
 

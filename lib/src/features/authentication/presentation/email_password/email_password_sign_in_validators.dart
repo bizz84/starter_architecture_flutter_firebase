@@ -1,6 +1,6 @@
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/email_password_sign_in_form_type.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/string_validators.dart';
 import 'package:starter_architecture_flutter_firebase/src/localization/string_hardcoded.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/email_password/email_password_sign_in_form_type.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/email_password/string_validators.dart';
 
 /// Mixin class to be used for client-side email & password validation
 mixin EmailAndPasswordValidators {
