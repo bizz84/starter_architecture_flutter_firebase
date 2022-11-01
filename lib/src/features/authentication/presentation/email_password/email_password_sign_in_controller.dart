@@ -10,14 +10,13 @@ class EmailPasswordSignInController extends AutoDisposeAsyncNotifier<void> {
     // ok to leave this empty if the return type is FutureOr<void>
   }
 
-  Future<bool> submit(
+  Future<void> submit(
       {required String email,
       required String password,
       required EmailPasswordSignInFormType formType}) async {
     state = const AsyncValue.loading();
     state =
         await AsyncValue.guard(() => _authenticate(email, password, formType));
-    return state.hasError == false;
   }
 
   Future<void> _authenticate(

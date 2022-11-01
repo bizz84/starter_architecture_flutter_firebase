@@ -27,7 +27,7 @@ class SignInScreen extends ConsumerWidget {
     final signInModel = ref.watch(signInModelProvider);
     return SignInPageContents(
       viewModel: signInModel,
-      title: 'Architecture Demo',
+      title: 'Time Tracker',
     );
   }
 }
@@ -48,7 +48,6 @@ class SignInPageContents extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      backgroundColor: Colors.grey[200],
       body: _buildSignIn(context),
     );
   }

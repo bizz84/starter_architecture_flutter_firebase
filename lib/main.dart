@@ -36,6 +36,7 @@ class MyApp extends ConsumerWidget {
           elevation: 2.0,
           centerTitle: true,
         ),
+        scaffoldBackgroundColor: Colors.grey[200],
       ),
       debugShowCheckedModeBanner: false,
     );

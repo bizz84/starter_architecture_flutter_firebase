@@ -91,7 +91,6 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
         ],
       ),
       body: _buildContents(),
-      backgroundColor: Colors.grey[200],
     );
   }
 

@@ -40,10 +40,8 @@ class EmailPasswordSignInScreen extends StatelessWidget {
 class EmailPasswordSignInContents extends ConsumerStatefulWidget {
   const EmailPasswordSignInContents({
     super.key,
-    this.onSignedIn,
     required this.formType,
   });
-  final VoidCallback? onSignedIn;
 
   /// The default form type to use.
   final EmailPasswordSignInFormType formType;
@@ -86,14 +84,11 @@ class _EmailPasswordSignInContentsState
     if (_formKey.currentState!.validate()) {
       final controller =
           ref.read(emailPasswordSignInControllerProvider.notifier);
-      final success = await controller.submit(
+      await controller.submit(
         email: email,
         password: password,
         formType: _formType,
       );
-      if (success) {
-        widget.onSignedIn?.call();
-      }
     }
   }
 

@@ -16,42 +16,6 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/jobs_pag
 import 'package:starter_architecture_flutter_firebase/src/routing/go_router_refresh_stream.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/scaffold_with_bottom_nav_bar.dart';
 
-// ignore: avoid_classes_with_only_static_members
-// class AppRouter {
-//   static Route<dynamic>? onGenerateRoute(
-//       RouteSettings settings, FirebaseAuth firebaseAuth) {
-//     final args = settings.arguments;
-//     switch (settings.name) {
-//       case AppRoutes.emailPasswordSignInPage:
-//         return MaterialPageRoute<dynamic>(
-//           builder: (_) => const EmailPasswordSignInScreen(
-//             formType: EmailPasswordSignInFormType.signIn,
-//           ),
-//           settings: settings,
-//           fullscreenDialog: true,
-//         );
-//       case AppRoutes.editJobPage:
-//         return MaterialPageRoute<dynamic>(
-//           builder: (_) => EditJobPage(job: args as Job?),
-//           settings: settings,
-//           fullscreenDialog: true,
-//         );
-//       case AppRoutes.entryPage:
-//         final mapArgs = args as Map<String, dynamic>;
-//         final job = mapArgs['job'] as Job;
-//         final entry = mapArgs['entry'] as Entry?;
-//         return MaterialPageRoute<dynamic>(
-//           builder: (_) => EntryPage(job: job, entry: entry),
-//           settings: settings,
-//           fullscreenDialog: true,
-//         );
-//       default:
-//         // TODO: Throw
-//         return null;
-//     }
-//   }
-// }
-
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -92,10 +56,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     },
     refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
+      // TODO: Onboarding
       GoRoute(
         path: '/signIn',
         name: AppRoute.signIn.name,
-        builder: (context, state) => const SignInScreen(),
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: const SignInScreen(),
+        ),
         routes: [
           GoRoute(
             path: 'emailPassword',
@@ -141,7 +109,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 name: AppRoute.job.name,
                 pageBuilder: (context, state) {
                   final id = state.params['id']!;
-                  final job = state.extra as Job?;
+                  final extra = state.extra;
+                  // extra could be a Job or an Entry (see entries/:eid route below)
+                  // so we only use it if it's a Job
+                  final job = extra is Job ? extra : null;
                   return MaterialPage(
                     key: state.pageKey,
                     child: JobEntriesPage(
@@ -166,18 +137,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       );
                     },
                   ),
-                  // TODO: Figure out why this is not reached, and `jobs/:id` is matched instead
                   GoRoute(
                     path: 'entries/:eid',
                     name: AppRoute.entry.name,
-                    parentNavigatorKey: _rootNavigatorKey,
                     pageBuilder: (context, state) {
                       final jobId = state.params['id']!;
                       final entryId = state.params['eid']!;
                       final entry = state.extra as Entry?;
                       return MaterialPage(
                         key: state.pageKey,
-                        fullscreenDialog: true,
                         child: EntryPage(
                           jobId: jobId,
                           entryId: entryId,
@@ -185,8 +153,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                         ),
                       );
                     },
-                    // TODO: Edit
-                    routes: [],
                   ),
                   GoRoute(
                     path: 'edit',
