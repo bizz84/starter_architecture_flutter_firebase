@@ -7,7 +7,10 @@ import 'package:starter_architecture_flutter_firebase/src/features/home/models/e
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_data_source.dart';
 
-String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
+String documentIdFromCurrentDate() {
+  final iso = DateTime.now().toIso8601String();
+  return iso.replaceAll(':', '-').replaceAll('.', '-');
+}
 
 class FirestorePath {
   static String job(String uid, String jobId) => 'users/$uid/jobs/$jobId';

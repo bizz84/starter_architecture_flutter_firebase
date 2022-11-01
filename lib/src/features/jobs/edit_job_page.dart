@@ -8,7 +8,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/home/models/j
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
 class EditJobPage extends ConsumerStatefulWidget {
-  const EditJobPage({Key? key, this.jobId, this.job}) : super(key: key);
+  const EditJobPage({super.key, this.jobId, this.job});
   final JobID? jobId;
   final Job? job;
 
@@ -79,7 +79,6 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 2.0,
         title: Text(widget.job == null ? 'New Job' : 'Edit Job'),
         actions: <Widget>[
           TextButton(

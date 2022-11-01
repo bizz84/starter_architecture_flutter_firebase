@@ -29,7 +29,14 @@ class MyApp extends ConsumerWidget {
     final goRouter = ref.watch(goRouterProvider);
     return MaterialApp.router(
       routerConfig: goRouter,
-      theme: ThemeData(primarySwatch: Colors.indigo),
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        unselectedWidgetColor: Colors.grey,
+        appBarTheme: AppBarTheme(
+          elevation: 2.0,
+          centerTitle: true,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

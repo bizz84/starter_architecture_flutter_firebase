@@ -27,17 +27,13 @@ class JobEntriesPage extends ConsumerWidget {
       return jobAsync.when(
         error: (e, st) => Scaffold(
           appBar: AppBar(
-            elevation: 2.0,
             title: Text('Error'),
-            centerTitle: true,
           ),
           body: Center(child: Text(e.toString())),
         ),
         loading: () => Scaffold(
           appBar: AppBar(
-            elevation: 2.0,
             title: Text('Loading'),
-            centerTitle: true,
           ),
           body: Center(child: CircularProgressIndicator()),
         ),
@@ -55,27 +51,29 @@ class JobEntriesPageContents extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 2.0,
         title: JobEntriesAppBarTitle(job: job),
-        centerTitle: true,
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.edit, color: Colors.white),
             // EditJobPage
-            onPressed: () =>
-                context.goNamed(AppRoute.editJob.name, params: {'id': job.id}),
+            onPressed: () => context.goNamed(
+              AppRoute.editJob.name,
+              params: {'id': job.id},
+              extra: job,
+            ),
           ),
-          // TODO: Restore
-          // IconButton(
-          //   icon: const Icon(Icons.add, color: Colors.white),
-          //   onPressed: () => EntryPage.show(
-          //     context: context,
-          //     job: job,
-          //   ),
-          // ),
         ],
       ),
       body: JobEntriesList(job: job),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add, color: Colors.white),
+        // EntryPage
+        onPressed: () => context.goNamed(
+          AppRoute.addEntry.name,
+          params: {'id': job.id},
+          extra: job,
+        ),
+      ),
     );
   }
 }
@@ -125,11 +123,16 @@ class JobEntriesList extends ConsumerWidget {
           entry: entry,
           job: job,
           onDismissed: () => _deleteEntry(context, ref, entry),
-          // TODO: Restore
-          // onTap: () => EntryPage.show(
-          //   context: context,
-          //   job: job,
-          //   entry: entry,
+          onTap: () => context.go(
+            '/jobs/${job.id}/entries/${entry.id}',
+            // AppRoute.entry.name,
+            // params: {'id': job.id, 'eid': entry.id},
+            extra: entry,
+          ),
+          // onTap: () => context.goNamed(
+          //   AppRoute.entry.name,
+          //   params: {'id': job.id, 'eid': entry.id},
+          //   extra: entry,
           // ),
         );
       },

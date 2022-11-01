@@ -44,9 +44,6 @@ class _ScaffoldWithBottomNavBarState extends State<ScaffoldWithBottomNavBar> {
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        // TODO: figure out theming
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.white,
         currentIndex: _selectedIndex,
         items: [
           // products

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+typedef EntryID = String;
+
 class Entry extends Equatable {
   const Entry({
     required this.id,
@@ -9,7 +11,7 @@ class Entry extends Equatable {
     required this.comment,
   });
 
-  final String id;
+  final EntryID id;
   final String jobId;
   final DateTime start;
   final DateTime end;

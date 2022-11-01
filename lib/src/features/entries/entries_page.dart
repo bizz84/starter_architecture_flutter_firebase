@@ -26,7 +26,6 @@ class EntriesPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.entries),
-        elevation: 2.0,
       ),
       body: Consumer(
         builder: (context, ref, child) {
