@@ -7,7 +7,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/authenticatio
 import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/job_entries/format.dart';
+import 'package:starter_architecture_flutter_firebase/src/utils/format.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
 class EntryPage extends ConsumerStatefulWidget {

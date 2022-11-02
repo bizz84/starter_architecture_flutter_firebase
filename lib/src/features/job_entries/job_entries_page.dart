@@ -7,7 +7,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/home/data/fir
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/entry_list_item.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/list_items_builder.dart';
+import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 

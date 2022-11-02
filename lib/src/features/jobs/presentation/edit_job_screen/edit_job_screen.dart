@@ -7,16 +7,16 @@ import 'package:starter_architecture_flutter_firebase/src/features/home/data/fir
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
-class EditJobPage extends ConsumerStatefulWidget {
-  const EditJobPage({super.key, this.jobId, this.job});
+class EditJobScreen extends ConsumerStatefulWidget {
+  const EditJobScreen({super.key, this.jobId, this.job});
   final JobID? jobId;
   final Job? job;
 
   @override
-  ConsumerState<EditJobPage> createState() => _EditJobPageState();
+  ConsumerState<EditJobScreen> createState() => _EditJobPageState();
 }
 
-class _EditJobPageState extends ConsumerState<EditJobPage> {
+class _EditJobPageState extends ConsumerState<EditJobScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String? _name;

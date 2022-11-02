@@ -11,8 +11,8 @@ import 'package:starter_architecture_flutter_firebase/src/features/home/models/j
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/entry_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/job_entries/job_entries_page.dart';
 import 'package:go_router/go_router.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/edit_job_page.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/jobs_page.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/jobs_screen/jobs_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/data/onboarding_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/go_router_refresh_stream.dart';
@@ -109,7 +109,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             name: AppRoute.jobs.name,
             pageBuilder: (context, state) => NoTransitionPage(
               key: state.pageKey,
-              child: JobsPage(),
+              child: JobsScreen(),
             ),
             routes: [
               GoRoute(
@@ -120,7 +120,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   return MaterialPage(
                     key: state.pageKey,
                     fullscreenDialog: true,
-                    child: EditJobPage(),
+                    child: EditJobScreen(),
                   );
                 },
               ),
@@ -183,7 +183,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       return MaterialPage(
                         key: state.pageKey,
                         fullscreenDialog: true,
-                        child: EditJobPage(jobId: jobId, job: job),
+                        child: EditJobScreen(jobId: jobId, job: job),
                       );
                     },
                   ),

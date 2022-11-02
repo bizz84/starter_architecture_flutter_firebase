@@ -5,7 +5,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/authenticatio
 import 'package:starter_architecture_flutter_firebase/src/features/entries/entries_list_tile.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/entries_view_model.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/list_items_builder.dart';
+import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
 
 final entriesTileModelStreamProvider =
     StreamProvider.autoDispose<List<EntriesListTileModel>>(

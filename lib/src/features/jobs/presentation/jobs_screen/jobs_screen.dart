@@ -1,35 +1,18 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/job_list_tile.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/list_items_builder.dart';
+import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/job_list_tile.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/jobs_screen/jobs_screen_controller.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
-import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
+import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 
-class JobsPage extends ConsumerWidget {
-  Future<void> _delete(BuildContext context, WidgetRef ref, Job job) async {
-    try {
-      final currentUser = ref.read(authRepositoryProvider).currentUser!;
-      await ref
-          .read(databaseProvider)
-          .deleteJob(uid: currentUser.uid, job: job);
-    } catch (e) {
-      unawaited(showExceptionAlertDialog(
-        context: context,
-        title: 'Operation failed',
-        exception: e,
-      ));
-    }
-  }
-
+class JobsScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.jobs),
@@ -42,6 +25,12 @@ class JobsPage extends ConsumerWidget {
       ),
       body: Consumer(
         builder: (context, ref, child) {
+          ref.listen<AsyncValue>(
+            jobsScreenControllerProvider,
+            (_, state) => state.showAlertDialogOnError(context),
+          );
+          // * TODO: investigate why we get a dismissible error if we call
+          // * ref.watch(jobsScreenControllerProvider) here
           final jobsAsyncValue = ref.watch(jobsStreamProvider);
           return ListItemsBuilder<Job>(
             data: jobsAsyncValue,
@@ -49,7 +38,9 @@ class JobsPage extends ConsumerWidget {
               key: Key('job-${job.id}'),
               background: Container(color: Colors.red),
               direction: DismissDirection.endToStart,
-              onDismissed: (direction) => _delete(context, ref, job),
+              onDismissed: (direction) => ref
+                  .read(jobsScreenControllerProvider.notifier)
+                  .deleteJob(job),
               child: JobListTile(
                 job: job,
                 onTap: () => context.goNamed(
