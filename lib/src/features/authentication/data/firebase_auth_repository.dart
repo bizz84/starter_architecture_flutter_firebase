@@ -8,6 +8,10 @@ class AuthRepository {
   Stream<User?> authStateChanges() => _auth.authStateChanges();
   User? get currentUser => _auth.currentUser;
 
+  Future<void> signInAnonymously() {
+    return _auth.signInAnonymously();
+  }
+
   Future<void> signInWithEmailAndPassword(String email, String password) {
     return _auth.signInWithEmailAndPassword(email: email, password: password);
   }

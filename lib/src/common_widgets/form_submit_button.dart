@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:starter_architecture_flutter_firebase/src/common_widgets/custom_raised_button.dart';
+import 'package:starter_architecture_flutter_firebase/src/common_widgets/custom_elevated_button.dart';
 
-class FormSubmitButton extends CustomRaisedButton {
+class FormSubmitButton extends CustomElevatedButton {
   FormSubmitButton({
     super.key,
     required String text,
