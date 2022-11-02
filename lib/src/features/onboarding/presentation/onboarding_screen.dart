@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:starter_architecture_flutter_firebase/src/common_widgets/custom_raised_button.dart';
+import 'package:go_router/go_router.dart';
+import 'package:starter_architecture_flutter_firebase/src/common_widgets/primary_button.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/presentation/onboarding_controller.dart';
+import 'package:starter_architecture_flutter_firebase/src/localization/string_hardcoded.dart';
+import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 
 class OnboardingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(onboardingControllerProvider);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -24,19 +28,18 @@ class OnboardingScreen extends ConsumerWidget {
               child: SvgPicture.asset('assets/time-tracking.svg',
                   semanticsLabel: 'Time tracking logo'),
             ),
-            CustomRaisedButton(
-              onPressed: () => ref
-                  .read(onboardingControllerProvider.notifier)
-                  .completeOnboarding(),
-              color: Colors.indigo,
-              borderRadius: 30,
-              child: Text(
-                'Get Started',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5!
-                    .copyWith(color: Colors.white),
-              ),
+            PrimaryButton(
+              text: 'Get Started'.hardcoded,
+              isLoading: state.isLoading,
+              onPressed: state.isLoading
+                  ? null
+                  : () async {
+                      await ref
+                          .read(onboardingControllerProvider.notifier)
+                          .completeOnboarding();
+                      // go to sign in page after completing onboarding
+                      context.goNamed(AppRoute.signIn.name);
+                    },
             ),
           ],
         ),

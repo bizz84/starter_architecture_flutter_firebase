@@ -15,7 +15,7 @@ dependencies:
   firebase_core:
   flutter:
     sdk: flutter
-  flutter_riverpod: 2.0.2
+  flutter_riverpod: ^2.1.0
   flutter_svg:
   go_router: ^5.1.1
   intl:

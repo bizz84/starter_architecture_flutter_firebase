@@ -32,7 +32,7 @@ class ListItemsBuilder<T> extends StatelessWidget {
       separatorBuilder: (context, index) => const Divider(height: 0.5),
       itemBuilder: (context, index) {
         if (index == 0 || index == items.length + 1) {
-          return Container(); // zero height: not visible
+          return SizedBox.shrink(); // zero height: not visible
         }
         return itemBuilder(context, items[index - 1]);
       },

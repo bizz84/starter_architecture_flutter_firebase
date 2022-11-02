@@ -13,6 +13,8 @@ import 'package:starter_architecture_flutter_firebase/src/features/job_entries/j
 import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/edit_job_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/jobs_page.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/onboarding/data/onboarding_repository.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/go_router_refresh_stream.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/scaffold_with_bottom_nav_bar.dart';
 
@@ -21,6 +23,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 enum AppRoute {
+  onboarding,
   signIn,
   emailPassword,
   jobs,
@@ -36,19 +39,29 @@ enum AppRoute {
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
+  final onboardingRepository = ref.watch(onboardingRepositoryProvider);
   return GoRouter(
     initialLocation: '/signIn',
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
+      final didCompleteOnboarding = onboardingRepository.isOnboardingComplete();
+      if (!didCompleteOnboarding) {
+        // Always check state.subloc before returning a non-null route
+        // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/redirection.dart#L78
+        if (state.subloc != '/onboarding') {
+          return '/onboarding';
+        }
+      }
       final isLoggedIn = authRepository.currentUser != null;
       if (isLoggedIn) {
-        if (state.location == '/signIn') {
+        if (state.subloc == '/signIn') {
           return '/jobs';
         }
       } else {
-        // TODO
-        if (state.location == '/account' || state.location == '/orders') {
+        if (state.subloc.startsWith('/jobs') ||
+            state.subloc.startsWith('/entries') ||
+            state.subloc.startsWith('/account')) {
           return '/signIn';
         }
       }
@@ -56,7 +69,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     },
     refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
-      // TODO: Onboarding
+      GoRoute(
+        path: '/onboarding',
+        name: AppRoute.onboarding.name,
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: OnboardingScreen(),
+        ),
+      ),
       GoRoute(
         path: '/signIn',
         name: AppRoute.signIn.name,

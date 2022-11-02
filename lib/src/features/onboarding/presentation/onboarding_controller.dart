@@ -1,21 +1,21 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/data/onboarding_repository.dart';
 
-class OnboardingController extends StateNotifier<bool> {
-  OnboardingController(this.sharedPreferencesService)
-      : super(sharedPreferencesService.isOnboardingComplete());
-  final OnboardingRepository sharedPreferencesService;
-
-  Future<void> completeOnboarding() async {
-    await sharedPreferencesService.setOnboardingComplete();
-    state = true;
+class OnboardingController extends AutoDisposeAsyncNotifier<void> {
+  @override
+  FutureOr<void> build() {
+    // no op
   }
 
-  bool get isOnboardingComplete => state;
+  Future<void> completeOnboarding() async {
+    final onboardingRepository = ref.watch(onboardingRepositoryProvider);
+    state = AsyncLoading();
+    state = await AsyncValue.guard(onboardingRepository.setOnboardingComplete);
+  }
 }
 
 final onboardingControllerProvider =
-    StateNotifierProvider<OnboardingController, bool>((ref) {
-  final sharedPreferencesService = ref.watch(onboardingRepositoryProvider);
-  return OnboardingController(sharedPreferencesService);
-});
+    AutoDisposeAsyncNotifierProvider<OnboardingController, void>(
+        OnboardingController.new);
