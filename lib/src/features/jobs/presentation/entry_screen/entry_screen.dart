@@ -2,25 +2,26 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/date_time_picker.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_repository.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/models/entry.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/entry_screen/entry_screen_controller.dart';
+import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/format.dart';
-import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 
-class EntryPage extends ConsumerStatefulWidget {
-  const EntryPage({required this.jobId, this.entryId, this.entry});
+class EntryScreen extends ConsumerStatefulWidget {
+  const EntryScreen({required this.jobId, this.entryId, this.entry});
   final JobID jobId;
   final EntryID? entryId;
   final Entry? entry;
 
   @override
-  ConsumerState<EntryPage> createState() => _EntryPageState();
+  ConsumerState<EntryScreen> createState() => _EntryPageState();
 }
 
-class _EntryPageState extends ConsumerState<EntryPage> {
+class _EntryPageState extends ConsumerState<EntryScreen> {
   late DateTime _startDate;
   late TimeOfDay _startTime;
   late DateTime _endDate;
@@ -57,23 +58,20 @@ class _EntryPageState extends ConsumerState<EntryPage> {
   }
 
   Future<void> _setEntryAndDismiss() async {
-    try {
-      final currentUser = ref.read(authRepositoryProvider).currentUser!;
-      final database = ref.read(databaseProvider);
-      final entry = _entryFromState();
-      await database.setEntry(uid: currentUser.uid, entry: entry);
-      Navigator.of(context).pop();
-    } catch (e) {
-      unawaited(showExceptionAlertDialog(
-        context: context,
-        title: 'Operation failed',
-        exception: e,
-      ));
+    final entry = _entryFromState();
+    final success =
+        await ref.read(entryScreenControllerProvider.notifier).setEntry(entry);
+    if (success) {
+      context.pop();
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<AsyncValue>(
+      entryScreenControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.entry != null ? 'Edit Entry' : 'New Entry'),

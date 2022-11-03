@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/domain/app_user.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_data_source.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/models/entry.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_data_source.dart';
 
 String documentIdFromCurrentDate() {
   final iso = DateTime.now().toIso8601String();
@@ -42,14 +42,20 @@ class FirestoreRepository {
     await _dataSource.deleteData(path: FirestorePath.job(uid, job.id));
   }
 
-  Stream<Job> jobStream({required UserID uid, required JobID jobId}) =>
-      _dataSource.documentStream(
+  Stream<Job> watchJob({required UserID uid, required JobID jobId}) =>
+      _dataSource.watchDocument(
         path: FirestorePath.job(uid, jobId),
         builder: (data, documentId) => Job.fromMap(data, documentId),
       );
 
-  Stream<List<Job>> jobsStream({required UserID uid}) =>
-      _dataSource.collectionStream(
+  Stream<List<Job>> watchJobs({required UserID uid}) =>
+      _dataSource.watchCollection(
+        path: FirestorePath.jobs(uid),
+        builder: (data, documentId) => Job.fromMap(data, documentId),
+      );
+
+  Future<List<Job>> fetchJobs({required UserID uid}) =>
+      _dataSource.fetchCollection(
         path: FirestorePath.jobs(uid),
         builder: (data, documentId) => Job.fromMap(data, documentId),
       );
@@ -64,7 +70,7 @@ class FirestoreRepository {
       _dataSource.deleteData(path: FirestorePath.entry(uid, entry.id));
 
   Stream<List<Entry>> entriesStream({required UserID uid, Job? job}) =>
-      _dataSource.collectionStream<Entry>(
+      _dataSource.watchCollection<Entry>(
         path: FirestorePath.entries(uid),
         queryBuilder: job != null
             ? (query) => query.where('jobId', isEqualTo: job.id)
@@ -84,7 +90,7 @@ final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
     throw AssertionError('User can\'t be null');
   }
   final database = ref.watch(databaseProvider);
-  return database.jobsStream(uid: user.uid);
+  return database.watchJobs(uid: user.uid);
 });
 
 final jobStreamProvider =
@@ -94,7 +100,7 @@ final jobStreamProvider =
     throw AssertionError('User can\'t be null');
   }
   final database = ref.watch(databaseProvider);
-  return database.jobStream(uid: user.uid, jobId: jobId);
+  return database.watchJob(uid: user.uid, jobId: jobId);
 });
 
 final jobEntriesStreamProvider =

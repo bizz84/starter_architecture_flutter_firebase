@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
+import 'package:go_router/go_router.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen/edit_job_screen_controller.dart';
+import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 
 class EditJobScreen extends ConsumerStatefulWidget {
   const EditJobScreen({super.key, this.jobId, this.job});
@@ -42,41 +42,25 @@ class _EditJobPageState extends ConsumerState<EditJobScreen> {
 
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
-      try {
-        final currentUser = ref.read(authRepositoryProvider).currentUser!;
-        final database = ref.read(databaseProvider);
-        final jobs = await database.jobsStream(uid: currentUser.uid).first;
-        final allLowerCaseNames =
-            jobs.map((job) => job.name.toLowerCase()).toList();
-        if (widget.job != null) {
-          allLowerCaseNames.remove(widget.job!.name.toLowerCase());
-        }
-        if (allLowerCaseNames.contains(_name?.toLowerCase())) {
-          await showAlertDialog(
-            context: context,
-            title: 'Name already used',
-            content: 'Please choose a different job name',
-            defaultActionText: 'OK',
-          );
-        } else {
-          final id = widget.job?.id ?? documentIdFromCurrentDate();
-          final job =
-              Job(id: id, name: _name ?? '', ratePerHour: _ratePerHour ?? 0);
-          await database.setJob(uid: currentUser.uid, job: job);
-          Navigator.of(context).pop();
-        }
-      } catch (e) {
-        unawaited(showExceptionAlertDialog(
-          context: context,
-          title: 'Operation failed',
-          exception: e,
-        ));
+      final success =
+          await ref.read(editJobScreenControllerProvider.notifier).submit(
+                job: widget.job,
+                name: _name ?? '',
+                ratePerHour: _ratePerHour ?? 0,
+              );
+      if (success) {
+        context.pop();
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<AsyncValue>(
+      editJobScreenControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
+    final state = ref.watch(editJobScreenControllerProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.job == null ? 'New Job' : 'Edit Job'),
@@ -86,7 +70,7 @@ class _EditJobPageState extends ConsumerState<EditJobScreen> {
               'Save',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
-            onPressed: () => _submit(),
+            onPressed: state.isLoading ? null : _submit,
           ),
         ],
       ),

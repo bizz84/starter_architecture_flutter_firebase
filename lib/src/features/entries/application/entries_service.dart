@@ -1,22 +1,25 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/domain/app_user.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/entries/daily_jobs_details.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/entries/entries_list_tile.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/entries/entry_job.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/data/firestore_repository.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/model/daily_jobs_details.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/model/entries_list_tile_model.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/model/entry_job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/format.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/models/entry.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/models/job.dart';
 
-class EntriesViewModel {
-  EntriesViewModel({required this.database});
+// TODO: Clean up this code a bit more
+class EntriesService {
+  EntriesService({required this.database});
   final FirestoreRepository database;
 
   /// combine List<Job>, List<Entry> into List<EntryJob>
   Stream<List<EntryJob>> _allEntriesStream(UserID uid) =>
       CombineLatestStream.combine2(
         database.entriesStream(uid: uid),
-        database.jobsStream(uid: uid),
+        database.watchJobs(uid: uid),
         _entriesJobsCombiner,
       );
 
@@ -71,3 +74,19 @@ class EntriesViewModel {
     ];
   }
 }
+
+final entriesServiceProvider = Provider<EntriesService>((ref) {
+  return EntriesService(database: ref.watch(databaseProvider));
+});
+
+final entriesTileModelStreamProvider =
+    StreamProvider.autoDispose<List<EntriesListTileModel>>(
+  (ref) {
+    final user = ref.watch(authStateChangesProvider).value;
+    if (user == null) {
+      throw AssertionError('User can\'t be null when fetching entries');
+    }
+    final entriesService = ref.watch(entriesServiceProvider);
+    return entriesService.entriesTileModelStream(user.uid);
+  },
+);

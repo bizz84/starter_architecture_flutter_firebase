@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/models/entry.dart';
 
-class JobsScreenController extends AutoDisposeAsyncNotifier<void> {
+class JobsEntriesListController extends AutoDisposeAsyncNotifier<void> {
   @override
   FutureOr<void> build() {
     // ok to leave this empty if the return type is FutureOr<void>
   }
 
-  Future<void> deleteJob(Job job) async {
+  Future<void> deleteEntry(Entry entry) async {
     final currentUser = ref.read(authRepositoryProvider).currentUser;
     if (currentUser == null) {
       throw AssertionError('User can\'t be null');
@@ -19,10 +19,10 @@ class JobsScreenController extends AutoDisposeAsyncNotifier<void> {
     final database = ref.read(databaseProvider);
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-        () => database.deleteJob(uid: currentUser.uid, job: job));
+        () => database.deleteEntry(uid: currentUser.uid, entry: entry));
   }
 }
 
-final jobsScreenControllerProvider =
-    AutoDisposeAsyncNotifierProvider<JobsScreenController, void>(
-        JobsScreenController.new);
+final jobsEntriesListControllerProvider =
+    AutoDisposeAsyncNotifierProvider<JobsEntriesListController, void>(
+        JobsEntriesListController.new);

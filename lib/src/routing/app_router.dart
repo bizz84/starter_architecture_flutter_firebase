@@ -5,13 +5,13 @@ import 'package:starter_architecture_flutter_firebase/src/features/authenticatio
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/email_password_sign_in_form_type.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/email_password_sign_in_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/entries/entries_page.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/models/entry.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/job_entries/entry_page.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/job_entries/job_entries_page.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/presentation/entries_screen.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/models/entry.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/entry_screen/entry_screen.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/job_entries_screen/job_entries_screen.dart';
 import 'package:go_router/go_router.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen/edit_job_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/jobs_screen/jobs_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/data/onboarding_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/presentation/onboarding_screen.dart';
@@ -135,7 +135,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   final job = extra is Job ? extra : null;
                   return MaterialPage(
                     key: state.pageKey,
-                    child: JobEntriesPage(
+                    child: JobEntriesScreen(
                       jobId: id,
                       job: job,
                     ),
@@ -151,7 +151,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       return MaterialPage(
                         key: state.pageKey,
                         fullscreenDialog: true,
-                        child: EntryPage(
+                        child: EntryScreen(
                           jobId: jobId,
                         ),
                       );
@@ -166,7 +166,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       final entry = state.extra as Entry?;
                       return MaterialPage(
                         key: state.pageKey,
-                        child: EntryPage(
+                        child: EntryScreen(
                           jobId: jobId,
                           entryId: entryId,
                           entry: entry,
@@ -196,7 +196,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             name: AppRoute.entries.name,
             pageBuilder: (context, state) => NoTransitionPage(
               key: state.pageKey,
-              child: EntriesPage(),
+              child: EntriesScreen(),
             ),
           ),
           GoRoute(

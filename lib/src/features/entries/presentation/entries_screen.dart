@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/model/entries_list_tile_model.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/application/entries_service.dart';
+import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
 
-class EntriesListTileModel {
-  const EntriesListTileModel({
-    required this.leadingText,
-    required this.trailingText,
-    this.middleText,
-    this.isHeader = false,
-  });
-  final String leadingText;
-  final String trailingText;
-  final String? middleText;
-  final bool isHeader;
+class EntriesScreen extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(Strings.entries),
+      ),
+      body: Consumer(
+        builder: (context, ref, child) {
+          final entriesTileModelStream =
+              ref.watch(entriesTileModelStreamProvider);
+          return ListItemsBuilder<EntriesListTileModel>(
+            data: entriesTileModelStream,
+            itemBuilder: (context, model) => EntriesListTile(model: model),
+          );
+        },
+      ),
+    );
+  }
 }
 
 class EntriesListTile extends StatelessWidget {

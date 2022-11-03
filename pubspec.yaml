@@ -15,8 +15,9 @@ dependencies:
   firebase_core:
   flutter:
     sdk: flutter
-  flutter_riverpod: ^2.1.0
+  flutter_riverpod: ^2.1.1
   flutter_svg:
+  freezed_annotation:
   go_router: ^5.1.1
   intl:
   logger:
@@ -27,6 +28,7 @@ dev_dependencies:
   build_runner:
   flutter_test:
     sdk: flutter
+  freezed:
   mocktail:
   random_string:
 

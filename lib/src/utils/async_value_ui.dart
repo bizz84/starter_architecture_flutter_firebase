@@ -5,6 +5,7 @@ import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.da
 
 extension AsyncValueUI on AsyncValue {
   void showAlertDialogOnError(BuildContext context) {
+    debugPrint('isRefreshing: $isRefreshing, hasError: $hasError');
     if (!isRefreshing && hasError) {
       final message = error.toString();
       showExceptionAlertDialog(
