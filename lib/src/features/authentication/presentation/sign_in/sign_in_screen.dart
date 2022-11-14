@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:starter_architecture_flutter_firebase/src/common_widgets/primary_button.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/sign_in/sign_in_button.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/sign_in/sign_in_screen_controller.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
@@ -50,14 +50,12 @@ class SignInScreen extends ConsumerWidget {
                         ),
                 ),
                 const SizedBox(height: 32.0),
-                SignInButton(
+                PrimaryButton(
                   key: emailPasswordButtonKey,
                   text: Strings.signInWithEmailPassword,
                   onPressed: state.isLoading
                       ? null
                       : () => context.goNamed(AppRoute.emailPassword.name),
-                  textColor: Colors.white,
-                  color: Theme.of(context).primaryColor,
                 ),
                 const SizedBox(height: 8),
                 const Text(
@@ -66,11 +64,9 @@ class SignInScreen extends ConsumerWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),
-                SignInButton(
+                PrimaryButton(
                   key: anonymousButtonKey,
                   text: Strings.goAnonymous,
-                  color: Theme.of(context).primaryColor,
-                  textColor: Colors.white,
                   onPressed: state.isLoading
                       ? null
                       : () => ref
