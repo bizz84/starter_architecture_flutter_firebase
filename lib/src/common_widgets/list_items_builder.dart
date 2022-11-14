@@ -16,26 +16,23 @@ class ListItemsBuilder<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return data.when(
-      data: (items) =>
-          items.isNotEmpty ? _buildList(items) : const EmptyContent(),
+      data: (items) => items.isNotEmpty
+          ? ListView.separated(
+              itemCount: items.length + 2,
+              separatorBuilder: (context, index) => const Divider(height: 0.5),
+              itemBuilder: (context, index) {
+                if (index == 0 || index == items.length + 1) {
+                  return SizedBox.shrink();
+                }
+                return itemBuilder(context, items[index - 1]);
+              },
+            )
+          : const EmptyContent(),
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (_, __) => const EmptyContent(
         title: 'Something went wrong',
         message: 'Can\'t load items right now',
       ),
-    );
-  }
-
-  Widget _buildList(List<T> items) {
-    return ListView.separated(
-      itemCount: items.length + 2,
-      separatorBuilder: (context, index) => const Divider(height: 0.5),
-      itemBuilder: (context, index) {
-        if (index == 0 || index == items.length + 1) {
-          return SizedBox.shrink(); // zero height: not visible
-        }
-        return itemBuilder(context, items[index - 1]);
-      },
     );
   }
 }
