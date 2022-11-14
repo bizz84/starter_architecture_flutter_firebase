@@ -7,35 +7,27 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/presenta
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 
 class JobEntriesScreen extends ConsumerWidget {
-  const JobEntriesScreen({required this.jobId, this.job});
+  const JobEntriesScreen({required this.jobId});
   final JobID jobId;
-  final Job? job;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (job != null) {
-      // show contents directly
-      return JobEntriesPageContents(job: job!);
-    } else {
-      // else watch data and map to the UI
-      final jobAsync = ref.watch(jobStreamProvider(jobId));
-      // TODO: Test this on web
-      return jobAsync.when(
-        error: (e, st) => Scaffold(
-          appBar: AppBar(
-            title: Text('Error'),
-          ),
-          body: Center(child: Text(e.toString())),
+    final jobAsync = ref.watch(jobStreamProvider(jobId));
+    return jobAsync.when(
+      error: (e, st) => Scaffold(
+        appBar: AppBar(
+          title: Text('Error'),
         ),
-        loading: () => Scaffold(
-          appBar: AppBar(
-            title: Text('Loading'),
-          ),
-          body: Center(child: CircularProgressIndicator()),
+        body: Center(child: Text(e.toString())),
+      ),
+      loading: () => Scaffold(
+        appBar: AppBar(
+          title: Text('Loading'),
         ),
-        data: (job) => JobEntriesPageContents(job: job),
-      );
-    }
+        body: Center(child: CircularProgressIndicator()),
+      ),
+      data: (job) => JobEntriesPageContents(job: job),
+    );
   }
 }
 

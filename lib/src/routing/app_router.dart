@@ -129,16 +129,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 name: AppRoute.job.name,
                 pageBuilder: (context, state) {
                   final id = state.params['id']!;
-                  final extra = state.extra;
-                  // extra could be a Job or an Entry (see entries/:eid route below)
-                  // so we only use it if it's a Job
-                  final job = extra is Job ? extra : null;
                   return MaterialPage(
                     key: state.pageKey,
-                    child: JobEntriesScreen(
-                      jobId: id,
-                      job: job,
-                    ),
+                    child: JobEntriesScreen(jobId: id),
                   );
                 },
                 routes: [
