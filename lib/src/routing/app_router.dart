@@ -55,7 +55,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       }
       final isLoggedIn = authRepository.currentUser != null;
       if (isLoggedIn) {
-        if (state.subloc == '/signIn') {
+        if (state.subloc.startsWith('/signIn')) {
           return '/jobs';
         }
       } else {
