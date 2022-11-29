@@ -32,7 +32,7 @@ class FirestoreRepository {
 
   Future<void> deleteJob({required UserID uid, required Job job}) async {
     // delete where entry.jobId == job.jobId
-    final allEntries = await entriesStream(uid: uid, job: job).first;
+    final allEntries = await watchEntries(uid: uid, job: job).first;
     for (final entry in allEntries) {
       if (entry.jobId == job.id) {
         await deleteEntry(uid: uid, entry: entry);
@@ -69,7 +69,7 @@ class FirestoreRepository {
   Future<void> deleteEntry({required UserID uid, required Entry entry}) =>
       _dataSource.deleteData(path: FirestorePath.entry(uid, entry.id));
 
-  Stream<List<Entry>> entriesStream({required UserID uid, Job? job}) =>
+  Stream<List<Entry>> watchEntries({required UserID uid, Job? job}) =>
       _dataSource.watchCollection<Entry>(
         path: FirestorePath.entries(uid),
         queryBuilder: job != null
@@ -110,5 +110,5 @@ final jobEntriesStreamProvider =
     throw AssertionError('User can\'t be null when fetching jobs');
   }
   final database = ref.watch(databaseProvider);
-  return database.entriesStream(uid: user.uid, job: job);
+  return database.watchEntries(uid: user.uid, job: job);
 });

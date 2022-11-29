@@ -111,7 +111,7 @@ SPEC CHECKSUMS:
   FirebaseAuth: 19a85b8a42e7c1104a2ffa6987c748daa79a5e64
   FirebaseCore: 55e7ae35991ccca4db03ff8d8df6ed5f17a3e4c7
   FirebaseCoreInternal: 96d75228e10fd369564da51bd898414eb0f54df5
-  FirebaseFirestore: 741ba791488b46b4b84425fe3981e51598aabce7
+  FirebaseFirestore: c55b29bb38afeed2fe73c241e55c7f8230ba7abc
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
