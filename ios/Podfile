@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -28,18 +28,32 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 flutter_ios_podfile_setup
 
 target 'Runner' do
+  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '10.1.0'
   use_frameworks!
   use_modular_headers!
-
-  # Use this to speed things up with precompiled binary.
-  # More info here: https://github.com/invertase/firestore-ios-sdk-frameworks
-  #pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '7.3.0'
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
 post_install do |installer|
+  # Ensure pods also use the minimum deployment target set above
+  # https://stackoverflow.com/a/64385584/436422
+  puts 'Determining pod project minimum deployment target'
+
+  pods_project = installer.pods_project
+  deployment_target_key = 'IPHONEOS_DEPLOYMENT_TARGET'
+  deployment_targets = pods_project.build_configurations.map{ |config| config.build_settings[deployment_target_key] }
+  minimum_deployment_target = deployment_targets.min_by{ |version| Gem::Version.new(version) }
+
+  puts 'Minimal deployment target is ' + minimum_deployment_target
+  puts 'Setting each pod deployment target to ' + minimum_deployment_target
+
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    target.build_configurations.each do |config|
+      #config.build_settings['ENABLE_BITCODE'] = 'NO'
+      config.build_settings[deployment_target_key] = minimum_deployment_target
+      #config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+    end
   end
 end
