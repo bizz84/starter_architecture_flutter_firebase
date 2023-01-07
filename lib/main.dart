@@ -33,7 +33,7 @@ Future<void> main() async {
   await container.read(authStateChangesProvider.future);
   runApp(UncontrolledProviderScope(
     container: container,
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
