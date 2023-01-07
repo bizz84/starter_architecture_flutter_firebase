@@ -58,52 +58,37 @@ See the [pubspec.yaml](pubspec.yaml) file for the complete list.
 
 ## Running the project with Firebase
 
-To use this project with Firebase, some configuration steps are required.
+To use this project with Firebase, follow these steps:
 
-- Create a new project with the Firebase console.
-- Add iOS and Android apps in the Firebase project settings.
+- Create a new project with the Firebase console
+- Enable Firebase Authentication, along with the Email/Password Authentication Sign-in provider in the Firebase Console (Authentication > Sign-in method > Email/Password > Edit > Enable > Save)
+- Enable Cloud Firestore
+
+Then, follow one of the two approaches below. 👇
+
+### 1. Using the CLI
+
+Make sure you have the Firebase CLI and [FlutterFire CLI](https://pub.dev/packages/flutterfire_cli) installed.
+
+Then run this on the terminal from the root of this project:
+
+- Run `firebase login` so you have access to the Firebase project you have created
+- Run `flutterfire configure` and follow all the steps
+
+For more info, follow this guide:
+
+- [How to add Firebase to a Flutter app with FlutterFire CLI](https://codewithandrea.com/articles/flutter-firebase-flutterfire-cli/)
+
+### 2. Manual way (not recommended)
+
+If you don't want to use FlutterFire CLI, fo this instead
+
+- Register separate iOS, Android, and web apps in the Firebase project settings.
 - On Android, use `com.example.starter_architecture_flutter_firebase` as the package name.
 - then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_android_app) `google-services.json` into `android/app`.
 - On iOS, use `com.example.starterArchitectureFlutterFirebase` as the bundle ID.
 - then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_ios_app) `GoogleService-Info.plist` into `iOS/Runner`, and add it to the Runner target in Xcode.
-- finally, enable the Email/Password Authentication Sign-in provider in the Firebase Console (Authentication > Sign-in method > Email/Password > Edit > Enable > Save)
 
-To speed up the process, you can use the [FlutterFire CLI](https://pub.dev/packages/flutterfire_cli) as explained here:
-
-- [How to add Firebase to a Flutter app with FlutterFire CLI](https://codewithandrea.com/articles/flutter-firebase-flutterfire-cli/)
-
-## Running on Flutter Web
-
-This project now runs on Flutter web.
-
-To test this, add a web app in the Firebase project settings, and export the generated `firebaseConfig` variable inside a `./firebase-config.js` file in your project (this file is included in `.gitignore`). Example:
-
-```js
-export var firebaseConfig = {
-    apiKey: "<your-api-key>",
-    authDomain: "<your-auth-domain>",
-    databaseURL: "<your-database-url>",
-    projectId: "<your-project-id>",
-    storageBucket: "<your-storage-bucket>",
-    messagingSenderId: "<your-messaging-sender-id>",
-    appId: "<your-app-id>",
-    measurementId: "<your-measurement-id>"
-};
-```
-
-This is then imported in the `index.html` file:
-
-```html
-  <script src="./firebase-config.js"></script>
-
-  <!-- https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file -->
-  <script type="module">
-    // Your web app's Firebase configuration
-    import { firebaseConfig } from './firebase-config.js';
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-  </script>
-```
+That's it. Have fun!
 
 ## [License: MIT](LICENSE.md)
