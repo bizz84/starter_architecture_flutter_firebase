@@ -22,7 +22,7 @@ class ListItemsBuilder<T> extends StatelessWidget {
               separatorBuilder: (context, index) => const Divider(height: 0.5),
               itemBuilder: (context, index) {
                 if (index == 0 || index == items.length + 1) {
-                  return SizedBox.shrink();
+                  return const SizedBox.shrink();
                 }
                 return itemBuilder(context, items[index - 1]);
               },

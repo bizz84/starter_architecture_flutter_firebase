@@ -9,6 +9,8 @@ import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.da
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 
 class AccountScreen extends ConsumerWidget {
+  const AccountScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<AsyncValue>(

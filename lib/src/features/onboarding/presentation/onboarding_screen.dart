@@ -8,6 +8,8 @@ import 'package:starter_architecture_flutter_firebase/src/localization/string_ha
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 
 class OnboardingScreen extends ConsumerWidget {
+  const OnboardingScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(onboardingControllerProvider);
@@ -37,6 +39,7 @@ class OnboardingScreen extends ConsumerWidget {
                       await ref
                           .read(onboardingControllerProvider.notifier)
                           .completeOnboarding();
+                      // TODO: Check if mounted
                       // go to sign in page after completing onboarding
                       context.goNamed(AppRoute.signIn.name);
                     },

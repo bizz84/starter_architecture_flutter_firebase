@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class SegmentedControl<T extends Object> extends StatelessWidget {
   const SegmentedControl({
+    super.key,
     required this.header,
     required this.value,
     required this.children,

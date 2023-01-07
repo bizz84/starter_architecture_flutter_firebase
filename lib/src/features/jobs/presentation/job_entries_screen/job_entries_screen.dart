@@ -8,7 +8,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/presenta
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 
 class JobEntriesScreen extends ConsumerWidget {
-  const JobEntriesScreen({required this.jobId});
+  const JobEntriesScreen({super.key, required this.jobId});
   final JobID jobId;
 
   @override

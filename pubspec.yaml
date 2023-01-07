@@ -31,6 +31,7 @@ dev_dependencies:
   freezed: ^2.2.0
   mocktail: ^0.3.0
   random_string:
+  flutter_lints: ^2.0.0
 
 # https://stackoverflow.com/a/74234079/436422
 #dependency_overrides:

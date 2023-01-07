@@ -11,7 +11,7 @@ import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dar
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 
 class JobEntriesList extends ConsumerWidget {
-  const JobEntriesList({required this.job});
+  const JobEntriesList({super.key, required this.job});
   final Job job;
 
   @override

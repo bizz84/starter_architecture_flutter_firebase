@@ -6,6 +6,8 @@ import 'package:starter_architecture_flutter_firebase/src/features/entries/appli
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
 
 class EntriesScreen extends ConsumerWidget {
+  const EntriesScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -27,7 +29,7 @@ class EntriesScreen extends ConsumerWidget {
 }
 
 class EntriesListTile extends StatelessWidget {
-  const EntriesListTile({required this.model});
+  const EntriesListTile({super.key, required this.model});
   final EntriesListTileModel model;
 
   @override

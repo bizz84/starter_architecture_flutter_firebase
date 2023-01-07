@@ -74,7 +74,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: AppRoute.onboarding.name,
         pageBuilder: (context, state) => NoTransitionPage(
           key: state.pageKey,
-          child: OnboardingScreen(),
+          child: const OnboardingScreen(),
         ),
       ),
       GoRoute(
@@ -91,7 +91,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             pageBuilder: (context, state) => MaterialPage(
               key: state.pageKey,
               fullscreenDialog: true,
-              child: EmailPasswordSignInScreen(
+              child: const EmailPasswordSignInScreen(
                 formType: EmailPasswordSignInFormType.signIn,
               ),
             ),
@@ -109,7 +109,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             name: AppRoute.jobs.name,
             pageBuilder: (context, state) => NoTransitionPage(
               key: state.pageKey,
-              child: JobsScreen(),
+              child: const JobsScreen(),
             ),
             routes: [
               GoRoute(
@@ -120,7 +120,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   return MaterialPage(
                     key: state.pageKey,
                     fullscreenDialog: true,
-                    child: EditJobScreen(),
+                    child: const EditJobScreen(),
                   );
                 },
               ),
@@ -189,7 +189,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             name: AppRoute.entries.name,
             pageBuilder: (context, state) => NoTransitionPage(
               key: state.pageKey,
-              child: EntriesScreen(),
+              child: const EntriesScreen(),
             ),
           ),
           GoRoute(
@@ -197,7 +197,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             name: AppRoute.account.name,
             pageBuilder: (context, state) => NoTransitionPage(
               key: state.pageKey,
-              child: AccountScreen(),
+              child: const AccountScreen(),
             ),
           ),
         ],

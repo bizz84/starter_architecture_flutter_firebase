@@ -4,6 +4,6 @@ class JobSubmitException {
 
   @override
   String toString() {
-    return '${title}. ${description}.';
+    return '$title. $description.';
   }
 }

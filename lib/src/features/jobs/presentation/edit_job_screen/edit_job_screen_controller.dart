@@ -19,7 +19,7 @@ class EditJobScreenController extends AutoDisposeAsyncNotifier<void> {
       throw AssertionError('User can\'t be null');
     }
     // set loading state
-    state = AsyncLoading().copyWithPrevious(state);
+    state = const AsyncLoading().copyWithPrevious(state);
     // check if name is already in use
     final database = ref.read(databaseProvider);
     final jobs = await database.fetchJobs(uid: currentUser.uid);

@@ -89,5 +89,5 @@ class FirestoreDataSource {
 }
 
 final firestoreDataSourceProvider = Provider<FirestoreDataSource>((ref) {
-  return FirestoreDataSource._();
+  return const FirestoreDataSource._();
 });

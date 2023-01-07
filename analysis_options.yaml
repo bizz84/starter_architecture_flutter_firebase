@@ -9,92 +9,21 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
-analyzer:
-  strong-mode:
-    implicit-casts: false
-    implicit-dynamic: false
-  errors:
-    # Otherwise cause the import of all_lint_rules to warn because of some rules conflicts.
-    # The conflicts are fixed in this file instead, so we can safely ignore the warning.
-    included_file_warning: ignore
-    # treat missing required parameters as a warning (not a hint)
-    missing_required_param: warning
-    # treat missing returns as a warning (not a hint)
-    missing_return: warning
-    # allow having TODOs in the code
-    todo: ignore
-    # Ignore analyzer hints for updating pubspecs when using Future or
-    # Stream and not importing dart:async
-    # Please see https://github.com/flutter/flutter/pull/24528 for details.
-    sdk_version_async_exported_from_core: ignore
-    # Custom errors to be ignored
-    implicit_dynamic_type: ignore
-    #invalid_assignment: ignore
-    implicit_dynamic_map_literal: ignore
-    always_put_control_body_on_new_line: ignore
-  exclude:
-    - "bin/cache/**"
-    # the following two are relative to the stocks example and the flutter package respectively
-    # see https://github.com/dart-lang/sdk/issues/28463
-    - "lib/i18n/messages_*.dart"
-    - "lib/src/http/**"
-
 linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at
+  # https://dart-lang.github.io/linter/lints/index.html.
+  #
+  # Instead of disabling a lint rule for the entire project in the
+  # section below, it can also be suppressed for a single line of code
+  # or a specific dart file by using the `// ignore: name_of_lint` and
+  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  # producing the lint.
   rules:
-    # navigator.pop inside a closure requires this
-    unnecessary_lambdas: false
-    # It's ok
-    cascade_invocations: false
-    # Ignored in tests
-    missing_whitespace_between_adjacent_strings: false
-    # In the future
-    type_annotate_public_apis: false
-    # It's ok
-    avoid_print: false
-    # Not including author name in small projects
-    flutter_style_todos: false
-    # Sometimes used
-    avoid_as: false
-    # Not sure how to address this
-    use_raw_strings: false
-    # Need to fix this
-    comment_references: false
-    # Ok to use a class
-    one_member_abstracts: false
-    # Need to fix this
-    avoid_annotating_with_dynamic: false
-    # Disabled for type inference
-    always_specify_types: false
-    # non-required Key often precedes required named parameters
-    always_put_required_named_parameters_first: false
-    # Catch all often used in project
-    avoid_catches_without_on_clauses: false
-    # Ok to be explicit
-    avoid_redundant_argument_values: false
-    # Still some instances of this in the project
-    lines_longer_than_80_chars: false
-    # Often used in local variables
-    unnecessary_final: false
-    # Not always done with factory constructors
-    sort_constructors_first: false
-    # Ok to be explicit
-    omit_local_variable_types: false
-    # For build methods
-    prefer_expression_function_bodies: false
-    # I use double out of habit
-    prefer_int_literals: false
-    # sometimes using `with` syntax
-    prefer_mixin: false
-    # Codebase uses mostly single quotes
-    avoid_escaping_inner_quotes: false
-    prefer_double_quotes: false
-    # Need to fix this sometime (easier to copy paste files across projects)
-    prefer_relative_imports: false
-    # A lot of documentation missing
-    public_member_api_docs: false
-    # Not enforced
-    sort_child_properties_last: false
-    # Many constructors not declared for widgets that take no arguments
-    use_key_in_widget_constructors: false
-    # Disable: DO reference all public properties in debug method implementations.
-    diagnostic_describe_all_properties: false
+    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options

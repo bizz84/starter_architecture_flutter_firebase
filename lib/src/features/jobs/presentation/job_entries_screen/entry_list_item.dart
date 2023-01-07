@@ -5,6 +5,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/j
 
 class EntryListItem extends StatelessWidget {
   const EntryListItem({
+    super.key,
     required this.entry,
     required this.job,
     this.onTap,
@@ -77,6 +78,7 @@ class EntryListItem extends StatelessWidget {
 
 class DismissibleEntryListItem extends StatelessWidget {
   const DismissibleEntryListItem({
+    super.key,
     required this.dismissibleKey,
     required this.entry,
     required this.job,

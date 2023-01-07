@@ -11,7 +11,7 @@ class OnboardingController extends AutoDisposeAsyncNotifier<void> {
 
   Future<void> completeOnboarding() async {
     final onboardingRepository = ref.watch(onboardingRepositoryProvider);
-    state = AsyncLoading();
+    state = const AsyncLoading();
     state = await AsyncValue.guard(onboardingRepository.setOnboardingComplete);
   }
 }

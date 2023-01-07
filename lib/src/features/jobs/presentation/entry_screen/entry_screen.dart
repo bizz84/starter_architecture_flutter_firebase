@@ -12,7 +12,7 @@ import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.d
 import 'package:starter_architecture_flutter_firebase/src/utils/format.dart';
 
 class EntryScreen extends ConsumerStatefulWidget {
-  const EntryScreen({required this.jobId, this.entryId, this.entry});
+  const EntryScreen({super.key, required this.jobId, this.entryId, this.entry});
   final JobID jobId;
   final EntryID? entryId;
   final Entry? entry;
@@ -61,7 +61,7 @@ class _EntryPageState extends ConsumerState<EntryScreen> {
     final entry = _entryFromState();
     final success =
         await ref.read(entryScreenControllerProvider.notifier).setEntry(entry);
-    if (success) {
+    if (success && mounted) {
       context.pop();
     }
   }

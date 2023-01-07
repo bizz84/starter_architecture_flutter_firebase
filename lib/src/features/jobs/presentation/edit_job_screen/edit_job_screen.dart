@@ -48,7 +48,7 @@ class _EditJobPageState extends ConsumerState<EditJobScreen> {
                 name: _name ?? '',
                 ratePerHour: _ratePerHour ?? 0,
               );
-      if (success) {
+      if (success && mounted) {
         context.pop();
       }
     }
@@ -66,11 +66,11 @@ class _EditJobPageState extends ConsumerState<EditJobScreen> {
         title: Text(widget.job == null ? 'New Job' : 'Edit Job'),
         actions: <Widget>[
           TextButton(
+            onPressed: state.isLoading ? null : _submit,
             child: const Text(
               'Save',
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
-            onPressed: state.isLoading ? null : _submit,
           ),
         ],
       ),

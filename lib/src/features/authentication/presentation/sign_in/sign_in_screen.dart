@@ -25,7 +25,7 @@ class SignInScreen extends ConsumerWidget {
     final state = ref.watch(signInScreenControllerProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign In'),
+        title: const Text('Sign In'),
       ),
       body: Center(
         child: LayoutBuilder(builder: (context, constraints) {
@@ -41,8 +41,8 @@ class SignInScreen extends ConsumerWidget {
                 SizedBox(
                   height: 50.0,
                   child: state.isLoading
-                      ? Center(child: CircularProgressIndicator())
-                      : Text(
+                      ? const Center(child: CircularProgressIndicator())
+                      : const Text(
                           Strings.signIn,
                           textAlign: TextAlign.center,
                           style: TextStyle(

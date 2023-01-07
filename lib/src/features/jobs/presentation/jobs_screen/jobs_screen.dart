@@ -10,6 +10,8 @@ import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dar
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 
 class JobsScreen extends StatelessWidget {
+  const JobsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
