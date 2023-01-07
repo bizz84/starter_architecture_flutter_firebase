@@ -19,7 +19,6 @@ dependencies:
   flutter_svg: ^1.1.6
   go_router: 5.1.1
   intl: ^0.17.0
-  logger: ^1.1.0
   rxdart: ^0.27.6
   shared_preferences: ^2.0.15
 
