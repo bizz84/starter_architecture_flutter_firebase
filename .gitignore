@@ -85,8 +85,6 @@ unlinked_spec.ds
 **/ios/Flutter/flutter_export_environment.sh
 **/ios/Flutter/.last_build_id
 
-# web
-web/firebase-config.js
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
@@ -102,3 +100,6 @@ ios/firebase_app_id_file.json
 macos/Runner/GoogleService-Info.plist
 macos/firebase_app_id_file.json
 android/app/google-services.json
+
+# Firebase hosting
+.firebase/
