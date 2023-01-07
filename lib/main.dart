@@ -9,12 +9,16 @@ import 'package:starter_architecture_flutter_firebase/src/app.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/localization/string_hardcoded.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/data/onboarding_repository.dart';
+// ignore:depend_on_referenced_packages
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // turn off the # in the URLs on the web
+  usePathUrlStrategy();
   final sharedPreferences = await SharedPreferences.getInstance();
   // * Register error handlers. For more info, see:
   // * https://docs.flutter.dev/testing/errors
