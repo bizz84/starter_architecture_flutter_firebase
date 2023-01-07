@@ -2,7 +2,7 @@
 
 A time tracking application built with Flutter & Firebase: 
 
-![](media/time-tracker-screenshots.png)
+![](/.github/images/time-tracker-screenshots.png)
 
 This is intended as a **reference app** based on my [Riverpod Architecture](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/).
 
@@ -16,7 +16,18 @@ This is intended as a **reference app** based on my [Riverpod Architecture](http
 - **Entries**: for each job, user can view, create, edit, and delete the corresponding entries (an entry is a task with a start and end time, with an optional comment)
 - **A report page** that shows a daily breakdown of all jobs, hours worked and pay, along with the totals.
 
-All the data is persisted with Firestore and is kept in sync across multiple devices. 
+All the data is persisted with Firestore and is kept in sync across multiple devices.
+
+## Roadmap
+
+- [ ] Add missing tests
+- [ ] Stateful Nested Navigation with GoRouter (once [this PR](https://github.com/flutter/packages/pull/2650) is merged)
+- [ ] Use controllers / notifiers consistently across the app (some code still needs to be updated)
+- [ ] Add localization
+- [ ] Use the new Firebase UI packages where useful
+- [ ] Responsive UI
+
+> This is a tentative roadmap. There is no ETA for any of the points above. This is a low priority project and I don't have much time to maintain it.
 
 ## Relevant Articles
 
@@ -57,9 +68,9 @@ To use this project with Firebase, some configuration steps are required.
 - then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_ios_app) `GoogleService-Info.plist` into `iOS/Runner`, and add it to the Runner target in Xcode.
 - finally, enable the Email/Password Authentication Sign-in provider in the Firebase Console (Authentication > Sign-in method > Email/Password > Edit > Enable > Save)
 
-See this page for full instructions:
+To speed up the process, you can use the [FlutterFire CLI](https://pub.dev/packages/flutterfire_cli) as explained here:
 
-- [FlutterFire Overview](https://firebase.flutter.dev/docs/overview) 
+- [How to add Firebase to a Flutter app with FlutterFire CLI](https://codewithandrea.com/articles/flutter-firebase-flutterfire-cli/)
 
 ## Running on Flutter Web
 
