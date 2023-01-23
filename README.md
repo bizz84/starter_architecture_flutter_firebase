@@ -87,7 +87,7 @@ For more info, follow this guide:
 
 ### 2. Manual way (not recommended)
 
-If you don't want to use FlutterFire CLI, fo this instead
+If you don't want to use FlutterFire CLI, follow these steps instead:
 
 - Register separate iOS, Android, and web apps in the Firebase project settings.
 - On Android, use `com.example.starter_architecture_flutter_firebase` as the package name.
