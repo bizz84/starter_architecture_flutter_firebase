@@ -4,44 +4,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/domain/app_user.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/data/entries_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
-
-// String documentIdFromCurrentDate() {
-//   final iso = DateTime.now().toIso8601String();
-//   return iso.replaceAll(':', '-').replaceAll('.', '-');
-// }
-
-class FirestorePath {
-  static String job(String uid, String jobId) => 'users/$uid/jobs/$jobId';
-  static String jobs(String uid) => 'users/$uid/jobs';
-  static String entry(String uid, String entryId) =>
-      'users/$uid/entries/$entryId';
-  static String entries(String uid) => 'users/$uid/entries';
-}
 
 class JobsRepository {
   const JobsRepository(this._firestore);
   final FirebaseFirestore _firestore;
+
+  static String jobPath(String uid, String jobId) => 'users/$uid/jobs/$jobId';
+  static String jobsPath(String uid) => 'users/$uid/jobs';
+  static String entriesPath(String uid) => EntriesRepository.entriesPath(uid);
 
   // create
   Future<void> addJob(
           {required UserID uid,
           required String name,
           required int ratePerHour}) =>
-      _firestore.collection(FirestorePath.jobs(uid)).add({
+      _firestore.collection(jobsPath(uid)).add({
         'name': name,
         'ratePerHour': ratePerHour,
       });
 
   // update
   Future<void> updateJob({required UserID uid, required Job job}) =>
-      _firestore.doc(FirestorePath.job(uid, job.id)).update(job.toMap());
+      _firestore.doc(jobPath(uid, job.id)).update(job.toMap());
 
   // delete
   Future<void> deleteJob({required UserID uid, required JobID jobId}) async {
     // delete where entry.jobId == job.jobId
-    final entriesRef = _firestore.collection(FirestorePath.entries(uid));
+    final entriesRef = _firestore.collection(entriesPath(uid));
     final entries = await entriesRef.get();
     for (final snapshot in entries.docs) {
       final entry = Entry.fromMap(snapshot.data(), snapshot.id);
@@ -50,14 +42,14 @@ class JobsRepository {
       }
     }
     // delete job
-    final jobRef = _firestore.doc(FirestorePath.job(uid, jobId));
+    final jobRef = _firestore.doc(jobPath(uid, jobId));
     await jobRef.delete();
   }
 
   // read
   Stream<Job> watchJob({required UserID uid, required JobID jobId}) =>
       _firestore
-          .doc(FirestorePath.job(uid, jobId))
+          .doc(jobPath(uid, jobId))
           .withConverter<Job>(
             fromFirestore: (snapshot, _) =>
                 Job.fromMap(snapshot.data()!, snapshot.id),
@@ -71,7 +63,7 @@ class JobsRepository {
       .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
 
   Query<Job> queryJobs({required UserID uid}) =>
-      _firestore.collection(FirestorePath.jobs(uid)).withConverter(
+      _firestore.collection(jobsPath(uid)).withConverter(
             fromFirestore: (snapshot, _) =>
                 Job.fromMap(snapshot.data()!, snapshot.id),
             toFirestore: (job, _) => job.toMap(),

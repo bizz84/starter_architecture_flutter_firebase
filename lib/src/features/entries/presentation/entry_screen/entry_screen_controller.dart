@@ -42,8 +42,8 @@ class EntryScreenController extends AutoDisposeAsyncNotifier<void> {
         end: end,
         comment: comment,
       );
-      state = await AsyncValue.guard(() => repository.updateEntry(
-          uid: currentUser.uid, entryId: entryId, entry: entry));
+      state = await AsyncValue.guard(
+          () => repository.updateEntry(uid: currentUser.uid, entry: entry));
     }
     return state.hasError == false;
   }

@@ -5,17 +5,13 @@ import 'package:starter_architecture_flutter_firebase/src/features/authenticatio
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
 
-class FirestorePath {
-  static String job(String uid, String jobId) => 'users/$uid/jobs/$jobId';
-  static String jobs(String uid) => 'users/$uid/jobs';
-  static String entry(String uid, String entryId) =>
-      'users/$uid/entries/$entryId';
-  static String entries(String uid) => 'users/$uid/entries';
-}
-
 class EntriesRepository {
   const EntriesRepository(this._firestore);
   final FirebaseFirestore _firestore;
+
+  static String entryPath(String uid, String entryId) =>
+      'users/$uid/entries/$entryId';
+  static String entriesPath(String uid) => 'users/$uid/entries';
 
   // create
   Future<void> addEntry({
@@ -25,7 +21,7 @@ class EntriesRepository {
     required DateTime end,
     required String comment,
   }) =>
-      _firestore.collection(FirestorePath.entries(uid)).add({
+      _firestore.collection(entriesPath(uid)).add({
         'jobId': jobId,
         'start': start.millisecondsSinceEpoch,
         'end': end.millisecondsSinceEpoch,
@@ -33,15 +29,15 @@ class EntriesRepository {
       });
 
   // update
-  Future<void> updateEntry(
-          {required UserID uid,
-          required EntryID entryId,
-          required Entry entry}) =>
-      _firestore.doc(FirestorePath.entry(uid, entryId)).update(entry.toMap());
+  Future<void> updateEntry({
+    required UserID uid,
+    required Entry entry,
+  }) =>
+      _firestore.doc(entryPath(uid, entry.id)).update(entry.toMap());
 
   // delete
   Future<void> deleteEntry({required UserID uid, required EntryID entryId}) =>
-      _firestore.doc(FirestorePath.entry(uid, entryId)).delete();
+      _firestore.doc(entryPath(uid, entryId)).delete();
 
   // read
   Stream<List<Entry>> watchEntries({required UserID uid, JobID? jobId}) =>
@@ -51,7 +47,7 @@ class EntriesRepository {
 
   Query<Entry> queryEntries({required UserID uid, JobID? jobId}) {
     Query<Entry> query =
-        _firestore.collection(FirestorePath.entries(uid)).withConverter<Entry>(
+        _firestore.collection(entriesPath(uid)).withConverter<Entry>(
               fromFirestore: (snapshot, _) =>
                   Entry.fromMap(snapshot.data()!, snapshot.id),
               toFirestore: (entry, _) => entry.toMap(),
