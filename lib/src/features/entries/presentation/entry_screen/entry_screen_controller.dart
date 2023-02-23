@@ -12,13 +12,12 @@ class EntryScreenController extends AutoDisposeAsyncNotifier<void> {
     // ok to leave this empty if the return type is FutureOr<void>
   }
 
-  Future<bool> submitEntry({
+  Future<bool> submit({
     EntryID? entryId,
     required JobID jobId,
     required DateTime start,
     required DateTime end,
     required String comment,
-    //required Entry entry,
   }) async {
     final currentUser = ref.read(authRepositoryProvider).currentUser;
     if (currentUser == null) {

@@ -6,7 +6,7 @@ typedef JobID = String;
 @immutable
 class Job extends Equatable {
   const Job({required this.id, required this.name, required this.ratePerHour});
-  final String id;
+  final JobID id;
   final String name;
   final int ratePerHour;
 

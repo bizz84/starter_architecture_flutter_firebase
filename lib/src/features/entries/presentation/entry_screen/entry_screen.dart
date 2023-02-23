@@ -48,7 +48,7 @@ class _EntryPageState extends ConsumerState<EntryScreen> {
 
   Future<void> _setEntryAndDismiss() async {
     final success =
-        await ref.read(entryScreenControllerProvider.notifier).submitEntry(
+        await ref.read(entryScreenControllerProvider.notifier).submit(
               entryId: widget.entryId,
               jobId: widget.jobId,
               start: start,
