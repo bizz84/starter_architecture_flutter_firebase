@@ -27,6 +27,11 @@ class _EntryPageState extends ConsumerState<EntryScreen> {
   late TimeOfDay _endTime;
   late String _comment;
 
+  DateTime get start => DateTime(_startDate.year, _startDate.month,
+      _startDate.day, _startTime.hour, _startTime.minute);
+  DateTime get end => DateTime(_endDate.year, _endDate.month, _endDate.day,
+      _endTime.hour, _endTime.minute);
+
   @override
   void initState() {
     super.initState();
@@ -42,10 +47,6 @@ class _EntryPageState extends ConsumerState<EntryScreen> {
   }
 
   Future<void> _setEntryAndDismiss() async {
-    final start = DateTime(_startDate.year, _startDate.month, _startDate.day,
-        _startTime.hour, _startTime.minute);
-    final end = DateTime(_endDate.year, _endDate.month, _endDate.day,
-        _endTime.hour, _endTime.minute);
     final success =
         await ref.read(entryScreenControllerProvider.notifier).submitEntry(
               entryId: widget.entryId,
@@ -119,10 +120,6 @@ class _EntryPageState extends ConsumerState<EntryScreen> {
   }
 
   Widget _buildDuration() {
-    final start = DateTime(_startDate.year, _startDate.month, _startDate.day,
-        _startTime.hour, _startTime.minute);
-    final end = DateTime(_endDate.year, _endDate.month, _endDate.day,
-        _endTime.hour, _endTime.minute);
     final durationInHours = end.difference(start).inMinutes.toDouble() / 60.0;
     final durationFormatted = Format.hours(durationInHours);
     return Row(
