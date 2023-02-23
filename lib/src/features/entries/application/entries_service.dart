@@ -2,24 +2,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/domain/app_user.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/data/entries_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/daily_jobs_details.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entries_list_tile_model.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry_job.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_repository.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/jobs_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/format.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
 
 // TODO: Clean up this code a bit more
 class EntriesService {
-  EntriesService({required this.database});
-  final FirestoreRepository database;
+  EntriesService(
+      {required this.jobsRepository, required this.entriesRepository});
+  final JobsRepository jobsRepository;
+  final EntriesRepository entriesRepository;
 
   /// combine List<Job>, List<Entry> into List<EntryJob>
   Stream<List<EntryJob>> _allEntriesStream(UserID uid) =>
       CombineLatestStream.combine2(
-        database.watchEntries(uid: uid),
-        database.watchJobs(uid: uid),
+        entriesRepository.watchEntries(uid: uid),
+        jobsRepository.watchJobs(uid: uid),
         _entriesJobsCombiner,
       );
 
@@ -76,7 +79,10 @@ class EntriesService {
 }
 
 final entriesServiceProvider = Provider<EntriesService>((ref) {
-  return EntriesService(database: ref.watch(databaseProvider));
+  return EntriesService(
+    jobsRepository: ref.watch(jobsRepositoryProvider),
+    entriesRepository: ref.watch(entriesRepositoryProvider),
+  );
 });
 
 final entriesTileModelStreamProvider =

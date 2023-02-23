@@ -44,7 +44,8 @@ class _EditJobPageState extends ConsumerState<EditJobScreen> {
     if (_validateAndSaveForm()) {
       final success =
           await ref.read(editJobScreenControllerProvider.notifier).submit(
-                job: widget.job,
+                jobId: widget.jobId,
+                oldJob: widget.job,
                 name: _name ?? '',
                 ratePerHour: _ratePerHour ?? 0,
               );
