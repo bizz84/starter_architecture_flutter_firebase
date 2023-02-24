@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_repository.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/data/entries_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/job_entries_screen/entry_list_item.dart';
@@ -20,7 +20,7 @@ class JobEntriesList extends ConsumerWidget {
       jobsEntriesListControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
-    final entriesStream = ref.watch(jobEntriesStreamProvider(job));
+    final entriesStream = ref.watch(jobEntriesStreamProvider(job.id));
     return ListItemsBuilder<Entry>(
       data: entriesStream,
       itemBuilder: (context, entry) {
@@ -30,7 +30,7 @@ class JobEntriesList extends ConsumerWidget {
           job: job,
           onDismissed: () => ref
               .read(jobsEntriesListControllerProvider.notifier)
-              .deleteEntry(entry),
+              .deleteEntry(entry.id),
           onTap: () => context.goNamed(
             AppRoute.entry.name,
             params: {'id': job.id, 'eid': entry.id},

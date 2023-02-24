@@ -3,10 +3,6 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/j
 
 void main() {
   group('fromMap', () {
-    test('null data', () {
-      expect(
-          () => Job.fromMap(null, 'abc'), throwsA(isInstanceOf<StateError>()));
-    });
     test('job with all properties', () {
       final job = Job.fromMap(const {
         'name': 'Blogging',

@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/date_time_picker.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/entry_screen/entry_screen_controller.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/presentation/entry_screen/entry_screen_controller.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/format.dart';
 
@@ -28,6 +27,11 @@ class _EntryPageState extends ConsumerState<EntryScreen> {
   late TimeOfDay _endTime;
   late String _comment;
 
+  DateTime get start => DateTime(_startDate.year, _startDate.month,
+      _startDate.day, _startTime.hour, _startTime.minute);
+  DateTime get end => DateTime(_endDate.year, _endDate.month, _endDate.day,
+      _endTime.hour, _endTime.minute);
+
   @override
   void initState() {
     super.initState();
@@ -42,25 +46,15 @@ class _EntryPageState extends ConsumerState<EntryScreen> {
     _comment = widget.entry?.comment ?? '';
   }
 
-  Entry _entryFromState() {
-    final start = DateTime(_startDate.year, _startDate.month, _startDate.day,
-        _startTime.hour, _startTime.minute);
-    final end = DateTime(_endDate.year, _endDate.month, _endDate.day,
-        _endTime.hour, _endTime.minute);
-    final id = widget.entry?.id ?? documentIdFromCurrentDate();
-    return Entry(
-      id: id,
-      jobId: widget.jobId,
-      start: start,
-      end: end,
-      comment: _comment,
-    );
-  }
-
   Future<void> _setEntryAndDismiss() async {
-    final entry = _entryFromState();
     final success =
-        await ref.read(entryScreenControllerProvider.notifier).setEntry(entry);
+        await ref.read(entryScreenControllerProvider.notifier).submit(
+              entryId: widget.entryId,
+              jobId: widget.jobId,
+              start: start,
+              end: end,
+              comment: _comment,
+            );
     if (success && mounted) {
       context.pop();
     }
@@ -126,8 +120,8 @@ class _EntryPageState extends ConsumerState<EntryScreen> {
   }
 
   Widget _buildDuration() {
-    final currentEntry = _entryFromState();
-    final durationFormatted = Format.hours(currentEntry.durationInHours);
+    final durationInHours = end.difference(start).inMinutes.toDouble() / 60.0;
+    final durationFormatted = Format.hours(durationInHours);
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[

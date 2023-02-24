@@ -11,21 +11,19 @@ class Job extends Equatable {
   final int ratePerHour;
 
   @override
-  List<Object> get props => [id, name, ratePerHour];
+  List<Object> get props => [name, ratePerHour];
 
   @override
   bool get stringify => true;
 
-  factory Job.fromMap(Map<String, dynamic>? data, String documentId) {
-    if (data == null) {
-      throw StateError('missing data for jobId: $documentId');
-    }
-    final name = data['name'] as String?;
-    if (name == null) {
-      throw StateError('missing name for jobId: $documentId');
-    }
+  factory Job.fromMap(Map<String, dynamic> data, String id) {
+    final name = data['name'] as String;
     final ratePerHour = data['ratePerHour'] as int;
-    return Job(id: documentId, name: name, ratePerHour: ratePerHour);
+    return Job(
+      id: id,
+      name: name,
+      ratePerHour: ratePerHour,
+    );
   }
 
   Map<String, dynamic> toMap() {

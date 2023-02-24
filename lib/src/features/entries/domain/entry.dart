@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
 
 typedef EntryID = String;
 
@@ -10,9 +11,8 @@ class Entry extends Equatable {
     required this.end,
     required this.comment,
   });
-
   final EntryID id;
-  final String jobId;
+  final JobID jobId;
   final DateTime start;
   final DateTime end;
   final String comment;
@@ -26,10 +26,7 @@ class Entry extends Equatable {
   double get durationInHours =>
       end.difference(start).inMinutes.toDouble() / 60.0;
 
-  factory Entry.fromMap(Map<dynamic, dynamic>? value, String id) {
-    if (value == null) {
-      throw StateError('missing data for entryId: $id');
-    }
+  factory Entry.fromMap(Map<dynamic, dynamic> value, EntryID id) {
     final startMilliseconds = value['start'] as int;
     final endMilliseconds = value['end'] as int;
     return Entry(
