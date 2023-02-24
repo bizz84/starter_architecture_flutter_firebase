@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/data/entries_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/entry.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry.dart';
 
 class JobsEntriesListController extends AutoDisposeAsyncNotifier<void> {
   @override

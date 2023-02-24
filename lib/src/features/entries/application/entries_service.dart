@@ -8,7 +8,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/entries/domai
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry_job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/jobs_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/format.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/entry.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
 
 // TODO: Clean up this code a bit more
