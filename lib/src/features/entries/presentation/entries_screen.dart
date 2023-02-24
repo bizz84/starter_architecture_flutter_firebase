@@ -16,7 +16,9 @@ class EntriesScreen extends ConsumerWidget {
       ),
       body: Consumer(
         builder: (context, ref, child) {
-          // TODO: can this be converted to use a Query?
+          // * This data is combined from two streams, so it can't be returned
+          // * directly as a Query object from the repository.
+          // * As a result, we can't use FirestoreListView here.
           final entriesTileModelStream =
               ref.watch(entriesTileModelStreamProvider);
           return ListItemsBuilder<EntriesListTileModel>(
