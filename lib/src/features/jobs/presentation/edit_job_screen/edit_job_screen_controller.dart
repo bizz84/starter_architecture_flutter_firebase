@@ -24,10 +24,11 @@ class EditJobScreenController extends AutoDisposeAsyncNotifier<void> {
     // set loading state
     state = const AsyncLoading().copyWithPrevious(state);
     // check if name is already in use
-    final database = ref.read(jobsRepositoryProvider);
-    final jobs = await database.fetchJobs(uid: currentUser.uid);
+    final repository = ref.read(jobsRepositoryProvider);
+    final jobs = await repository.fetchJobs(uid: currentUser.uid);
     final allLowerCaseNames =
         jobs.map((job) => job.name.toLowerCase()).toList();
+    // it's ok to use the same name as the old job
     if (oldJob != null) {
       allLowerCaseNames.remove(oldJob.name.toLowerCase());
     }
@@ -40,11 +41,11 @@ class EditJobScreenController extends AutoDisposeAsyncNotifier<void> {
       if (jobId != null) {
         final job = Job(id: jobId, name: name, ratePerHour: ratePerHour);
         state = await AsyncValue.guard(
-          () => database.updateJob(uid: currentUser.uid, job: job),
+          () => repository.updateJob(uid: currentUser.uid, job: job),
         );
       } else {
         state = await AsyncValue.guard(
-          () => database.addJob(
+          () => repository.addJob(
               uid: currentUser.uid, name: name, ratePerHour: ratePerHour),
         );
       }
