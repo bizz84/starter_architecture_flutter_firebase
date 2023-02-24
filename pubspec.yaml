@@ -13,6 +13,7 @@ dependencies:
   equatable: ^2.0.5
   firebase_auth: ^4.1.2
   firebase_core: ^2.2.0
+  firebase_ui_firestore: ^1.2.8
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.1.1

@@ -16,6 +16,7 @@ class EntriesScreen extends ConsumerWidget {
       ),
       body: Consumer(
         builder: (context, ref, child) {
+          // TODO: can this be converted to use a Query?
           final entriesTileModelStream =
               ref.watch(entriesTileModelStreamProvider);
           return ListItemsBuilder<EntriesListTileModel>(
