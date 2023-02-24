@@ -1,7 +1,7 @@
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/data/entries_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
@@ -20,10 +20,11 @@ class JobEntriesList extends ConsumerWidget {
       jobsEntriesListControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
-    final entriesStream = ref.watch(jobEntriesStreamProvider(job.id));
-    return ListItemsBuilder<Entry>(
-      data: entriesStream,
-      itemBuilder: (context, entry) {
+    final jobEntriesQuery = ref.watch(jobEntriesQueryProvider(job.id));
+    return FirestoreListView<Entry>(
+      query: jobEntriesQuery,
+      itemBuilder: (context, doc) {
+        final entry = doc.data();
         return DismissibleEntryListItem(
           dismissibleKey: Key('entry-${entry.id}'),
           entry: entry,

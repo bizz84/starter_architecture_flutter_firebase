@@ -63,12 +63,12 @@ final entriesRepositoryProvider = Provider<EntriesRepository>((ref) {
   return EntriesRepository(FirebaseFirestore.instance);
 });
 
-final jobEntriesStreamProvider =
-    StreamProvider.autoDispose.family<List<Entry>, JobID>((ref, jobId) {
+final jobEntriesQueryProvider =
+    Provider.autoDispose.family<Query<Entry>, JobID>((ref, jobId) {
   final user = ref.watch(authStateChangesProvider).value;
   if (user == null) {
     throw AssertionError('User can\'t be null when fetching jobs');
   }
   final repository = ref.watch(entriesRepositoryProvider);
-  return repository.watchEntries(uid: user.uid, jobId: jobId);
+  return repository.queryEntries(uid: user.uid, jobId: jobId);
 });

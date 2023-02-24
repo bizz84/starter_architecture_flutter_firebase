@@ -79,15 +79,6 @@ final jobsRepositoryProvider = Provider<JobsRepository>((ref) {
   return JobsRepository(FirebaseFirestore.instance);
 });
 
-final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
-  final user = ref.watch(authStateChangesProvider).value;
-  if (user == null) {
-    throw AssertionError('User can\'t be null');
-  }
-  final repository = ref.watch(jobsRepositoryProvider);
-  return repository.watchJobs(uid: user.uid);
-});
-
 final jobsQueryProvider = Provider<Query<Job>>((ref) {
   final user = ref.watch(authStateChangesProvider).value;
   if (user == null) {
