@@ -30,8 +30,6 @@ class JobsScreen extends StatelessWidget {
             jobsScreenControllerProvider,
             (_, state) => state.showAlertDialogOnError(context),
           );
-          // * TODO: investigate why we get a dismissible error if we call
-          // * ref.watch(jobsScreenControllerProvider) here
           final jobsQuery = ref.watch(jobsQueryProvider);
           return FirestoreListView<Job>(
             query: jobsQuery,
