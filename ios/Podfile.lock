@@ -12,7 +12,7 @@ PODS:
   - Firebase/Firestore (10.3.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.3.0)
-  - firebase_auth (4.1.2):
+  - firebase_auth (4.2.9):
     - Firebase/Auth (= 10.3.0)
     - firebase_core
     - Flutter
@@ -61,8 +61,9 @@ PODS:
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
   - PromisesObjC (2.2.0)
-  - shared_preferences_ios (0.0.1):
+  - shared_preferences_foundation (0.0.1):
     - Flutter
+    - FlutterMacOS
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
@@ -70,7 +71,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `10.3.0`)
   - Flutter (from `Flutter`)
-  - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
 
 SPEC REPOS:
   trunk:
@@ -95,8 +96,8 @@ EXTERNAL SOURCES:
     :tag: 10.3.0
   Flutter:
     :path: Flutter
-  shared_preferences_ios:
-    :path: ".symlinks/plugins/shared_preferences_ios/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/ios"
 
 CHECKOUT OPTIONS:
   FirebaseFirestore:
@@ -106,7 +107,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   cloud_firestore: 94326bb743acbfe43c68f933dab8a094e84d5849
   Firebase: f92fc551ead69c94168d36c2b26188263860acd9
-  firebase_auth: f1580b179692c741663fa01535a66b446c128638
+  firebase_auth: 4e8c693e848ed13b263de2d702d55fa82ed04a79
   firebase_core: 128d8c43c3a453a4a67463314fc3761bedff860b
   FirebaseAuth: 0e415d29d846c1dce2fb641e46f35e9888d9bec6
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
@@ -117,7 +118,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: c9e714f7eec91a55641e2bab9f45fd83a219b882
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
-  shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
+  shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
 
 PODFILE CHECKSUM: 8ed72f4eb3f774eb823caa5f6b48b21a5eb9975a
 
