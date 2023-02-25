@@ -65,7 +65,7 @@ final entriesRepositoryProvider = Provider<EntriesRepository>((ref) {
 
 final jobEntriesQueryProvider =
     Provider.autoDispose.family<Query<Entry>, JobID>((ref, jobId) {
-  final user = ref.watch(authStateChangesProvider).value;
+  final user = ref.watch(firebaseAuthProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null when fetching jobs');
   }

@@ -80,7 +80,7 @@ final jobsRepositoryProvider = Provider<JobsRepository>((ref) {
 });
 
 final jobsQueryProvider = Provider<Query<Job>>((ref) {
-  final user = ref.watch(authStateChangesProvider).value;
+  final user = ref.watch(firebaseAuthProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null');
   }
@@ -90,7 +90,7 @@ final jobsQueryProvider = Provider<Query<Job>>((ref) {
 
 final jobStreamProvider =
     StreamProvider.autoDispose.family<Job, JobID>((ref, jobId) {
-  final user = ref.watch(authStateChangesProvider).value;
+  final user = ref.watch(firebaseAuthProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null');
   }

@@ -88,7 +88,7 @@ final entriesServiceProvider = Provider<EntriesService>((ref) {
 final entriesTileModelStreamProvider =
     StreamProvider.autoDispose<List<EntriesListTileModel>>(
   (ref) {
-    final user = ref.watch(authStateChangesProvider).value;
+    final user = ref.watch(firebaseAuthProvider).currentUser;
     if (user == null) {
       throw AssertionError('User can\'t be null when fetching entries');
     }
