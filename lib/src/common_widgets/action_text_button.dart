@@ -15,7 +15,7 @@ class ActionTextButton extends StatelessWidget {
         child: Text(text,
             style: Theme.of(context)
                 .textTheme
-                .headline6!
+                .titleLarge!
                 .copyWith(color: Colors.white)),
       ),
     );
