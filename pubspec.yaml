@@ -5,30 +5,30 @@ publish_to: 'none'
 version: 2.0.0
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=2.19.0 <3.0.0"
 
 dependencies:
-  cloud_firestore: ^4.0.5
+  cloud_firestore: ^4.4.3
   cupertino_icons: ^1.0.5
   equatable: ^2.0.5
-  firebase_auth: ^4.1.2
-  firebase_core: ^2.2.0
+  firebase_auth: ^4.2.9
+  firebase_core: ^2.7.0
   firebase_ui_firestore: ^1.2.8
   flutter:
     sdk: flutter
-  flutter_riverpod: ^2.1.1
-  flutter_svg: ^1.1.6
-  go_router: 5.1.1
+  flutter_riverpod: ^2.2.0
+  flutter_svg: ^2.0.2
+  go_router: 6.2.0
   intl: ^0.17.0
-  rxdart: ^0.27.6
-  shared_preferences: ^2.0.15
+  rxdart: ^0.27.7
+  shared_preferences: ^2.0.18
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
-  random_string:
-  flutter_lints: ^2.0.0
+  random_string: ^2.3.1
+  flutter_lints: ^2.0.1
 
 # https://stackoverflow.com/a/74234079/436422
 #dependency_overrides:
