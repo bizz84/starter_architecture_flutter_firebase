@@ -22,7 +22,7 @@ class OnboardingScreen extends ConsumerWidget {
           children: [
             Text(
               'Track your time.\nBecause time counts.',
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
             FractionallySizedBox(
@@ -39,9 +39,10 @@ class OnboardingScreen extends ConsumerWidget {
                       await ref
                           .read(onboardingControllerProvider.notifier)
                           .completeOnboarding();
-                      // TODO: Check if mounted
-                      // go to sign in page after completing onboarding
-                      context.goNamed(AppRoute.signIn.name);
+                      if (context.mounted) {
+                        // go to sign in page after completing onboarding
+                        context.goNamed(AppRoute.signIn.name);
+                      }
                     },
             ),
           ],
