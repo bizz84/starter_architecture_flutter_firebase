@@ -8,24 +8,9 @@ class AuthRepository {
   Stream<User?> authStateChanges() => _auth.authStateChanges();
   User? get currentUser => _auth.currentUser;
 
-  // Future<UserCredential> signInAnonymously() {
-  //   return _auth.signInAnonymously();
-  // }
-
-  // Future<UserCredential> signInWithEmailAndPassword(
-  //     String email, String password) {
-  //   return _auth.signInWithEmailAndPassword(email: email, password: password);
-  // }
-
-  // Future<UserCredential> createUserWithEmailAndPassword(
-  //     String email, String password) {
-  //   return _auth.createUserWithEmailAndPassword(
-  //       email: email, password: password);
-  // }
-
-  // Future<void> signOut() {
-  //   return _auth.signOut();
-  // }
+  Future<void> signInAnonymously() {
+    return _auth.signInAnonymously();
+  }
 }
 
 final firebaseAuthProvider =
