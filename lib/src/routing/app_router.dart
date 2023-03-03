@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/account/account_screen.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/email_password_sign_in_form_type.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/email_password_sign_in_screen.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/custom_profile_screen.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/custom_sign_in_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/presentation/entries_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
@@ -25,7 +23,6 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 enum AppRoute {
   onboarding,
   signIn,
-  emailPassword,
   jobs,
   job,
   addJob,
@@ -34,7 +31,7 @@ enum AppRoute {
   addEntry,
   editEntry,
   entries,
-  account,
+  profile,
 }
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -82,21 +79,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: AppRoute.signIn.name,
         pageBuilder: (context, state) => NoTransitionPage(
           key: state.pageKey,
-          child: const SignInScreen(),
+          child: const CustomSignInScreen(),
         ),
-        routes: [
-          GoRoute(
-            path: 'emailPassword',
-            name: AppRoute.emailPassword.name,
-            pageBuilder: (context, state) => MaterialPage(
-              key: state.pageKey,
-              fullscreenDialog: true,
-              child: const EmailPasswordSignInScreen(
-                formType: EmailPasswordSignInFormType.signIn,
-              ),
-            ),
-          ),
-        ],
       ),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
@@ -194,10 +178,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: '/account',
-            name: AppRoute.account.name,
+            name: AppRoute.profile.name,
             pageBuilder: (context, state) => NoTransitionPage(
               key: state.pageKey,
-              child: const AccountScreen(),
+              child: const CustomProfileScreen(),
             ),
           ),
         ],
