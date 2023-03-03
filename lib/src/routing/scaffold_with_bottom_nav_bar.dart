@@ -34,7 +34,7 @@ class _ScaffoldWithBottomNavBarState extends State<ScaffoldWithBottomNavBar> {
     } else if (index == 1) {
       context.goNamed(AppRoute.entries.name);
     } else if (index == 2) {
-      context.goNamed(AppRoute.account.name);
+      context.goNamed(AppRoute.profile.name);
     }
   }
 
