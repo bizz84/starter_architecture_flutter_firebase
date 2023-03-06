@@ -71,7 +71,7 @@ PODS:
     - nanopb/encode (= 2.30909.0)
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
-  - PromisesObjC (2.2.0)
+  - PromisesObjC (2.1.1)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -133,12 +133,12 @@ SPEC CHECKSUMS:
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
   FirebaseCoreInternal: e463f41bb935cd049505bf7e9a5bdd7dcea90df6
   FirebaseDynamicLinks: 51c81d07bd63155bb56d76b0abdda79c8a3d8d02
-  FirebaseFirestore: f16ed5e8e5b024eff4928bc33605df9526bda650
+  FirebaseFirestore: ef5e47e1489c03dc978f94e8b43ad5f67a77df8c
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   GTMSessionFetcher: c9e714f7eec91a55641e2bab9f45fd83a219b882
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
-  PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
+  PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
 
 PODFILE CHECKSUM: 8ed72f4eb3f774eb823caa5f6b48b21a5eb9975a

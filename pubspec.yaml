@@ -23,6 +23,8 @@ dependencies:
   intl: ^0.17.0
   rxdart: ^0.27.7
   shared_preferences: ^2.0.18
+  # the annotation package containing @riverpod
+  riverpod_annotation: 2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -30,6 +32,15 @@ dev_dependencies:
   mocktail: ^0.3.0
   random_string: ^2.3.1
   flutter_lints: ^2.0.1
+  # a tool for running code generators
+  build_runner: 2.3.0
+  # the code generator
+  riverpod_generator: 2.0.0
+  # riverpod_lint makes it easier to work with Riverpod
+  riverpod_lint: 1.1.2
+  # import custom_lint too as riverpod_lint depends on it
+  custom_lint: 0.2.12
+  
 
 # https://stackoverflow.com/a/74234079/436422
 #dependency_overrides:
