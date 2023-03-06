@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/domain/app_user.dart';
@@ -10,6 +10,8 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/job
 import 'package:starter_architecture_flutter_firebase/src/utils/format.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
+
+part 'entries_service.g.dart';
 
 // TODO: Clean up this code a bit more
 class EntriesService {
@@ -78,21 +80,21 @@ class EntriesService {
   }
 }
 
-final entriesServiceProvider = Provider<EntriesService>((ref) {
+@riverpod
+EntriesService entriesService(EntriesServiceRef ref) {
   return EntriesService(
     jobsRepository: ref.watch(jobsRepositoryProvider),
     entriesRepository: ref.watch(entriesRepositoryProvider),
   );
-});
+}
 
-final entriesTileModelStreamProvider =
-    StreamProvider.autoDispose<List<EntriesListTileModel>>(
-  (ref) {
-    final user = ref.watch(firebaseAuthProvider).currentUser;
-    if (user == null) {
-      throw AssertionError('User can\'t be null when fetching entries');
-    }
-    final entriesService = ref.watch(entriesServiceProvider);
-    return entriesService.entriesTileModelStream(user.uid);
-  },
-);
+@riverpod
+Stream<List<EntriesListTileModel>> entriesTileModelStream(
+    EntriesTileModelStreamRef ref) {
+  final user = ref.watch(firebaseAuthProvider).currentUser;
+  if (user == null) {
+    throw AssertionError('User can\'t be null when fetching entries');
+  }
+  final entriesService = ref.watch(entriesServiceProvider);
+  return entriesService.entriesTileModelStream(user.uid);
+}
