@@ -20,11 +20,6 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: Colors.grey[200],
         dividerColor: Colors.grey[400],
         // https://github.com/firebase/flutterfire/blob/master/packages/firebase_ui_auth/doc/theming.md
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(Colors.indigo),
