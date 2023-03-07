@@ -1,15 +1,18 @@
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/jobs_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen/job_submit_exception.dart';
 
-class EditJobScreenController extends AutoDisposeAsyncNotifier<void> {
+part 'edit_job_screen_controller.g.dart';
+
+@riverpod
+class EditJobScreenController extends _$EditJobScreenController {
   @override
   FutureOr<void> build() {
-    // ok to leave this empty if the return type is FutureOr<void>
+    //
   }
 
   Future<bool> submit(
@@ -54,6 +57,7 @@ class EditJobScreenController extends AutoDisposeAsyncNotifier<void> {
   }
 }
 
-final editJobScreenControllerProvider =
-    AutoDisposeAsyncNotifierProvider<EditJobScreenController, void>(
-        EditJobScreenController.new);
+@riverpod
+int count(CountRef ref) {
+  return 0;
+}

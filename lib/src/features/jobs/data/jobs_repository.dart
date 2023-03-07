@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/domain/app_user.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/data/entries_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
+
+part 'jobs_repository.g.dart';
 
 class JobsRepository {
   const JobsRepository(this._firestore);
@@ -75,25 +77,27 @@ class JobsRepository {
   }
 }
 
-final jobsRepositoryProvider = Provider<JobsRepository>((ref) {
+@Riverpod(keepAlive: true)
+JobsRepository jobsRepository(JobsRepositoryRef ref) {
   return JobsRepository(FirebaseFirestore.instance);
-});
+}
 
-final jobsQueryProvider = Provider<Query<Job>>((ref) {
+@riverpod
+Query<Job> jobsQuery(JobsQueryRef ref) {
   final user = ref.watch(firebaseAuthProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null');
   }
   final repository = ref.watch(jobsRepositoryProvider);
   return repository.queryJobs(uid: user.uid);
-});
+}
 
-final jobStreamProvider =
-    StreamProvider.autoDispose.family<Job, JobID>((ref, jobId) {
+@riverpod
+Stream<Job> jobStream(JobStreamRef ref, JobID jobId) {
   final user = ref.watch(firebaseAuthProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null');
   }
   final repository = ref.watch(jobsRepositoryProvider);
   return repository.watchJob(uid: user.uid, jobId: jobId);
-});
+}

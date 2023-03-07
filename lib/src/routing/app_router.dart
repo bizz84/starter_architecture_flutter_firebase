@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/custom_profile_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/custom_sign_in_screen.dart';
@@ -15,6 +15,8 @@ import 'package:starter_architecture_flutter_firebase/src/features/onboarding/da
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/go_router_refresh_stream.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/scaffold_with_bottom_nav_bar.dart';
+
+part 'app_router.g.dart';
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -34,7 +36,9 @@ enum AppRoute {
   profile,
 }
 
-final goRouterProvider = Provider<GoRouter>((ref) {
+@riverpod
+// ignore: unsupported_provider_value
+GoRouter goRouter(GoRouterRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   final onboardingRepository = ref.watch(onboardingRepositoryProvider);
   return GoRouter(
@@ -189,4 +193,4 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     ],
     //errorBuilder: (context, state) => const NotFoundScreen(),
   );
-});
+}

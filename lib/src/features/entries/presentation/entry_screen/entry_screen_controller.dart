@@ -1,12 +1,15 @@
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/data/entries_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
 
-class EntryScreenController extends AutoDisposeAsyncNotifier<void> {
+part 'entry_screen_controller.g.dart';
+
+@riverpod
+class EntryScreenController extends _$EntryScreenController {
   @override
   FutureOr<void> build() {
     // ok to leave this empty if the return type is FutureOr<void>
@@ -47,7 +50,3 @@ class EntryScreenController extends AutoDisposeAsyncNotifier<void> {
     return state.hasError == false;
   }
 }
-
-final entryScreenControllerProvider =
-    AutoDisposeAsyncNotifierProvider<EntryScreenController, void>(
-        EntryScreenController.new);
