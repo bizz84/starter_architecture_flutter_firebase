@@ -52,9 +52,11 @@ More more info on Riverpod, read this:
 These are the main packages used in the app:
 
 - [Flutter Riverpod](https://pub.dev/packages/flutter_riverpod) for data caching, dependency injection, and more
+- [Riverpod Generator](https://pub.dev/packages/riverpod_generator) and [Riverpod Lint](https://pub.dev/packages/riverpod_lint) for the latest Riverpod APIs
 - [GoRouter](https://pub.dev/packages/go_router) for navigation
-- [Firebase Auth](https://pub.dev/packages/firebase_auth) for authentication
+- [Firebase Auth](https://pub.dev/packages/firebase_auth) and [Firebase UI Auth](https://pub.dev/packages/firebase_ui_auth) for authentication
 - [Cloud Firestore](https://pub.dev/packages/cloud_firestore) as a realtime database
+- [Firebase UI for Firestore](https://pub.dev/packages/firebase_ui_firestore) for the `FirestoreListView` widget with pagination support
 - [RxDart](https://pub.dev/packages/rxdart) for combining multiple Firestore collections as needed
 - [Intl](https://pub.dev/packages/intl) for currency, date, time formatting
 - [Mocktail](https://pub.dev/packages/mocktail) for testing
