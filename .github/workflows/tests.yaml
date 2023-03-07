@@ -1,0 +1,16 @@
+name: Run Tests
+on: [push, workflow_dispatch]
+jobs:
+  drive:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Write firebase_options.dart
+      run: echo '{{ secrets.FIREBASE_OPTIONS }}' > lib/firebase_options.dart
+    - name: Write GoogleService-info.plist
+      run: echo '{{ secrets.GOOGLE_SERVICE_INFO_PLIST }}' > ios/Runner/GoogleService-Info.plist
+    - name: Write google-services.json
+      run: echo '{{ secrets.GOOGLE_SERVICES_JSON }}' > android/app/google-services.json
+    - uses: subosito/flutter-action@v2.8.0
+    - name: Run Flutter tests
+      run: flutter test
