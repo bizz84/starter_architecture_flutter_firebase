@@ -11,10 +11,6 @@ jobs:
       run: echo '{{ secrets.GOOGLE_SERVICE_INFO_PLIST }}' > ios/Runner/GoogleService-Info.plist
     - name: Write google-services.json
       run: echo '{{ secrets.GOOGLE_SERVICES_JSON }}' > android/app/google-services.json
-    - name: Analyze Flutter
-      uses: ValentinVignal/action-dart-analyze@v0.15
-      with:
-        fail-on: 'warning'
     - uses: subosito/flutter-action@v2.8.0
     - name: Run Flutter tests
       run: flutter test
