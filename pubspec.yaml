@@ -40,11 +40,6 @@ dev_dependencies:
   riverpod_lint: 1.1.2
   # import custom_lint too as riverpod_lint depends on it
   custom_lint: 0.2.12
-  
-
-# https://stackoverflow.com/a/74234079/436422
-#dependency_overrides:
-#  firebase_core_platform_interface: 4.5.1
 
 flutter:
   uses-material-design: true
