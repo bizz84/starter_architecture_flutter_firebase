@@ -56,8 +56,3 @@ class EditJobScreenController extends _$EditJobScreenController {
     }
   }
 }
-
-@riverpod
-int count(CountRef ref) {
-  return 0;
-}
