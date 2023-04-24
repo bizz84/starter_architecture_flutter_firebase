@@ -33,6 +33,11 @@ class JobsScreen extends StatelessWidget {
           final jobsQuery = ref.watch(jobsQueryProvider);
           return FirestoreListView<Job>(
             query: jobsQuery,
+            emptyBuilder: (context) => const Center(child: Text('No data')),
+            errorBuilder: (context, error, stackTrace) => Center(
+              child: Text(error.toString()),
+            ),
+            loadingBuilder: (context) => const CircularProgressIndicator(),
             itemBuilder: (context, doc) {
               final job = doc.data();
               return Dismissible(
