@@ -8,11 +8,11 @@ environment:
   sdk: ">=2.19.0 <3.0.0"
 
 dependencies:
-  cloud_firestore: ^4.4.3
+  cloud_firestore: ^4.5.0
   cupertino_icons: ^1.0.5
   equatable: ^2.0.5
-  firebase_auth: ^4.2.9
-  firebase_core: ^2.7.0
+  firebase_auth: ^4.4.2
+  firebase_core: ^2.10.0
   firebase_ui_auth: ^1.1.15
   firebase_ui_firestore: ^1.2.8
   flutter:
