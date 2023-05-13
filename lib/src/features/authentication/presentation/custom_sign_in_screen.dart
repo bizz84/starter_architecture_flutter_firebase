@@ -31,8 +31,8 @@ class SignInAnonymouslyFooter extends ConsumerWidget {
     return Column(
       children: [
         const SizedBox(height: 8),
-        Row(
-          children: const [
+        const Row(
+          children: [
             Expanded(child: Divider()),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
