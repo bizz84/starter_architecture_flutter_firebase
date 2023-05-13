@@ -2,27 +2,27 @@ name: starter_architecture_flutter_firebase
 description: A new Flutter project.
 
 publish_to: 'none'
-version: 2.0.0
+version: 2.1.0
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  cloud_firestore: ^4.5.0
+  cloud_firestore: ^4.7.0
   cupertino_icons: ^1.0.5
   equatable: ^2.0.5
-  firebase_auth: ^4.4.2
-  firebase_core: ^2.10.0
-  firebase_ui_auth: ^1.1.15
-  firebase_ui_firestore: ^1.2.8
+  firebase_auth: ^4.6.0
+  firebase_core: ^2.12.0
+  firebase_ui_auth: ^1.4.0
+  firebase_ui_firestore: ^1.5.0
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.3.6
-  flutter_svg: ^1.1.6
-  go_router: 6.2.0
-  intl: ^0.17.0
+  flutter_svg: ^1.1.1
+  go_router: 7.0.1
+  intl: ^0.18.0
   rxdart: ^0.27.7
-  shared_preferences: ^2.0.18
+  shared_preferences: ^2.1.1
   # the annotation package containing @riverpod
   riverpod_annotation: 2.1.1
 
@@ -33,13 +33,13 @@ dev_dependencies:
   random_string: ^2.3.1
   flutter_lints: ^2.0.1
   # a tool for running code generators
-  build_runner: 2.3.0
+  build_runner: 2.4.4
   # the code generator
-  riverpod_generator: 2.2.1
+  riverpod_generator: 2.2.3
   # riverpod_lint makes it easier to work with Riverpod
-  riverpod_lint: 1.3.1
+  riverpod_lint: 1.3.2
   # import custom_lint too as riverpod_lint depends on it
-  custom_lint: 0.3.4
+  custom_lint: 0.4.0
 
 flutter:
   uses-material-design: true

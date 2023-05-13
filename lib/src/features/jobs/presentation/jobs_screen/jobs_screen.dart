@@ -37,7 +37,8 @@ class JobsScreen extends StatelessWidget {
             errorBuilder: (context, error, stackTrace) => Center(
               child: Text(error.toString()),
             ),
-            loadingBuilder: (context) => const CircularProgressIndicator(),
+            loadingBuilder: (context) =>
+                const Center(child: CircularProgressIndicator()),
             itemBuilder: (context, doc) {
               final job = doc.data();
               return Dismissible(
@@ -51,7 +52,7 @@ class JobsScreen extends StatelessWidget {
                   job: job,
                   onTap: () => context.goNamed(
                     AppRoute.job.name,
-                    params: {'id': job.id},
+                    pathParameters: {'id': job.id},
                   ),
                 ),
               );
