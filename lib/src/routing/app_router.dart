@@ -75,17 +75,15 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: '/onboarding',
         name: AppRoute.onboarding.name,
-        pageBuilder: (context, state) => NoTransitionPage(
-          key: state.pageKey,
-          child: const OnboardingScreen(),
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: OnboardingScreen(),
         ),
       ),
       GoRoute(
         path: '/signIn',
         name: AppRoute.signIn.name,
-        pageBuilder: (context, state) => NoTransitionPage(
-          key: state.pageKey,
-          child: const CustomSignInScreen(),
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: CustomSignInScreen(),
         ),
       ),
       // Stateful navigation based on:
@@ -101,9 +99,8 @@ GoRouter goRouter(GoRouterRef ref) {
               GoRoute(
                 path: '/jobs',
                 name: AppRoute.jobs.name,
-                pageBuilder: (context, state) => NoTransitionPage(
-                  key: state.pageKey,
-                  child: const JobsScreen(),
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: JobsScreen(),
                 ),
                 routes: [
                   GoRoute(
@@ -111,10 +108,9 @@ GoRouter goRouter(GoRouterRef ref) {
                     name: AppRoute.addJob.name,
                     parentNavigatorKey: _rootNavigatorKey,
                     pageBuilder: (context, state) {
-                      return MaterialPage(
-                        key: state.pageKey,
+                      return const MaterialPage(
                         fullscreenDialog: true,
-                        child: const EditJobScreen(),
+                        child: EditJobScreen(),
                       );
                     },
                   ),
@@ -124,7 +120,6 @@ GoRouter goRouter(GoRouterRef ref) {
                     pageBuilder: (context, state) {
                       final id = state.pathParameters['id']!;
                       return MaterialPage(
-                        key: state.pageKey,
                         child: JobEntriesScreen(jobId: id),
                       );
                     },
@@ -136,7 +131,6 @@ GoRouter goRouter(GoRouterRef ref) {
                         pageBuilder: (context, state) {
                           final jobId = state.pathParameters['id']!;
                           return MaterialPage(
-                            key: state.pageKey,
                             fullscreenDialog: true,
                             child: EntryScreen(
                               jobId: jobId,
@@ -152,7 +146,6 @@ GoRouter goRouter(GoRouterRef ref) {
                           final entryId = state.pathParameters['eid']!;
                           final entry = state.extra as Entry?;
                           return MaterialPage(
-                            key: state.pageKey,
                             child: EntryScreen(
                               jobId: jobId,
                               entryId: entryId,
@@ -168,7 +161,6 @@ GoRouter goRouter(GoRouterRef ref) {
                           final jobId = state.pathParameters['id'];
                           final job = state.extra as Job?;
                           return MaterialPage(
-                            key: state.pageKey,
                             fullscreenDialog: true,
                             child: EditJobScreen(jobId: jobId, job: job),
                           );
@@ -186,9 +178,8 @@ GoRouter goRouter(GoRouterRef ref) {
               GoRoute(
                 path: '/entries',
                 name: AppRoute.entries.name,
-                pageBuilder: (context, state) => NoTransitionPage(
-                  key: state.pageKey,
-                  child: const EntriesScreen(),
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: EntriesScreen(),
                 ),
               ),
             ],
@@ -199,9 +190,8 @@ GoRouter goRouter(GoRouterRef ref) {
               GoRoute(
                 path: '/account',
                 name: AppRoute.profile.name,
-                pageBuilder: (context, state) => NoTransitionPage(
-                  key: state.pageKey,
-                  child: const CustomProfileScreen(),
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: CustomProfileScreen(),
                 ),
               ),
             ],
