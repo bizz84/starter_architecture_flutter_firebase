@@ -20,7 +20,9 @@ part 'app_router.g.dart';
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorKey = GlobalKey<NavigatorState>();
+final _jobsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'jobs');
+final _entriesNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'entries');
+final _accountNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'account');
 
 enum AppRoute {
   onboarding,
@@ -73,120 +75,126 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: '/onboarding',
         name: AppRoute.onboarding.name,
-        pageBuilder: (context, state) => NoTransitionPage(
-          key: state.pageKey,
-          child: const OnboardingScreen(),
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: OnboardingScreen(),
         ),
       ),
       GoRoute(
         path: '/signIn',
         name: AppRoute.signIn.name,
-        pageBuilder: (context, state) => NoTransitionPage(
-          key: state.pageKey,
-          child: const CustomSignInScreen(),
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: CustomSignInScreen(),
         ),
       ),
-      ShellRoute(
-        navigatorKey: _shellNavigatorKey,
-        builder: (context, state, child) {
-          return ScaffoldWithBottomNavBar(child: child);
+      // Stateful navigation based on:
+      // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return ScaffoldWithBottomNavBar(navigationShell: navigationShell);
         },
-        routes: [
-          GoRoute(
-            path: '/jobs',
-            name: AppRoute.jobs.name,
-            pageBuilder: (context, state) => NoTransitionPage(
-              key: state.pageKey,
-              child: const JobsScreen(),
-            ),
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: _jobsNavigatorKey,
             routes: [
               GoRoute(
-                path: 'add',
-                name: AppRoute.addJob.name,
-                parentNavigatorKey: _rootNavigatorKey,
-                pageBuilder: (context, state) {
-                  return MaterialPage(
-                    key: state.pageKey,
-                    fullscreenDialog: true,
-                    child: const EditJobScreen(),
-                  );
-                },
-              ),
-              GoRoute(
-                path: ':id',
-                name: AppRoute.job.name,
-                pageBuilder: (context, state) {
-                  final id = state.pathParameters['id']!;
-                  return MaterialPage(
-                    key: state.pageKey,
-                    child: JobEntriesScreen(jobId: id),
-                  );
-                },
+                path: '/jobs',
+                name: AppRoute.jobs.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: JobsScreen(),
+                ),
                 routes: [
                   GoRoute(
-                    path: 'entries/add',
-                    name: AppRoute.addEntry.name,
+                    path: 'add',
+                    name: AppRoute.addJob.name,
                     parentNavigatorKey: _rootNavigatorKey,
                     pageBuilder: (context, state) {
-                      final jobId = state.pathParameters['id']!;
-                      return MaterialPage(
-                        key: state.pageKey,
+                      return const MaterialPage(
                         fullscreenDialog: true,
-                        child: EntryScreen(
-                          jobId: jobId,
-                        ),
+                        child: EditJobScreen(),
                       );
                     },
                   ),
                   GoRoute(
-                    path: 'entries/:eid',
-                    name: AppRoute.entry.name,
+                    path: ':id',
+                    name: AppRoute.job.name,
                     pageBuilder: (context, state) {
-                      final jobId = state.pathParameters['id']!;
-                      final entryId = state.pathParameters['eid']!;
-                      final entry = state.extra as Entry?;
+                      final id = state.pathParameters['id']!;
                       return MaterialPage(
-                        key: state.pageKey,
-                        child: EntryScreen(
-                          jobId: jobId,
-                          entryId: entryId,
-                          entry: entry,
-                        ),
+                        child: JobEntriesScreen(jobId: id),
                       );
                     },
-                  ),
-                  GoRoute(
-                    path: 'edit',
-                    name: AppRoute.editJob.name,
-                    pageBuilder: (context, state) {
-                      final jobId = state.pathParameters['id'];
-                      final job = state.extra as Job?;
-                      return MaterialPage(
-                        key: state.pageKey,
-                        fullscreenDialog: true,
-                        child: EditJobScreen(jobId: jobId, job: job),
-                      );
-                    },
+                    routes: [
+                      GoRoute(
+                        path: 'entries/add',
+                        name: AppRoute.addEntry.name,
+                        parentNavigatorKey: _rootNavigatorKey,
+                        pageBuilder: (context, state) {
+                          final jobId = state.pathParameters['id']!;
+                          return MaterialPage(
+                            fullscreenDialog: true,
+                            child: EntryScreen(
+                              jobId: jobId,
+                            ),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        path: 'entries/:eid',
+                        name: AppRoute.entry.name,
+                        pageBuilder: (context, state) {
+                          final jobId = state.pathParameters['id']!;
+                          final entryId = state.pathParameters['eid']!;
+                          final entry = state.extra as Entry?;
+                          return MaterialPage(
+                            child: EntryScreen(
+                              jobId: jobId,
+                              entryId: entryId,
+                              entry: entry,
+                            ),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        path: 'edit',
+                        name: AppRoute.editJob.name,
+                        pageBuilder: (context, state) {
+                          final jobId = state.pathParameters['id'];
+                          final job = state.extra as Job?;
+                          return MaterialPage(
+                            fullscreenDialog: true,
+                            child: EditJobScreen(jobId: jobId, job: job),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
             ],
           ),
-          GoRoute(
-            path: '/entries',
-            name: AppRoute.entries.name,
-            pageBuilder: (context, state) => NoTransitionPage(
-              key: state.pageKey,
-              child: const EntriesScreen(),
-            ),
+          StatefulShellBranch(
+            navigatorKey: _entriesNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/entries',
+                name: AppRoute.entries.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: EntriesScreen(),
+                ),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/account',
-            name: AppRoute.profile.name,
-            pageBuilder: (context, state) => NoTransitionPage(
-              key: state.pageKey,
-              child: const CustomProfileScreen(),
-            ),
+          StatefulShellBranch(
+            navigatorKey: _accountNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/account',
+                name: AppRoute.profile.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: CustomProfileScreen(),
+                ),
+              ),
+            ],
           ),
         ],
       ),
