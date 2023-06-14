@@ -14,7 +14,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/presenta
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/data/onboarding_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/go_router_refresh_stream.dart';
-import 'package:starter_architecture_flutter_firebase/src/routing/scaffold_with_bottom_nav_bar.dart';
+import 'package:starter_architecture_flutter_firebase/src/routing/scaffold_with_nested_navigation.dart';
 
 part 'app_router.g.dart';
 
@@ -90,7 +90,7 @@ GoRouter goRouter(GoRouterRef ref) {
       // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
-          return ScaffoldWithBottomNavBar(navigationShell: navigationShell);
+          return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
         },
         branches: [
           StatefulShellBranch(
