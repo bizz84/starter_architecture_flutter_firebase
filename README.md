@@ -27,7 +27,7 @@ All the data is persisted with Firestore and is kept in sync across multiple dev
 ## Roadmap
 
 - [ ] Add missing tests
-- [ ] Stateful Nested Navigation with GoRouter (once [this PR](https://github.com/flutter/packages/pull/2650) is merged)
+- [x] Stateful Nested Navigation (available since GoRouter 7.1)
 - [ ] Use controllers / notifiers consistently across the app (some code still needs to be updated)
 - [ ] Add localization
 - [ ] Use the new Firebase UI packages where useful
