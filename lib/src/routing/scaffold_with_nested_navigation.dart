@@ -10,8 +10,7 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
   const ScaffoldWithNestedNavigation({
     Key? key,
     required this.navigationShell,
-  }) : super(
-            key: key ?? const ValueKey<String>('ScaffoldWithNestedNavigation'));
+  }) : super(key: key ?? const ValueKey('ScaffoldWithNestedNavigation'));
   final StatefulNavigationShell navigationShell;
 
   void _goBranch(int index) {
@@ -29,7 +28,7 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     if (size.width < 450) {
-      return ScaffoldWithBottomNavBar(
+      return ScaffoldWithNavigationBar(
         body: navigationShell,
         currentIndex: navigationShell.currentIndex,
         onDestinationSelected: _goBranch,
@@ -44,8 +43,8 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
   }
 }
 
-class ScaffoldWithBottomNavBar extends StatelessWidget {
-  const ScaffoldWithBottomNavBar({
+class ScaffoldWithNavigationBar extends StatelessWidget {
+  const ScaffoldWithNavigationBar({
     super.key,
     required this.body,
     required this.currentIndex,
