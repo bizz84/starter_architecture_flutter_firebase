@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/date_time_picker.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/responsive_center.dart';
+import 'package:starter_architecture_flutter_firebase/src/constants/app_sizes.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/breakpoints.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
@@ -84,16 +85,16 @@ class _EntryPageState extends ConsumerState<EntryScreen> {
       body: SingleChildScrollView(
         child: ResponsiveCenter(
           maxContentWidth: Breakpoint.tablet,
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(Sizes.p16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildStartDate(),
               _buildEndDate(),
-              const SizedBox(height: 8.0),
+              gapH8,
               _buildDuration(),
-              const SizedBox(height: 8.0),
+              gapH8,
               _buildComment(),
             ],
           ),

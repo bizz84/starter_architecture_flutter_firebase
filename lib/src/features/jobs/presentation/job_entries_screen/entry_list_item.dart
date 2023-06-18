@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:starter_architecture_flutter_firebase/src/constants/app_sizes.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/format.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
@@ -20,7 +21,10 @@ class EntryListItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(
+          horizontal: Sizes.p16,
+          vertical: Sizes.p8,
+        ),
         child: Row(
           children: <Widget>[
             Expanded(
@@ -49,7 +53,7 @@ class EntryListItem extends StatelessWidget {
         Row(children: <Widget>[
           Text(dayOfWeek,
               style: const TextStyle(fontSize: 18.0, color: Colors.grey)),
-          const SizedBox(width: 15.0),
+          gapW16,
           Text(startDate, style: const TextStyle(fontSize: 18.0)),
           if (job.ratePerHour > 0.0) ...<Widget>[
             Expanded(child: Container()),

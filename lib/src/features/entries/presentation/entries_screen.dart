@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/src/constants/app_sizes.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entries_list_tile_model.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/application/entries_service.dart';
@@ -40,7 +41,10 @@ class EntriesListTile extends StatelessWidget {
     const fontSize = 16.0;
     return Container(
       color: model.isHeader ? Colors.indigo[100] : null,
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(
+        vertical: Sizes.p8,
+        horizontal: Sizes.p16,
+      ),
       child: Row(
         children: <Widget>[
           Text(model.leadingText, style: const TextStyle(fontSize: fontSize)),

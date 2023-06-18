@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/primary_button.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/responsive_center.dart';
+import 'package:starter_architecture_flutter_firebase/src/constants/app_sizes.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/presentation/onboarding_controller.dart';
 import 'package:starter_architecture_flutter_firebase/src/localization/string_hardcoded.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
@@ -27,14 +28,14 @@ class OnboardingScreen extends ConsumerWidget {
               style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16.0),
+            gapH16,
             SvgPicture.asset(
               'assets/time-tracking.svg',
               width: 200,
               height: 200,
               semanticsLabel: 'Time tracking logo',
             ),
-            const SizedBox(height: 16.0),
+            gapH16,
             PrimaryButton(
               text: 'Get Started'.hardcoded,
               isLoading: state.isLoading,
