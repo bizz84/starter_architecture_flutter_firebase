@@ -49,22 +49,23 @@ GoRouter goRouter(GoRouterRef ref) {
     debugLogDiagnostics: true,
     redirect: (context, state) {
       final didCompleteOnboarding = onboardingRepository.isOnboardingComplete();
+      final path = state.uri.path;
       if (!didCompleteOnboarding) {
         // Always check state.subloc before returning a non-null route
         // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/redirection.dart#L78
-        if (state.location != '/onboarding') {
+        if (path != '/onboarding') {
           return '/onboarding';
         }
       }
       final isLoggedIn = authRepository.currentUser != null;
       if (isLoggedIn) {
-        if (state.location.startsWith('/signIn')) {
+        if (path.startsWith('/signIn')) {
           return '/jobs';
         }
       } else {
-        if (state.location.startsWith('/jobs') ||
-            state.location.startsWith('/entries') ||
-            state.location.startsWith('/account')) {
+        if (path.startsWith('/jobs') ||
+            path.startsWith('/entries') ||
+            path.startsWith('/account')) {
           return '/signIn';
         }
       }
