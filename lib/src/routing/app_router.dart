@@ -38,7 +38,29 @@ enum AppRoute {
   profile,
 }
 
-@riverpod
+/*
+════════════════════════════════════════════════════════════════════════════════
+I/flutter ( 3964): ══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞════════════════════════
+I/flutter ( 3964): The following assertion was thrown building MainApp(dirty,
+I/flutter ( 3964): dependencies: [UncontrolledProviderScope], state:
+I/flutter ( 3964): _ConsumerState#dd3d1):
+I/flutter ( 3964): Tried to read
+I/flutter ( 3964): goRouterProvider:AutoDisposeProvider<GoRouter>#c026e from a place
+I/flutter ( 3964): where one of its dependencies were overridden but the provider is
+I/flutter ( 3964): not.
+I/flutter ( 3964):
+I/flutter ( 3964): To fix this error, you can add
+I/flutter ( 3964): onboardingRepositoryProvider:Provider<OnboardingRepository>#53161
+I/flutter ( 3964): (a) to the "dependencies" of
+I/flutter ( 3964): goRouterProvider:AutoDisposeProvider<GoRouter>#c026e (b) such
+I/flutter ( 3964): that we have:
+I/flutter ( 3964):
+I/flutter ( 3964): ```
+I/flutter ( 3964): final a = Provider(...);
+I/flutter ( 3964): final b = Provider((ref) => ref.watch(a), dependencies: [a]);
+I/flutter ( 3964): ```
+*/
+@Riverpod(keepAlive: true, dependencies: [onboardingRepository])
 // ignore: unsupported_provider_value
 GoRouter goRouter(GoRouterRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
@@ -48,8 +70,8 @@ GoRouter goRouter(GoRouterRef ref) {
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
-      final didCompleteOnboarding = onboardingRepository.isOnboardingComplete();
       final path = state.uri.path;
+      final didCompleteOnboarding = onboardingRepository.isOnboardingComplete();
       if (!didCompleteOnboarding) {
         // Always check state.subloc before returning a non-null route
         // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/redirection.dart#L78
