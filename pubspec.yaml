@@ -8,12 +8,12 @@ environment:
   sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
-  cloud_firestore: ^4.9.2
+  cloud_firestore: ^4.12.2
   cupertino_icons: ^1.0.6
   equatable: ^2.0.5
-  firebase_auth: ^4.10.0
-  firebase_core: ^2.16.0
-  firebase_ui_auth: ^1.8.0
+  firebase_auth: ^4.12.1
+  firebase_core: ^2.21.0
+  firebase_ui_auth: ^1.9.1
   firebase_ui_firestore: ^1.5.11
   flutter:
     sdk: flutter
@@ -25,6 +25,7 @@ dependencies:
   shared_preferences: ^2.2.1
   # the annotation package containing @riverpod
   riverpod_annotation: 2.1.6
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:
