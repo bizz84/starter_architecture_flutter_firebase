@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class InputDropdown extends StatelessWidget {
   const InputDropdown({
-    Key? key,
+    super.key,
     this.labelText,
     required this.valueText,
     required this.valueStyle,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   final String? labelText;
   final String valueText;

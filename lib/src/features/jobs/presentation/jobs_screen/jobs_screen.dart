@@ -65,8 +65,7 @@ class JobsScreen extends StatelessWidget {
 }
 
 class JobListTile extends StatelessWidget {
-  const JobListTile({Key? key, required this.job, this.onTap})
-      : super(key: key);
+  const JobListTile({super.key, required this.job, this.onTap});
   final Job job;
   final VoidCallback? onTap;
 

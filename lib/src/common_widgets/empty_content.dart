@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class EmptyContent extends StatelessWidget {
   const EmptyContent({
-    Key? key,
+    super.key,
     this.title = 'Nothing here',
     this.message = 'Add a new item to get started',
-  }) : super(key: key);
+  });
   final String title;
   final String message;
 

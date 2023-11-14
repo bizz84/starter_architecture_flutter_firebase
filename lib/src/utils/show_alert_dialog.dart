@@ -1,4 +1,4 @@
-part of alert_dialogs;
+part of 'alert_dialogs.dart';
 
 Future<bool?> showAlertDialog({
   required BuildContext context,
