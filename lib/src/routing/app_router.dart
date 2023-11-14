@@ -42,7 +42,8 @@ enum AppRoute {
 // ignore: unsupported_provider_value
 GoRouter goRouter(GoRouterRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
-  final onboardingRepository = ref.watch(onboardingRepositoryProvider);
+  final onboardingRepository =
+      ref.watch(onboardingRepositoryProvider).requireValue;
   return GoRouter(
     initialLocation: '/signIn',
     navigatorKey: _rootNavigatorKey,

@@ -18,6 +18,7 @@ class OnboardingRepository {
 }
 
 @Riverpod(keepAlive: true)
-OnboardingRepository onboardingRepository(OnboardingRepositoryRef ref) {
-  throw UnimplementedError();
+Future<OnboardingRepository> onboardingRepository(
+    OnboardingRepositoryRef ref) async {
+  return OnboardingRepository(await SharedPreferences.getInstance());
 }

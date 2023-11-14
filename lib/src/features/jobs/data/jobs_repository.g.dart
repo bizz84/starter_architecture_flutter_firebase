@@ -58,8 +58,6 @@ class _SystemHash {
   }
 }
 
-typedef JobStreamRef = AutoDisposeStreamProviderRef<Job>;
-
 /// See also [jobStream].
 @ProviderFor(jobStream)
 const jobStreamProvider = JobStreamFamily();
@@ -106,10 +104,10 @@ class JobStreamFamily extends Family<AsyncValue<Job>> {
 class JobStreamProvider extends AutoDisposeStreamProvider<Job> {
   /// See also [jobStream].
   JobStreamProvider(
-    this.jobId,
-  ) : super.internal(
+    String jobId,
+  ) : this._internal(
           (ref) => jobStream(
-            ref,
+            ref as JobStreamRef,
             jobId,
           ),
           from: jobStreamProvider,
@@ -120,9 +118,43 @@ class JobStreamProvider extends AutoDisposeStreamProvider<Job> {
                   : _$jobStreamHash,
           dependencies: JobStreamFamily._dependencies,
           allTransitiveDependencies: JobStreamFamily._allTransitiveDependencies,
+          jobId: jobId,
         );
 
+  JobStreamProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.jobId,
+  }) : super.internal();
+
   final String jobId;
+
+  @override
+  Override overrideWith(
+    Stream<Job> Function(JobStreamRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: JobStreamProvider._internal(
+        (ref) => create(ref as JobStreamRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        jobId: jobId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<Job> createElement() {
+    return _JobStreamProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -137,4 +169,18 @@ class JobStreamProvider extends AutoDisposeStreamProvider<Job> {
     return _SystemHash.finish(hash);
   }
 }
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+
+mixin JobStreamRef on AutoDisposeStreamProviderRef<Job> {
+  /// The parameter `jobId` of this provider.
+  String get jobId;
+}
+
+class _JobStreamProviderElement extends AutoDisposeStreamProviderElement<Job>
+    with JobStreamRef {
+  _JobStreamProviderElement(super.provider);
+
+  @override
+  String get jobId => (origin as JobStreamProvider).jobId;
+}
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
