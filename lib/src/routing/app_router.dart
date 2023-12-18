@@ -41,11 +41,15 @@ enum AppRoute {
 @riverpod
 // ignore: unsupported_provider_value
 GoRouter goRouter(GoRouterRef ref) {
-  final authRepository = ref.watch(authRepositoryProvider);
   final onboardingRepository =
       ref.watch(onboardingRepositoryProvider).requireValue;
+  final authState = ref.watch(authStateChangesProvider);
   return GoRouter(
     initialLocation: '/signIn',
+    // Use a GlobalKey to ensure GoRouter doesn't rebuild when watching the providers above
+    // For more details, see:
+    // https://github.com/lucavenir/go_router_riverpod
+    // https://github.com/flutter/flutter/issues/116651
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
@@ -58,7 +62,8 @@ GoRouter goRouter(GoRouterRef ref) {
           return '/onboarding';
         }
       }
-      final isLoggedIn = authRepository.currentUser != null;
+      final user = authState.value;
+      final isLoggedIn = user != null;
       if (isLoggedIn) {
         if (path.startsWith('/signIn')) {
           return '/jobs';
@@ -72,7 +77,6 @@ GoRouter goRouter(GoRouterRef ref) {
       }
       return null;
     },
-    refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
       GoRoute(
         path: '/onboarding',
