@@ -24,6 +24,12 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: Colors.grey[200],
         dividerColor: Colors.grey[400],
         // https://github.com/firebase/flutterfire/blob/master/packages/firebase_ui_auth/doc/theming.md
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          ),
+        ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
