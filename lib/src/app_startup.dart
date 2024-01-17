@@ -32,7 +32,10 @@ class AppStartupWidget extends ConsumerWidget {
       loading: () => const AppStartupLoadingWidget(),
       error: (e, st) => AppStartupErrorWidget(
         message: e.toString(),
-        onRetry: () => ref.refresh(appStartupProvider),
+        onRetry: () {
+          ref.invalidate(onboardingRepositoryProvider);
+          ref.invalidate(appStartupProvider);
+        },
       ),
     );
   }
