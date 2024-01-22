@@ -10,6 +10,10 @@ part 'app_startup.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<void> appStartup(AppStartupRef ref) async {
+  ref.onDispose(() {
+    // ensure dependent providers are disposed as well
+    ref.invalidate(onboardingRepositoryProvider);
+  });
   // await for all initialization code to be complete before returning
   await Future.wait([
     // Firebase init
@@ -32,10 +36,7 @@ class AppStartupWidget extends ConsumerWidget {
       loading: () => const AppStartupLoadingWidget(),
       error: (e, st) => AppStartupErrorWidget(
         message: e.toString(),
-        onRetry: () {
-          ref.invalidate(onboardingRepositoryProvider);
-          ref.invalidate(appStartupProvider);
-        },
+        onRetry: () => ref.invalidate(appStartupProvider),
       ),
     );
   }
