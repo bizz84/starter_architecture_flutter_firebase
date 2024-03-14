@@ -14,6 +14,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/presenta
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/data/onboarding_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/go_router_refresh_stream.dart';
+import 'package:starter_architecture_flutter_firebase/src/routing/not_found_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/scaffold_with_nested_navigation.dart';
 
 part 'app_router.g.dart';
@@ -201,6 +202,6 @@ GoRouter goRouter(GoRouterRef ref) {
         ],
       ),
     ],
-    //errorBuilder: (context, state) => const NotFoundScreen(),
+    errorBuilder: (context, state) => const NotFoundScreen(),
   );
 }

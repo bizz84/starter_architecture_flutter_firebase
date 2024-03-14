@@ -10,6 +10,11 @@ part 'app_startup.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<void> appStartup(AppStartupRef ref) async {
+  ref.listen(onboardingRepositoryProvider, (previous, current) {
+    if (current.hasError) {
+      // keep track of error so the provider can be rebuilt on retry
+    }
+  });
   ref.onDispose(() {
     // ensure dependent providers are disposed as well
     ref.invalidate(onboardingRepositoryProvider);
