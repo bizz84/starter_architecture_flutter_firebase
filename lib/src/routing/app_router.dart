@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:starter_architecture_flutter_firebase/src/app_startup.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/custom_profile_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/custom_sign_in_screen.dart';
@@ -40,16 +41,23 @@ enum AppRoute {
 }
 
 @riverpod
-// ignore: unsupported_provider_value
 GoRouter goRouter(GoRouterRef ref) {
+  // rebuild GoRouter when app startup state changes
+  final appStartupState = ref.watch(appStartupProvider);
   final authRepository = ref.watch(authRepositoryProvider);
-  final onboardingRepository =
-      ref.watch(onboardingRepositoryProvider).requireValue;
   return GoRouter(
     initialLocation: '/signIn',
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
+      if (appStartupState.isLoading) {
+        return '/loading';
+      }
+      if (appStartupState.hasError) {
+        return '/error';
+      }
+      final onboardingRepository =
+          ref.read(onboardingRepositoryProvider).requireValue;
       final didCompleteOnboarding = onboardingRepository.isOnboardingComplete();
       final path = state.uri.path;
       if (!didCompleteOnboarding) {
@@ -75,6 +83,21 @@ GoRouter goRouter(GoRouterRef ref) {
     },
     refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
+      GoRoute(
+        path: '/loading',
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: AppStartupLoadingWidget(),
+        ),
+      ),
+      GoRoute(
+        path: '/error',
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: AppStartupErrorWidget(
+            message: 'App initialization failed',
+            onRetry: () => ref.invalidate(appStartupProvider),
+          ),
+        ),
+      ),
       GoRoute(
         path: '/onboarding',
         name: AppRoute.onboarding.name,
