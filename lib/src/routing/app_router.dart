@@ -67,11 +67,15 @@ GoRouter goRouter(GoRouterRef ref) {
       }
       final isLoggedIn = authRepository.currentUser != null;
       if (isLoggedIn) {
-        if (path.startsWith('/signIn')) {
+        if (path.startsWith('/startup') ||
+            path.startsWith('/onboarding') ||
+            path.startsWith('/signIn')) {
           return '/jobs';
         }
       } else {
-        if (path.startsWith('/jobs') ||
+        if (path.startsWith('/startup') ||
+            path.startsWith('/onboarding') ||
+            path.startsWith('/jobs') ||
             path.startsWith('/entries') ||
             path.startsWith('/account')) {
           return '/signIn';
@@ -108,9 +112,9 @@ GoRouter goRouter(GoRouterRef ref) {
       // Stateful navigation based on:
       // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
       StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
-        },
+        pageBuilder: (context, state, navigationShell) => NoTransitionPage(
+          child: ScaffoldWithNestedNavigation(navigationShell: navigationShell),
+        ),
         branches: [
           StatefulShellBranch(
             navigatorKey: _jobsNavigatorKey,
@@ -218,6 +222,8 @@ GoRouter goRouter(GoRouterRef ref) {
         ],
       ),
     ],
-    errorBuilder: (context, state) => const NotFoundScreen(),
+    errorPageBuilder: (context, state) => const NoTransitionPage(
+      child: NotFoundScreen(),
+    ),
   );
 }
