@@ -50,11 +50,9 @@ GoRouter goRouter(GoRouterRef ref) {
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
-      if (appStartupState.isLoading) {
-        return '/loading';
-      }
-      if (appStartupState.hasError) {
-        return '/error';
+      // If the app is still initializing, show the /startup route
+      if (appStartupState.isLoading || appStartupState.hasError) {
+        return '/startup';
       }
       final onboardingRepository =
           ref.read(onboardingRepositoryProvider).requireValue;
@@ -84,17 +82,12 @@ GoRouter goRouter(GoRouterRef ref) {
     refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
       GoRoute(
-        path: '/loading',
-        pageBuilder: (context, state) => const NoTransitionPage(
-          child: AppStartupLoadingWidget(),
-        ),
-      ),
-      GoRoute(
-        path: '/error',
+        path: '/startup',
         pageBuilder: (context, state) => NoTransitionPage(
-          child: AppStartupErrorWidget(
-            message: 'App initialization failed',
-            onRetry: () => ref.invalidate(appStartupProvider),
+          child: AppStartupWidget(
+            // * This is just a placeholder
+            // * The loaded route will be managed by GoRouter on state change
+            onLoaded: (_) => const SizedBox.shrink(),
           ),
         ),
       ),
