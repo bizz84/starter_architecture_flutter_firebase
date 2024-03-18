@@ -1,8 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:starter_architecture_flutter_firebase/firebase_options.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/app_sizes.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/data/onboarding_repository.dart';
 
@@ -20,12 +18,7 @@ Future<void> appStartup(AppStartupRef ref) async {
     ref.invalidate(onboardingRepositoryProvider);
   });
   // await for all initialization code to be complete before returning
-  await Future.wait([
-    // Firebase init
-    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
-    // list of providers to be warmed up
-    ref.watch(onboardingRepositoryProvider.future)
-  ]);
+  await ref.watch(onboardingRepositoryProvider.future);
 }
 
 /// Widget class to manage asynchronous app initialization
@@ -52,11 +45,10 @@ class AppStartupLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
+    return Scaffold(
+      appBar: AppBar(),
+      body: const Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
@@ -70,20 +62,19 @@ class AppStartupErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(message, style: Theme.of(context).textTheme.headlineSmall),
-              gapH16,
-              ElevatedButton(
-                onPressed: onRetry,
-                child: const Text('Retry'),
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(message, style: Theme.of(context).textTheme.headlineSmall),
+            gapH16,
+            ElevatedButton(
+              onPressed: onRetry,
+              child: const Text('Retry'),
+            ),
+          ],
         ),
       ),
     );

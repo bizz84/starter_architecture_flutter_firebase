@@ -41,6 +41,14 @@ dev_dependencies:
   # import custom_lint too as riverpod_lint depends on it
   custom_lint: 0.5.6
 
+dependency_overrides:
+  web: ^0.4.2
+  firebase_auth_web:
+    git:
+      url: https://github.com/firebase/flutterfire
+      ref: master
+      path: packages/firebase_auth/firebase_auth_web
+
 flutter:
   uses-material-design: true
   assets:

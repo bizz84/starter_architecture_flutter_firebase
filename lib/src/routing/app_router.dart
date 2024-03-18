@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:starter_architecture_flutter_firebase/src/app_startup.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/custom_profile_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/custom_sign_in_screen.dart';
@@ -40,16 +41,21 @@ enum AppRoute {
 }
 
 @riverpod
-// ignore: unsupported_provider_value
 GoRouter goRouter(GoRouterRef ref) {
+  // rebuild GoRouter when app startup state changes
+  final appStartupState = ref.watch(appStartupProvider);
   final authRepository = ref.watch(authRepositoryProvider);
-  final onboardingRepository =
-      ref.watch(onboardingRepositoryProvider).requireValue;
   return GoRouter(
     initialLocation: '/signIn',
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
+      // If the app is still initializing, show the /startup route
+      if (appStartupState.isLoading || appStartupState.hasError) {
+        return '/startup';
+      }
+      final onboardingRepository =
+          ref.read(onboardingRepositoryProvider).requireValue;
       final didCompleteOnboarding = onboardingRepository.isOnboardingComplete();
       final path = state.uri.path;
       if (!didCompleteOnboarding) {
@@ -61,11 +67,15 @@ GoRouter goRouter(GoRouterRef ref) {
       }
       final isLoggedIn = authRepository.currentUser != null;
       if (isLoggedIn) {
-        if (path.startsWith('/signIn')) {
+        if (path.startsWith('/startup') ||
+            path.startsWith('/onboarding') ||
+            path.startsWith('/signIn')) {
           return '/jobs';
         }
       } else {
-        if (path.startsWith('/jobs') ||
+        if (path.startsWith('/startup') ||
+            path.startsWith('/onboarding') ||
+            path.startsWith('/jobs') ||
             path.startsWith('/entries') ||
             path.startsWith('/account')) {
           return '/signIn';
@@ -75,6 +85,16 @@ GoRouter goRouter(GoRouterRef ref) {
     },
     refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
+      GoRoute(
+        path: '/startup',
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: AppStartupWidget(
+            // * This is just a placeholder
+            // * The loaded route will be managed by GoRouter on state change
+            onLoaded: (_) => const SizedBox.shrink(),
+          ),
+        ),
+      ),
       GoRoute(
         path: '/onboarding',
         name: AppRoute.onboarding.name,
@@ -92,9 +112,9 @@ GoRouter goRouter(GoRouterRef ref) {
       // Stateful navigation based on:
       // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
       StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
-        },
+        pageBuilder: (context, state, navigationShell) => NoTransitionPage(
+          child: ScaffoldWithNestedNavigation(navigationShell: navigationShell),
+        ),
         branches: [
           StatefulShellBranch(
             navigatorKey: _jobsNavigatorKey,
@@ -202,6 +222,8 @@ GoRouter goRouter(GoRouterRef ref) {
         ],
       ),
     ],
-    errorBuilder: (context, state) => const NotFoundScreen(),
+    errorPageBuilder: (context, state) => const NoTransitionPage(
+      child: NotFoundScreen(),
+    ),
   );
 }
