@@ -64,6 +64,7 @@ GoRouter goRouter(GoRouterRef ref) {
         if (path != '/onboarding') {
           return '/onboarding';
         }
+        return null;
       }
       final isLoggedIn = authRepository.currentUser != null;
       if (isLoggedIn) {
