@@ -6,13 +6,9 @@ import 'package:starter_architecture_flutter_firebase/src/features/onboarding/da
 
 part 'app_startup.g.dart';
 
+// https://codewithandrea.com/articles/robust-app-initialization-riverpod/
 @Riverpod(keepAlive: true)
 Future<void> appStartup(AppStartupRef ref) async {
-  ref.listen(onboardingRepositoryProvider, (previous, current) {
-    if (current.hasError) {
-      // keep track of error so the provider can be rebuilt on retry
-    }
-  });
   ref.onDispose(() {
     // ensure dependent providers are disposed as well
     ref.invalidate(onboardingRepositoryProvider);
