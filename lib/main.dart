@@ -5,11 +5,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/firebase_options.dart';
 import 'package:starter_architecture_flutter_firebase/src/app.dart';
 import 'package:starter_architecture_flutter_firebase/src/localization/string_hardcoded.dart';
+import 'package:starter_architecture_flutter_firebase/src/routing/app_startup.dart';
+
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  
+  runApp(
+    const MaterialApp(
+        home: AppStartupLoadingWidget(),
+    ),
+  );
+
+  
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
   // * Register error handlers. For more info, see:
