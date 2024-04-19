@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:starter_architecture_flutter_firebase/src/localization/string_hardcoded.dart';
+import 'package:flutter_starter_base_app/src/localization/string_hardcoded.dart';
 
 // Stateful navigation based on:
 // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart

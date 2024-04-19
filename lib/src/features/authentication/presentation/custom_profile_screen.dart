@@ -1,7 +1,7 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/auth_providers.dart';
+import 'package:flutter_starter_base_app/src/features/authentication/presentation/auth_providers.dart';
 
 class CustomProfileScreen extends ConsumerWidget {
   const CustomProfileScreen({super.key});

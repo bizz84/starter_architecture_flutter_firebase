@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:starter_architecture_flutter_firebase/src/common_widgets/async_value_widget.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/jobs_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/job_entries_screen/job_entries_list.dart';
-import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
+import 'package:flutter_starter_base_app/src/common_widgets/async_value_widget.dart';
+import 'package:flutter_starter_base_app/src/features/jobs/data/jobs_repository.dart';
+import 'package:flutter_starter_base_app/src/features/jobs/domain/job.dart';
+import 'package:flutter_starter_base_app/src/features/jobs/presentation/job_entries_screen/job_entries_list.dart';
+import 'package:flutter_starter_base_app/src/routing/app_router.dart';
 
 class JobEntriesScreen extends ConsumerWidget {
   const JobEntriesScreen({super.key, required this.jobId});

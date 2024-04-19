@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
+import 'package:flutter_starter_base_app/src/features/jobs/domain/job.dart';
 
 typedef EntryID = String;
 

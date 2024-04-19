@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:starter_architecture_flutter_firebase/src/common_widgets/responsive_center.dart';
-import 'package:starter_architecture_flutter_firebase/src/constants/breakpoints.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen/edit_job_screen_controller.dart';
-import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
+import 'package:flutter_starter_base_app/src/common_widgets/responsive_center.dart';
+import 'package:flutter_starter_base_app/src/constants/breakpoints.dart';
+import 'package:flutter_starter_base_app/src/features/jobs/domain/job.dart';
+import 'package:flutter_starter_base_app/src/features/jobs/presentation/edit_job_screen/edit_job_screen_controller.dart';
+import 'package:flutter_starter_base_app/src/utils/async_value_ui.dart';
 
 class EditJobScreen extends ConsumerStatefulWidget {
   const EditJobScreen({super.key, this.jobId, this.job});
