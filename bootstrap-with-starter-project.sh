@@ -51,13 +51,13 @@ echo "New package name: $new_package_name"
 
 # Update Flutter package names in pubspec.yaml
 echo "Updating Flutter package names in pubspec.yaml files..."
-find "$destination_path" -type f -name "pubspec.yaml" -exec sh -c 'sed -i "" "s/^name:.*/name: $new_package_name/" "$1" && echo "Updated $1"' _ {} \;
+find "$destination_path" -type f -name "pubspec.yaml" -exec sh -c 'sed -i "" "s/^name:.*/name: $1/" "$2" && echo "Updated $2"' _ "$new_package_name" {} \;
 
 # Update Flutter package imports in Dart files within the /lib directory
 echo "Updating Flutter package imports in Dart files..."
 lib_path="${destination_path}/lib"
 if [ -d "$lib_path" ]; then
-    find "$lib_path" -type f -name "*.dart" -exec sh -c 'sed -i "" "s/package:$old_package_name\//package:$new_package_name\//g" "$1" && echo "Updated $1"' _ {} \;
+    find "$lib_path" -type f -name "*.dart" -exec sh -c 'sed -i "" "s/package:$2\//package:$1\//g" "$3" && echo "Updated $3"' _ "$new_package_name" "$old_package_name" {} \;
 fi
 
 # Inform user of success
