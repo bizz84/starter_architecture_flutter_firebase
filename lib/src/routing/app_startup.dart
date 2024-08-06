@@ -1,3 +1,4 @@
+import 'package:flutter_starter_base_app/src/common_widgets/circular_loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -41,18 +42,17 @@ class AppStartupLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: const Center(
-        child: CircularProgressIndicator(),
+    return const Scaffold(
+      // appBar: AppBar(),
+      body: Center(
+        child: LoadingAnimation(),
       ),
     );
   }
 }
 
 class AppStartupErrorWidget extends StatelessWidget {
-  const AppStartupErrorWidget(
-      {super.key, required this.message, required this.onRetry});
+  const AppStartupErrorWidget({super.key, required this.message, required this.onRetry});
   final String message;
   final VoidCallback onRetry;
 

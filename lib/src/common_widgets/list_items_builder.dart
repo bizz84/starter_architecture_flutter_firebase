@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/empty_content.dart';
+import 'package:flutter_starter_base_app/src/common_widgets/circular_loading_animation.dart';
 
 typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 
@@ -28,7 +29,7 @@ class ListItemsBuilder<T> extends StatelessWidget {
               },
             )
           : const EmptyContent(),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const Center(child: LoadingAnimation()),
       error: (_, __) => const EmptyContent(
         title: 'Something went wrong',
         message: 'Can\'t load items right now',

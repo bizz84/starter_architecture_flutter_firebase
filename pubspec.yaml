@@ -1,30 +1,51 @@
 name: flutter_starter_base_app
-description: A new Flutter project.
+description: Danlaw EV Charger
 
-publish_to: 'none'
-version: 2.1.0
+publish_to: "none"
+version: 1.0.0+7
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
-  cloud_firestore: ^4.14.0
   cupertino_icons: ^1.0.6
   equatable: ^2.0.5
-  firebase_auth: ^4.16.0
-  firebase_core: ^2.24.2
-  firebase_ui_auth: ^1.12.0
-  firebase_ui_firestore: ^1.6.1
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   flutter_riverpod: ^2.4.6
   flutter_svg: ^2.0.9
-  go_router: 12.1.1
-  intl: ^0.18.1
+  go_router: ^14.2.1
+  intl: ^0.19.0
   rxdart: ^0.27.7
   shared_preferences: ^2.2.2
-  # the annotation package containing @riverpod
   riverpod_annotation: 2.3.1
+  dio: ^5.4.3+1
+  json_annotation: ^4.9.0
+  world_zipcode_validator: ^0.0.2
+  us_states: ^1.2.0
+  country_code: ^1.0.0
+  hexcolor: ^3.0.1
+  carousel_slider: ^4.2.1
+  simple_circular_progress_bar: ^1.0.2
+  flutter_svg_provider: ^1.0.7
+  reflectable: ^4.0.6
+  google_fonts: ^6.2.1
+  share_plus: ^9.0.0
+  mobile_scanner: ^5.1.1
+  flutter_blue_plus: ^1.32.7
+  wifi_scan: ^0.4.1
+  email_validator: ^2.1.17
+  flutter_native_splash: ^2.4.0
+  path_provider: ^2.1.3
+  flutter_i18n: ^0.36.0
+  easy_localization: ^3.0.7
+  url_launcher: ^6.3.0
+  jwt_decode: ^0.3.1
+  flutter_secure_storage: ^4.2.1
+  geocoding: ^3.0.0
+  geolocator: ^12.0.0
 
 dev_dependencies:
   flutter_test:
@@ -32,24 +53,39 @@ dev_dependencies:
   mocktail: ^1.0.1
   random_string: ^2.3.1
   flutter_lints: ^3.0.1
-  # a tool for running code generators
   build_runner: ^2.4.8
-  # the code generator
   riverpod_generator: 2.3.6
-  # riverpod_lint makes it easier to work with Riverpod
   riverpod_lint: 2.3.4
-  # import custom_lint too as riverpod_lint depends on it
   custom_lint: 0.5.6
+  json_serializable: ^6.7.1
+  uuid: ^4.4.0
+  flutter_launcher_icons: ^0.13.1
 
-dependency_overrides:
-  web: ^0.4.2
-  firebase_auth_web:
-    git:
-      url: https://github.com/firebase/flutterfire
-      ref: master
-      path: packages/firebase_auth/firebase_auth_web
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/launch_icon.ico"
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/time-tracking.svg
+    - mock/
+    - assets/bottom_navigation_bar/
+    - assets/detail_icon/
+    - assets/vehicle_icon/
+    - assets/charger_icon/
+    - assets/charger_icon/large/
+    - assets/charger_icon/medium/
+    - assets/charger_icon/small/
+    - assets/charger_icon/gray/
+    - assets/charger_icon/green/
+    - assets/charger_icon/blue/
+    - assets/charger_icon/red/
+    - assets/
+    - assets/images/
+    - assets/setup_charger/
+    - assets/setup_dongle/
+    - assets/locale/

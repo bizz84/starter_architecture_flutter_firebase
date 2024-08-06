@@ -1,47 +1,43 @@
-// import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter_starter_base_app/src/localization/asset_handler.dart';
+import 'package:flutter_starter_base_app/src/localization/localization_service.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:flutter_starter_base_app/firebase_options.dart';
-import 'package:flutter_starter_base_app/src/app.dart';
-import 'package:flutter_starter_base_app/src/localization/string_hardcoded.dart';
-// ignore:depend_on_referenced_packages
-import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart' show ConsumerWidget, ProviderScope, WidgetRef;
+import 'package:flutter_starter_base_app/main.reflectable.dart';
+import 'package:flutter_starter_base_app/src/routing/app_router.dart' show goRouterProvider;
+import 'package:flutter_starter_base_app/src/utils/error_handler.dart';
+import 'package:flutter_starter_base_app/src/constants/theme_data.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  // turn off the # in the URLs on the web
-  usePathUrlStrategy();
-  // * Register error handlers. For more info, see:
-  // * https://docs.flutter.dev/testing/errors
+void main() async {
+  FlutterNativeSplash.preserve(widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
+  await EasyLocalization.ensureInitialized();
   registerErrorHandlers();
-  // * Initialize Firebase
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // * Entry point of the app
-  runApp(const ProviderScope(
-    child: MyApp(),
-  ));
+  initializeReflectable();
+  FlutterNativeSplash.remove();
+  runApp(ProviderScope(
+      child: EasyLocalization(
+          supportedLocales: LocalizationService.getSupportedLocales(),
+          path: 'assets/locale',
+          useFallbackTranslations: true,
+          useFallbackTranslationsForEmptyResources: true,
+          fallbackLocale: LocalizationService.getFallbackLocale(),
+          startLocale: LocalizationService.getDeviceLocale(),
+          saveLocale: false,
+          assetLoader: AssetHandler(),
+          child: const EVChargerApp())));
 }
 
-void registerErrorHandlers() {
-  // * Show some error UI if any uncaught exception happens
-  FlutterError.onError = (FlutterErrorDetails details) {
-    FlutterError.presentError(details);
-    debugPrint(details.toString());
-  };
-  // * Handle errors from the underlying platform/OS
-  PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
-    debugPrint(error.toString());
-    return true;
-  };
-  // * Show some error UI when any widget in the app fails to build
-  ErrorWidget.builder = (FlutterErrorDetails details) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: Text('An error occurred'.hardcoded),
-      ),
-      body: Center(child: Text(details.toString())),
-    );
-  };
+class EVChargerApp extends ConsumerWidget {
+  const EVChargerApp({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => MaterialApp.router(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        theme: DanlawTheme().themeData,
+        debugShowCheckedModeBanner: false,
+        routerConfig: ref.watch(goRouterProvider),
+      );
 }

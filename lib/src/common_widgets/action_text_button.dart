@@ -1,3 +1,4 @@
+import 'package:flutter_starter_base_app/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_starter_base_app/src/constants/app_sizes.dart';
 
@@ -15,9 +16,12 @@ class ActionTextButton extends StatelessWidget {
         child: Text(text,
             style: Theme.of(context)
                 .textTheme
-                .titleLarge!
-                .copyWith(color: Colors.white)),
+                .titleMedium!
+                .copyWith(color: CustomColors().lightblueColor
+                    //  Colors.white
+                    )),
       ),
     );
   }
 }
+// >>>>>>> 31efecbea456f03fbf91d0d8ec13fb67bc80b137

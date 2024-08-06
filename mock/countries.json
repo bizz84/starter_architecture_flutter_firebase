@@ -1,0 +1,48 @@
+{
+    "status": "success",
+    "message": "Countries retrieved successfully!",
+    "data": {
+        "countries": [
+            {
+                "name": "United States",
+                "code": "US",
+                "telephoneCode": "+1"
+            },
+            {
+                "name": "Canada",
+                "code": "CA",
+                "telephoneCode": "+1"
+            },
+            {
+                "name": "United Kingdom",
+                "code": "UK",
+                "telephoneCode": "+44"
+            },
+            {
+                "name": "Germany",
+                "code": "DE",
+                "telephoneCode": "+49"
+            },
+            {
+                "name": "France",
+                "code": "FR",
+                "telephoneCode": "+33"
+            },
+            {
+                "name": "Australia",
+                "code": "AU",
+                "telephoneCode": "+61"
+            },
+            {
+                "name": "Japan",
+                "code": "JP",
+                "telephoneCode": "+81"
+            },
+            {
+                "name": "China",
+                "code": "CN",
+                "telephoneCode": "+86"
+            }
+        ]
+    }
+}

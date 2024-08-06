@@ -1,0 +1,1 @@
+enum ReportBy { power, cost }

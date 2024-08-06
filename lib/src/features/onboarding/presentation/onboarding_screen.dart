@@ -1,3 +1,5 @@
+import 'package:flutter_starter_base_app/src/features/onboarding/presentation/onboarding_controller.dart';
+import 'package:flutter_starter_base_app/src/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,9 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/primary_button.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/responsive_center.dart';
 import 'package:flutter_starter_base_app/src/constants/app_sizes.dart';
-import 'package:flutter_starter_base_app/src/features/onboarding/presentation/onboarding_controller.dart';
 import 'package:flutter_starter_base_app/src/localization/string_hardcoded.dart';
-import 'package:flutter_starter_base_app/src/routing/app_router.dart';
 
 class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key});
@@ -42,9 +42,7 @@ class OnboardingScreen extends ConsumerWidget {
               onPressed: state.isLoading
                   ? null
                   : () async {
-                      await ref
-                          .read(onboardingControllerProvider.notifier)
-                          .completeOnboarding();
+                      await ref.read(onboardingControllerProvider.notifier).completeOnboarding();
                       if (context.mounted) {
                         // go to sign in page after completing onboarding
                         context.goNamed(AppRoute.signIn.name);

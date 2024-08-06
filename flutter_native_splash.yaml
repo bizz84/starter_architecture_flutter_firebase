@@ -1,0 +1,11 @@
+# Save changes with  dart run flutter_native_splash:create --path=flutter_native_splash.yaml
+flutter_native_splash:
+  background_image: "assets/splash.jpg"
+  background_image_dark: "assets/splash.jpg"
+  android_12:
+    image: "assets/splash.jpg"
+    image_dark: "assets/splash.jpg"
+    fullscreen: true
+    android_gravity: center
+    ios_content_mode: center
+    color: "#0f1941"

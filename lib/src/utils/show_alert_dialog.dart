@@ -15,14 +15,8 @@ Future<bool?> showAlertDialog({
         content: content != null ? Text(content) : null,
         actions: <Widget>[
           if (cancelActionText != null)
-            TextButton(
-              child: Text(cancelActionText),
-              onPressed: () => Navigator.of(context).pop(false),
-            ),
-          TextButton(
-            child: Text(defaultActionText),
-            onPressed: () => Navigator.of(context).pop(true),
-          ),
+            TextButton(child: Text(cancelActionText), onPressed: () => context.canPop() ? context.pop(false) : null),
+          TextButton(child: Text(defaultActionText), onPressed: () => context.canPop() ? context.pop(true) : null),
         ],
       ),
     );
@@ -35,13 +29,9 @@ Future<bool?> showAlertDialog({
       actions: <Widget>[
         if (cancelActionText != null)
           CupertinoDialogAction(
-            child: Text(cancelActionText),
-            onPressed: () => Navigator.of(context).pop(false),
-          ),
+              child: Text(cancelActionText), onPressed: () => context.canPop() ? context.pop(false) : null),
         CupertinoDialogAction(
-          child: Text(defaultActionText),
-          onPressed: () => Navigator.of(context).pop(true),
-        ),
+            child: Text(defaultActionText), onPressed: () => context.canPop() ? context.pop(true) : null)
       ],
     ),
   );

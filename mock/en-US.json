@@ -1,0 +1,459 @@
+{
+    "status": "success",
+    "message": "Loaclization values retrieved successfully",
+    "data": {
+  "common": {
+    "name": "Name",
+    "home": "Home",
+    "schedule": "Schedule",
+    "account": "Account",
+    "reports": "Reports",
+    "alerts": "Alerts",
+    "details": "Details",
+    "start": "Start",
+    "set": "Set",
+    "select": "Select",
+    "next": "Next",
+    "finish": "Finish",
+    "cancel": "Cancel",
+    "back": "Back",
+    "time": "Time",
+    "distance": "Distance",
+    "duration": "Duration",
+    "cost": "Cost",
+    "used": "Used",
+    "remove": "Remove",
+    "centerQR": "Center QR Code in camera view",
+    "username": "Username",
+    "password": "Password",
+    "vehicle": "Vehicle",
+    "charger": "Charger",
+    "add": "Add",
+    "selected":"Selected" ,
+    "unknonwn": "Unknown"
+  },
+  "btn": {
+    "ok": "OK",
+    "getStarted": "Get Started",
+    "exitSetup": "Exit Setup",
+    "haveAccount": "Already have an account?",
+    "tryAgain": "Try Again",
+    "login": "Log In",
+    "loggingIn": "Logging In...",
+    "logout": "Logout",
+    "forgotPassword": "Forgot Password",
+    "resetPassword": "Reset Password",
+    "updatePassword": "Update Password",
+    "acceptEula": "I have read and accept the EULA",
+    "tryAnotherSsid": "Try Another SSID",
+    "openCamera": "Open Camera",
+    "addVehicleWDongle": "Add Vehicle with Dongle",
+    "removeVehicle": "Remove Vehicle",
+    "removeDongle": "Remove Dongle",
+    "removeCharger": "Remove Charger",
+    "removeHousehold":"Remove Household",
+    "changeIcon": "Change Icon",
+    "addHousehold": "Add Household",
+    "support": "Support",
+    "accessaries": "Accessories",
+    "appHome": "Go To App Home",
+    "scanQRCode": "Scan QR Code",
+    "orScanQRCode": "Or Scan QR Code",
+    "tryAnotherWayToConnect": "Try Another Way To Connect",
+    "confirm": "Confirm",
+    "goBack": "Go Back",
+    "selectDiffNetwork": "Select A Different Network",
+    "loginPage": "Go to Log In Page"
+  },
+  "hint": {
+    "choose": "Choose",
+    "enter": "Enter",
+    "vehicleName": "Enter Vehicle Name",
+    "nameYourCharger": "Name Your Charger",
+    "customRates":"Set Custom Rates",
+    "optional": "Optional",
+    "phoneNumber": "Enter Phone Number",
+    "email": "Enter Email",
+    "emailOrUsername": "Enter Email or Username",
+    "password": "Enter Password",
+    "address": "Enter Address",
+    "address2": "Address 2 (optional)",
+    "city": "Enter City",
+    "zipCode": "Enter Zip Code"
+  },
+  "validation": {
+    "textfield": {
+      "username": "Enter username",
+      "validUsername": "Enter a valid username",
+      "password": "Enter a password",
+      "validPassword": "Enter a valid password",
+      "confPassword": "Entered password doesn't match",
+      "verificationCode": "Enter verification code",
+      "validVerificationCode": "Enter a valid verification code",
+      "chargerName": "Enter a name for your charger",
+      "validChargerName": "Enter a valid name for your charger",
+      "vehicleName": "Enter vehicle name",
+      "validVehicleName": "Enter a valid name for your vehicle",
+      "householdName": "Enter a valid household name",
+      "streetAddress": "Enter a valid street address",
+      "city": "Enter a valid city",
+      "zipCode": "Enter a valid zip code",
+      "email": "Enter your email",
+      "validEmail": "Enter a valid email ID",
+      "phone": "Enter your phone number",
+      "validPhone": "Enter a valid phone number",
+      "lowMilesThreshold": "Enter a valid low miles threshold",
+      "arrivalAlertTime": "Enter valid time in seconds",
+      "minimumMilesThreshold": "Enter valid Minimum miles Threshold",
+      "maxChargeCost": "Enter a maximum charge cost",
+      "validMaxChargeCost": "Enter a valid maximum charge cost"
+    },
+    "field": {
+      "breakerSize": "Select a Breaker Size",
+      "maxChargeCurrent": "Select a Max charge Current",
+      "reportingUnits": "Select reporting units",
+      "state": "Select a valid state",
+      "country": "Select a valid country",
+      "method": "Select a valid Pricing Method",
+      "utility": "Select a valid Utility",
+      "rateProgram": "Select a valid Rate Program",
+      "rate": "Enter valid rates",
+      "alertTime": "Please enter a valid alert time"
+    }
+  },
+  "status": {
+    "charging": "Charging",
+    "idle": "Idle",
+    "pluggedIn": "Plugged in",
+    "finishedCharging": "Finished Charging",
+    "scheduled": "Scheduled",
+    "chargingError": "Charging Error"
+  },
+
+  "signalStrength": {
+    "strong": "Strong",
+    "moderate": "Moderate",
+    "weak": "Weak"
+  },
+
+  "connectionStatus": {
+    "connected": "Connected",
+    "disconnected": "Disconnected"
+
+  },
+
+  "oob": {
+    "setup": "Setup",
+    "setupGuideline": "Follow the guided steps, below, to set up and start using your new charger.",
+    "accountWizDesc": "Set up address, contact and utility pricing",
+    "chargerWizDesc": "Install and configure your charger",
+    "vehicleWizDesc": "Connect dongle and configure your vehicle",
+    "setupComplete": "Your initial setup is complete",
+    "congratulations": "Congratulations"
+  },
+  "dialog": {
+    "exitSetup": "Are you sure you want to exit setup?",
+    "resourceRemovalDesc": "This {resource} will be removed from your account.",
+    "removalConfirmation": "{resource} removed from your account"
+  },
+  "charger": {
+    "wizard": {
+      "addChargerTitle": "Add Charger",
+      "pluginYourCharger": "Plug In Your Charger",
+      "configureCharger": "Configure Charger",
+      "pluginYourChargerDesc": "Once your charger is plugged in and the red, wifi light is on, you are ready to add it to your account.",
+      "connectYourCharger": "Connect Your Charger",
+      "bluetoothConnectionDesc": "Stand close to your charger and use the number on the side to select it from this list of available Bluetooth devices: ",
+      "bluetoothDevices": "Bluetooth Devices",
+      "connectYourChargerDesc": "Use your camera to scan the QR code on the size of your charger.",
+      "wifiSetup": "Set Up Charger WiFi",
+      "wifiSelectionDesc": "Select a WiFi connection for your charger",
+      "wifiNetworks": "Networks",
+      "wifiPasswordTitle": "WiFi Password for {name}",
+      "confirmConnection": "Confirm Charger Connection",
+      "confirmConnectionDesc": "The charger WiFi LED will blink Blue when connected to the Internet.",
+      "connecting": "Charger connecting to WiFi...",
+      "connected": "Charger Connected",
+      "failed": "Could not connect charger!"
+    },
+    "startCharging": "Start Charging",
+    "stopCharging": "Stop Charging",
+    "scheduledStart": "Scheduled Start",
+    "scheduleCharging": "Schedule Charging",
+    "chargeRate": "Charge Rate",
+    "estChargeTime": "Est. Charge Time",
+    "estChargeCost": "Est. Charge Cost",
+    "completeBy": "Complete By",
+    "info": "Information",
+    "status": "Status",
+    "connectedVehicle": "Connected Vehicle",
+    "breakerSize": "Breaker Size",
+    "maxChargeCurrent": "Max Charge Current",
+    "modelNumber": "Model Number",
+    "serialNumber": "Serial Number",
+    "softwareVersion": "Software Version",
+    "panelLedLighting": "Panel LED Lighting",
+    "wifiSec": "WiFi Settings",
+    "wifi": {
+      "ssid": "SSID",
+      "mac": "MAC",
+      "connectionStatus": "Connection Status",
+      "signalStrength": "Signal Strength",
+      "rssi": "RSSI",
+      "ipAddress": "IP Address",
+      "lastContact": "Last Contact"
+    },
+    "authSec": "Authorization",
+    "auth": {
+      "none": "None",
+      "always": "Ask every time",
+      "devicePresent": "When authorized device present"
+    },
+    "specialOpsSec": "Special Operations",
+    "manageAlerts": "Manage Device Alerts",
+    "reboot": "Reboot Charger",
+    "factoryReset": "Restore Factory Defaults",
+    "resetFault": "Reset Charger Fault Error"
+  },
+  "schedule": {
+    "options": "Schedule Options",
+    "custom": "Custom Schedule",
+    "onAllDay": "On All Day",
+    "scheduledCharging": "Scheduled Charging",
+    "smart": "Smart Schedule",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "selectHours": "Select the hours when charging is available",
+    "timeSelection": {
+      "ampm": "Charging will be available from {morningSession} and {eveningSession}. Please note all hours are in the charger's time zone.",
+      "am": "Charging will be available from {morningSession}. Please note all hours are in the charger's time zone.",
+      "pm": "Charging will be available from {eveningSession}. Please note all hours are in the charger's time zone.",
+      "none": "No charging hours available. Please configure your schedule."
+    }
+  },
+
+  "account": {
+    "phoneNumber": "Phone Number",
+    "email": "Email",
+    "wizard": {
+      "title": "Create Account",
+      "welcomeDesc": "Create your account with your home address and select your utility information.",
+      "createCredentialsDesc": "Create Your Username and Password",
+      "contactInformationDesc": "Default Contact Information"
+    },
+    "reset": {
+      "resetPassSuccess":"Reset Password Success",
+      "forgotPassDesc": "Enter the username for your Danlaw account",
+      "checkYourEmailDesc": "Please check your email for a message from us with a code to reset your password.",
+      "resetPassSuccessDesc": "Your password was updated. Please log in with your new password"
+    },
+    "confPassword": "Confirm Password",
+    "verification": "Verification Code"
+  },
+  "household": {
+    "title": "Household",
+    "wizard": {
+      "title": "Create Household",
+      "nameYourHouseholdDesc": "Name your Household",
+      "householdAddressDesc": "Create Your Charger Household Address",
+      "useMyLocation": "Use my current location",
+      "pricingMethodDesc": "Select Charge Pricing Method",
+      "utilityCompanyDesc": "Select Utility Company",
+      "rateProgramDesc": "Select Rate Program",
+      "customRatesDesc": "Select Custom Rates",
+      "customRates": {
+      "subTitle": "Enter the rates per kWh for these standard rate times",
+      "weekdayDaytime": "Weekday Daytime Rate",
+      "weekdayNighttime": "Weekday Nighttime Rate",
+      "weekendRate": "Weekend Rate"
+    }
+  },
+    "address": "Address",
+    "electricityPricing": "Electricity Pricing",
+    "chargers": "Chargers",
+    "streetAddress1": "Street Address 1",
+    "streetAddress2": "Street Address 2",
+    "city": "City",
+    "state": "State",
+    "zipCode": "Zip Code",
+    "country": "Country",
+    "pricingMethod": {
+      "short": "Method",
+      "long": "Pricing Method",
+      "chargerEstCost": "Charger Estimates Costs",
+      "utilityRates": "Utility company-based",
+      "manual": "Manual"
+    },    
+    "utility": "Utility",
+    "rateProgram": "Rate Program",
+    "rate": "Rate"
+  },
+  "vehicle": {
+    "title": "Vehicle",
+    "wizard": {
+      "addVehicleTitle": "Add Vehicle",
+      "addDongle": "Add Dongle",
+      "connectDongle": "Connect Your Dongle",
+      "dongleDesc": "Locate the dongle you want to assign to your account",
+      "vehicleIconDesc": "Choose An Icon For Your Vehicle",
+      "scanDongleQR": "Scan Dongle QR Code",
+      "scanDongleQRDesc": "Use your camera to scan the QR code on the dongle.",
+      "installDongle": "Install Dongle",
+      "installDongleInVehicle": "Install dongle in your vehicle",
+      "installDongleInfo": "Once the dongle is plugged into your vehicle the app will confirm your connection.",
+      "noDongleFound": "No Dongle Found",
+      "installDongleLEDConf": "Make sure the LED on the dongle lights up. If not, please turn your vehicle on.",
+      "verifyingComms": "Verifying Communications",
+      "primaryUserInfo": "Enter Primary User Information",
+      "contactPhone": "Contact Phone",
+      "contactEmail": "Contact Email"
+    },
+    "nameVehicle": "Name Your Vehicle",
+    "lastVehicleInfo": "Last Vehicle Attached Information",
+    "status": "Status",
+    "vin": "Vin",
+    "year": "Year",
+    "make": "Make",
+    "model": "Model",
+    "battery": "Battery",
+    "stateOfCharge": "State of Charge",
+    "batteryLife": "Battery Life",
+    "estMilesAvailable": "Estimated Miles Available",
+    "failureCodes": "Failure Codes",
+    "diagnosticsCodes": "Diagnostic Trouble Codes",
+    "dongleInfo": "Dongle Information",
+    "dongleId": "Dongle Id",
+    "lastConnected": "Last Connected",
+    "alerts": "Alerts",
+    "manageAlerts": "Manage Vehicle Alerts",
+    "ass": {
+      "title": "Active Safety System",
+      "abs": "Anti-lock Braking System (ABS)",
+      "esc": "Electronic Stability Control (ESC)",
+      "tc": "Traction Control",
+      "tpms": "Tire Pressure Monitory System Type (TPMS)",
+      "note": "Active Safety System Note"
+    },
+    "eng": {
+      "title": "Engine",
+      "numCylinders": "Engine Number of Cylinders",
+      "displacementCC": "Displacement (CC)",
+      "displacementCI": "Displacement (CI)",
+      "displacementL": "Displacement (L)",
+      "engineModel": "Engine Model"
+    },
+    "body": {
+      "title": "Exterior/Body",
+      "bodyClass": "Body Class",
+      "doors": "Doors",
+      "windows": "Windows"
+    }
+  },
+  "reports": {
+    "vehicleEnergyReport": "Vehicle Energy Report",
+    "tw": {
+      "title": "Time Window",
+      "past31": "Past 31 Days",
+      "week": "This Week",
+      "month": "This Month",
+      "year": "This year"
+    },
+    "info": {
+      "barSelection": "Select a bar segment to see more details"
+    },
+    "viewTrips": "View Trips",
+    "trips": "Trips",
+    "viewEvents": "View Charge Events",
+    "bar": {
+      "legendHome": "Home",
+      "legendpub": "Public",
+      "unknownVehicles": "Unknown Vehicles"
+    },
+    "settings": "Settings",
+    "vehiclesInReport": "Vehicles In Report"
+  },
+  "alerts": {
+    "charger": "Charger Alerts",
+    "vehicle": "Vehicle Alerts",
+    "options": "Alert Options",
+    "usePush": "Use Push Alerts",
+    "useText": "Send Text Alerts",
+    "useEmail": "Send Email Alerts",
+    "recipientPhone": "Recipient Phone",
+    "recipientEmail": "Recipient Email",
+    "pluginReminder": "Plug-in Reminder",
+    "chargingStatus": "Charging Status",
+    "nightly": "Nightly Alert",
+    "nightlyLowMiles": "Nightly Low Miles Alert",
+    "time": "Alert Time",
+    "lowMilesThreshold": "Low Miles Threshold",
+    "arrivalTime": "Arrival Alert Time (Seconds)",
+    "fullyCharged": "Vehicle Fully Charged Alert",
+    "chargingInterrupted": "Charging Interrupted Alert",
+    "minimumMilesMet": "Minimum Miles Met",
+    "minimumMilesThreshold": "Minimum Miles Threshold",
+    "highCost": "High Cost Alert",
+    "maxChargeCost": "Maximum Charge Cost"
+  },
+
+  "error": {
+    "noInfo": "No information provided"
+  },
+  
+  "apiResponse": {
+    "success": {
+      "general": "Request successful.",
+      "fetch": "{resource} retrieved successfully.",
+      "fetchLoc": "Localized data retrieved successfully.",
+      "create": "{resource} created successfully.",
+      "update": "{resource} updated successfully.",
+      "delete": "{resource} deleted successfully.",
+      "remove": "{resource} removed successfully",
+      "auth": {
+        "login": "Logged in successfully.",
+        "logout": "Logged out successfully.",
+        "passwordReset": {
+          "codeSent": "Reset code sent successfully. Please check your email.",
+          "passwordUpdated": "Password reset successfully."
+        }
+      },
+      "eula": {
+        "fetched": "EULA loaded successfully.",
+        "submitted": "EULA acceptance submitted successfully."
+      },
+      "qrScanned": "QR code for {resource} scanned successfully.",
+      "bluetoothConnected": "Connected to {resource} via Bluetooth successfully.",
+      "operationCompleted": "{operation} on {resource} completed successfully."
+    },
+      "error": {
+      "general": "An error occurred. Please try again later.",
+      "fetch": "Failed to retrieve {resource}. Please try again later.",
+      "fetchLoc": "Failed to retrieve Localized data. Defaulting to English.",
+      "create": "Failed to create {resource}. Please check your input and try again.",
+      "update": "Failed to update {resource}. Please check your input and try again.",
+      "delete": "Failed to delete {resource}. Please try again later.",
+      "missingParameter": "Oops! {field} is missing. Please provide all necessary information and try again.",
+      "invalidQR": "Invalid QR code for {resource}. Please try again.",
+      "limitReached": "You've reached the maximum limit of {limit} for {resource}.",
+      "unauthorized": "Unauthorized. Please log in again.",
+      "loginFailed": "Login failed. Please check your credentials and try again.",
+      "accessDenied": "Access forbidden. You don't have permission to perform this action.",
+      "notFound": "{Resource} not found. Please check and try again.",
+      "timeout": "Request timed out. Please try again later.",
+      "invalidData": "Unable to process the request. Please check your input and try again.",
+      "serverError": "Server error. Please try again later.",
+      "serviceUnavailable": "Service unavailable. Please try again later.",
+      "duplicateEntry": "A {resource} with this information already exists.",
+      "dependencyIssue": "Unable to perform this action due to dependencies on {resource}."
+    },
+    "networkError": {
+      "general": "Unable to connect. Please check your internet connection."
+    }
+  }
+}
+}

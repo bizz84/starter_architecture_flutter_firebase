@@ -1,0 +1,452 @@
+{
+    "status": "success",
+    "message": "Loaclization values retrieved successfully",
+    "data": {
+      "common": {
+        "name": "Nom",
+        "home": "Accueil",
+        "schedule": "Horaire",
+        "account": "Compte",
+        "reports": "Rapports",
+        "alerts": "Alertes",
+        "details": "Détails",
+        "start": "Démarrer",
+        "set": "Définir",
+        "select": "Sélectionner",
+        "next": "Suivant",
+        "finish": "Terminer",
+        "cancel": "Annuler",
+        "back": "Retour",
+        "time": "Temps",
+        "distance": "Distance",
+        "duration": "Durée",
+        "cost": "Coût",
+        "used": "Utilisé",
+        "remove": "Supprimer",
+        "centerQR": "Centrez le code QR dans la vue de la caméra",
+        "username": "Nom d'utilisateur",
+        "password": "Mot de passe",
+        "vehicle": "Véhicule",
+        "charger": "Chargeur",
+        "add": "Ajouter",
+        "selected": "Sélectionné",
+        "unknonwn": "Inconnu"
+      },
+      "btn": {
+        "ok": "OK",
+        "getStarted": "Commencer",
+        "exitSetup": "Quitter la configuration",
+        "haveAccount": "Vous avez déjà un compte ?",
+        "tryAgain": "Réessayer",
+        "login": "Se connecter",
+        "loggingIn": "Connexion en cours...",
+        "logout": "Déconnexion",
+        "forgotPassword": "Mot de passe oublié",
+        "resetPassword": "Réinitialiser le mot de passe",
+        "updatePassword": "Mettre à jour le mot de passe",
+        "acceptEula": "J'ai lu et j'accepte les conditions d'utilisation",
+        "tryAnotherSsid": "Essayer un autre SSID",
+        "openCamera": "Ouvrir la caméra",
+        "addVehicleWDongle": "Ajouter un véhicule avec un dongle",
+        "removeVehicle": "Supprimer le véhicule",
+        "removeDongle": "Supprimer le dongle",
+        "removeCharger": "Supprimer le chargeur",
+        "removeHousehold": "Supprimer le foyer",
+        "changeIcon": "Changer l'icône",
+        "addHousehold": "Ajouter un foyer",
+        "support": "Support",
+        "accessaries": "Accessoires",
+        "appHome": "Aller à l'accueil de l'application",
+        "scanQRCode": "Scanner le code QR",
+        "orScanQRCode": "Ou scanner le code QR",
+        "tryAnotherWayToConnect": "Essayer une autre méthode de connexion",
+        "confirm": "Confirmer",
+        "goBack": "Retour",
+        "selectDiffNetwork": "Sélectionner un réseau différent",
+        "loginPage": "Aller à la page de connexion"
+      },
+      "hint": {
+        "choose": "Choisir",
+        "enter": "Entrer",
+        "vehicleName": "Entrez le nom du véhicule",
+        "nameYourCharger": "Nommez votre chargeur",
+        "customRates": "Définir des tarifs personnalisés",
+        "optional": "Optionnel",
+        "phoneNumber": "Entrez le numéro de téléphone",
+        "email": "Entrez l'adresse e-mail",
+        "emailOrUsername": "Entrez l'e-mail ou le nom d'utilisateur",
+        "password": "Entrez le mot de passe",
+        "address": "Entrez l'adresse",
+        "address2": "Adresse 2 (optionnel)",
+        "city": "Entrez la ville",
+        "zipCode": "Entrez le code postal"
+      },
+      "validation": {
+        "textfield": {
+          "username": "Entrez le nom d'utilisateur",
+          "validUsername": "Entrez un nom d'utilisateur valide",
+          "password": "Entrez un mot de passe",
+          "validPassword": "Entrez un mot de passe valide",
+          "confPassword": "Le mot de passe entré ne correspond pas",
+          "verificationCode": "Entrez le code de vérification",
+          "validVerificationCode": "Entrez un code de vérification valide",
+          "chargerName": "Entrez un nom pour votre chargeur",
+          "validChargerName": "Entrez un nom valide pour votre chargeur",
+          "vehicleName": "Entrez le nom du véhicule",
+          "validVehicleName": "Entrez un nom valide pour votre véhicule",
+          "householdName": "Entrez un nom de foyer valide",
+          "streetAddress": "Entrez une adresse valide",
+          "city": "Entrez une ville valide",
+          "zipCode": "Entrez un code postal valide",
+          "email": "Entrez votre adresse e-mail",
+          "validEmail": "Entrez une adresse e-mail valide",
+          "phone": "Entrez votre numéro de téléphone",
+          "validPhone": "Entrez un numéro de téléphone valide",
+          "lowMilesThreshold": "Entrez un seuil de kilométrage bas valide",
+          "arrivalAlertTime": "Entrez un temps valide en secondes",
+          "minimumMilesThreshold": "Entrez un seuil de kilométrage minimum valide",
+          "maxChargeCost": "Entrez un coût de charge maximum",
+          "validMaxChargeCost": "Entrez un coût de charge maximum valide"
+        },
+        "field": {
+          "breakerSize": "Sélectionnez une taille de disjoncteur",
+          "maxChargeCurrent": "Sélectionnez un courant de charge maximum",
+          "reportingUnits": "Sélectionnez les unités de rapport",
+          "state": "Sélectionnez un état valide",
+          "country": "Sélectionnez un pays valide",
+          "method": "Sélectionnez une méthode de tarification valide",
+          "utility": "Sélectionnez un fournisseur d'énergie valide",
+          "rateProgram": "Sélectionnez un programme tarifaire valide",
+          "rate": "Entrez des tarifs valides",
+          "alertTime": "Veuillez entrer une heure d'alerte valide"
+        }
+      },
+      "status": {
+        "charging": "En charge",
+        "idle": "Inactif",
+        "pluggedIn": "Branché",
+        "finishedCharging": "Charge terminée",
+        "scheduled": "Programmé",
+        "chargingError": "Erreur de charge"
+      },
+      "signalStrength": {
+        "strong": "Fort",
+        "moderate": "Modéré",
+        "weak": "Faible"
+      },
+      "connectionStatus": {
+        "connected": "Connecté",
+        "disconnected": "Déconnecté"
+      },
+      "oob": {
+        "setup": "Configuration",
+        "setupGuideline": "Suivez les étapes guidées ci-dessous pour configurer et commencer à utiliser votre nouveau chargeur.",
+        "accountWizDesc": "Configurez l'adresse, les contacts et les tarifs d'électricité",
+        "chargerWizDesc": "Installez et configurez votre chargeur",
+        "vehicleWizDesc": "Connectez le dongle et configurez votre véhicule",
+        "setupComplete": "Votre configuration initiale est terminée",
+        "congratulations": "Félicitations"
+      },
+      "dialog": {
+        "exitSetup": "Êtes-vous sûr de vouloir quitter la configuration ?",
+        "resourceRemovalDesc": "Ce {resource} sera supprimé de votre compte.",
+        "removalConfirmation": "{resource} supprimé de votre compte"
+      },
+      "charger": {
+        "wizard": {
+          "addChargerTitle": "Ajouter un chargeur",
+          "pluginYourCharger": "Branchez votre chargeur",
+          "configureCharger": "Configurer le chargeur",
+          "pluginYourChargerDesc": "Une fois votre chargeur branché et le voyant Wi-Fi rouge allumé, vous êtes prêt à l'ajouter à votre compte.",
+          "connectYourCharger": "Connectez votre chargeur",
+          "bluetoothConnectionDesc": "Tenez-vous près de votre chargeur et utilisez le numéro sur le côté pour le sélectionner dans cette liste d'appareils Bluetooth disponibles :",
+          "bluetoothDevices": "Appareils Bluetooth",
+          "connectYourChargerDesc": "Utilisez votre caméra pour scanner le code QR sur le côté de votre chargeur.",
+          "wifiSetup": "Configurer le Wi-Fi du chargeur",
+          "wifiSelectionDesc": "Sélectionnez une connexion Wi-Fi pour votre chargeur",
+          "wifiNetworks": "Réseaux",
+          "wifiPasswordTitle": "Mot de passe Wi-Fi pour {name}",
+          "confirmConnection": "Confirmer la connexion du chargeur",
+          "confirmConnectionDesc": "Le voyant Wi-Fi du chargeur clignotera en bleu lorsqu'il sera connecté à Internet.",
+          "connecting": "Chargeur en cours de connexion au Wi-Fi...",
+          "connected": "Chargeur connecté",
+          "failed": "Impossible de connecter le chargeur !"
+        },
+        "startCharging": "Commencer la charge",
+        "stopCharging": "Arrêter la charge",
+        "scheduledStart": "Démarrage programmé",
+        "scheduleCharging": "Programmer la charge",
+        "chargeRate": "Taux de charge",
+        "estChargeTime": "Temps de charge estimé",
+        "estChargeCost": "Coût de charge estimé",
+        "completeBy": "Terminé avant",
+        "info": "Informations",
+        "status": "Statut",
+        "connectedVehicle": "Véhicule connecté",
+        "breakerSize": "Taille du disjoncteur",
+        "maxChargeCurrent": "Courant de charge maximum",
+        "modelNumber": "Numéro de modèle",
+        "serialNumber": "Numéro de série",
+        "softwareVersion": "Version du logiciel",
+        "panelLedLighting": "Éclairage LED du panneau",
+        "wifiSec": "Paramètres Wi-Fi",
+        "wifi": {
+          "ssid": "SSID",
+          "mac": "MAC",
+          "connectionStatus": "Statut de connexion",
+          "signalStrength": "Force du signal",
+          "rssi": "RSSI",
+          "ipAddress": "Adresse IP",
+          "lastContact": "Dernier contact"
+        },
+        "authSec": "Autorisation",
+        "auth": {
+          "none": "Aucune",
+          "always": "Demander à chaque fois",
+          "devicePresent": "Quand un appareil autorisé est présent"
+        },
+        "specialOpsSec": "Opérations spéciales",
+        "manageAlerts": "Gérer les alertes de l'appareil",
+        "reboot": "Redémarrer le chargeur",
+        "factoryReset": "Restaurer les paramètres d'usine",
+        "resetFault": "Réinitialiser l'erreur de défaut du chargeur"
+      },
+      "schedule": {
+        "options": "Options de programmation",
+        "custom": "Programmation personnalisée",
+        "onAllDay": "Activé toute la journée",
+        "scheduledCharging": "Charge programmée",
+        "smart": "Programmation intelligente",
+        "monday": "Lundi",
+        "tuesday": "Mardi",
+        "wednesday": "Mercredi",
+        "thursday": "Jeudi",
+        "friday": "Vendredi",
+        "saturday": "Samedi",
+        "sunday": "Dimanche",
+        "selectHours": "Sélectionnez les heures où la charge est disponible",
+        "timeSelection": {
+          "ampm": "La charge sera disponible de {morningSession} et {eveningSession}. Veuillez noter que toutes les heures sont dans le fuseau horaire du chargeur.",
+          "am": "La charge sera disponible de {morningSession}. Veuillez noter que toutes les heures sont dans le fuseau horaire du chargeur.",
+          "pm": "La charge sera disponible de {eveningSession}. Veuillez noter que toutes les heures sont dans le fuseau horaire du chargeur.",
+          "none": "Aucune heure de charge disponible. Veuillez configurer votre programmation."
+        }
+      },
+      "account": {
+        "phoneNumber": "Numéro de téléphone",
+        "email": "E-mail",
+        "wizard": {
+          "title": "Créer un compte",
+          "welcomeDesc": "Créez votre compte avec votre adresse domicile et sélectionnez vos informations de fournisseur d'énergie.",
+          "createCredentialsDesc": "Créez votre nom d'utilisateur et mot de passe",
+          "contactInformationDesc": "Informations de contact par défaut"
+        },
+        "reset": {
+          "resetPassSuccess": "Réinitialisation du mot de passe réussie",
+          "forgotPassDesc": "Entrez le nom d'utilisateur de votre compte Danlaw",
+          "checkYourEmailDesc": "Veuillez vérifier votre e-mail pour un message de notre part contenant un code pour réinitialiser votre mot de passe.",
+          "resetPassSuccessDesc": "Votre mot de passe a été mis à jour. Veuillez vous connecter avec votre nouveau mot de passe"
+        },
+        "confPassword": "Confirmer le mot de passe",
+        "verification": "Code de vérification"
+      },
+      "household": {
+        "title": "Foyer",
+        "wizard": {
+          "title": "Créer un foyer",
+          "nameYourHouseholdDesc": "Nommez votre foyer",
+          "householdAddressDesc": "Créez l'adresse de votre foyer pour le chargeur",
+          "useMyLocation": "Utiliser ma position actuelle",
+          "pricingMethodDesc": "Sélectionnez la méthode de tarification de la charge",
+          "utilityCompanyDesc": "Sélectionnez le fournisseur d'énergie",
+          "rateProgramDesc": "Sélectionnez le programme tarifaire",
+          "customRatesDesc": "Sélectionnez les tarifs personnalisés",
+      "customRates": {
+        "subTitle": "Entrez les tarifs par kWh pour ces périodes tarifaires standard",
+        "weekdayDaytime": "Tarif en semaine (journée)",
+        "weekdayNighttime": "Tarif en semaine (nuit)",
+        "weekendRate": "Tarif du week-end"
+      }
+    },
+    "address": "Adresse",
+    "electricityPricing": "Tarification de l'électricité",
+    "chargers": "Chargeurs",
+    "streetAddress1": "Adresse 1",
+    "streetAddress2": "Adresse 2",
+    "city": "Ville",
+    "state": "État",
+    "zipCode": "Code postal",
+    "country": "Pays",
+    "pricingMethod": {
+      "short": "Méthode",
+      "long": "Méthode de tarification",
+      "chargerEstCost": "Estimation des coûts par le chargeur",
+      "utilityRates": "Basée sur le fournisseur d'énergie",
+      "manual": "Manuelle"
+    },    
+    "utility": "Fournisseur d'énergie",
+    "rateProgram": "Programme tarifaire",
+    "rate": "Tarif"
+  },
+  "vehicle": {
+    "title": "Véhicule",
+    "wizard": {
+      "addVehicleTitle": "Ajouter un véhicule",
+      "addDongle": "Ajouter un dongle",
+      "connectDongle": "Connecter votre dongle",
+      "dongleDesc": "Localisez le dongle que vous souhaitez attribuer à votre compte",
+      "vehicleIconDesc": "Choisissez une icône pour votre véhicule",
+      "scanDongleQR": "Scanner le code QR du dongle",
+      "scanDongleQRDesc": "Utilisez votre caméra pour scanner le code QR sur le dongle.",
+      "installDongle": "Installer le dongle",
+      "installDongleInVehicle": "Installez le dongle dans votre véhicule",
+      "installDongleInfo": "Une fois le dongle branché dans votre véhicule, l'application confirmera votre connexion.",
+      "noDongleFound": "Aucun dongle trouvé",
+      "installDongleLEDConf": "Assurez-vous que la LED du dongle s'allume. Si ce n'est pas le cas, veuillez allumer votre véhicule.",
+      "verifyingComms": "Vérification des communications",
+      "primaryUserInfo": "Entrez les informations de l'utilisateur principal",
+      "contactPhone": "Téléphone de contact",
+      "contactEmail": "E-mail de contact"
+    },
+    "nameVehicle": "Nommez votre véhicule",
+    "lastVehicleInfo": "Dernières informations du véhicule connecté",
+    "status": "Statut",
+    "vin": "NIV",
+    "year": "Année",
+    "make": "Marque",
+    "model": "Modèle",
+    "battery": "Batterie",
+    "stateOfCharge": "État de charge",
+    "batteryLife": "Durée de vie de la batterie",
+    "estMilesAvailable": "Kilométrage estimé disponible",
+    "failureCodes": "Codes de défaillance",
+    "diagnosticsCodes": "Codes de diagnostic",
+    "dongleInfo": "Informations du dongle",
+    "dongleId": "ID du dongle",
+    "lastConnected": "Dernière connexion",
+    "alerts": "Alertes",
+    "manageAlerts": "Gérer les alertes du véhicule",
+    "ass": {
+      "title": "Système de sécurité active",
+      "abs": "Système antiblocage des roues (ABS)",
+      "esc": "Contrôle électronique de stabilité (ESC)",
+      "tc": "Contrôle de traction",
+      "tpms": "Type de système de surveillance de la pression des pneus (TPMS)",
+      "note": "Note sur le système de sécurité active"
+    },
+    "eng": {
+      "title": "Moteur",
+      "numCylinders": "Nombre de cylindres du moteur",
+      "displacementCC": "Cylindrée (CC)",
+      "displacementCI": "Cylindrée (CI)",
+      "displacementL": "Cylindrée (L)",
+      "engineModel": "Modèle du moteur"
+    },
+    "body": {
+      "title": "Extérieur/Carrosserie",
+      "bodyClass": "Classe de carrosserie",
+      "doors": "Portes",
+      "windows": "Fenêtres"
+    }
+  },
+  "reports": {
+    "vehicleEnergyReport": "Rapport énergétique du véhicule",
+    "tw": {
+      "title": "Période",
+      "past31": "31 derniers jours",
+      "week": "Cette semaine",
+      "month": "Ce mois-ci",
+      "year": "Cette année"
+    },
+    "info": {
+      "barSelection": "Sélectionnez un segment de barre pour voir plus de détails"
+    },
+    "viewTrips": "Voir les trajets",
+    "trips": "Trajets",
+    "viewEvents": "Voir les événements de charge",
+    "bar": {
+      "legendHome": "Domicile",
+      "legendpub": "Public",
+      "unknownVehicles": "Véhicules inconnus"
+    },
+    "settings": "Paramètres",
+    "vehiclesInReport": "Véhicules dans le rapport"
+  },
+  "alerts": {
+    "charger": "Alertes du chargeur",
+    "vehicle": "Alertes du véhicule",
+    "options": "Options d'alerte",
+    "usePush": "Utiliser les notifications push",
+    "useText": "Envoyer des alertes par SMS",
+    "useEmail": "Envoyer des alertes par e-mail",
+    "recipientPhone": "Téléphone du destinataire",
+    "recipientEmail": "E-mail du destinataire",
+    "pluginReminder": "Rappel de branchement",
+    "chargingStatus": "Statut de charge",
+    "nightly": "Alerte nocturne",
+    "nightlyLowMiles": "Alerte nocturne de kilométrage bas",
+    "time": "Heure de l'alerte",
+    "lowMilesThreshold": "Seuil de kilométrage bas",
+    "arrivalTime": "Temps d'alerte d'arrivée (secondes)",
+    "fullyCharged": "Alerte de véhicule complètement chargé",
+    "chargingInterrupted": "Alerte de charge interrompue",
+    "minimumMilesMet": "Kilométrage minimum atteint",
+    "minimumMilesThreshold": "Seuil de kilométrage minimum",
+    "highCost": "Alerte de coût élevé",
+    "maxChargeCost": "Coût de charge maximum"
+  },
+  "error": {
+    "noInfo": "Aucune information fournie"
+  },
+  "apiResponse": {
+    "success": {
+      "general": "Requête réussie.",
+      "fetch": "{resource} récupéré avec succès.",
+      "fetchLoc": "Données localisées récupérées avec succès.",
+      "create": "{resource} créé avec succès.",
+      "update": "{resource} mis à jour avec succès.",
+      "delete": "{resource} supprimé avec succès.",
+      "remove": "{resource} retiré avec succès",
+      "auth": {
+        "login": "Connexion réussie.",
+        "logout": "Déconnexion réussie.",
+        "passwordReset": {
+          "codeSent": "Code de réinitialisation envoyé avec succès. Veuillez vérifier votre e-mail.",
+          "passwordUpdated": "Mot de passe réinitialisé avec succès."
+        }
+      },
+      "eula": {
+        "fetched": "CLUF chargé avec succès.",
+        "submitted": "Acceptation du CLUF soumise avec succès."
+      },
+      "qrScanned": "Code QR pour {resource} scanné avec succès.",
+      "bluetoothConnected": "Connecté à {resource} via Bluetooth avec succès.",
+      "operationCompleted": "{operation} sur {resource} terminée avec succès."
+    },
+    "error": {
+      "general": "Une erreur s'est produite. Veuillez réessayer plus tard.",
+      "fetch": "Échec de la récupération de {resource}. Veuillez réessayer plus tard.",
+      "fetchLoc": "Échec de la récupération des données localisées. Utilisation de l'anglais par défaut.",
+      "create": "Échec de la création de {resource}. Veuillez vérifier vos entrées et réessayer.",
+      "update": "Échec de la mise à jour de {resource}. Veuillez vérifier vos entrées et réessayer.",
+      "delete": "Échec de la suppression de {resource}. Veuillez réessayer plus tard.",
+      "missingParameter": "Oups ! {field} est manquant. Veuillez fournir toutes les informations nécessaires et réessayer.",
+      "invalidQR": "Code QR invalide pour {resource}. Veuillez réessayer.",
+      "limitReached": "Vous avez atteint la limite maximale de {limit} pour {resource}.",
+      "unauthorized": "Non autorisé. Veuillez vous reconnecter.",
+      "loginFailed": "Échec de la connexion. Veuillez vérifier vos identifiants et réessayer.",
+      "accessDenied": "Accès interdit. Vous n'avez pas la permission d'effectuer cette action.",
+      "notFound": "{Resource} non trouvé. Veuillez vérifier et réessayer.",
+      "timeout": "Délai d'attente dépassé. Veuillez réessayer plus tard.",
+      "invalidData": "Impossible de traiter la requête. Veuillez vérifier vos entrées et réessayer.",
+      "serverError": "Erreur serveur. Veuillez réessayer plus tard.",
+      "serviceUnavailable": "Service indisponible. Veuillez réessayer plus tard.",
+      "duplicateEntry": "Un {resource} avec ces informations existe déjà.",
+      "dependencyIssue": "Impossible d'effectuer cette action en raison de dépendances sur {resource}."
+    },
+    "networkError": {
+      "general": "Impossible de se connecter. Veuillez vérifier votre connexion internet."
+    }
+  }
+}
+}

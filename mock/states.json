@@ -1,0 +1,28 @@
+{
+    "status": "success",
+    "message": "States retrieved successfully!",
+    "data": {
+        "states": [
+            {
+                "name": "Michigan",
+                "code": "MI"
+            },
+            {
+                "name": "California",
+                "code": "CA"
+            },
+            {
+                "name": "New York",
+                "code": "NY"
+            },
+            {
+                "name": "Texas",
+                "code": "TX"
+            },
+            {
+                "name": "Florida",
+                "code": "FL"
+            }
+        ]
+    }
+}
