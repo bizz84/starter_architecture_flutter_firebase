@@ -1,10 +1,13 @@
-import 'package:flutter_starter_base_app/src/domain/account.dart';
-import 'package:flutter_starter_base_app/src/domain/basic_api_response.dart';
-import 'package:flutter_starter_base_app/src/domain/country_data.dart';
+import 'package:flutter_starter_base_app/src/root/domain/account.dart';
+import 'package:flutter_starter_base_app/src/root/domain/basic_api_response.dart';
+import 'package:flutter_starter_base_app/src/root/domain/contact.dart';
+import 'package:flutter_starter_base_app/src/root/domain/country_data.dart';
 import 'package:flutter_starter_base_app/src/features/account/domain/eula.dart';
 import 'package:flutter_starter_base_app/src/features/report/domain/report_data.dart';
 
 mixin BaseAPI {
+
+  Future<List<Contact>> getData();
 
   Future<void> login({required String username, required String password});
 

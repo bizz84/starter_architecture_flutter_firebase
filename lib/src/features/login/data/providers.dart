@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:flutter_starter_base_app/src/domain/basic_api_response.dart';
+import 'package:flutter_starter_base_app/src/root/domain/basic_api_response.dart';
 import 'package:flutter_starter_base_app/src/utils/authentication_handler.dart';
 import 'package:flutter_starter_base_app/src/api/api.dart';
 part 'providers.g.dart';

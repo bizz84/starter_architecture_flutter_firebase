@@ -3,6 +3,9 @@ import 'package:flutter_starter_base_app/src/constants/env_constants.dart';
 class APIEndpoint {
   static const apiPath = "${EnvValues.apiEnv}/${EnvValues.apiVersion}";
 
+  // Example API Endpoint Path
+  static const String data = '$apiPath/data';
+
   /// Account
   static const String auth = '$apiPath/auth/login';
   static const String refreshToken = '$apiPath/auth/refresh-token';

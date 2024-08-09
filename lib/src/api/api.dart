@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_starter_base_app/src/domain/account.dart';
-import 'package:flutter_starter_base_app/src/domain/basic_api_response.dart';
-import 'package:flutter_starter_base_app/src/domain/country_data.dart';
+import 'package:flutter_starter_base_app/src/root/domain/account.dart';
+import 'package:flutter_starter_base_app/src/root/domain/basic_api_response.dart';
+import 'package:flutter_starter_base_app/src/root/domain/contact.dart';
+import 'package:flutter_starter_base_app/src/root/domain/country_data.dart';
 import 'package:flutter_starter_base_app/src/features/report/domain/report_data.dart';
 import 'package:flutter_starter_base_app/src/utils/authentication_handler.dart';
 import 'package:flutter_starter_base_app/src/features/account/domain/create_account.dart';
@@ -25,6 +26,12 @@ class API implements BaseAPI {
             })
           : throw Exception('Cannot Authenticate. Please login again.')
       : Options(headers: {"Authorization": "No Authorization", "Content-Type": "application/json"});
+
+  @override
+  Future<List<Contact>> getData() {
+    // TODO: implement getData
+    throw UnimplementedError();
+  }
 
   @override
   Future<void> login({required String username, required String password}) async {
@@ -228,5 +235,6 @@ class API implements BaseAPI {
     }
     throw Exception('Failed to fetch vehicle report list');
   }
+
 }
 

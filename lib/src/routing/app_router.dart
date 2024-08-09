@@ -1,7 +1,6 @@
-import 'package:flutter_starter_base_app/src/accounts_page.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/basic_page_importer.dart';
-import 'package:flutter_starter_base_app/src/domain/item.dart';
-import 'package:flutter_starter_base_app/src/features/account/presentation/add_account_flow.dart';
+import 'package:flutter_starter_base_app/src/common_widgets/country_select/presentation/country_select.dart';
+import 'package:flutter_starter_base_app/src/common_widgets/state_select/presentation/state_select.dart';
 import 'package:flutter_starter_base_app/src/features/account/presentation/eula_transition.dart';
 import 'package:flutter_starter_base_app/src/features/account/presentation/eula_view.dart';
 import 'package:flutter_starter_base_app/src/features/login/presentation/check_eula.dart';
@@ -13,11 +12,13 @@ import 'package:flutter_starter_base_app/src/features/login/presentation/reset_p
 import 'package:flutter_starter_base_app/src/features/login/presentation/reset_password_success_page.dart';
 import 'package:flutter_starter_base_app/src/features/login/presentation/startup.dart';
 import 'package:flutter_starter_base_app/src/features/onboarding/presentation/splash.dart';
+import 'package:flutter_starter_base_app/src/features/report/presentation/report_table_page.dart';
 import 'package:flutter_starter_base_app/src/features/report/presentation/reports_page.dart';
-import 'package:flutter_starter_base_app/src/home_page.dart';
+import 'package:flutter_starter_base_app/src/root/domain/item.dart';
+import 'package:flutter_starter_base_app/src/root/presentation/accounts_page.dart';
+import 'package:flutter_starter_base_app/src/root/presentation/setup_screen.dart';
+import 'package:flutter_starter_base_app/src/root/presentation/setup_success_page.dart';
 import 'package:flutter_starter_base_app/src/routing/routes.dart';
-import 'package:flutter_starter_base_app/src/setup_screen.dart';
-import 'package:flutter_starter_base_app/src/setup_success_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -40,10 +41,6 @@ final routes = <RouteBase>[
       name: AppRoute.checkEULA.name,
       path: '/${AppRoute.checkEULA.name}',
       builder: (context, state) => const CheckEULA()),
-  GoRoute(
-      name: AppRoute.addAccount.name,
-      path: '/${AppRoute.addAccount.name}',
-      builder: (context, state) => const AddAccountFLow()),
   GoRoute(
       name: AppRoute.resetPassword.name,
       path: '/${AppRoute.resetPassword.name}',
@@ -87,7 +84,7 @@ final routes = <RouteBase>[
     parentNavigatorKey: _rootNavigatorKey,
     builder: (context, state) {
       final extras = state.extra as Map<String, dynamic>;
-      return StateChooser(
+      return StateSelect(
           countryName: extras['countryName'] as String,
           initialSelection: extras['initialSelection'] as Item?);
     },
@@ -98,7 +95,7 @@ final routes = <RouteBase>[
     parentNavigatorKey: _rootNavigatorKey,
     builder: (context, state) {
       final extras = state.extra as Map<String, dynamic>?;
-      return CountryChooser(initialSelection: extras?['initialSelection'] as Item<dynamic>?);
+      return CountrySelect(initialSelection: extras?['initialSelection'] as Item<dynamic>?);
     },
   ),
   ShellRoute(
@@ -119,7 +116,7 @@ final routes = <RouteBase>[
               GoRoute(
                   name: AppRoute.reportTable.name,
                   path: AppRoute.reportTable.name,
-                  builder: (context, state) => ReportTablePage(vin: state.extra as String)),
+                  builder: (context, state) => const ReportTablePage()),
             ])
       ]),
 ];

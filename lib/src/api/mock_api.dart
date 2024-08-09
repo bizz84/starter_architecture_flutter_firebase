@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter_starter_base_app/src/api/api_endpoints.dart';
 import 'package:flutter_starter_base_app/src/api/base_api.dart';
 import 'package:flutter_starter_base_app/src/api/dio_interceptor.dart';
-import 'package:flutter_starter_base_app/src/domain/account.dart';
-import 'package:flutter_starter_base_app/src/domain/basic_api_response.dart';
-import 'package:flutter_starter_base_app/src/domain/country_data.dart';
+import 'package:flutter_starter_base_app/src/root/domain/account.dart';
+import 'package:flutter_starter_base_app/src/root/domain/basic_api_response.dart';
+import 'package:flutter_starter_base_app/src/root/domain/contact.dart';
+import 'package:flutter_starter_base_app/src/root/domain/country_data.dart';
 import 'package:flutter_starter_base_app/src/features/account/domain/eula.dart';
 import 'package:flutter_starter_base_app/src/features/report/domain/report_data.dart';
 import 'package:dio/dio.dart';
@@ -16,6 +19,20 @@ class APIMock implements BaseAPI {
 
   APIMock() {
     dio.interceptors.add(MockInterceptor());
+  }
+
+  @override
+  Future<List<Contact>> getData() async {
+    List<Contact> data = List.empty(growable: true);
+    try {
+      var contactsJson = (await dio.get(APIEndpoint.data)).data;
+      for (int i = 0; i < contactsJson.length; i++) {
+        data.add(Contact.fromJson(contactsJson[i]));
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return data;
   }
 
   @override

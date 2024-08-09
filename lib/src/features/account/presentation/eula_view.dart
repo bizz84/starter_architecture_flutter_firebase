@@ -43,7 +43,7 @@ class EulaView extends ConsumerWidget {
                                               return RichText(
                                                   text: TextSpan(
                                                       text: 'EULA INFORMATION\n\n',
-                                                      style: DanlawTheme()
+                                                      style: DefaultTheme()
                                                           .defaultTextStyle(18)
                                                           .copyWith(fontWeight: FontWeight.w600, color: primaryColor),
                                                       children: [
@@ -54,7 +54,7 @@ class EulaView extends ConsumerWidget {
                                             },
                                             error: (error, stackTrace) => Text(
                                                 'EULA INFORMATION\n\nCannot fetch EULA at this time. Please try again later.',
-                                                style: DanlawTheme().defaultTextStyle(18)),
+                                                style: DefaultTheme().defaultTextStyle(18)),
                                             loading: () => Container())))),
                         SizedBox(
 

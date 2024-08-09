@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 const primaryColor = Colors.black;
 
-class DanlawTheme {
+class DefaultTheme {
   TextStyle defaultTextStyle(double fontSize) =>
       TextStyle(color: Colors.white, fontSize: fontSize, overflow: TextOverflow.ellipsis);
   BoxDecoration getColoredBoxDecoration(Color color) => BoxDecoration(

@@ -30,7 +30,7 @@ class TextInputField extends ConsumerWidget {
                 flex: 1,
                 fit: FlexFit.tight,
                 child: Row(children: [
-                  Text(mainText, style: DanlawTheme().defaultTextStyle(18)),
+                  Text(mainText, style: DefaultTheme().defaultTextStyle(18)),
                   Tooltip(
                       message: 'description',
                       child: Container(padding: const EdgeInsets.only(left: 10), child: SVGLoader().questionMark))
@@ -42,7 +42,7 @@ class TextInputField extends ConsumerWidget {
                     autofocus: true,
                     cursorColor: CustomColors().primaryTextColor,
                     onChanged: (newPassword) => ref.watch(textProvider.notifier).update((state) => newPassword),
-                    style: DanlawTheme().defaultTextStyle(15).copyWith(color: CustomColors().primaryTextColor),
+                    style: DefaultTheme().defaultTextStyle(15).copyWith(color: CustomColors().primaryTextColor),
                     validator: validator,
                     inputFormatters: inputFormatter == null ? [] : [inputFormatter!],
                     decoration: InputDecoration(
@@ -52,6 +52,6 @@ class TextInputField extends ConsumerWidget {
                         fillColor: Colors.transparent,
                         hintTextDirection: TextDirection.rtl,
                         hintStyle:
-                            DanlawTheme().defaultTextStyle(15).copyWith(color: CustomColors().primaryTextColor))))
+                            DefaultTheme().defaultTextStyle(15).copyWith(color: CustomColors().primaryTextColor))))
           ])));
 }

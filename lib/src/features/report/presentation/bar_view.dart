@@ -14,16 +14,16 @@ import 'package:flutter_starter_base_app/src/features/report/presentation/bar_ba
 
 //todo handle multiple unknown vehicles?
 class BarView extends ConsumerWidget {
-  final List<ReportData> reportList;
+  final List<ReportData> reportData;
 
-  const BarView({super.key, required this.reportList});
+  const BarView({super.key, required this.reportData});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(triggerPage);
     bool reportByCost = ref.read(reportBy) == ReportBy.cost;
 
     final barViewCalculator = BarViewCalculator(
-        values: reportList
+        values: reportData
             .map((ReportData reportData) => reportData.x + reportData.y)
             .toList());
     return Padding(
@@ -41,7 +41,7 @@ class BarView extends ConsumerWidget {
                                   Text(step, style: TextStyle(color: CustomColors().lighterGrayText, fontSize: 14)))
                               .toList()))
                 ] +
-                reportList.map((ReportData reportData) {
+                reportData.map((ReportData reportData) {
                   double homeTotal = reportData.x;
                   double publicTotal = reportData.y;
                   double total = homeTotal + publicTotal;
@@ -77,7 +77,7 @@ class BarView extends ConsumerWidget {
                               ])
                             ]))),
                     const SizedBox(height: 10),
-                    Text(reportData.label, style: DanlawTheme().defaultTextStyle(15)),
+                    Text(reportData.label, style: DefaultTheme().defaultTextStyle(15)),
                     const SizedBox(height: 20)
                   ]);
                 }).toList()));

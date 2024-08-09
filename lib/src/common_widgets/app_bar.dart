@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_starter_base_app/src/constants/svg_loader.dart';
-import 'package:flutter_starter_base_app/src/utils/feature_constraints.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/hamburger_menu.dart';
 
 class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
@@ -51,59 +50,22 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
           actions: [
             if (showHamburgerMenu)
               SizedBox(
-                  child: HamburgerMenu(menuItemList: [
-                HamburgerMenuItem(
-                    title: LocaleKeys.btn_addHousehold.tr(),
-                    function: () async => await FeatureConstraints()
-                            .canCreateFeature(ref, featureType: FeatureType.household, overrideThreshold: true)
-                            .then((validation) {
-                          if (validation) {
-                            context.push('/${AppRoute.addHousehold.name}');
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("You have reached maximum limit of households")));
-                          }
-                        })),
-                HamburgerMenuItem(
-                    title: LocaleKeys.charger_wizard_addChargerTitle.tr(),
-                    function: () async => await FeatureConstraints()
-                            .canCreateFeature(ref, featureType: FeatureType.charger, overrideThreshold: true)
-                            .then((validation) {
-                          if (validation) {
-                            context.push('/${AppRoute.addCharger.name}');
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("You have reached maximum limit of chargers")));
-                          }
-                        })),
-                HamburgerMenuItem(
-                    title: LocaleKeys.vehicle_wizard_addVehicleTitle.tr(),
-                    function: () async => await FeatureConstraints()
-                            .canCreateFeature(ref, featureType: FeatureType.vehicle)
-                            .then((validation) {
-                          if (validation) {
-                            context.push('/${AppRoute.addVehicle.name}');
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("You have reached maximum limit of vehicles")));
-                          }
-                        })),
-                HamburgerMenuItem(
-                    title: LocaleKeys.btn_support.tr(),
-                    tailIcon: Padding(padding: const EdgeInsets.only(right: 6), child: SVGLoader().externalLinkIcon),
-                    function: () async => await launchUrl(Uri.parse('https://www.danlawinc.com/contact-us'),
-                        mode: LaunchMode.externalApplication)),
-                HamburgerMenuItem(
-                    title: LocaleKeys.btn_accessaries.tr(),
-                    function: () async =>
-                        await launchUrl(Uri.parse('https://www.danlawinc.com'), mode: LaunchMode.externalApplication),
-                    tailIcon: Padding(padding: const EdgeInsets.only(right: 6), child: SVGLoader().externalLinkIcon)),
-                HamburgerMenuItem(
-                    title: LocaleKeys.btn_logout.tr(),
-                    function: () async => WidgetsBinding.instance
-                        .addPostFrameCallback((_) => context.goNamed(AppRoute.logoutPageTransition.name)),
-                    tailIcon: const Icon(Icons.logout))
-              ])),
+                  child: HamburgerMenu(
+                      menuItemList: [
+                          HamburgerMenuItem(
+                              title: "Navigation Example",
+                              function: () async {
+                                    if (false) {
+                                      context.push('/${AppRoute.addCharger.name}');
+                                    } else {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text("You are not able to Navigate there")));
+                                    }
+                              }
+                          ),
+                      ]
+                  )
+              ),
             if (!showHamburgerMenu && customActionIcon != null)
               IconButton(icon: customActionIcon!, onPressed: onCustomActionPressed)
           ]);

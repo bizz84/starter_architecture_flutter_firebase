@@ -18,7 +18,7 @@ class EULATransition extends ConsumerWidget {
           });
           return Container();
         },
-        error: (error, stackTrace) => Center(child: Text('Error: $error', style: DanlawTheme().defaultTextStyle(20))),
+        error: (error, stackTrace) => Center(child: Text('Error: $error', style: DefaultTheme().defaultTextStyle(20))),
         loading: () => const LoadingAnimation());
   }
 }

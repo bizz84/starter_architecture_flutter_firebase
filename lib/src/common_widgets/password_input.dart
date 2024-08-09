@@ -21,7 +21,7 @@ class PasswordInputField extends ConsumerWidget {
                 flex: 1,
                 fit: FlexFit.tight,
                 child: Row(children: [
-                  Text(mainText, style: DanlawTheme().defaultTextStyle(18)),
+                  Text(mainText, style: DefaultTheme().defaultTextStyle(18)),
                   Tooltip(
                       message: 'description',
                       child: Container(padding: const EdgeInsets.only(left: 10), child: SVGLoader().questionMark))
@@ -35,7 +35,7 @@ class PasswordInputField extends ConsumerWidget {
                     obscuringCharacter: "*",
                     cursorColor: CustomColors().primaryTextColor,
                     onChanged: (newPassword) => ref.watch(password.notifier).update((state) => newPassword),
-                    style: DanlawTheme().defaultTextStyle(15).copyWith(color: CustomColors().primaryTextColor),
+                    style: DefaultTheme().defaultTextStyle(15).copyWith(color: CustomColors().primaryTextColor),
                     decoration: InputDecoration(
                         filled: true,
                         hintText: hintText,
@@ -43,6 +43,6 @@ class PasswordInputField extends ConsumerWidget {
                         fillColor: Colors.transparent,
                         hintTextDirection: TextDirection.rtl,
                         hintStyle:
-                            DanlawTheme().defaultTextStyle(15).copyWith(color: CustomColors().primaryTextColor))))
+                            DefaultTheme().defaultTextStyle(15).copyWith(color: CustomColors().primaryTextColor))))
           ])));
 }

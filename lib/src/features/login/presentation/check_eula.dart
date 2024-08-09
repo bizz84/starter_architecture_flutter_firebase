@@ -1,4 +1,5 @@
 import 'package:flutter_starter_base_app/src/common_widgets/circular_loading_animation.dart';
+import 'package:flutter_starter_base_app/src/features/account/data/account_provider.dart';
 import 'package:flutter_starter_base_app/src/routing/routes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

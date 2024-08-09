@@ -4,8 +4,7 @@ import 'package:flutter_starter_base_app/src/features/report/domain/report_data.
 import 'package:flutter_starter_base_app/src/utils/format.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/basic_page_importer.dart';
 import 'package:flutter_starter_base_app/src/localization/generated/locale_keys.g.dart';
-import 'package:flutter_starter_base_app/src/features/report/domain/vehicle_event.dart';
-import 'package:flutter_starter_base_app/src/features/report/domain/base_trip_event.dart';
+
 
 class ReportTable extends StatelessWidget {
   final List<ReportData> reportData;
@@ -22,7 +21,7 @@ class ReportTable extends StatelessWidget {
           .map((header) => DataColumn(
                   label: Expanded(
                       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text(header, textAlign: TextAlign.center, style: DanlawTheme().defaultTextStyle(13))
+                Text(header, textAlign: TextAlign.center, style: DefaultTheme().defaultTextStyle(13))
               ]))))
           .toList(),
       rows: reportData

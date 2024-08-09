@@ -1,4 +1,4 @@
-import 'package:flutter_starter_base_app/src/domain/item.dart';
+import 'package:flutter_starter_base_app/src/root/domain/item.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'country_data.g.dart';
 

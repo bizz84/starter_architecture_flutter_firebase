@@ -1,4 +1,4 @@
-import 'package:flutter_starter_base_app/src/domain/label_value.dart';
+import 'package:flutter_starter_base_app/src/root/domain/label_value.dart';
 import 'package:flutter_starter_base_app/src/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -19,13 +19,13 @@ class TimeWindowSingleSelect extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => Container(
       padding: const EdgeInsets.only(top: 7, bottom: 7, left: 17, right: 17),
       child: Row(children: [
-        Text(text, style: DanlawTheme().defaultTextStyle(18)),
+        Text(text, style: DefaultTheme().defaultTextStyle(18)),
         Tooltip(
             message: description,
             child: Container(padding: const EdgeInsets.only(left: 10), child: SVGLoader().questionMark)),
         const Spacer(),
         Text( ref.watch(currentTimeWindow).localizationKey.tr(),
-            style: DanlawTheme().defaultTextStyle(17).copyWith(color: CustomColors().darkGrayText)),
+            style: DefaultTheme().defaultTextStyle(17).copyWith(color: CustomColors().darkGrayText)),
         InkWell(
             child: InkWell(
                 child: Container(padding: const EdgeInsets.only(left: 10), child: SVGLoader().rightArrow),

@@ -1,5 +1,6 @@
 import 'package:flutter_starter_base_app/src/common_widgets/action_text_button.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/app_bar.dart';
+import 'package:flutter_starter_base_app/src/features/login/data/providers.dart';
 import 'package:flutter_starter_base_app/src/localization/generated/locale_keys.g.dart';
 import 'package:flutter_starter_base_app/src/routing/routes.dart';
 import 'package:easy_localization/easy_localization.dart';

@@ -59,7 +59,7 @@ class _BluetoothHandlerState extends ConsumerState<BluetoothHandler> {
                                         child: Row(children: [
                                           Text(scanResult.advertisementData.advName,
                                               overflow: TextOverflow.ellipsis,
-                                              style: DanlawTheme().defaultTextStyle(18),
+                                              style: DefaultTheme().defaultTextStyle(18),
                                               softWrap: false,
                                               maxLines: 1),
                                           const Spacer(),

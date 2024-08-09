@@ -11,9 +11,9 @@ Future<bool?> showInfoDialog(
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
       insetPadding: const EdgeInsets.symmetric(horizontal: 40),
       title: Text(label),
-      titleTextStyle: DanlawTheme().defaultTextStyle(14),
+      titleTextStyle: DefaultTheme().defaultTextStyle(14),
       content: Text(content, maxLines: 5),
-      contentTextStyle: DanlawTheme().defaultTextStyle(14),
+      contentTextStyle: DefaultTheme().defaultTextStyle(14),
       actionsAlignment: MainAxisAlignment.start,
       actions: <Widget>[
         TextButton(child: const Text("OK"), onPressed: () => context.pop()),

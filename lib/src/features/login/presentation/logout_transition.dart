@@ -1,3 +1,4 @@
+import 'package:flutter_starter_base_app/src/features/login/data/providers.dart';
 import 'package:flutter_starter_base_app/src/routing/app_router.dart';
 import 'package:flutter_starter_base_app/src/routing/routes.dart';
 import 'package:flutter/material.dart';

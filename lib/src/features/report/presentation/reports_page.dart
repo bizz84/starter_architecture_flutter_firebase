@@ -36,7 +36,7 @@ class ReportsPage extends ConsumerWidget {
         child: Scaffold(
             appBar: CustomAppBar(
                 titleWidget: Text(LocaleKeys.common_reports.tr(),
-                    style: DanlawTheme().defaultTextStyle(20).copyWith(fontWeight: FontWeight.w500))),
+                    style: DefaultTheme().defaultTextStyle(20).copyWith(fontWeight: FontWeight.w500))),
             body: CustomScrollView(slivers: [
               SliverFillRemaining(
                   hasScrollBody: false,
@@ -46,7 +46,7 @@ class ReportsPage extends ConsumerWidget {
                         Flexible(
                             child: Center(
                                 child: Text(LocaleKeys.reports_vehicleEnergyReport.tr(),
-                                    style: DanlawTheme().defaultTextStyle(20)))),
+                                    style: DefaultTheme().defaultTextStyle(20)))),
                         Flexible(
                             flex: 9,
                             child: Column(children: [
@@ -61,7 +61,7 @@ class ReportsPage extends ConsumerWidget {
                                             value: ref.watch(currentTimeWindow.notifier).state.displayText),
                                         const Padding(
                                             padding: EdgeInsets.only(left: 10, right: 10), child: PopupMenuDivider()),
-                                        Column(children: [ReportBarView(reportList: newReportList)]),
+                                        Column(children: [ReportBarView(reportDataProvider: newReportList)]),
                                         ReportSubTitle(text: LocaleKeys.reports_info_barSelection.tr()),
                                         const Row(children: [
                                           Row(children: [

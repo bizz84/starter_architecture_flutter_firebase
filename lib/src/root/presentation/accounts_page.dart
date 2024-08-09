@@ -2,9 +2,9 @@ import 'package:flutter_starter_base_app/src/common_widgets/basic_page_importer.
 import 'package:flutter_starter_base_app/src/common_widgets/circular_loading_animation.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/primary_button.dart';
 import 'package:flutter_starter_base_app/src/common_widgets/subsection_title.dart';
+import 'package:flutter_starter_base_app/src/features/account/data/account_provider.dart';
 import 'package:flutter_starter_base_app/src/localization/generated/locale_keys.g.dart';
 import 'package:flutter_starter_base_app/src/routing/routes.dart';
-import 'package:flutter_starter_base_app/src/utils/feature_constraints.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,7 @@ class _AccountDetailsPageState extends ConsumerState<AccountDetailsPage> {
     return Scaffold(
       appBar: CustomAppBar(
           titleWidget: Text(LocaleKeys.common_account.tr(),
-              style: DanlawTheme().defaultTextStyle(20).copyWith(fontWeight: FontWeight.w500))),
+              style: DefaultTheme().defaultTextStyle(20).copyWith(fontWeight: FontWeight.w500))),
       body: accountDetailsAsync.when(
         loading: () => const Scaffold(
             body: Directionality(
@@ -268,82 +268,17 @@ class _AccountDetailsPageState extends ConsumerState<AccountDetailsPage> {
                             ),
                           ),
                         ),
-                        SubSectionTitle(text: LocaleKeys.household_title.tr().toUpperCase()),
-                        ...?accountDetails.households?.map((household) => Container(
-                              height: 44,
-                              decoration: BoxDecoration(
-                                color: CustomColors().grayColor,
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: CustomColors().grayColor,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 16.0, right: 16),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      household.householdName,
-                                      style: TextStyle(
-                                        color: CustomColors().whitecolor,
-                                        fontSize: 17,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10.0),
-                                      child: Icon(
-                                        Icons.help_rounded,
-                                        color: CustomColors().lightblueColor,
-                                        size: 15,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Expanded(
-                                      child: Text(
-                                        '${household.homeAddress.streetAddressFirstLine} ${household.homeAddress.city} ${household.homeAddress.state} ${household.homeAddress.zipCode}',
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: CustomColors().secondaryDark,
-                                          fontSize: 17,
-                                        ),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () async {
-                                        final response = await context.pushNamed(AppRoute.householdDetails.name,
-                                            pathParameters: {"householdId": household.householdId});
-                                        if (response == true) {
-                                          ref.invalidate(fetchAccountDetailsProvider);
-                                        }
-                                      },
-                                      child: Icon(
-                                        Icons.chevron_right,
-                                        color: CustomColors().lightblueColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )),
                         InkWell(
                           onTap: () async {
-                            await FeatureConstraints()
-                                .canCreateFeature(ref, featureType: FeatureType.household, overrideThreshold: true)
-                                .then((validation) async {
-                              if (validation) {
-                                final result = await context.push<bool>(
-                                  '/${AppRoute.addHousehold.name}',
-                                );
+                            final result = await context.push<bool>(
+                              '/${AppRoute.addHousehold.name}',
+                            );
 
-                                if (result == true) {
-                                  ref.invalidate(fetchAccountDetailsProvider);
-                                  ref.read(fetchAccountDetailsProvider);
-                                  debugPrint("refresh = ");
-                                }
-                              }
-                            });
+                            if (result == true) {
+                              ref.invalidate(fetchAccountDetailsProvider);
+                              ref.read(fetchAccountDetailsProvider);
+                              debugPrint("refresh = ");
+                            }
                           },
                           child: Container(
                             height: 44,
@@ -371,82 +306,17 @@ class _AccountDetailsPageState extends ConsumerState<AccountDetailsPage> {
                             ),
                           ),
                         ),
-                        SubSectionTitle(text: LocaleKeys.vehicle_title.tr().toUpperCase()),
-                        ...?accountDetails.vehicles?.map((vehicle) => Container(
-                              height: 44,
-                              decoration: BoxDecoration(
-                                color: CustomColors().grayColor,
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: CustomColors().grayColor,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 16.0, right: 16),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      vehicle.vehicleName,
-                                      style: TextStyle(
-                                        color: CustomColors().whitecolor,
-                                        fontSize: 17,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10.0),
-                                      child: Icon(
-                                        Icons.help_rounded,
-                                        color: CustomColors().lightblueColor,
-                                        size: 15,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Expanded(
-                                      child: Text(
-                                        '${vehicle.year} ${vehicle.make} ${vehicle.model}',
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: CustomColors().secondaryDark,
-                                          fontSize: 17,
-                                        ),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        context.pushNamed(AppRoute.vehicleDetails.name,
-                                            pathParameters: {"vin": vehicle.vin});
-                                      },
-                                      child: Icon(
-                                        Icons.chevron_right,
-                                        color: CustomColors().lightblueColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )),
                         InkWell(
                           onTap: () async {
-                            await FeatureConstraints()
-                                .canCreateFeature(ref, featureType: FeatureType.vehicle)
-                                .then((validation) async {
-                              if (validation) {
-                                final result = await context.push<bool>(
-                                  '/${AppRoute.addVehicle.name}',
-                                );
+                            final result = await context.push<bool>(
+                              '/${AppRoute.addVehicle.name}',
+                            );
 
-                                if (result == true) {
-                                  ref.invalidate(fetchAccountDetailsProvider);
-                                  ref.read(fetchAccountDetailsProvider);
-                                  debugPrint("refresh = ");
-                                }
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text("You have reached maximum limit of vehicles")));
-                              }
-                            });
+                            if (result == true) {
+                              ref.invalidate(fetchAccountDetailsProvider);
+                              ref.read(fetchAccountDetailsProvider);
+                              debugPrint("refresh = ");
+                            }
                           },
                           child: Container(
                             height: 44,

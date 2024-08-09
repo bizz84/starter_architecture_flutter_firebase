@@ -9,5 +9,5 @@ class SubSectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
       padding: const EdgeInsets.only(left: 15, right: 10, top: 15, bottom: 5),
-      child: Text(text, style: DanlawTheme().defaultTextStyle(12).copyWith(color: CustomColors().lightGrayText)));
+      child: Text(text, style: DefaultTheme().defaultTextStyle(12).copyWith(color: CustomColors().lightGrayText)));
 }

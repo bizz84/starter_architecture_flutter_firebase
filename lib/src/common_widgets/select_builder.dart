@@ -1,7 +1,8 @@
 import 'package:flutter_starter_base_app/src/common_widgets/basic_page_importer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../domain/item.dart';
+import 'package:flutter_starter_base_app/src/root/domain/item.dart';
+
 
 class SelectBuilder extends StatefulWidget {
   const SelectBuilder({
@@ -46,7 +47,7 @@ class _SelectBuilderState extends State<SelectBuilder> {
           contentPadding: EdgeInsets.zero,
           minVerticalPadding: 11,
           minTileHeight: 11,
-          title: Text(item.label, style: DanlawTheme().defaultTextStyle(17)),
+          title: Text(item.label, style: DefaultTheme().defaultTextStyle(17)),
           trailing: isSelected ? Icon(CupertinoIcons.check_mark, color: CustomColors().primaryTextColor) : null,
           onTap: () => _onItemTap(item),
         );

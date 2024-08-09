@@ -1,7 +1,7 @@
 import 'package:flutter_starter_base_app/src/api/api.dart';
 import 'package:flutter_starter_base_app/src/api/api_facade.dart';
-import 'package:flutter_starter_base_app/src/domain/account.dart';
-import 'package:flutter_starter_base_app/src/domain/basic_api_response.dart';
+import 'package:flutter_starter_base_app/src/root/domain/account.dart';
+import 'package:flutter_starter_base_app/src/root/domain/basic_api_response.dart';
 import 'package:flutter_starter_base_app/src/features/account/domain/create_account.dart';
 import 'package:flutter_starter_base_app/src/features/account/domain/eula.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

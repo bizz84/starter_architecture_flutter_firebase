@@ -13,7 +13,13 @@ class MockInterceptor extends Interceptor {
         data: await loadData('countries'),
       ));
     }
-
+    if (options.path == APIEndpoint.data) {
+      return handler.resolve(Response(
+        requestOptions: options,
+        statusCode: 200,
+        data: await loadData('contacts'),
+      ));
+    }
     if (options.path == APIEndpoint.accountDetails) {
       return handler.resolve(Response(
         requestOptions: options,
