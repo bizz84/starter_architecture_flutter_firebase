@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_startup.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
@@ -41,7 +42,7 @@ enum AppRoute {
 }
 
 @riverpod
-GoRouter goRouter(GoRouterRef ref) {
+GoRouter goRouter(Ref ref) {
   // rebuild GoRouter when app startup state changes
   final appStartupState = ref.watch(appStartupProvider);
   final authRepository = ref.watch(authRepositoryProvider);
