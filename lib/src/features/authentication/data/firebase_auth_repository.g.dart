@@ -6,7 +6,7 @@ part of 'firebase_auth_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$firebaseAuthHash() => r'46c40b7c5cf8ab936c0daa96a6af106bd2ae5d51';
+String _$firebaseAuthHash() => r'cb440927c3ab863427fd4b052a8ccba4c024c863';
 
 /// See also [firebaseAuth].
 @ProviderFor(firebaseAuth)
@@ -19,8 +19,10 @@ final firebaseAuthProvider = Provider<FirebaseAuth>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef FirebaseAuthRef = ProviderRef<FirebaseAuth>;
-String _$authRepositoryHash() => r'3871275ded2762a0e529629be71e890bfd3bd7ad';
+String _$authRepositoryHash() => r'0e32dee9e183c43ec14a6b58d74d26deb3950cbc';
 
 /// See also [authRepository].
 @ProviderFor(authRepository)
@@ -34,8 +36,10 @@ final authRepositoryProvider = Provider<AuthRepository>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef AuthRepositoryRef = ProviderRef<AuthRepository>;
-String _$authStateChangesHash() => r'af0a0185c59bf3c1ad8a9e041075517b3a2dcc31';
+String _$authStateChangesHash() => r'7bdb56f405df8ffc5554e0128ec15d474f011ec9';
 
 /// See also [authStateChanges].
 @ProviderFor(authStateChanges)
@@ -49,6 +53,8 @@ final authStateChangesProvider = AutoDisposeStreamProvider<User?>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef AuthStateChangesRef = AutoDisposeStreamProviderRef<User?>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

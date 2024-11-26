@@ -17,6 +17,7 @@ dependencies:
   firebase_ui_firestore: ^1.6.3
   flutter:
     sdk: flutter
+  riverpod: ^2.5.1  
   flutter_riverpod: ^2.5.1
   flutter_svg: ^2.0.10
   go_router: ^14.6.1
