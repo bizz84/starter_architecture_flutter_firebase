@@ -13,6 +13,9 @@ Future<void> appStartup(Ref ref) async {
     // ensure dependent providers are disposed as well
     ref.invalidate(onboardingRepositoryProvider);
   });
+  // Uncomment this to test that URL-based navigation and deep linking works
+  // even when there's a delay in the app startup logic
+  // await Future.delayed(Duration(seconds: 1));
   // await for all initialization code to be complete before returning
   await ref.watch(onboardingRepositoryProvider.future);
 }
@@ -74,5 +77,15 @@ class AppStartupErrorWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class AppStartupDataWidget extends StatelessWidget {
+  const AppStartupDataWidget({super.key, required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return child;
   }
 }

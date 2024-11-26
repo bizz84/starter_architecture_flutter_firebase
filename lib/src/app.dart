@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
+import 'package:starter_architecture_flutter_firebase/src/routing/app_startup.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
@@ -12,6 +13,11 @@ class MyApp extends ConsumerWidget {
     final goRouter = ref.watch(goRouterProvider);
     return MaterialApp.router(
       routerConfig: goRouter,
+      builder: (_, child) {
+        return AppStartupWidget(
+          onLoaded: (_) => child!,
+        );
+      },
       theme: ThemeData(
         colorSchemeSeed: primaryColor,
         unselectedWidgetColor: Colors.grey,
