@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/domain/app_user.dart';
@@ -78,12 +79,12 @@ class JobsRepository {
 }
 
 @Riverpod(keepAlive: true)
-JobsRepository jobsRepository(JobsRepositoryRef ref) {
+JobsRepository jobsRepository(Ref ref) {
   return JobsRepository(FirebaseFirestore.instance);
 }
 
 @riverpod
-Query<Job> jobsQuery(JobsQueryRef ref) {
+Query<Job> jobsQuery(Ref ref) {
   final user = ref.watch(firebaseAuthProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null');
@@ -93,7 +94,7 @@ Query<Job> jobsQuery(JobsQueryRef ref) {
 }
 
 @riverpod
-Stream<Job> jobStream(JobStreamRef ref, JobID jobId) {
+Stream<Job> jobStream(Ref ref, JobID jobId) {
   final user = ref.watch(firebaseAuthProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null');

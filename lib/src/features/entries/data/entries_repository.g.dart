@@ -1,45 +1,30 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'jobs_repository.dart';
+part of 'entries_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$jobsRepositoryHash() => r'38b37bbcb0ced4ca0754f549ebbe9384bc2bda31';
+String _$entriesRepositoryHash() => r'17cd56c685d800f8456e9f526108ae479eb0aec2';
 
-/// See also [jobsRepository].
-@ProviderFor(jobsRepository)
-final jobsRepositoryProvider = Provider<JobsRepository>.internal(
-  jobsRepository,
-  name: r'jobsRepositoryProvider',
+/// See also [entriesRepository].
+@ProviderFor(entriesRepository)
+final entriesRepositoryProvider =
+    AutoDisposeProvider<EntriesRepository>.internal(
+  entriesRepository,
+  name: r'entriesRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$jobsRepositoryHash,
+      : _$entriesRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef JobsRepositoryRef = ProviderRef<JobsRepository>;
-String _$jobsQueryHash() => r'aeaccb50f75b9e5bc97b07443935ffd432dba51a';
-
-/// See also [jobsQuery].
-@ProviderFor(jobsQuery)
-final jobsQueryProvider = AutoDisposeProvider<Query<Job>>.internal(
-  jobsQuery,
-  name: r'jobsQueryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$jobsQueryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef JobsQueryRef = AutoDisposeProviderRef<Query<Job>>;
-String _$jobStreamHash() => r'0713110998fd87210993baf69e4d9cf722a73031';
+typedef EntriesRepositoryRef = AutoDisposeProviderRef<EntriesRepository>;
+String _$jobEntriesQueryHash() => r'b6028feba070a55b2cf62b18cb3849cefecd27ab';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -62,27 +47,27 @@ class _SystemHash {
   }
 }
 
-/// See also [jobStream].
-@ProviderFor(jobStream)
-const jobStreamProvider = JobStreamFamily();
+/// See also [jobEntriesQuery].
+@ProviderFor(jobEntriesQuery)
+const jobEntriesQueryProvider = JobEntriesQueryFamily();
 
-/// See also [jobStream].
-class JobStreamFamily extends Family<AsyncValue<Job>> {
-  /// See also [jobStream].
-  const JobStreamFamily();
+/// See also [jobEntriesQuery].
+class JobEntriesQueryFamily extends Family<Query<Entry>> {
+  /// See also [jobEntriesQuery].
+  const JobEntriesQueryFamily();
 
-  /// See also [jobStream].
-  JobStreamProvider call(
+  /// See also [jobEntriesQuery].
+  JobEntriesQueryProvider call(
     String jobId,
   ) {
-    return JobStreamProvider(
+    return JobEntriesQueryProvider(
       jobId,
     );
   }
 
   @override
-  JobStreamProvider getProviderOverride(
-    covariant JobStreamProvider provider,
+  JobEntriesQueryProvider getProviderOverride(
+    covariant JobEntriesQueryProvider provider,
   ) {
     return call(
       provider.jobId,
@@ -101,31 +86,32 @@ class JobStreamFamily extends Family<AsyncValue<Job>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'jobStreamProvider';
+  String? get name => r'jobEntriesQueryProvider';
 }
 
-/// See also [jobStream].
-class JobStreamProvider extends AutoDisposeStreamProvider<Job> {
-  /// See also [jobStream].
-  JobStreamProvider(
+/// See also [jobEntriesQuery].
+class JobEntriesQueryProvider extends AutoDisposeProvider<Query<Entry>> {
+  /// See also [jobEntriesQuery].
+  JobEntriesQueryProvider(
     String jobId,
   ) : this._internal(
-          (ref) => jobStream(
-            ref as JobStreamRef,
+          (ref) => jobEntriesQuery(
+            ref as JobEntriesQueryRef,
             jobId,
           ),
-          from: jobStreamProvider,
-          name: r'jobStreamProvider',
+          from: jobEntriesQueryProvider,
+          name: r'jobEntriesQueryProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$jobStreamHash,
-          dependencies: JobStreamFamily._dependencies,
-          allTransitiveDependencies: JobStreamFamily._allTransitiveDependencies,
+                  : _$jobEntriesQueryHash,
+          dependencies: JobEntriesQueryFamily._dependencies,
+          allTransitiveDependencies:
+              JobEntriesQueryFamily._allTransitiveDependencies,
           jobId: jobId,
         );
 
-  JobStreamProvider._internal(
+  JobEntriesQueryProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -139,12 +125,12 @@ class JobStreamProvider extends AutoDisposeStreamProvider<Job> {
 
   @override
   Override overrideWith(
-    Stream<Job> Function(JobStreamRef provider) create,
+    Query<Entry> Function(JobEntriesQueryRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: JobStreamProvider._internal(
-        (ref) => create(ref as JobStreamRef),
+      override: JobEntriesQueryProvider._internal(
+        (ref) => create(ref as JobEntriesQueryRef),
         from: from,
         name: null,
         dependencies: null,
@@ -156,13 +142,13 @@ class JobStreamProvider extends AutoDisposeStreamProvider<Job> {
   }
 
   @override
-  AutoDisposeStreamProviderElement<Job> createElement() {
-    return _JobStreamProviderElement(this);
+  AutoDisposeProviderElement<Query<Entry>> createElement() {
+    return _JobEntriesQueryProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is JobStreamProvider && other.jobId == jobId;
+    return other is JobEntriesQueryProvider && other.jobId == jobId;
   }
 
   @override
@@ -176,17 +162,17 @@ class JobStreamProvider extends AutoDisposeStreamProvider<Job> {
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin JobStreamRef on AutoDisposeStreamProviderRef<Job> {
+mixin JobEntriesQueryRef on AutoDisposeProviderRef<Query<Entry>> {
   /// The parameter `jobId` of this provider.
   String get jobId;
 }
 
-class _JobStreamProviderElement extends AutoDisposeStreamProviderElement<Job>
-    with JobStreamRef {
-  _JobStreamProviderElement(super.provider);
+class _JobEntriesQueryProviderElement
+    extends AutoDisposeProviderElement<Query<Entry>> with JobEntriesQueryRef {
+  _JobEntriesQueryProviderElement(super.provider);
 
   @override
-  String get jobId => (origin as JobStreamProvider).jobId;
+  String get jobId => (origin as JobEntriesQueryProvider).jobId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
