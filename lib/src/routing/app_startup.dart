@@ -39,6 +39,7 @@ class AppStartupWidget extends ConsumerWidget {
   }
 }
 
+/// Widget to show while initialization is in progress
 class AppStartupLoadingWidget extends StatelessWidget {
   const AppStartupLoadingWidget({super.key});
 
@@ -53,6 +54,7 @@ class AppStartupLoadingWidget extends StatelessWidget {
   }
 }
 
+/// Widget to show if initialization fails
 class AppStartupErrorWidget extends StatelessWidget {
   const AppStartupErrorWidget(
       {super.key, required this.message, required this.onRetry});
@@ -77,15 +79,5 @@ class AppStartupErrorWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class AppStartupDataWidget extends StatelessWidget {
-  const AppStartupDataWidget({super.key, required this.child});
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return child;
   }
 }
