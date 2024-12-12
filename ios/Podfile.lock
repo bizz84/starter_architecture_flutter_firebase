@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (5.5.0):
+  - cloud_firestore (5.5.1):
     - Firebase/Firestore (= 11.4.0)
     - firebase_core
     - Flutter
@@ -16,14 +16,14 @@ PODS:
   - Firebase/Firestore (11.4.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 11.4.0)
-  - firebase_auth (5.3.3):
+  - firebase_auth (5.3.4):
     - Firebase/Auth (= 11.4.0)
     - firebase_core
     - Flutter
-  - firebase_core (3.8.0):
+  - firebase_core (3.8.1):
     - Firebase/CoreOnly (= 11.4.0)
     - Flutter
-  - firebase_dynamic_links (6.0.10):
+  - firebase_dynamic_links (6.0.11):
     - Firebase/DynamicLinks (= 11.4.0)
     - firebase_core
     - Flutter
@@ -162,12 +162,12 @@ CHECKOUT OPTIONS:
     :tag: 11.4.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 8794ea2885e367f0a2096338964ddfd49739b2c7
+  cloud_firestore: 3fafe78d755b01fe1fd267a87bb52e80b7dacacc
   desktop_webview_auth: d645139460ef203d50bd0cdb33356785dd939cce
   Firebase: cf1b19f21410b029b6786a54e9764a0cacad3c99
-  firebase_auth: 42718683069d35d73af7a986b55b194589039e5e
-  firebase_core: 9efc3ecf689cdbc90f13f4dc58108c83ea46b266
-  firebase_dynamic_links: 9035278f22b422f47d7825ecc225602a22b3c188
+  firebase_auth: c4bdd9d7b338ac004008cb5024a643584e0ec03f
+  firebase_core: 418aed674e9a0b8b6088aec16cde82a811f6261f
+  firebase_dynamic_links: b6c2a7d6e50d2d0c0ae2acb213af78e9a3d9ce9b
   FirebaseAppCheckInterop: d265d9f4484e7ec1c591086408840fdd383d1213
   FirebaseAuth: c359af98bd703cbf4293eec107a40de08ede6ce6
   FirebaseAuthInterop: 1219bee9b23e6ebe84c256a0d95adab53d11c331
