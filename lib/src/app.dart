@@ -19,6 +19,9 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: goRouter,
       builder: (_, child) {
+        // * Important: Use AppStartupWidget to wrap ForceUpdateWidget otherwise you will get this error:
+        // * Navigator operation requested with a context that does not include a Navigator.
+        // * The context used to push or pop routes from the Navigator must be that of a widget that is a descendant of a Navigator widget.
         return AppStartupWidget(
           onLoaded: (_) => ForceUpdateWidget(
             navigatorKey: goRouter.routerDelegate.navigatorKey,
