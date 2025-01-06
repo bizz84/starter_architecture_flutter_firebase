@@ -21,6 +21,6 @@ class OnboardingRepository {
 
 @Riverpod(keepAlive: true)
 Future<OnboardingRepository> onboardingRepository(Ref ref) async {
-  return OnboardingRepository(
-      ref.watch(sharedPreferencesProvider).requireValue);
+  final sharedPreferences = await ref.watch(sharedPreferencesProvider.future);
+  return OnboardingRepository(sharedPreferences);
 }
