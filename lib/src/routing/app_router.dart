@@ -14,6 +14,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/presenta
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/jobs_screen/jobs_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/data/onboarding_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:starter_architecture_flutter_firebase/src/routing/app_router_observer.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/go_router_refresh_stream.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/not_found_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/scaffold_with_nested_navigation.dart';
@@ -47,6 +48,7 @@ GoRouter goRouter(Ref ref) {
     initialLocation: '/signIn',
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
+    observers: [AppRouterObserver()],
     redirect: (context, state) {
       final onboardingRepository =
           ref.read(onboardingRepositoryProvider).requireValue;
@@ -80,14 +82,16 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/onboarding',
         name: AppRoute.onboarding.name,
-        pageBuilder: (context, state) => const NoTransitionPage(
+        pageBuilder: (context, state) => NoTransitionPage(
+          name: AppRoute.onboarding.name,
           child: OnboardingScreen(),
         ),
       ),
       GoRoute(
         path: '/signIn',
         name: AppRoute.signIn.name,
-        pageBuilder: (context, state) => const NoTransitionPage(
+        pageBuilder: (context, state) => NoTransitionPage(
+          name: AppRoute.signIn.name,
           child: CustomSignInScreen(),
         ),
       ),
@@ -95,6 +99,7 @@ GoRouter goRouter(Ref ref) {
       // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
       StatefulShellRoute.indexedStack(
         pageBuilder: (context, state, navigationShell) => NoTransitionPage(
+          name: 'main',
           child: ScaffoldWithNestedNavigation(navigationShell: navigationShell),
         ),
         branches: [
@@ -104,7 +109,8 @@ GoRouter goRouter(Ref ref) {
               GoRoute(
                 path: '/jobs',
                 name: AppRoute.jobs.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
+                pageBuilder: (context, state) => NoTransitionPage(
+                  name: AppRoute.jobs.name,
                   child: JobsScreen(),
                 ),
                 routes: [
@@ -113,7 +119,8 @@ GoRouter goRouter(Ref ref) {
                     name: AppRoute.addJob.name,
                     parentNavigatorKey: _rootNavigatorKey,
                     pageBuilder: (context, state) {
-                      return const MaterialPage(
+                      return MaterialPage(
+                        name: AppRoute.addJob.name,
                         fullscreenDialog: true,
                         child: EditJobScreen(),
                       );
@@ -125,6 +132,7 @@ GoRouter goRouter(Ref ref) {
                     pageBuilder: (context, state) {
                       final id = state.pathParameters['id']!;
                       return MaterialPage(
+                        name: AppRoute.job.name,
                         child: JobEntriesScreen(jobId: id),
                       );
                     },
@@ -136,6 +144,7 @@ GoRouter goRouter(Ref ref) {
                         pageBuilder: (context, state) {
                           final jobId = state.pathParameters['id']!;
                           return MaterialPage(
+                            name: AppRoute.addEntry.name,
                             fullscreenDialog: true,
                             child: EntryScreen(
                               jobId: jobId,
@@ -151,6 +160,7 @@ GoRouter goRouter(Ref ref) {
                           final entryId = state.pathParameters['eid']!;
                           final entry = state.extra as Entry?;
                           return MaterialPage(
+                            name: AppRoute.entry.name,
                             child: EntryScreen(
                               jobId: jobId,
                               entryId: entryId,
@@ -166,6 +176,7 @@ GoRouter goRouter(Ref ref) {
                           final jobId = state.pathParameters['id'];
                           final job = state.extra as Job?;
                           return MaterialPage(
+                            name: AppRoute.editJob.name,
                             fullscreenDialog: true,
                             child: EditJobScreen(jobId: jobId, job: job),
                           );
@@ -183,7 +194,8 @@ GoRouter goRouter(Ref ref) {
               GoRoute(
                 path: '/entries',
                 name: AppRoute.entries.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
+                pageBuilder: (context, state) => NoTransitionPage(
+                  name: AppRoute.entries.name,
                   child: EntriesScreen(),
                 ),
               ),
@@ -195,7 +207,8 @@ GoRouter goRouter(Ref ref) {
               GoRoute(
                 path: '/account',
                 name: AppRoute.profile.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
+                pageBuilder: (context, state) => NoTransitionPage(
+                  name: AppRoute.profile.name,
                   child: CustomProfileScreen(),
                 ),
               ),
