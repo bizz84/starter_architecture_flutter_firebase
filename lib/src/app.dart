@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:force_update_helper/force_update_helper.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_startup.dart';
+import 'package:starter_architecture_flutter_firebase/src/routing/go_router_delegate_listener.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/alert_dialogs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -56,7 +57,7 @@ class MyApp extends ConsumerWidget {
             onException: (e, st) {
               log(e.toString());
             },
-            child: child!,
+            child: GoRouterDelegateListener(child: child!),
           ),
         );
       },

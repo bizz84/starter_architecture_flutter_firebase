@@ -46,7 +46,7 @@ GoRouter goRouter(Ref ref) {
   return GoRouter(
     initialLocation: '/signIn',
     navigatorKey: _rootNavigatorKey,
-    debugLogDiagnostics: true,
+    //debugLogDiagnostics: true,
     redirect: (context, state) {
       final onboardingRepository =
           ref.read(onboardingRepositoryProvider).requireValue;
