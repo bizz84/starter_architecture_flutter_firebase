@@ -16,7 +16,8 @@ class GoRouterDelegateListener extends ConsumerStatefulWidget {
 }
 
 class _GoRouterListenerState extends ConsumerState<GoRouterDelegateListener> {
-  // Helper getter for the GoRouter instance
+  /// Helper variable for retrieving the GoRouter delegate
+  /// Note: using GoRouter.of(context) throws an exception so we use the goRouterProvider instead
   late final routerDelegate = ref.read(goRouterProvider).routerDelegate;
 
   @override
