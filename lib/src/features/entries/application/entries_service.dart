@@ -1,4 +1,3 @@
-import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
@@ -21,6 +20,7 @@ class EntriesService {
   final JobsRepository jobsRepository;
   final EntriesRepository entriesRepository;
 
+  // ignore: unintended_html_in_doc_comment
   /// combine List<Job>, List<Entry> into List<EntryJob>
   Stream<List<EntryJob>> _allEntriesStream(UserID uid) =>
       CombineLatestStream.combine2(
@@ -90,8 +90,7 @@ EntriesService entriesService(Ref ref) {
 }
 
 @riverpod
-Stream<List<EntriesListTileModel>> entriesTileModelStream(
-    Ref ref) {
+Stream<List<EntriesListTileModel>> entriesTileModelStream(Ref ref) {
   final user = ref.watch(firebaseAuthProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null when fetching entries');

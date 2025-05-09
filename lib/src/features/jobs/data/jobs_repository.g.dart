@@ -6,187 +6,159 @@ part of 'jobs_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$jobsRepositoryHash() => r'38b37bbcb0ced4ca0754f549ebbe9384bc2bda31';
-
-/// See also [jobsRepository].
 @ProviderFor(jobsRepository)
-final jobsRepositoryProvider = Provider<JobsRepository>.internal(
-  jobsRepository,
-  name: r'jobsRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$jobsRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const jobsRepositoryProvider = JobsRepositoryProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef JobsRepositoryRef = ProviderRef<JobsRepository>;
-String _$jobsQueryHash() => r'aeaccb50f75b9e5bc97b07443935ffd432dba51a';
-
-/// See also [jobsQuery].
-@ProviderFor(jobsQuery)
-final jobsQueryProvider = AutoDisposeProvider<Query<Job>>.internal(
-  jobsQuery,
-  name: r'jobsQueryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$jobsQueryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef JobsQueryRef = AutoDisposeProviderRef<Query<Job>>;
-String _$jobStreamHash() => r'0713110998fd87210993baf69e4d9cf722a73031';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [jobStream].
-@ProviderFor(jobStream)
-const jobStreamProvider = JobStreamFamily();
-
-/// See also [jobStream].
-class JobStreamFamily extends Family<AsyncValue<Job>> {
-  /// See also [jobStream].
-  const JobStreamFamily();
-
-  /// See also [jobStream].
-  JobStreamProvider call(
-    String jobId,
-  ) {
-    return JobStreamProvider(
-      jobId,
-    );
-  }
-
-  @override
-  JobStreamProvider getProviderOverride(
-    covariant JobStreamProvider provider,
-  ) {
-    return call(
-      provider.jobId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'jobStreamProvider';
-}
-
-/// See also [jobStream].
-class JobStreamProvider extends AutoDisposeStreamProvider<Job> {
-  /// See also [jobStream].
-  JobStreamProvider(
-    String jobId,
-  ) : this._internal(
-          (ref) => jobStream(
-            ref as JobStreamRef,
-            jobId,
-          ),
-          from: jobStreamProvider,
-          name: r'jobStreamProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$jobStreamHash,
-          dependencies: JobStreamFamily._dependencies,
-          allTransitiveDependencies: JobStreamFamily._allTransitiveDependencies,
-          jobId: jobId,
+final class JobsRepositoryProvider
+    extends $FunctionalProvider<JobsRepository, JobsRepository>
+    with $Provider<JobsRepository> {
+  const JobsRepositoryProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'jobsRepositoryProvider',
+          isAutoDispose: false,
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
-  JobStreamProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.jobId,
-  }) : super.internal();
+  @override
+  String debugGetCreateSourceHash() => _$jobsRepositoryHash();
 
-  final String jobId;
+  @$internal
+  @override
+  $ProviderElement<JobsRepository> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  Override overrideWith(
-    Stream<Job> Function(JobStreamRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: JobStreamProvider._internal(
-        (ref) => create(ref as JobStreamRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        jobId: jobId,
-      ),
-    );
+  JobsRepository create(Ref ref) {
+    return jobsRepository(ref);
   }
 
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(JobsRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $ValueProvider<JobsRepository>(value),
+    );
+  }
+}
+
+String _$jobsRepositoryHash() => r'38b37bbcb0ced4ca0754f549ebbe9384bc2bda31';
+
+@ProviderFor(jobsQuery)
+const jobsQueryProvider = JobsQueryProvider._();
+
+final class JobsQueryProvider
+    extends $FunctionalProvider<Query<Job>, Query<Job>>
+    with $Provider<Query<Job>> {
+  const JobsQueryProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'jobsQueryProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
   @override
-  AutoDisposeStreamProviderElement<Job> createElement() {
-    return _JobStreamProviderElement(this);
+  String debugGetCreateSourceHash() => _$jobsQueryHash();
+
+  @$internal
+  @override
+  $ProviderElement<Query<Job>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Query<Job> create(Ref ref) {
+    return jobsQuery(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Query<Job> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $ValueProvider<Query<Job>>(value),
+    );
+  }
+}
+
+String _$jobsQueryHash() => r'aeaccb50f75b9e5bc97b07443935ffd432dba51a';
+
+@ProviderFor(jobStream)
+const jobStreamProvider = JobStreamFamily._();
+
+final class JobStreamProvider
+    extends $FunctionalProvider<AsyncValue<Job>, Stream<Job>>
+    with $FutureModifier<Job>, $StreamProvider<Job> {
+  const JobStreamProvider._(
+      {required JobStreamFamily super.from, required JobID super.argument})
+      : super(
+          retry: null,
+          name: r'jobStreamProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$jobStreamHash();
+
+  @override
+  String toString() {
+    return r'jobStreamProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $StreamProviderElement<Job> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<Job> create(Ref ref) {
+    final argument = this.argument as JobID;
+    return jobStream(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is JobStreamProvider && other.jobId == jobId;
+    return other is JobStreamProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, jobId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin JobStreamRef on AutoDisposeStreamProviderRef<Job> {
-  /// The parameter `jobId` of this provider.
-  String get jobId;
-}
+String _$jobStreamHash() => r'0713110998fd87210993baf69e4d9cf722a73031';
 
-class _JobStreamProviderElement extends AutoDisposeStreamProviderElement<Job>
-    with JobStreamRef {
-  _JobStreamProviderElement(super.provider);
+final class JobStreamFamily extends $Family
+    with $FunctionalFamilyOverride<Stream<Job>, JobID> {
+  const JobStreamFamily._()
+      : super(
+          retry: null,
+          name: r'jobStreamProvider',
+          dependencies: null,
+          $allTransitiveDependencies: null,
+          isAutoDispose: true,
+        );
+
+  JobStreamProvider call(
+    JobID jobId,
+  ) =>
+      JobStreamProvider._(argument: jobId, from: this);
 
   @override
-  String get jobId => (origin as JobStreamProvider).jobId;
+  String toString() => r'jobStreamProvider';
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

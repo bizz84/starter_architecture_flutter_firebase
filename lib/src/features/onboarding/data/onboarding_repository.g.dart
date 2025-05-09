@@ -6,24 +6,42 @@ part of 'onboarding_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$onboardingRepositoryHash() =>
-    r'b3d2bcb49877fe1de659afaf4683aca9fccf5b3e';
-
-/// See also [onboardingRepository].
 @ProviderFor(onboardingRepository)
-final onboardingRepositoryProvider =
-    FutureProvider<OnboardingRepository>.internal(
-  onboardingRepository,
-  name: r'onboardingRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$onboardingRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const onboardingRepositoryProvider = OnboardingRepositoryProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef OnboardingRepositoryRef = FutureProviderRef<OnboardingRepository>;
+final class OnboardingRepositoryProvider extends $FunctionalProvider<
+        AsyncValue<OnboardingRepository>, FutureOr<OnboardingRepository>>
+    with
+        $FutureModifier<OnboardingRepository>,
+        $FutureProvider<OnboardingRepository> {
+  const OnboardingRepositoryProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'onboardingRepositoryProvider',
+          isAutoDispose: false,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$onboardingRepositoryHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<OnboardingRepository> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<OnboardingRepository> create(Ref ref) {
+    return onboardingRepository(ref);
+  }
+}
+
+String _$onboardingRepositoryHash() =>
+    r'445c529dd1ac7515d8be0abd6159af6958ff3c5c';
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
